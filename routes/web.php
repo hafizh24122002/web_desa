@@ -20,3 +20,4 @@ Route::get('/', [MainVisitorController::class, 'index']);
 
 // route admin
 Route::get('/admin', [MainAdminController::class, 'index']);
+Route::get('/login', [MainAdminController::class, 'login']);
