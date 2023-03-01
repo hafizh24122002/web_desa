@@ -1,5 +1,8 @@
 @extends('layouts.adminMain')
 
 @section('main-content')
-	<h1>Ini Adalah Halaman Admin</h1>
+	<div>
+		<br>
+		<h1>Ini adalah halaman admin</h1>
+	</div>
 @endsection
