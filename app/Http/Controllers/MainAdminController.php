@@ -17,9 +17,4 @@ class MainAdminController extends Controller
             'title' => 'Login',
         ]);
     }
-    public function home(){
-        return view('admin.home', [
-            'title' => 'Home',
-        ]);
-    }
 }

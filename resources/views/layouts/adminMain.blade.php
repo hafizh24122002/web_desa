@@ -18,7 +18,7 @@
 			<i class='bx bx-menu' id="header-toggle"></i>
 		</div>
 
-		<a href="#" class="nav-top ms-3">
+		<a href="/" class="nav-top ms-3">
 			<span>Kembali ke halaman utama</span>
 		</a>
 	</header>
