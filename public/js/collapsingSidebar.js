@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(event) {
-   
+$(document).ready(function() {
 	const showNavbar = (toggleId, navId, bodyId, headerId) => {
 		const toggle = document.getElementById(toggleId),
 		nav = document.getElementById(navId),
@@ -22,18 +21,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 	
 	showNavbar('header-toggle','nav-bar','body-pd','header')
-	
-	/*===== LINK ACTIVE =====*/
-	const linkColor = document.querySelectorAll('.nav_link')
-	
-	function colorLink(){
-		if(linkColor) {
-			linkColor.forEach(l=> l.classList.remove('active'))
-			this.classList.add('active')
-		}
-	}
 
-	linkColor.forEach(l=> l.addEventListener('click', colorLink))
+	$(function() {
+		var current = location.pathname;
+		// remove "/admin"
+		cleaned = current.substring(6);
+		$('.nav-link').each(function(){
+			var $this = $(this);
+			// if the current path is like this link, make it active
+			if ($this.attr('href').indexOf(cleaned) !== -1) {
+				$this.addClass('active');
+			}
+		})
+	})
 		
-	 // Your code to run since DOM is loaded and ready
-	});
+	// Your code to run since DOM is loaded and ready
+});

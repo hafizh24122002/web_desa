@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class MainAdminController extends Controller
 {
@@ -12,9 +13,12 @@ class MainAdminController extends Controller
             'title' => 'Home Admin',
         ]);
     }
-    public function login(){
-        return view('admin.login', [
-            'title' => 'Login',
+
+    public function userManager()
+    {
+        return view('admin.userManager', [
+            'title' => 'User Manager',
+            'users' => User::all(),
         ]);
     }
 }

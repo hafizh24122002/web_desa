@@ -7,25 +7,13 @@
         <div class="content">
             <div class="container">
                 {{-- menu yang di atas --}}
-                <div class="row">
-                    <div class="col-xs-12 col-lg-6">
-                        <section class="content-title">
-                            <h4> Tentang SID</h4>
-                        </section>
-                    </div>
-                    <div class="col-xs-12 col-lg-6">
-                        <section class="content-header">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="#"><i class="fa fa-home"></i> Home</a>
-                                </li>
-                                <li class="breadcrumb-item" aria-current="page">Tentang SID</li>
-                            </ol>
-                        </section>
-                    </div>
-                </div>
+                @include('partials.adminTopMenu', [
+					'title' => 'Dashboard',
+					'current_page' => 'Dashboard',
+					])
+
                 {{-- card --}}
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col-xs-12 col-sm-6 col-lg-4">
                         <div class="card text-white bg-primary mb-3 rounded">
                             <div class="card-content">

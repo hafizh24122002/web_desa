@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MainVisitorController;
 use App\Http\Controllers\MainAdminController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,5 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainVisitorController::class, 'index']);
 
 // route admin
-Route::get('/admin', [MainAdminController::class, 'index']);
-Route::get('/login', [MainAdminController::class, 'login']);
+Route::get('/admin/dashboard', [MainAdminController::class, 'index'])->middleware('auth');
+Route::get('/admin/user-manager', [MainAdminController::class, 'userManager'])->middleware('auth');
+
+// session
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
