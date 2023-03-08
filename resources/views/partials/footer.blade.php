@@ -45,4 +45,4 @@
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
       </ul>
     </div>
-  </footer
+</footer>
