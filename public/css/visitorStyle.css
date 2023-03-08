@@ -1,0 +1,8 @@
+.carousel-item {
+    height: 30em;
+    background-color: grey;
+}
+
+.carousel-item img {
+    filter: brightness(50%);
+}
