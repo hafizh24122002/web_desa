@@ -1,6 +1,6 @@
 
 
-<div class="container">
+< class="container">
   <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
@@ -45,7 +45,4 @@
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
       </ul>
     </div>
-  </footer>
-</div>
-
-@include('partials.footer')
+  </footer
