@@ -1,0 +1,109 @@
+.wrapper {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.container-fostrap {
+    display: table-cell;
+    padding-top: 1em;
+}
+h1.heading {
+    color: #fff;
+    font-size: 1.15em;
+    font-weight: 900;
+    margin: 0 0 0.5em;
+    color: #505050;
+}
+@media (min-width: 450px) {
+    h1.heading {
+        font-size: 3.55em;
+    }
+    .card-content {
+        padding: 15px;
+        text-align: center;
+    }
+    .card-read-more {
+        text-align: center;
+    }
+    .card-content .icon{
+        visibility: hidden;
+    }
+}
+@media (min-width: 768px) {
+    h1.heading {
+        font-size: 3.05em;
+    }
+}
+@media (min-width: 992px) {
+    h1.heading {
+        font-size: 3.25em;
+        margin: 0 0 0.3em;
+    }
+    .card-content {
+        padding: 15px;
+        text-align: left;
+    }
+    .card-content .icon{
+        justify-content: end;
+        visibility: visible;
+    }
+    .card-read-more {
+        text-align: center;
+    }
+    .breadcrumb{
+        justify-content: end;
+    }
+    
+}
+.icon {
+    color: rgba(0, 0, 0, 0.2);;
+    font-size: 70px;
+    position: absolute;
+    top: 40%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+.breadcrumb {
+    color:#505050;
+}
+.breadcrumb a{
+    color:#505050;
+}
+.breadcrumb a:hover{
+    color:black;
+}
+.card {
+    display: block;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border-radius: 0px;
+    /* box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);  */
+    /* transition: box-shadow .25s;  */
+}
+.card-title {
+    margin-top: 0px;
+    font-weight: 700;
+    font-size: 1.65em;
+}
+.card-title a {
+    color: #000;
+    text-decoration: none !important;
+}
+.card-read-more {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.card-read-more:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.card-read-more a {
+    text-decoration: none !important;
+    color: white;
+}
+.card-read-more a:hover {
+  text-decoration: none !important;
+  color: white;
+}
