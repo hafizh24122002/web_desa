@@ -10,13 +10,6 @@
 </head>
 
 <body>
-	@if (session()->has('loginError'))
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					{{ session('loginError') }}
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-	@endif
-	
 	<div class="bg-image" style="
 		background: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)), url('img/login-bg.jpg') no-repeat;
 		height: 100vh;
@@ -24,6 +17,14 @@
 		background-size: cover;">
 
 		<section class="vh-100 gradient-custom" style="overflow-y : auto;">
+
+			@if (session()->has('loginError'))
+				<div class="alert alert-danger alert-dismissible fade show rounded-0" role="alert">
+						{{ session('loginError') }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			@endif
+			
 			<div class="container py-5 h-100">
 				<div class="row d-flex justify-content-center align-items-center h-80">
 					<div class="col-12 col-md-8 col-lg-6 col-xl-5">

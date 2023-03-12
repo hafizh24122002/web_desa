@@ -30,14 +30,14 @@
 
 						<tbody>
 							@foreach ($users as $user)
-								<tr>
+								<tr class="text-center">
 									<td>{{ $loop->iteration }}</td>
 									<td> - </td>		{{-- TODO --}}
 									<td>{{ $user->username }}</td>
 									<td>{{ $user->name }}</td>
 									<td> - </td>		{{-- TODO --}}
 									<td> - </td>		{{-- TODO --}}
-									<td> - </td>		{{-- TODO --}}
+									<td>{{ $user->last_login }}</td>
 									<td> - </td>		{{-- TODO --}}
 								</tr>
 							@endforeach
