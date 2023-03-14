@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.carousel-item h5 {
+    font-weight: bold;
+}
+
+.carousel-item {
+    height: 30em;
+    background-color: grey;
+}
+
+.carousel-item img {
+    filter: brightness(50%);
+}
+
+.form-control {
+    border-radius: 50px 0  0 50px !important;
+}
+
+#searchbtn {
+    border-radius: 0 50px 50px 0 !important;
+}
