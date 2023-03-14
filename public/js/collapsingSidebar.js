@@ -24,12 +24,11 @@ $(document).ready(function() {
 
 	$(function() {
 		var current = location.pathname;
-		// remove "/admin"
-		cleaned = current.substring(6);
+		cleaned = current.split("/");
 		$('.nav-link').each(function(){
 			var $this = $(this);
 			// if the current path is like this link, make it active
-			if ($this.attr('href').indexOf(cleaned) !== -1) {
+			if ($this.attr('href').indexOf(cleaned[2]) !== -1) {
 				$this.addClass('active');
 			}
 		})

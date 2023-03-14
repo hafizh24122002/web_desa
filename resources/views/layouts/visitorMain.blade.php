@@ -61,6 +61,15 @@
 						</button>
 					</div>
 				</form>
+				@auth
+					<a href="/admin/dashboard">
+						<button type="button" class="btn btn-secondary rounded-pill ms-2">Dashboard</button>
+					</a>
+				@else
+					<a href="/login">
+						<button type="button" class="btn btn-secondary rounded-pill ms-2">Login</button>
+					</a>
+				@endauth
 			</div>
 		</div>
 	</nav>

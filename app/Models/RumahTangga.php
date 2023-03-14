@@ -19,6 +19,7 @@ class RumahTangga extends Model
         'nik_kepala',
         'kelas_sosial',
         'bdt',
+        'tgl_daftar',
     ];
 
     /**

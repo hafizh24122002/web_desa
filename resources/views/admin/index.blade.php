@@ -146,4 +146,6 @@
     </div>
 </section>
 
+@include('partials.commonScripts')
+
 @endsection

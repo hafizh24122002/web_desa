@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="{{ asset('css/adminHomeStyle.css') }}">
 	<title>{{ $title }}</title>
 </head>
+
 <body id="body-pd" class="body-pd">
 	<header class="header bg-dark text-light body-pd" id="header">
 		<div class="header-toggle">
@@ -75,7 +76,6 @@
 
 	@yield('main-content')
 
-	@include('partials.commonScripts')
 	<script src="{{ asset('js/collapsingSidebar.js') }}"></script>
 </body>
 </html>
