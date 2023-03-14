@@ -12,7 +12,8 @@
 	</div>
 
 	<div class="col-lg-8">
-		<form action="/admin/user-manager/new-user" method="POST">
+		<form action="/admin/user-manager/edit-user/{{ $user->username }}" method="POST">
+			@method('put')
 			@csrf
 			<div class="form-group row">
 				<label for="username" class="col-sm-2 col-form-label">Username</label>
@@ -21,7 +22,7 @@
 						class="form-control form-control-sm @error('username') is-invalid @enderror"
 						name="username"
 						placeholder="Username" 
-						value="@if (null !== old('username')) {{ old('username') }} @else {{ $user->username }} @endif"
+						value="@if(null!==old('username')){{old('username')}}@else{{$user->username}}@endif"
 						required>
 					
 					@error('username')
@@ -75,7 +76,7 @@
 					<input type="text"
 						class="form-control form-control-sm @error('email') is-invalid @enderror"
 						name="email"
-						value="@if (null !== old('email')) {{ old('email') }} @elseif ($user->email) {{ $user->email }} @endif"
+						value="@if(null!==old('email')){{old('email')}}@elseif($user->email){{$user->email}}@endif"
 						placeholder="Alamat E-mail">
 					
 					@error('email')
@@ -92,7 +93,7 @@
 					<input type="text"
 						class="form-control form-control-sm"
 						name="name"
-						value="@if ($user->name) {{ $user->name }}  @endif"
+						value="@if(null!==old('name')&&!$user->name){{old('name')}}@elseif(null===old('name')&&$user->name){{$user->name}}@endif"
 						placeholder="Nama Lengkap">
 				</div>
 			</div>

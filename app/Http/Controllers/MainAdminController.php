@@ -60,11 +60,11 @@ class MainAdminController extends Controller
     public function editUserSubmit(Request $request, User $user)
     {
         $validatedData = $request->validate([
-            'username' => 'required|unique:users',
+            'username' => 'required|unique:users,username,'.$user->id,
             'password' => 'required|min:8',
             'id_grup' => 'nullable',
             'id_pamong' => 'nullable',
-            'email' => 'nullable|email:rfc,dns|unique:users',
+            'email' => 'nullable|email:rfc,dns|unique:users,email,'.$user->id,
             'name' => 'nullable|max:50',
             'phone' => 'nullable'
         ]);
