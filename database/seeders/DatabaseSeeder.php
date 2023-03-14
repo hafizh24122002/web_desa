@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('admin'),
             'id_grup' => 1,
+            'name' => 'admin'
         ]);
     }
 }
