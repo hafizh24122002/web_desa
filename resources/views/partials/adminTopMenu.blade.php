@@ -9,8 +9,15 @@
 		<section class="content-header">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
-					<a href="#"><i class="fa fa-home"></i> Home</a>
+					<a href="/admin/dashboard"><i class="fa fa-home"></i> Home</a>
 				</li>
+
+				@if (isset($parent_page))
+					<li class="breadcrumb-item" aria-current="page">
+						<a href="{{ $parent_link }}"> {{ $parent_page }}</a>
+					</li>
+				@endif
+				
 				<li class="breadcrumb-item" aria-current="page">{{ $current_page }}</li>
 			</ol>
 		</section>

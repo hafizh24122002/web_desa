@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('active')->default(true);
             $table->string('name')->nullable();
-            $table->string('company')->nullable();
             $table->string('phone')->nullable();
             $table->string('photo')->default('{{ asset("img/kuser.png") }}');
             $table->rememberToken();
