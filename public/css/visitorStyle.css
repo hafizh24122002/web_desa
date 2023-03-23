@@ -1,9 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
+html,
+body {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+}
+
 body {
     font-family: 'Nunito', sans-serif;
 }
 
+nav {
+    margin-bottom: 30px;
+}
 .carousel-item h5 {
     font-weight: bold;
 }
@@ -18,9 +30,20 @@ body {
 }
 
 .form-control {
-    border-radius: 50px 0  0 50px !important;
+    border-radius: 50px 0 0 50px !important;
 }
 
 #searchbtn {
     border-radius: 0 50px 50px 0 !important;
+}
+
+.spacer {
+    flex: 1;
+    margin-top: 2.5em;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

@@ -20,6 +20,9 @@ use Carbon\Carbon;
 
 // route pengunjung
 Route::get('/', [MainVisitorController::class, 'index']);
+Route::get('/tentang-desa', [MainVisitorController::class, 'aboutDesa']);
+Route::get('/geografis-desa', [MainVisitorController::class, 'geografisDesa']);
+Route::get('/demografi-desa', [MainVisitorController::class, 'demografiDesa']);
 
 // route admin
 Route::get('/admin/dashboard', [MainAdminController::class, 'index'])->middleware('auth');

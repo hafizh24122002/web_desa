@@ -12,4 +12,25 @@ class MainVisitorController extends Controller
             'title' => 'Home',
         ]);
     }
+
+    public function aboutDesa()
+    {
+        return view('visitor.aboutDesa', [
+            'title' => 'Tentang Desa',
+        ]);
+    }
+
+    public function demografiDesa()
+    {
+        return view('visitor.demografiDesa', [
+            'title' => 'Demografi Desa',
+        ]);
+    }
+    
+    public function geografisDesa()
+    {
+        return view('visitor.geografisDesa', [
+            'title' => 'Geografis Desa',
+        ]);
+    }
 }
