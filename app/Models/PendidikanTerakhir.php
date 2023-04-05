@@ -9,6 +9,9 @@ class PendidikanTerakhir extends Model
 {
     use HasFactory;
 
+    protected $table = "pendidikan_terakhir";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable
      * 

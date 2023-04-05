@@ -9,6 +9,8 @@ class Keluarga extends Model
 {
     use HasFactory;
 
+    protected $table = "keluarga";
+
     /**
      * The attributes that are mass assignable
      * 
@@ -19,12 +21,11 @@ class Keluarga extends Model
         'nik_kepala',
         'id_kelas_sosial',
         'alamat',
-        'tgl_daftar',
-        'tgl_cetak_kk',
+        'tgl_dikeluarkan',
     ];
 
     /**
-     * The attributes that should be cast.
+     * The attributes that should be cast
      *
      * @var array<string, string>
      */

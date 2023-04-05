@@ -18,7 +18,7 @@ class Rtm extends Model
         'no_rumah_tangga',
         'nik_kepala',
         'id_kelas_sosial',
-        'bdt',
+        'bdt',                  // bedah desa terpadu
         'tgl_daftar',
     ];
 

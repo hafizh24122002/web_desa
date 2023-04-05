@@ -9,6 +9,9 @@ class Agama extends Model
 {
     use HasFactory;
 
+    protected $table = "agama";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable
      * 

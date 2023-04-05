@@ -5,17 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StatusDasar extends Model
+class Artikel extends Model
 {
     use HasFactory;
 
-     /**
+    protected $table = "artikel";
+
+    /**
      * The attributes that are mass assignable
      * 
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama'
+        'id_staf',
+        'judul',
+        'isi',
+        'is_active'
     ];
 
     /**

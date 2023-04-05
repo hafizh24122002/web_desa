@@ -9,6 +9,9 @@ class StatusPerkawinan extends Model
 {
     use HasFactory;
 
+    protected $table = "status_perkawinan";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable
      * 

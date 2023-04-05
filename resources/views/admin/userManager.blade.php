@@ -21,8 +21,8 @@
 						</div>
 					@endif
 
-					<a href="/admin/user-manager/new-user" class="my-2">
-						<button class="btn btn-primary">Tambah Pengguna Baru</button>
+					<a href="/admin/user-manager/new-user" style="width: auto" class="btn btn-primary my-2">
+						<i class="bx bx-user-plus align-middle"></i> Tambah Pengguna Baru
 					</a>
 
 					<table class="table table-hover">
@@ -40,13 +40,13 @@
 						</thead>
 
 						<tbody>
-							@foreach ($users as $user)
+							@foreach ($users as $key => $user)
 								<tr class="text-center align-middle">
-									<td>{{ $loop->iteration }}</td>
+									<td>{{ $users->firstItem() + $key }}</td>
 
 									<td class="d-flex gap-1 justify-content-center">
 										<a href="/admin/user-manager/edit-user/{{ $user->username }}">
-											<button class="btn btn-sm btn-warning">
+											<button class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Edit user">
 												<i class="bx bx-edit-alt text-light"></i>
 											</button>
 										</a>
@@ -58,7 +58,7 @@
 											@method('delete')
 											@csrf
 
-											<button class="btn btn-sm btn-danger" type="submit">
+											<button class="btn btn-sm btn-danger" type="submit" data-bs-toggle="tooltip"title="Hapus user">
 												<i class="bx bx-trash text-light"></i>
 											</button>
 										</form>
@@ -67,18 +67,18 @@
 									<td>{{ $user->username }}</td>
 
 									<td>
-										@if ($user->name === null)
-											{{ "-" }}
-										@else
+										@if ($user->name)
 											{{ $user->name }}
+										@else
+											{{ "-" }}
 										@endif
 									</td>
 
 									<td>
-										@if ($user->id_pamong === null)
-											<span class='badge bg-info'>Bukan staf</span>
-										@else
+										@if ($user->id_pamong)
 											<span class='badge bg-success'>Staf</span>
+										@else
+											<span class='badge bg-info'>Bukan staf</span>
 										@endif
 									</td>
 
@@ -91,24 +91,26 @@
 									</td>
 
 									<td>
-										@if ($user->last_login === null)
-											{{ "-" }}
+										@if ($user->last_login)
+											{{ $user->last_login }}	
 										@else
-											{{ $user->last_login }}
+											{{ "-" }}
 										@endif
 									</td>
 
 									<td>
-										@if ($user->email_verified_at === null)
-											{{ "-" }}
+										@if ($user->email_verified_at)
+											{{ $user->email_verified_at }}
 										@else
-											{{ $user->name }}
+											{{ "-" }}
 										@endif	
 									</td>
 								</tr>
 							@endforeach
 						</tbody>
 					</table>
+
+					{{ $users->links() }}
 				</div>
 			</div>
 		</div>

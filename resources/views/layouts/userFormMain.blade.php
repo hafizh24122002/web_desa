@@ -29,9 +29,11 @@
 </section>
 
 @include('partials.commonScripts')
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#pamong-input").hide();
+		$("#pekerjaan_lainnya_input").hide();
 
 		// toggle tampilan input untuk pamong
 		$("#grup-input").change(function() {
@@ -39,6 +41,14 @@
 				$("#pamong-input").slideDown();
 			} else {
 				$("#pamong-input").slideUp();
+			}
+		});
+
+		$(".pekerjaan_input").change(function() {
+			if ($(".pekerjaan_input").val() == "84") {
+				$("#pekerjaan_lainnya_input").slideDown();
+			} else {
+				$("#pekerjaan_lainnya_input").slideUp();
 			}
 		});
 	})

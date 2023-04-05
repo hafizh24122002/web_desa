@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pekerjaan extends Model
+class StatusDasar extends Model
 {
     use HasFactory;
-
-    protected $table = "pekerjaan";
+    
+    protected $table = "status";
     public $timestamps = false;
 
-    /**
+     /**
      * The attributes that are mass assignable
      * 
      * @var array<int, string>

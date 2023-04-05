@@ -20,7 +20,7 @@ class PamongDesa extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'jenis_kelamin',
-        'agama',
+        'id_agama',
         'pangkat_golongan',
         'jabatan',
         'pendidikan_terakhir',

@@ -9,6 +9,9 @@ class PendidikanSaatIni extends Model
 {
     use HasFactory;
 
+    protected $table = "pendidikan_saat_ini";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable
      * 
