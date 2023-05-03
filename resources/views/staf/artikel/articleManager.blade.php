@@ -85,7 +85,9 @@
 						</tbody>
 					</table>
 
-					{{ $artikel->links() }}
+					<div class="d-flex justify-content-end">
+						{{ $artikel->links() }}
+					</div>
 				</div>
 			</div>
 		</div>

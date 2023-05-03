@@ -110,7 +110,9 @@
 						</tbody>
 					</table>
 
-					{{ $users->links() }}
+					<div class="d-flex justify-content-end">
+						{{ $users->links() }}
+					</div>
 				</div>
 			</div>
 		</div>

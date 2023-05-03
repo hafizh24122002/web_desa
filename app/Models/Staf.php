@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ArsipSurat extends Model
+class Staf extends Model
 {
     use HasFactory;
 
-    protected $table = 'arsip_surat';
+    protected $table = "staf";
+    public $timestamps = false;
 
      /**
      * The attributes that are mass assignable
@@ -17,13 +18,7 @@ class ArsipSurat extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'kode_surat',
-        'no_surat',
-        'id_staf',
-        'id_klasifikasi_surat',
-        'keterangan',
-        'filename',
-        // 'status',
+        'id_user',
     ];
 
     /**
@@ -32,6 +27,6 @@ class ArsipSurat extends Model
      * @var array<string, string>
      */
     protected $casts = [
-
+         
     ];
 }

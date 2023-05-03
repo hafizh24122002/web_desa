@@ -103,7 +103,9 @@
 						</tbody>
 					</table>
 
-					{{ $keluarga->links() }}
+					<div class="d-flex justify-content-end">
+						{{ $keluarga->links() }}
+					</div>
 				</div>
 			</div>
 		</div>

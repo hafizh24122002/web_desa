@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('artikel', function (Blueprint $table) {
+        Schema::create('surat', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_staf');
-            $table->string('judul');
-            $table->longText('isi');
-            $table->boolean("is_active")->default(true);
+            $table->string('nama');
+            $table->string('kode_surat');
+            $table->string('filename');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('artikel');
+        Schema::dropIfExists('surat');
     }
 };

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('no_kk');
             $table->string('nik_kepala')->nullable();
-            $table->foreignId('id_kelas_sosial')->nullable();
+            $table->foreignId('id_kelas_sosial')->nullable()->default(NULL)->constrained('kelas_sosial')->onUpdate('cascade')->onDelete('cascade');
             $table->string('alamat')->nullable();
             $table->date('tgl_dikeluarkan')->nullable();
             $table->timestamps();

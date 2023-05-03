@@ -6,6 +6,7 @@ use App\Http\Controllers\KependudukanController;
 use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -34,6 +35,7 @@ Route::get('/admin/user-manager/edit-user/{user:username}', [MainAdminController
 Route::put('/admin/user-manager/edit-user/{user:username}', [MainAdminController::class, 'editUserSubmit'])->middleware('auth');
 Route::delete('/admin/user-manager/{user:username}', [MainAdminController::class, 'deleteUser'])->middleware('auth');
 
+// route staf
 Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan'])->middleware('auth');
 Route::get('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNew'])->middleware('auth');
 Route::post('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNewSubmit'])->middleware('auth');
@@ -48,8 +50,17 @@ Route::get('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [Keluar
 Route::put('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaEditSubmit'])->middleware('auth');
 Route::delete('/staf/kependudukan/keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete'])->middleware('auth');
 
+// TODO #10
 Route::get('/staf/manajemen-web/dashboard', [ArtikelController::class, 'dashboard'])->middleware('auth');
 Route::get('/staf/manajemen-web/artikel', [ArtikelController::class, 'articleManager'])->middleware('auth');
+
+Route::get('/staf/layanan-surat/buat-surat', [SuratController::class, 'suratNew'])->middleware('auth');
+Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput'])->middleware('auth');
+Route::post('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInputSubmit'])->middleware('auth');
+Route::get('/staf/layanan-surat/buat-surat/get-data/{penduduk:nama}', [SuratController::class, 'getDataPenduduk'])->middleware('auth');
+Route::get('/staf/layanan-surat/arsip-surat', [SuratController::class, 'arsipSurat'])->middleware('auth');
+Route::get('/staf/layanan-surat/arsip-surat/lihat-surat/{arsip:filename}', [SuratController::class, 'lihatSurat'])->middleware('auth');
+Route::delete('/staf/layanan-surat/arsip-surat/{arsip:id}', [SuratController::class, 'hapusSurat'])->middleware('auth');
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

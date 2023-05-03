@@ -64,12 +64,12 @@
 								data-bs-parent="#Kependudukan"
 								id="penduduk">
 								
-								<a href="/staf/kependudukan/penduduk" class="nav-link collapse-body ms-4">
+								<a href="/staf/kependudukan/penduduk" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-group nav-icon"></i>
 									<span class="nav-name">Penduduk</span>
 								</a>
 
-								<a href="/staf/kependudukan/keluarga" class="nav-link collapse-body ms-4">
+								<a href="/staf/kependudukan/keluarga" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-male-female nav-icon"></i>
 									<span class="nav-name">Keluarga</span>
 								</a>
@@ -87,7 +87,7 @@
 									data-bs-target="#manajemenWeb"
 									aria-expanded="false"
 									aria-controls="manajemenWeb"
-									href="/admin/manajemen-web">
+									href="/staf/manajemen-web">
 
 									<i class='bx bx-briefcase nav-icon'></i>
 									<span class="nav-name">Manajemen Web</span>
@@ -99,15 +99,50 @@
 								data-bs-parent="#ManajemenWeb"
 								id="manajemenWeb">
 								
-								<a href="/staf/manajemen-web/dashboard" class="nav-link collapse-body ms-4">
+								<a href="/staf/manajemen-web/dashboard" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-pie-chart-alt-2 nav-icon"></i>
 									<span class="nav-name">Dashboard</span>
 								</a>
 
-								<a href="/staf/manajemen-web/artikel" class="nav-link collapse-body ms-4">
+								<a href="/staf/manajemen-web/artikel" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-news nav-icon"></i>
 									<span class="nav-name">Artikel</span>
 								</a>
+							</div>
+						</div>
+
+						<div id="LayananSurat">
+							<div class="accordion-item">
+								<div class="accordion-header" id="layananSuratTitle">
+									<button class="accordion-button collapsed nav-link"
+										style=""
+										type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#layananSurat"
+										aria-expanded="false"
+										aria-controls="layananSurat"
+										href="/staf/layanan-surat">
+	
+										<i class='bx bx-envelope nav-icon'></i>
+										<span class="nav-name">Layanan Surat</span>
+									</button>
+								</div>
+	
+								<div class="accordion-collapse collapse"
+									aria-labelledby="layananSuratTitle"
+									data-bs-parent="#layananSurat"
+									id="layananSurat">
+									
+									<a href="/staf/layanan-surat/buat-surat" class="nav-link collapse-body" style="margin-left: 2rem">
+										<i class="bx bxs-file-plus nav-icon"></i>
+										<span class="nav-name">Buat Surat</span>
+									</a>
+	
+									<a href="/staf/layanan-surat/arsip-surat" class="nav-link collapse-body" style="margin-left: 2rem">
+										<i class="bx bxs-archive nav-icon"></i>
+										<span class="nav-name">Arsip</span>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
