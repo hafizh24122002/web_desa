@@ -188,22 +188,22 @@ class DatabaseSeeder extends Seeder
         Surat::create([
             'nama' => 'KETERANGAN TIDAK MAMPU',
             'kode_surat' => '474.4',
-            'filename' => 'sktm.doc',
+            'filename' => 'sktm.docx',
         ]);
         Surat::create([
             'nama' => 'KETERANGAN PENGHASILAN ORANG TUA',
             'kode_surat' => '474.4',
-            'filename' => 'skpo.doc',
+            'filename' => 'skpo.docx',
         ]);
         Surat::create([
             'nama' => 'UNDANGAN PEMBAHASAN HUT BASEL',
             'kode_surat' => '140',
-            'filename' => 'undangan_pembahasan_hut_basel.doc',
+            'filename' => 'undangan_pembahasan_hut_basel.docx',
         ]);
         Surat::create([
             'nama' => 'REKOMENDASI IZIN KERAMAIAN',
             'kode_surat' => '300',
-            'filename' => 'rekomendasi_keramaian.doc',
+            'filename' => 'rekomendasi_keramaian.docx',
         ]);
 
         User::create([

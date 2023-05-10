@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('id_klasifikasi_surat')->nullable()->default(NULL)->constrained('surat')->onUpdate('cascade')->onDelete('cascade');
             $table->string('keterangan')->nullable()->default(null);
             $table->string('filename');
+            $table->json('json')->nullable();
+            $table->date('tanggal_surat');
             // $table->string('status')->nullable()->default(null);
             $table->timestamps();
         });
