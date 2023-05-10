@@ -37,6 +37,7 @@ nav {
     border-radius: 0 50px 50px 0 !important;
 }
 
+<<<<<<< HEAD
 .spacer {
     flex: 1;
     margin-top: 2.5em;
@@ -47,3 +48,11 @@ nav {
     bottom: 0;
     width: 100%;
 }
+=======
+.line-clamp {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+  }
+>>>>>>> f5f994f4d3cb7852af4b44d8242878eef8015959

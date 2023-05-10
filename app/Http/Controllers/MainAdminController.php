@@ -19,7 +19,7 @@ class MainAdminController extends Controller
     {
         return view('admin.userManager', [
             'title' => 'User Manager',
-            'users' => User::all(),
+            'users' => User::paginate(10),
         ]);
     }
 
@@ -73,7 +73,7 @@ class MainAdminController extends Controller
 
         User::firstWhere('id', $user->id)->update($validatedData);
 
-        return redirect('/admin/user-manager');
+        return redirect('/admin/user-manager')->with('success', 'Akun berhasil di edit!');
     }
 
     public function deleteUser(User $user)
@@ -82,6 +82,6 @@ class MainAdminController extends Controller
 
         User::destroy($acc->id);
 
-        return redirect('/admin/user-manager');
+        return redirect('/admin/user-manager')->with('success', 'Akun berhasil di hapus!');
     }
 }
