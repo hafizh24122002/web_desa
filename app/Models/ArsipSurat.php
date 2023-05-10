@@ -23,6 +23,8 @@ class ArsipSurat extends Model
         'id_klasifikasi_surat',
         'keterangan',
         'filename',
+        'json',
+        'tanggal_surat',
         // 'status',
     ];
 
@@ -32,6 +34,6 @@ class ArsipSurat extends Model
      * @var array<string, string>
      */
     protected $casts = [
-
+        'tanggal_surat' => 'date'
     ];
 }

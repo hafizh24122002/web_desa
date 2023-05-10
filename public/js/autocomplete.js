@@ -27,34 +27,44 @@ function autocomplete(inp, arr) {
 			/*insert a input field that will hold the current array item's value:*/
 			b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
 			/*execute a function when someone clicks on the item value (DIV element):*/
-				b.addEventListener("click", function(e) {
+			b.addEventListener("click", function(e) {
 				/*insert the value for the autocomplete text field:*/
 				inp.value = this.getElementsByTagName("input")[0].value;
 				fetch('/staf/layanan-surat/buat-surat/get-data/' + inp.value)
 					.then(response => response.json())
 					.then(data => {
-						document.getElementById('jenis_kelamin').value = data.jenis_kelamin;
-						document.getElementById('tempat_lahir').value = data.tempat_lahir;
-						document.getElementById('tanggal_lahir').value = data.tanggal_lahir;
-						if (data.id_agama) {
-							document.getElementById('agama').value = data.id_agama;
-						}
-						if (data.id_status_perkawinan) {
-							document.getElementById('status_perkawinan').value = data.id_status_perkawinan;
-						}
-						if (data.id_pekerjaan) {
-							document.getElementById('pekerjaan').value = data.id_pekerjaan;
-						}
-						if (data.id_kewarganegaraan === 1) {
-							document.getElementById('kebangsaan').value = "Indonesia";
+						const fields = [
+							{ id: 'jenis_kelamin', key: 'jenis_kelamin' },
+							{ id: 'tempat_lahir', key: 'tempat_lahir' },
+							{ id: 'tanggal_lahir', key: 'tanggal_lahir' },
+							{ id: 'agama', key: 'id_agama' },
+							{ id: 'status_perkawinan', key: 'id_status_perkawinan' },
+							{ id: 'pekerjaan', key: 'id_pekerjaan' },
+							{ id: 'kebangsaan', key: 'id_kewarganegaraan' },
+							{ id: 'alamat', key: 'alamat' },
+							{ id: 'nik', key: 'nik' },
+							{ id: 'kewarganegaraan', key: 'id_kewarganegaraan' },
+						];
+						fields.forEach(field => {
+							if (data[field.key] !== undefined) {
+								const element = document.getElementById(field.id);
+								if (element) {
+									element.value = data[field.key];
+								}
+							}
+						});
+						if (data.id_kewarganegaraan !== undefined && data.id_kewarganegaraan === 1) {
+							const kebangsaan = document.getElementById('kebangsaan');
+							if (kebangsaan) {
+								kebangsaan.value = 'Indonesia';
+							}
 						}
 					})
 					.catch(error => console.error(error));
+
 				/*close the list of autocompleted values,
 				(or any other open lists of autocompleted values:*/
 				closeAllLists();
-
-				
 			});
 			a.appendChild(b);
 		  }

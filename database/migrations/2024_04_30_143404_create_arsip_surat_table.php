@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('arsip_surat', function (Blueprint $table) {
             $table->id();
-            $table->integer('no_surat')->unsigned()->unique();
+            $table->integer('no_surat')->unsigned();
             $table->foreignId('id_staf')->nullable()->default(NULL)->constrained('staf')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_klasifikasi_surat')->nullable()->default(NULL)->constrained('surat')->onUpdate('cascade')->onDelete('cascade');
             $table->string('keterangan')->nullable()->default(null);
             $table->string('filename');
+            $table->json('json')->nullable();
+            $table->date('tanggal_surat');
             // $table->string('status')->nullable()->default(null);
             $table->timestamps();
         });

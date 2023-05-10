@@ -30,9 +30,9 @@
 								<th>Aksi</th>
 								<th>Kode Surat</th>
 								<th>No. Surat</th>
-								<th>Tahun</th>
 								<th>Dibuat Oleh</th>
 								<th>Keterangan</th>
+								<th>Tanggal Surat</th>
 								<th>Dibuat Pada</th>
 							</tr>
 						</thead>
@@ -70,9 +70,9 @@
 
 									<td>{{ $item->kode_surat }}</td>
 									<td>{{ $item->no_surat }}</td>
-									<td>{{ $item->created_at->translatedFormat('Y') }}</td>
 									<td>{{ $item->nama }}</td>
-									<td>{{ $item->keterangan }}</td>									
+									<td>{{ $item->keterangan }}</td>
+									<td>{{ $item->tanggal_surat->translatedFormat('jS F Y') }}</td>
 									<td>{{ $item->created_at->translatedFormat('jS F Y') }}</td>
 								</tr>
 							@endforeach
