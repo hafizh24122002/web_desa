@@ -30,8 +30,10 @@
 								<th>Aksi</th>
 								<th>Kode Surat</th>
 								<th>No. Surat</th>
+								<th>Tahun</th>
 								<th>Dibuat Oleh</th>
 								<th>Keterangan</th>
+								<th>Dibuat Pada</th>
 							</tr>
 						</thead>
 
@@ -47,14 +49,14 @@
 											</button>
 										</a>
 
-										<a href="">
+										<a href="/staf/layanan-surat/arsip-surat/{{ $item->filename }}">
 											<button class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Unduh Dokumen">
 												<i class="bx bxs-download text-light" style="vertical-align: middle;"></i>
 											</button>
 										</a>
 
-										<form action=""
-											onsubmit=""
+										<form action="/staf/layanan-surat/arsip-surat/{{ $item->id.'/'.$item->filename }}"
+											onsubmit="return confirm('Apakah anda yakin ingin menghapus surat ini? Surat yang dihapus tidak akan bisa dikembalikan!')"
 											method="POST">
 											
 											@method('delete')
@@ -67,12 +69,11 @@
 									</td>
 
 									<td>{{ $item->kode_surat }}</td>
-
 									<td>{{ $item->no_surat }}</td>
-
+									<td>{{ $item->created_at->translatedFormat('Y') }}</td>
 									<td>{{ $item->nama }}</td>
-
-									<td>{{ $item->keterangan }}</td>
+									<td>{{ $item->keterangan }}</td>									
+									<td>{{ $item->created_at->translatedFormat('jS F Y') }}</td>
 								</tr>
 							@endforeach
 						</tbody>

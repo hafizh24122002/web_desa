@@ -60,7 +60,8 @@ Route::post('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::cla
 Route::get('/staf/layanan-surat/buat-surat/get-data/{penduduk:nama}', [SuratController::class, 'getDataPenduduk'])->middleware('auth');
 Route::get('/staf/layanan-surat/arsip-surat', [SuratController::class, 'arsipSurat'])->middleware('auth');
 Route::get('/staf/layanan-surat/arsip-surat/lihat-surat/{arsip:filename}', [SuratController::class, 'lihatSurat'])->middleware('auth');
-Route::delete('/staf/layanan-surat/arsip-surat/{arsip:id}', [SuratController::class, 'hapusSurat'])->middleware('auth');
+Route::get('/staf/layanan-surat/arsip-surat/{arsip:filename}', [SuratController::class, 'unduhSurat'])->middleware('auth');
+Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratController::class, 'hapusSurat'])->middleware('auth');
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

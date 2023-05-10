@@ -143,9 +143,6 @@ class SuratController extends Controller
         ArsipSurat::create($data);
 
         return redirect('/staf/layanan-surat/arsip-surat')->with('success', 'Surat berhasil dibuat!');
-
-        // Return the output file to the user for download
-        // return response()->download($output)->deleteFileAfterSend();
     }
 
     public function arsipSurat()
@@ -187,15 +184,25 @@ class SuratController extends Controller
             'Content-Disposition' => 'inline; filename="preview.pdf"',
         ]);
 
-        Storage::delete($tempPath);
+        // Storage::delete('preview.pdf');
 
         return $response;
     }
 
-    public function downloadDocx($filename)
+    public function unduhSurat($filename)
     {
         $file = storage_path('app/arsip_surat/'.$filename);
 
         return response()->download($file);
+    }
+
+    public function hapusSurat($id, $filename)
+    {
+        $file = '/arsip_surat/'. $filename;
+
+        ArsipSurat::destroy($id);
+        Storage::delete($file);
+
+        return redirect('/staf/layanan-surat/arsip-surat')->with('success', 'Surat berhasil dihapus!');
     }
 }
