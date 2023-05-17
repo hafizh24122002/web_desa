@@ -25,13 +25,32 @@ $(document).ready(function() {
 	$(function() {
 		var current = location.pathname;
 		cleaned = current.split("/");
+
 		$('.nav-link').each(function(){
 			var $this = $(this);
-			// if the current path is like this link, make it active
-			if ($this.attr('href').indexOf(cleaned[2]) !== -1) {
-				$this.addClass('active');
+			if (typeof $this.attr('href') !== 'undefined') {
+				href = $this.attr('href').split("/");
 			}
+
+			// if the current path is like this link, make it active
+			if (href[2] === cleaned[2]) {
+				if (typeof cleaned[3] === 'undefined') {
+					$this.addClass('active');
+				} else {
+					if (href[3] === cleaned[3]) {
+						$this.addClass('active');
+					}
+				}
+			}	
 		})
+
+		// var parent = $('#penduduk');
+		// console.log(parent);
+
+		// if (parent.children.classList.contains('active')) {
+		// 	parent.addClass('text-light');
+		// }
+		
 	})
 		
 	// Your code to run since DOM is loaded and ready

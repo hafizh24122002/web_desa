@@ -9,19 +9,23 @@ class ArsipSurat extends Model
 {
     use HasFactory;
 
+    protected $table = 'arsip_surat';
+
      /**
      * The attributes that are mass assignable
      * 
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_pamong',
-        'tanggal',
+        'kode_surat',
+        'no_surat',
+        'id_staf',
         'id_klasifikasi_surat',
-        'lampiran',
         'keterangan',
-        'status',
-
+        'filename',
+        'json',
+        'tanggal_surat',
+        // 'status',
     ];
 
     /**
@@ -30,6 +34,6 @@ class ArsipSurat extends Model
      * @var array<string, string>
      */
     protected $casts = [
-         'tanggal' => 'datetime'
+        'tanggal_surat' => 'date'
     ];
 }

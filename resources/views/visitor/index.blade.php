@@ -1,6 +1,7 @@
 @extends('layouts/visitorMain')
 
 @section('main-content')
+{{-- carousel --}}
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -38,6 +39,36 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+    
+</div>
+
+<div class="row mt-5" style="margin-inline: 7em">
+    {{-- article-list --}}
+    <div class="col">
+        @foreach ($artikel as $item)
+            <a href="" class="text-reset text-decoration-none">
+                <div class="card mb-3" style="width: 100%">
+                    <div class="card-body flex-fill">
+                        <h5 class="card-title"><strong>{{ $item->judul }}</strong></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><em>{{ $item->name }}</em> - {{ $item->updated_at->translatedFormat('l, jS F Y') }}</h6>
+                        <div class="card-text">
+                            <p>{!! $item->isi !!}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        @endforeach
+
+        <div class="mt-3 d-flex justify-content-end">
+            {{ $artikel->links() }}
+        </div>
+    </div>
+
+    {{-- sidebar --}}
+    <div class="col">
+
+    </div>
+
     
 </div>
 @endsection

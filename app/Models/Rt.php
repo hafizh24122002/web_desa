@@ -5,17 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StatusDasar extends Model
+class Rtm extends Model
 {
     use HasFactory;
 
-     /**
+    /**
      * The attributes that are mass assignable
      * 
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama'
+        'no_rumah_tangga',
+        'nik_kepala',
+        'id_kelas_sosial',
+        'bdt',                  // bedah desa terpadu
+        'tgl_daftar',
     ];
 
     /**
@@ -24,6 +28,6 @@ class StatusDasar extends Model
      * @var array<string, string>
      */
     protected $casts = [
-         
+        'tgl_daftar' => 'datetime',
     ];
 }

@@ -9,6 +9,9 @@ class HubunganKK extends Model
 {
     use HasFactory;
 
+    protected $table = "hubungan_kk";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable
      * 

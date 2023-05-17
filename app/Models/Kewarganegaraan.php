@@ -9,6 +9,9 @@ class Kewarganegaraan extends Model
 {
     use HasFactory;
 
+    protected $table = "kewarganegaraan";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable
      * 
