@@ -17,6 +17,7 @@ use App\Models\ArsipSurat;
 use App\Models\Kewarganegaraan;
 use App\Models\Penduduk;
 use App\Models\Pekerjaan;
+use App\Models\Staf;
 use App\Models\StatusPerkawinan;
 use App\Models\Surat;
 
@@ -36,8 +37,7 @@ class SuratController extends Controller
         $currDate = Carbon::now();
 
         $idTipeSurat = Surat::where('nama', '=', $tipe)->first()->id;
-        $nomorTerakhir = (ArsipSurat::where('id_klasifikasi_surat', '=', $idTipeSurat)
-            ->whereYear('created_at', '=', $currDate->year)
+        $nomorTerakhir = (ArsipSurat::whereYear('tanggal_surat', '=', $currDate->year)
             ->max('no_surat') + 1);
         if (!$nomorTerakhir) {
             $nomorTerakhir = 1;
@@ -59,6 +59,7 @@ class SuratController extends Controller
                     'penduduk' => Penduduk::pluck('nama'),
                     'pekerjaan' => Pekerjaan::all(),
                     'status_perkawinan' => StatusPerkawinan::all(),
+                    'staf' => Staf::all(),
                 ]);
                 break;
 
@@ -76,6 +77,7 @@ class SuratController extends Controller
                     'kewarganegaraan' => Kewarganegaraan::all(),
                     'penduduk' => Penduduk::pluck('nama'),
                     'pekerjaan' => Pekerjaan::all(),
+                    'staf' => Staf::all(),
                 ]);
                 break;
 
@@ -92,6 +94,7 @@ class SuratController extends Controller
                     'agama' => Agama::all(),
                     'penduduk' => Penduduk::pluck('nama'),
                     'pekerjaan' => Pekerjaan::all(),
+                    'staf' => Staf::all(),
                 ]);
                 break;
 
@@ -106,6 +109,7 @@ class SuratController extends Controller
                     'tipe' => $tipe,
                     'nomorTerakhir' => $nomorTerakhir,
                     'hari_jadi_num' => Carbon::parse('2003-02-25')->age+1,
+                    'staf' => Staf::all(),
                 ]);
                 break;
 
@@ -123,6 +127,7 @@ class SuratController extends Controller
                     'kewarganegaraan' => Kewarganegaraan::all(),
                     'penduduk' => Penduduk::pluck('nama'),
                     'pekerjaan' => Pekerjaan::all(),
+                    'staf' => Staf::all(),
                 ]);
                 break;
         }
@@ -137,9 +142,11 @@ class SuratController extends Controller
         return response()->json($data);
     }
 
-    public function suratNewInputSubmit(Request $request)
+    private function suratSubmit(Request $request, $id = null)
     {
         $idTipeSurat = $request->input('id_tipe');
+
+        // dd($id);
 
         switch ($idTipeSurat) {
             /**
@@ -151,10 +158,16 @@ class SuratController extends Controller
                 $validate = $request->validate([
                     'no_surat' => [
                         'required',
-                        Rule::unique('arsip_surat')->where('id_klasifikasi_surat', $idTipeSurat),
+                        Rule::unique('arsip_surat')->ignore($id)->where(function ($query) use ($request) {
+                            // Extract the year from 'tanggal_surat' input value
+                            $year = Carbon::createFromFormat('Y-m-d', $request->input('tanggal_surat'))->year;
+
+                            // Add a condition to check for unique no_surat within the fetched year
+                            $query->whereYear('tanggal_surat', $year);
+                        }),
                     ],
-                    'rt' => 'integer',
-                    'rw' => 'integer',
+                    'rt' => 'numeric',
+                    'rw' => 'numeric',
                 ], [
                     'no_surat.unique' => 'Nomor surat sudah ada!'
                 ]);
@@ -174,6 +187,25 @@ class SuratController extends Controller
                 $usaha = $request->input('usaha');
                 $tanggal_surat_str = $request->input('tanggal_surat');
                 $tipe = $request->input('tipe');
+
+                $staf = Staf::find($request->input('id_staf'));
+                if($staf->jabatan === "Kepala Desa") {
+                    $staf->jabatan = $staf->jabatan." Malik";
+                }
+
+                $staf_an = Staf::find($request->input('id_staf_an'));
+
+                if($request->input('id_staf_an')) {
+                    $nama_staf = $staf->nama;
+                    $nama_ttd = $staf_an->nama;
+                    $an = "an. ".$staf_an->jabatan;
+                    $jabatan_staf = $staf->jabatan;
+                } else {
+                    $nama_staf = $staf->nama;
+                    $nama_ttd = $staf->nama;
+                    $jabatan_staf = $staf->jabatan;
+                    $an = "";
+                }
 
                 if($jenis_kelamin === "L") {
                     $jenis_kelamin = "Laki-Laki";
@@ -205,6 +237,10 @@ class SuratController extends Controller
                     'nama_usaha' => $usaha,
                     'tanggal_surat' => $tanggal_surat,
                     'year' => Carbon::parse($tanggal_surat_str)->format('Y'),
+                    'nama_staf' => $nama_staf,
+                    'jabatan_staf' => $jabatan_staf,
+                    'an' => $an,
+                    'nama_ttd' => $nama_ttd,
                 ];
                 break;
             
@@ -216,7 +252,13 @@ class SuratController extends Controller
                 $validate = $request->validate([
                     'no_surat' => [
                         'required',
-                        Rule::unique('arsip_surat')->where('id_klasifikasi_surat', $idTipeSurat),
+                        Rule::unique('arsip_surat')->ignore($id)->where(function ($query) use ($request) {
+                            // Extract the year from 'tanggal_surat' input value
+                            $year = Carbon::createFromFormat('Y-m-d', $request->input('tanggal_surat'))->year;
+
+                            // Add a condition to check for unique no_surat within the fetched year
+                            $query->whereYear('tanggal_surat', $year);
+                        }),
                     ],
                 ], [
                     'no_surat.unique' => 'Nomor surat sudah ada!'
@@ -233,6 +275,25 @@ class SuratController extends Controller
                 $alamat = $request->input('alamat');
                 $tanggal_surat_str = $request->input('tanggal_surat');  
                 $tipe = $request->input('tipe');
+
+                $staf = Staf::find($request->input('id_staf'));
+                if($staf->jabatan === "Kepala Desa") {
+                    $staf->jabatan = $staf->jabatan." Malik";
+                }
+
+                $staf_an = Staf::find($request->input('id_staf_an'));
+
+                if($request->input('id_staf_an')) {
+                    $nama_staf = $staf->nama;
+                    $nama_ttd = $staf_an->nama;
+                    $an = "an. ".$staf_an->jabatan;
+                    $jabatan_staf = $staf->jabatan;
+                } else {
+                    $nama_staf = $staf->nama;
+                    $nama_ttd = $staf->nama;
+                    $jabatan_staf = $staf->jabatan;
+                    $an = "";
+                }
 
                 if($jenis_kelamin === "L") {
                     $jenis_kelamin = "Laki-Laki";
@@ -259,6 +320,10 @@ class SuratController extends Controller
                     'alamat' => $alamat,
                     'tanggal_surat' => $tanggal_surat,
                     'year' => Carbon::parse($tanggal_surat_str)->format('Y'),
+                    'nama_staf' => $nama_staf,
+                    'jabatan_staf' => $jabatan_staf,
+                    'an' => $an,
+                    'nama_ttd' => $nama_ttd,
                 ];
                 break;
 
@@ -270,7 +335,13 @@ class SuratController extends Controller
                 $validate = $request->validate([
                     'no_surat' => [
                         'required',
-                        Rule::unique('arsip_surat')->where('id_klasifikasi_surat', $idTipeSurat),
+                        Rule::unique('arsip_surat')->ignore($id)->where(function ($query) use ($request) {
+                            // Extract the year from 'tanggal_surat' input value
+                            $year = Carbon::createFromFormat('Y-m-d', $request->input('tanggal_surat'))->year;
+
+                            // Add a condition to check for unique no_surat within the fetched year
+                            $query->whereYear('tanggal_surat', $year);
+                        }),
                     ],
                     'penghasilan_ortu' => 'integer'
                 ], [
@@ -320,6 +391,25 @@ class SuratController extends Controller
                     $jenis_kelamin_ortu = "Perempuan";
                 }
 
+                $staf = Staf::find($request->input('id_staf'));
+                if($staf->jabatan === "Kepala Desa") {
+                    $staf->jabatan = $staf->jabatan." Malik";
+                }
+
+                $staf_an = Staf::find($request->input('id_staf_an'));
+
+                if($request->input('id_staf_an')) {
+                    $nama_staf = $staf->nama;
+                    $nama_ttd = $staf_an->nama;
+                    $an = "an. ".$staf_an->jabatan;
+                    $jabatan_staf = $staf->jabatan;
+                } else {
+                    $nama_staf = $staf->nama;
+                    $nama_ttd = $staf->nama;
+                    $jabatan_staf = $staf->jabatan;
+                    $an = "";
+                }
+
                 $locale = 'id_ID';
                 $formatter_txt = new \NumberFormatter($locale, \NumberFormatter::SPELLOUT);
                 $penghasilan_ortu_txt = ucwords($formatter_txt->format($penghasilan_ortu));
@@ -350,6 +440,10 @@ class SuratController extends Controller
                     'penghasilan_ortu_num' => $penghasilan_ortu_num,
                     'penghasilan_ortu_text' => $penghasilan_ortu_txt,
                     'pekerjaan_jk' => $pekerjaan_jk,
+                    'nama_staf' => $nama_staf,
+                    'jabatan_staf' => $jabatan_staf,
+                    'an' => $an,
+                    'nama_ttd' => $nama_ttd,
                 ];
                 break;
 
@@ -361,7 +455,13 @@ class SuratController extends Controller
                 $validate = $request->validate([
                     'no_surat' => [
                         'required',
-                        Rule::unique('arsip_surat')->where('id_klasifikasi_surat', $idTipeSurat),
+                        Rule::unique('arsip_surat')->ignore($id)->where(function ($query) use ($request) {
+                            // Extract the year from 'tanggal_surat' input value
+                            $year = Carbon::createFromFormat('Y-m-d', $request->input('tanggal_surat'))->year;
+
+                            // Add a condition to check for unique no_surat within the fetched year
+                            $query->whereYear('tanggal_surat', $year);
+                        }),
                     ],
                 ]);
 
@@ -381,6 +481,23 @@ class SuratController extends Controller
                     $finish_time = $finish_time.' WIB';
                 }
 
+                $staf = Staf::find($request->input('id_staf'));
+                if($staf->jabatan === "Kepala Desa") {
+                    $staf->jabatan = $staf->jabatan." Malik";
+                }
+
+                $staf_an = Staf::find($request->input('id_staf_an'));
+
+                if($request->input('id_staf_an')) {
+                    $nama_ttd = $staf_an->nama;
+                    $an = "an. ".$staf_an->jabatan;
+                    $jabatan_staf = $staf->jabatan;
+                } else {
+                    $nama_ttd = $staf->nama;
+                    $jabatan_staf = $staf->jabatan;
+                    $an = "";
+                }
+
                 // Define the values to be filled in the template
                 $values = [
                     'tanggal_surat' => Carbon::parse($tanggal_surat_str)->translatedFormat('jS F Y'),
@@ -392,7 +509,10 @@ class SuratController extends Controller
                     'tanggal_kegiatan' => Carbon::parse($tanggal_kegiatan_str)->translatedFormat('jS F Y'),
                     'start_time' => $start_time,
                     'finish_time' => $finish_time,
-                    'tempat_kegiatan' => $tempat_kegiatan,                   
+                    'tempat_kegiatan' => $tempat_kegiatan,
+                    'jabatan_staf' => $jabatan_staf,
+                    'an' => $an,
+                    'nama_ttd' => $nama_ttd,         
                 ];
                 $nama = $hari_jadi_num;
                 break;
@@ -405,12 +525,37 @@ class SuratController extends Controller
                 $validate = $request->validate([
                     'no_surat' => [
                         'required',
-                        Rule::unique('arsip_surat')->where('id_klasifikasi_surat', $idTipeSurat),
+                        Rule::unique('arsip_surat')->ignore($id)->where(function ($query) use ($request) {
+                            // Extract the year from 'tanggal_surat' input value
+                            $year = Carbon::createFromFormat('Y-m-d', $request->input('tanggal_surat'))->year;
+
+                            // Add a condition to check for unique no_surat within the fetched year
+                            $query->whereYear('tanggal_surat', $year);
+                        }),
                     ],
                     'nik' => 'numeric',
                 ], [
                     'no_surat.unique' => 'Nomor surat sudah ada!'
                 ]);
+
+                $staf = Staf::find($request->input('id_staf'));
+                if($staf->jabatan === "Kepala Desa") {
+                    $staf->jabatan = $staf->jabatan." Malik";
+                }
+
+                $staf_an = Staf::find($request->input('id_staf_an'));
+
+                if($request->input('id_staf_an')) {
+                    $nama_staf = $staf->nama;
+                    $nama_ttd = $staf_an->nama;
+                    $an = "an. ".$staf_an->jabatan;
+                    $jabatan_staf = $staf->jabatan;
+                } else {
+                    $nama_staf = $staf->nama;
+                    $nama_ttd = $staf->nama;
+                    $jabatan_staf = $staf->jabatan;
+                    $an = "";
+                }
 
                 $nomorSurat = $validate['no_surat'];
                 $nama = strtoupper($request->input('nama'));
@@ -460,6 +605,10 @@ class SuratController extends Controller
                     'tanggal_surat' => Carbon::parse($tanggal_surat_str)->translatedFormat('jS F Y'),
                     'hari_ttd' => Carbon::parse($tanggal_ttd_str)->translatedFormat('l'),
                     'tanggal_ttd' => Carbon::parse($tanggal_ttd_str)->translatedFormat('jS F Y'),
+                    'nama_staf' => $nama_staf,
+                    'jabatan_staf' => $jabatan_staf,
+                    'an' => $an,
+                    'nama_ttd' => $nama_ttd,
                 ];
                 break;
         }
@@ -473,7 +622,7 @@ class SuratController extends Controller
         $template->setValues($values);
 
         // Save the modified docx to a different directory
-        $outputFilename = $tipe.'-'.$nomorSurat.'-'.$nama.'.docx';
+        $outputFilename = $tipe.'-'.$nomorSurat.'-'.Carbon::createFromFormat('Y-m-d', $tanggal_surat_str)->year.'-'.$nama.'.docx';
         $outputDirectory = storage_path('app/arsip_surat/');
 
         if (!file_exists($outputDirectory)) {
@@ -485,7 +634,7 @@ class SuratController extends Controller
 
         $json = json_encode($values, JSON_FORCE_OBJECT);
 
-        $data = [
+        return $data = [
             'no_surat' => $nomorSurat,
             'id_staf' => auth()->user()->id_staf,
             'id_klasifikasi_surat' => $idTipeSurat,
@@ -494,6 +643,11 @@ class SuratController extends Controller
             'json' => $json,
             'tanggal_surat' => $tanggal_surat_str,
         ];
+    }
+
+    public function suratNewInputSubmit(Request $request)
+    {
+        $data = $this->suratSubmit($request);
 
         ArsipSurat::create($data);
 
@@ -516,7 +670,7 @@ class SuratController extends Controller
         ]);
     }
 
-    public function lihatSurat($filename)
+    public function suratEdit($id, $filename)
     {
         $file = storage_path('app/arsip_surat/'.$filename);
 
@@ -524,38 +678,133 @@ class SuratController extends Controller
             abort(404);
         }
 
-        $phpWord = IOFactory::load($file);
+        $surat = ArsipSurat::find($id);
+        $arrayData = json_decode($surat->json, true);  
+        $idTipeSurat = $surat->id_klasifikasi_surat;
+        $id_tipe = Surat::find($surat->id_klasifikasi_surat);
+        $tipe = $id_tipe->nama;
+
+        switch($idTipeSurat) {
+            /**
+             * Surat Keterangan Usaha
+             * 512
+             */
+            case 1:
+                $view = view('staf.surat.suratEdit1', [
+                    'title' => 'Ubah Surat ',
+                    'id_tipe' => $idTipeSurat,
+                    'surat' => $surat,
+                    'data' => $arrayData,
+                    'tipe' => $tipe,
+                    'agama' => Agama::all(),
+                    'kewarganegaraan' => Kewarganegaraan::all(),
+                    'penduduk' => Penduduk::pluck('nama'),
+                    'pekerjaan' => Pekerjaan::all(),
+                    'status_perkawinan' => StatusPerkawinan::all(),
+                ]);
+                break;
+
+                /**
+                 * Surat Keterangan Tidak Mampu
+                 * 474.4
+                 */
+            case 2:
+                $view = view('staf.surat.suratEdit2', [
+                    'title' => 'Ubah Surat ',
+                    'id_tipe' => $idTipeSurat,
+                    'surat' => $surat,
+                    'data' => $arrayData,
+                    'tipe' => $tipe,
+                    'agama' => Agama::all(),
+                    'kewarganegaraan' => Kewarganegaraan::all(),
+                    'penduduk' => Penduduk::pluck('nama'),
+                    'pekerjaan' => Pekerjaan::all(),
+                ]);
+                break;
+
+            /**
+             * Surat Keterangan Penghasilan Orang Tua
+             * 474.4
+             */
+            case 3:
+                $view = view('staf.surat.suratEdit3', [
+                    'title' => 'Ubah Surat ',
+                    'id_tipe' => $idTipeSurat,
+                    'surat' => $surat,
+                    'data' => $arrayData,
+                    'tipe' => $tipe,
+                    'agama' => Agama::all(),
+                    'penduduk' => Penduduk::pluck('nama'),
+                    'pekerjaan' => Pekerjaan::all(),
+                ]);
+                break;
+
+            /**
+             * Surat Undangan Pembahasan HUT Bangka Selatan
+             * 140
+             */
+            case 4:
+                $view = view('staf.surat.suratEdit4', [
+                    'title' => 'Ubah Surat ',
+                    'id_tipe' => $idTipeSurat,
+                    'surat' => $surat,
+                    'data' => $arrayData,
+                    'tipe' => $tipe,
+                    'hari_jadi_num' => Carbon::parse('2003-02-25')->age+1,
+                ]);
+                break;
+
+            /**
+             * Surat Rekomendasi Izin Keramaian
+             * 300
+             */
+            case 5:
+                $view = view('staf.surat.suratEdit5', [
+                    'title' => 'Ubah Surat ',
+                    'id_tipe' => $idTipeSurat,
+                    'surat' => $surat,
+                    'data' => $arrayData,
+                    'tipe' => $tipe,
+                    'agama' => Agama::all(),
+                    'kewarganegaraan' => Kewarganegaraan::all(),
+                    'penduduk' => Penduduk::pluck('nama'),
+                    'pekerjaan' => Pekerjaan::all(),
+                ]);
+                break;
+        }
         
-        Settings::setPdfRendererPath(base_path('vendor/dompdf/dompdf'));
-        Settings::setPdfRendererName('DomPDF');
-
-        $tempPath = storage_path('app/preview.pdf');
-
-        $pdfWriter = IOFactory::createWriter($phpWord, 'PDF');
-        $pdfWriter->save($tempPath);
-
-        $response = response()->file($tempPath, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="preview.pdf"',
-        ]);
-
-        // Storage::delete('preview.pdf');
-
-        return $response;
+        return $view;
     }
 
-    public function unduhSurat($filename)
+    public function suratEditSubmit(Request $request, $id)
+    {
+        $data = $this->suratSubmit($request, $id);
+
+        ArsipSurat::find($id)->update($data);
+
+        return redirect('/staf/layanan-surat/arsip-surat')->with('success', 'Surat berhasil diubah!');
+    }
+
+    public function suratDownload($filename)
     {
         $file = storage_path('app/arsip_surat/'.$filename);
+
+        if (!file_exists($file)) {
+            abort(404);
+        }
 
         return response()->download($file);
     }
 
-    public function hapusSurat($id, $filename)
+    public function suratDelete($id, $filename)
     {
-        $file = '/arsip_surat/'. $filename;
+        $file = storage_path('app/arsip_surat/'.$filename);
 
         ArsipSurat::destroy($id);
+
+        if (!file_exists($file)) {
+            abort(404);
+        }
         Storage::delete($file);
 
         return redirect('/staf/layanan-surat/arsip-surat')->with('success', 'Surat berhasil dihapus!');

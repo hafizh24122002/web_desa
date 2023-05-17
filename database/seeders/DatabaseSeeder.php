@@ -18,7 +18,7 @@ use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
 use App\Models\Rtm;
 use App\Models\StatusPerkawinan;
-use App\models\Staf;
+use App\Models\Staf;
 use App\Models\Surat;
 use App\Models\User;
 
@@ -210,6 +210,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('admin'),
             'id_grup' => 1,
+            'id_staf' => 11,
             'name' => 'admin',
         ]);
         User::create([
@@ -220,8 +221,50 @@ class DatabaseSeeder extends Seeder
             'name' => 'staf',
         ]);
 
+
         Staf::create([
-            'nama' => 'Hafizh Lutfi Hidayat',
+            'nama' => 'RIZA UMAMI',
+            'jabatan' => 'Kepala Desa',
+        ]);
+        Staf::create([
+            'nama' => 'HOTIB',
+            'jabatan' => 'Sekretaris Desa',
+        ]);
+        Staf::create([
+            'nama' => 'ISWANDI',
+            'jabatan' => 'Kasi Kesejahteraan',
+        ]);
+        Staf::create([
+            'nama' => 'RENDY SANDRA',
+            'jabatan' => 'Kasi Pelayanan',
+        ]);
+        Staf::create([
+            'nama' => 'ISBIK MIRWANTO',
+            'jabatan' => 'Kasi Pemerintahan',
+        ]);
+        Staf::create([
+            'nama' => 'DIAH ISMAINI',
+            'jabatan' => 'Kasi TU dan Umum',
+        ]);
+        Staf::create([
+            'nama' => 'SUFARTA',
+            'jabatan' => 'Kaur Perencanaan',
+        ]);
+        Staf::create([
+            'nama' => 'ERLANGGA',
+            'jabatan' => 'Kaur Keuangan',
+        ]);
+        Staf::create([
+            'nama' => 'HORMEN',
+            'jabatan' => 'Kepala Dusun 1',
+        ]);
+        Staf::create([
+            'nama' => 'SUHARDI',
+            'jabatan' => 'Kepala Dusun 2',
+        ]);
+        Staf::create([
+            'nama' => 'SILVI FEBRIANTI',
+            'jabatan' => 'Staf Administrasi',
         ]);
 
         for($i = 0; $i < 20; $i++){

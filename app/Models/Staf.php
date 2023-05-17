@@ -18,7 +18,9 @@ class Staf extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_user',
+        'nip',
+        'nama',
+        'jabatan',
     ];
 
     /**
