@@ -2,7 +2,7 @@
 
 @section('main-content')
 <div class="container">
-    <div class="h2">
+    <div class="h2 mt-5">
         Tentang Desa
     </div>
     <hr>
