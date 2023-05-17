@@ -9,6 +9,9 @@ class KelasSosial extends Model
 {
     use HasFactory;
 
+    protected $table = "kelas_sosial";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable
      * 

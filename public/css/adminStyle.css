@@ -117,6 +117,14 @@ a {
 	transition: .3s
 }
 
+.accordion-button:not(.collapsed) {
+	color: var(--white-color);
+}
+
+.accordion-button:is(.collapsed) {
+	color: var(--first-color-light);
+}
+
 .nav-link:hover,
 .nav-top:hover {
 	color: var(--white-color)

@@ -9,6 +9,8 @@ class Penduduk extends Model
 {
     use HasFactory;
 
+    protected $table = "penduduk";
+
     /**
      * The attributes that are mass assignable
      * 
@@ -17,7 +19,7 @@ class Penduduk extends Model
     protected $fillable = [
         'nama',
         'nik',
-        'id_kk',
+        'no_kk',
         'id_hubungan_kk',               // hubungan dalam kartu keluarga (1 = kepala keluarga)
         'id_rtm',                       // nomor rumah tangga
         'id_hubungan_rtm',              // hubungan dalam rumah tangga (1 = kepala rumah tangga, 2 = anggota)
@@ -40,7 +42,6 @@ class Penduduk extends Model
         'id_status_asuransi',
         'id_status_dasar',
         'id_kesehatan',
-        'email',
         'ket',
     ];
 
