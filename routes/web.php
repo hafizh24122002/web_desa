@@ -62,6 +62,9 @@ Route::get('/staf/manajemen-web/dashboard', [ArtikelController::class, 'dashboar
 Route::get('/staf/manajemen-web/artikel', [ArtikelController::class, 'articleManager'])->middleware('auth');
 Route::get('/staf/manajemen-web/artikel/new-artikel', [ArtikelController::class, 'artikelNew'])->middleware('auth');
 Route::post('/staf/manajemen-web/artikel/new-artikel', [ArtikelController::class, 'artikelNewSubmit'])->middleware('auth');
+Route::get('/staf/manajemen-web/artikel/edit-artikel/{id}', [ArtikelController::class, 'artikelEdit'])->middleware('auth');
+Route::put('/staf/manajemen-web/artikel/edit-artikel/{id}', [ArtikelController::class, 'artikelEditSubmit'])->middleware('auth');
+Route::delete('/staf/manajemen-web/artikel/{id}', [ArtikelController::class, 'artikelDelete'])->middleware('auth');
 
 Route::get('/staf/layanan-surat/buat-surat', [SuratController::class, 'suratNew'])->middleware('auth');
 Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput'])->middleware('auth');

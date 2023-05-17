@@ -267,22 +267,6 @@ class DatabaseSeeder extends Seeder
             'jabatan' => 'Staf Administrasi',
         ]);
 
-        for($i = 0; $i < 20; $i++){
-            Artikel::create([
-                'id_staf' => 1,
-                'judul' => 'judul artikel',
-                'isi' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pellentesque sapien id consectetur venenatis. Donec at lectus enim. In tempor aliquam suscipit. Pellentesque scelerisque volutpat sem, a tempus felis consequat eu. Proin vel augue mattis, porta quam vel, semper urna. Etiam tellus odio, posuere at odio nec, egestas accumsan sapien. Mauris neque est, pharetra placerat arcu sit amet, efficitur laoreet leo. Suspendisse in dictum justo. Pellentesque ut urna libero. Quisque laoreet, felis in rhoncus cursus, felis purus gravida sapien, vitae egestas purus risus ac tortor. Nunc quis arcu diam. Cras commodo tincidunt tortor, ac posuere diam. Suspendisse pretium interdum ipsum vestibulum consectetur.
-    
-Vestibulum erat nibh, porta sit amet molestie ac, placerat at odio. Mauris aliquam, nisl sit amet sollicitudin molestie, mauris enim ornare lectus, sed varius dolor quam non quam. Proin at vestibulum felis, vitae posuere justo. Morbi eleifend orci vel tellus porttitor tristique. In vel orci aliquam, vulputate leo id, aliquet orci. Sed non vulputate elit, eu suscipit lacus. Sed finibus rhoncus ante, non venenatis nisl egestas sit amet. Integer imperdiet dapibus arcu sit amet lobortis. Vivamus tempor nisl et urna imperdiet sollicitudin. Nunc mattis aliquet orci, et euismod erat varius vitae. Praesent elementum porta metus, in consequat risus dignissim eget. Etiam neque odio, suscipit ac luctus non, maximus congue mauris. Proin eros lectus, tincidunt ut porta ut, eleifend at erat. Sed fermentum, nisl sit amet mattis aliquam, neque orci sagittis mauris, id mollis purus libero quis urna. Nunc et facilisis neque, quis viverra eros. Fusce bibendum convallis volutpat.
-
-Mauris sed sagittis tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus laoreet a ante ac congue. Aenean est libero, pulvinar quis ipsum a, posuere vestibulum arcu. Morbi eu cursus erat. Mauris imperdiet malesuada posuere. Curabitur pulvinar maximus imperdiet. Aenean posuere odio ac imperdiet aliquet. Quisque condimentum lobortis pellentesque. Curabitur porttitor massa justo, quis vestibulum ligula faucibus gravida.
-
-Pellentesque vel pellentesque dui. Proin tellus neque, semper ut tortor eu, sollicitudin volutpat dui. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum nisi elit, viverra vitae tortor sed, ornare egestas orci. Nullam neque lorem, venenatis eu dui ac, sodales ultricies quam. Suspendisse euismod mauris vitae fringilla gravida. Aenean leo neque, aliquam id pharetra id, sollicitudin et sem. Donec in facilisis tortor. Praesent non purus ut enim pretium convallis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-
-Duis ac pulvinar ipsum. In hac habitasse platea dictumst. Etiam sed ligula est. Mauris et gravida tellus. Quisque ac commodo elit. Sed a velit nibh. Praesent a tortor pulvinar, vehicula diam at, lobortis nisl. Etiam congue quis magna ut blandit. Nullam dictum dui urna, eget dictum justo ultrices at. Integer dolor orci, finibus eu laoreet non, mollis at massa. Praesent vel placerat turpis.',
-            ]);
-        }
-
         Penduduk::create([
             'nama' => 'HAFIZH LUTFI HIDAYAT',
             'nik' => '6401042412340001',

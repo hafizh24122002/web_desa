@@ -1,6 +1,6 @@
 # Web Desa Malik
 
-Website Desa Malik adalah sebuah aplikasi berbasis web yang bertujuan untuk membantu memudahkan proses manajemen surat, analisis data, dan administrasi bagi pengurus desa serta pembuatan artikel yang dapat dibaca oleh warga desa untuk kemudahan dalam pencarian informasi terkini mengenai desa. Aplikasi ini dirancang khusus untuk memenuhi kebutuhan pengelolaan informasi di desa Malik.
+Web Desa Malik adalah sebuah aplikasi berbasis web yang bertujuan untuk membantu memudahkan proses manajemen surat, analisis data, dan administrasi bagi pengurus desa serta pembuatan artikel yang dapat dibaca oleh warga desa untuk kemudahan dalam pencarian informasi terkini mengenai desa. Aplikasi ini dirancang khusus untuk memenuhi kebutuhan pengelolaan informasi di desa Malik.
 
 ## Fitur
 
@@ -11,7 +11,7 @@ Website Desa Malik adalah sebuah aplikasi berbasis web yang bertujuan untuk memb
 
 ## Detail Teknis
 
-Pastikan anda dapat memenuhi beberapa dependensi berikut:
+Pastikan anda dapat memenuhi beberapa dependensi untuk Laravel Framework 10.8.0 berikut:
 - PHP >= 8.1.0 (dengan beberapa plugin standar seperti fpm, mysql, mbstring, xml, bcmath, intl, curl, zip, dll.)
 - Composer >= 2.2.0
 
@@ -29,6 +29,7 @@ Pastikan anda dapat memenuhi beberapa dependensi berikut:
 3. Install Dependensi yang diperlukan:
 	```bash
 	composer install
+	npm install
 	```
 4. Copy file `.env.example` menjadi `.env`:
 	```bash
