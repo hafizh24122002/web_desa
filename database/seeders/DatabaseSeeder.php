@@ -18,7 +18,7 @@ use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
 use App\Models\Rtm;
 use App\Models\StatusPerkawinan;
-use App\models\Staf;
+use App\Models\Staf;
 use App\Models\Surat;
 use App\Models\User;
 
