@@ -2,11 +2,35 @@
 
 @section('form')
 
+@php
+    $translatedMonths = [
+        'Januari' => 'January',
+        'Februari' => 'February',
+        'Maret' => 'March',
+        'April' => 'April',
+        'Mei' => 'May',
+        'Juni' => 'June',
+        'Juli' => 'July',
+        'Agustus' => 'August',
+        'September' => 'September',
+        'Oktober' => 'October',
+        'November' => 'November',
+        'Desember' => 'December',
+    ];
+    
+    $data['tanggal_surat'] = strtr($data['tanggal_surat'], $translatedMonths);
+    $data['tanggal_kegiatan'] = strtr($data['tanggal_kegiatan'], $translatedMonths);
+
+	$dateTime = \DateTime::createFromFormat('H:i T', $data['finish_time']);
+	$finish_time = $dateTime->format('H:i');
+@endphp
+
 <link rel="stylesheet" href="{{ asset('css/letterNameAutoComplete.css') }}">
 
 <div class="row mt-3 container">
 	<div class="col-lg">
-		<form action="/staf/layanan-surat/buat-surat/submit" autocomplete="off" method="POST" id="form">
+		<form action="/staf/layanan-surat/arsip-surat/edit-surat/{{ $surat->id }}/{{ $surat->filename }}" autocomplete="off" method="POST" id="form">
+			@method('put')
 			@csrf
 			<div class="form-group row">
 				<label for="no" class="col-sm-3 col-form-label">Nomor Surat</label>
@@ -16,7 +40,7 @@
 						name="no_surat"
 						id="no"
 						placeholder="1"
-						value="{{ old('no_surat') ?? $nomorTerakhir }}"
+						value="{{ old('no_surat') ?? $data['no_surat'] }}"
 						required
 						readonly>
 
@@ -43,7 +67,7 @@
 						class="form-control form-control-sm"
 						name="tanggal_surat"
 						id="tanggal_surat"
-						value="{{ old('tanggal_surat') ?? now()->toDateString('Y-m-d') }}"
+						value="{{ old('tanggal_surat') ?? \Carbon\Carbon::createFromFormat('jS F Y', $data['tanggal_surat'])->format('Y-m-d') }}"
 						required>
 				</div>
 			</div>
@@ -58,7 +82,7 @@
 						name="nama"
 						id="nama"
 						placeholder="Andi"
-						value="{{ old('nama') }}">
+						value="{{ old('nama') ?? $data['nama'] }}">
 				</div>
 			</div>
 
@@ -70,7 +94,7 @@
 						name="hari_jadi_num"
 						id="hari_jadi_num"
 						placeholder="20"
-						value="{{ old('hari_jadi_num') ?? $hari_jadi_num }}"
+						value="{{ old('hari_jadi_num') ?? $data['hari_jadi_num'] }}"
 						required
 						readonly>
 				</div>
@@ -103,7 +127,7 @@
 						<input type="time"
 							class="form-control form-control-sm"
 							name="start_time"
-							value="{{ old('start_time') }}"
+							value="{{ old('start_time') ?? $data['start_time'] }}"
 							required>
 					</div>
 
@@ -114,11 +138,11 @@
 							class="form-control form-control-sm"
 							name="finish_time"
 							id="finish_time"
-							value="{{ old('finish_time') }}"
+							value="{{ old('finish_time') ?? $finish_time }}"
 							required>
 					</div>
 
-					<div style="width: 5.5rem d-flex-inline">
+					{{-- <div style="width: 5.5rem d-flex-inline">
 						<input type="checkbox"
 							class="form-check-input"
 							name="finish_time_unspecified"
@@ -126,7 +150,7 @@
 						<label class="form-check-label ms-2" for="finish_time_unspecified">
 							Sampai Selesai
 						</label>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 			
@@ -138,41 +162,8 @@
 						name="tempat_kegiatan"
 						id="tempat_kegiatan"
 						placeholder="Balai Desa Malik"
-						value="{{ old('tempat_kegiatan') }}"
+						value="{{ old('tempat_kegiatan') ?? $data['tempat_kegiatan'] }}"
 						required>
-				</div>
-			</div>
-
-			<br>
-
-			<div class="form-group row">
-				<label for="staf" class="col-sm-3 col-form-label">Ditandatangani Oleh</label>
-				<div class="col-sm-7">
-					<select class="form-select form-select-sm" id="staf" name="id_staf" required>
-						<option value="">-- Pilih --</option>
-						@foreach ($staf as $item)
-							<option value="{{ $loop->iteration }}" {{ old('id_staf') == $loop->iteration ? 'selected' : '' }}>{{ $item->jabatan.' - '.$item->nama }}</option>
-						@endforeach
-					</select>
-				</div>
-
-				<div class="col-sm-2 form-check">
-					<input class="form-check-input" type="checkbox" id="diwakilkan" name="diwakilkan">
-					<label class="form-check-label" for="flexCheckDefault">
-						Diwakilkan
-					</label>
-				</div>
-			</div>
-
-			<div class="form-group row" id="divAtasNama">
-				<label for="staf_an" class="col-sm-3 col-form-label">Atas Nama</label>
-				<div class="col-sm-9">
-					<select class="form-select form-select-sm" id="staf_an" name="id_staf_an">
-						<option value="">-- Pilih --</option>
-						@foreach ($staf as $item)
-							<option value="{{ $loop->iteration }}" {{ old('id_staf_an') == $loop->iteration ? 'selected' : '' }}>{{ $item->jabatan.' - '.$item->nama }}</option>
-						@endforeach
-					</select>
 				</div>
 			</div>
 
@@ -190,8 +181,6 @@
 <script src="{{ asset('js/autocomplete.js') }}"></script>
 
 <script>
-	$('#divAtasNama').hide();
-	
 	var $input = $("#no");
 	var $button = $("#edit_no_surat");
 
@@ -215,14 +204,6 @@
 		} else {
 			$input.prop("readonly", true);
 			$button.prop("readonly", false).empty().append("<i class='bx bx-edit'></i> Ubah");
-		}
-	});
-
-	$('#diwakilkan').change(function() {
-		if (this.checked) {
-			$('#divAtasNama').slideDown();
-		} else {
-			$('#divAtasNama').slideUp();
 		}
 	});
 </script>

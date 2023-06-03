@@ -74,8 +74,10 @@
 		</div>
 	</nav>
 
-	@yield('main-content')
-	@include('partials.commonScripts')
+	<div class="body-wrapper">
+		@yield('main-content')
+		@include('partials.commonScripts')
+	</div>
 
 </body>
 	@include('partials.visitorFooter')

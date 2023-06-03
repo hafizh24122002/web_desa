@@ -45,24 +45,26 @@
 								<tr class="text-center align-middle">
 									<td>{{ $artikel->firstitem() + $key }}</td>
 
-									<td class="d-flex gap-1 justify-content-center">
-										<a href="/staf/manajemen-artikel/artikel/{{ $item->id }}">
-											<button class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Edit artikel">
-												<i class="bx bx-edit-alt text-light"></i>
-											</button>
-										</a>
-										
-										<form action="/staf/manajemen-artikel/artikel/{{ $item->id }}"
-											onsubmit="return confirm('Apakah anda yakin ingin menghapus artikel dengan judul {{ $item->judul }}? Artikel yang dihapus tidak akan bisa dikembalikan!')"
-											method="POST">
+									<td>
+										<div style="display: flex; gap: 5px; justify-content: center;">
+											<a href="/staf/manajemen-web/artikel/edit-artikel/{{ $item->id }}">
+												<button class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Edit artikel">
+													<i class="bx bx-edit-alt text-light"></i>
+												</button>
+											</a>
 											
-											@method('delete')
-											@csrf
+											<form action="/staf/manajemen-web/artikel/{{ $item->id }}"
+												onsubmit="return confirm('Apakah anda yakin ingin menghapus artikel dengan judul {{ $item->judul }}? Artikel yang dihapus tidak akan bisa dikembalikan!')"
+												method="POST">
+												
+												@method('delete')
+												@csrf
 
-											<button class="btn btn-sm btn-danger" type="submit" data-bs-toggle="tooltip"title="Hapus artikel">
-												<i class="bx bx-trash text-light"></i>
-											</button>
-										</form>
+												<button class="btn btn-sm btn-danger" type="submit" data-bs-toggle="tooltip"title="Hapus artikel">
+													<i class="bx bx-trash text-light"></i>
+												</button>
+											</form>
+										</div>
 									</td>
 
 									<td>{{ $item->judul }}</td>

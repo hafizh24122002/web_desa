@@ -4,6 +4,7 @@ use App\Http\Controllers\MainVisitorController;
 use App\Http\Controllers\MainAdminController;
 use App\Http\Controllers\KependudukanController;
 use App\Http\Controllers\KeluargaController;
+use App\Http\Controllers\StafController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
@@ -53,18 +54,30 @@ Route::get('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [Keluar
 Route::put('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaEditSubmit'])->middleware('auth');
 Route::delete('/staf/kependudukan/keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete'])->middleware('auth');
 
-// TODO #10
+Route::get('/staf/manajemen-staf/daftar-staf', [StafController::class, 'daftarStaf'])->middleware('auth');
+Route::get('/staf/manajemen-staf/new-staf', [StafController::class, 'stafNew'])->middleware('auth');
+Route::post('/staf/manajemen-staf/new-staf', [StafController::class, 'stafNewSubmit'])->middleware('auth');
+Route::get('/staf/manajemen-staf/edit-staf/{id}', [StafController::class, 'stafEdit'])->middleware('auth');
+Route::put('/staf/manajemen-staf/edit-staf/{id}', [StafController::class, 'stafEditSubmit'])->middleware('auth');
+Route::delete('/staf/manajemen-staf/{id}', [StafController::class, 'stafDelete'])->middleware('auth');
+
 Route::get('/staf/manajemen-web/dashboard', [ArtikelController::class, 'dashboard'])->middleware('auth');
 Route::get('/staf/manajemen-web/artikel', [ArtikelController::class, 'articleManager'])->middleware('auth');
+Route::get('/staf/manajemen-web/artikel/new-artikel', [ArtikelController::class, 'artikelNew'])->middleware('auth');
+Route::post('/staf/manajemen-web/artikel/new-artikel', [ArtikelController::class, 'artikelNewSubmit'])->middleware('auth');
+Route::get('/staf/manajemen-web/artikel/edit-artikel/{id}', [ArtikelController::class, 'artikelEdit'])->middleware('auth');
+Route::put('/staf/manajemen-web/artikel/edit-artikel/{id}', [ArtikelController::class, 'artikelEditSubmit'])->middleware('auth');
+Route::delete('/staf/manajemen-web/artikel/{id}', [ArtikelController::class, 'artikelDelete'])->middleware('auth');
 
 Route::get('/staf/layanan-surat/buat-surat', [SuratController::class, 'suratNew'])->middleware('auth');
 Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput'])->middleware('auth');
 Route::post('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInputSubmit'])->middleware('auth');
 Route::get('/staf/layanan-surat/buat-surat/get-data/{penduduk:nama}', [SuratController::class, 'getDataPenduduk'])->middleware('auth');
 Route::get('/staf/layanan-surat/arsip-surat', [SuratController::class, 'arsipSurat'])->middleware('auth');
-Route::get('/staf/layanan-surat/arsip-surat/lihat-surat/{arsip:filename}', [SuratController::class, 'lihatSurat'])->middleware('auth');
-Route::get('/staf/layanan-surat/arsip-surat/{arsip:filename}', [SuratController::class, 'unduhSurat'])->middleware('auth');
-Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratController::class, 'hapusSurat'])->middleware('auth');
+Route::get('/staf/layanan-surat/arsip-surat/{arsip:filename}', [SuratController::class, 'suratDownload'])->middleware('auth');
+Route::get('/staf/layanan-surat/arsip-surat/edit-surat/{id}/{filename}', [SuratController::class, 'suratEdit'])->middleware('auth');
+Route::put('/staf/layanan-surat/arsip-surat/edit-surat/{id}/{filename}', [SuratController::class, 'suratEditSubmit'])->middleware('auth');
+Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratController::class, 'suratDelete'])->middleware('auth');
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
