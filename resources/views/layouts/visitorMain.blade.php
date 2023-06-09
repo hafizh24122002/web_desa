@@ -80,5 +80,6 @@
 	</div>
 
 </body>
+	@include('partials.sideContent')
 	@include('partials.visitorFooter')
 </html>
