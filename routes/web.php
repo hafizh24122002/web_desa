@@ -75,6 +75,8 @@ Route::post("/staf/kesehatan/pemantauan/new-pemantauan-ibu", [KesehatanControlle
 Route::get('/staf/kesehatan/pemantauan/edit-pemantauan-ibu/{id}', [KesehatanController::class, 'pemantauanIbuEdit'])->middleware('auth');
 Route::put('/staf/kesehatan/pemantauan/edit-pemantauan-ibu/{id}', [KesehatanController::class, 'pemantauanIbuEditSubmit'])->middleware('auth');
 Route::delete('staf/kesehatan/pemantauan/ibu/{id}', [KesehatanController::class, 'pemantauanIbuDelete'])->middleware('auth');
+Route::get('staf/kesehatan/pemantauan/new-pemantauan-anak', [KesehatanController::class, 'pemantauanAnakNew'])->middleware('auth');
+Route::post('staf/kesehatan/pemantauan/new-pemantauan-anak', [KesehatanController::class, 'pemantauanAnakNewSubmit'])->middleware('auth');
 
 Route::get('/staf/manajemen-staf/', [StafController::class, 'pohonStaf'])->middleware('auth');
 Route::get('/staf/manajemen-staf/get-data', [StafController::class, 'getDataStaf'])->middleware('auth');

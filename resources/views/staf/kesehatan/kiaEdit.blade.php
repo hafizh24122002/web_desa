@@ -68,7 +68,7 @@
 					<input type="date"
 						class="form-control form-control-sm"
 						name="perkiraan_kelahiran"
-						value="{{ old('perkiraan_kelahiran') ?? $kia->perkiraan_lahir->format('Y-m-d') }}">
+						value="{{ old('perkiraan_kelahiran') ?? ($kia->perkiraan_lahir ? $kia->perkiraan_lahir->format('Y-m-d') : '') }}">
 				</div>
 			</div>
 

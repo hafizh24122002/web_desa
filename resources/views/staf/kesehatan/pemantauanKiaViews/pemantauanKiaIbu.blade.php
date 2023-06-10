@@ -67,7 +67,7 @@
 
 				<td>{{ $data->status_kehamilan }}</td>
 
-				<td>{{ $data->kia->perkiraan_lahir ?? '-' }}</td>
+				<td>{{ $data->kia->perkiraan_lahir ? $data->kia->perkiraan_lahir->translatedFormat('jS F Y') : '-' }}</td>
 
 				<td>{{ $data->usia_kehamilan }}</td>
 

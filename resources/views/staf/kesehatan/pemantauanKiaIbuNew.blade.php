@@ -19,7 +19,7 @@
 								<select class="form-select form-select-sm @error('id_kia') is-invalid @enderror" id="id_kia" name="id_kia">
 									<option value="">-- Pilih --</option>
 									@foreach ($kia as $item)
-										<option value="{{ $loop->iteration }}" {{ old('id_kia') == $loop->iteration ? 'selected' : '' }}>{{ $item->no_kia.' - '.$item->ibu->nama }}</option>
+										<option value="{{ $item->id }}" {{ old('id_kia') == $item->id ? 'selected' : '' }}>{{ $item->no_kia.' - '.$item->ibu->nama }}</option>
 									@endforeach
 								</select>
 
@@ -151,7 +151,7 @@
 
 							<div class="col-sm-6 d-flex gap-2">
 								<input type="checkbox" name="konseling_gizi" id="konseling_gizi" {{ old('konseling_gizi') ? 'checked' : '' }}>
-								<label for="konseling_gizi">Konseling Gizi</label>
+								<label for="konseling_gizi">Konseling Gizi (Kelas IH)</label>
 							</div>
 						</div>
 
