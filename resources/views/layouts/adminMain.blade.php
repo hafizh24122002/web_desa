@@ -100,7 +100,7 @@
 								id="statistik">
 								
 								<a href="/staf/statistik/statistik-kependudukan" class="nav-link collapse-body" style="margin-left: 2rem">
-									<i class="bi bi-bar-chart-line-fill nav-icon"></i>
+									<i class="bi bi-layout-text-sidebar-reverse nav-icon"></i>
 									<span class="nav-name">Statistik Kependudukan</span>
 								</a>
 							</div>
