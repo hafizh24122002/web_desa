@@ -13,7 +13,7 @@
 			@csrf
 
 			<div class="form-group row">
-				<label for="judul" class="col-sm-2 col-form-label">Judul</label>
+				<label for="judul" class="col-sm-2 col-form-label">Judul<span style="color:red">*</span></label>
 				<div class="col-sm-10">
 					<input type="text"
 						class="form-control form-control-sm autocomplete"
@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="editor" class="col-sm-2 col-form-label">Isi</label>
+				<label for="editor" class="col-sm-2 col-form-label">Isi<span style="color:red">*</span></label>
 				<div class="col-sm-10">
 					<div id="editor"
 						name="editor"

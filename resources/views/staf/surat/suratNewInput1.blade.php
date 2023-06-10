@@ -259,6 +259,7 @@
 	$('#divAtasNama').hide();
 
 	pendudukList = @json($penduduk);
+
 	autocomplete(document.getElementById("nama"), pendudukList);
 
 	var $input = $("#no");

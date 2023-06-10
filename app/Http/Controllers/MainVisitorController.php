@@ -22,6 +22,23 @@ class MainVisitorController extends Controller
         ]);
     }
 
+    public function bacaArtikel($judul)
+    {
+        $data = Artikel::join(
+            'users', 'artikel.id_staf', '=', 'users.id'
+        )->select(
+            'artikel.*',
+            'users.name',
+        )->where(
+            'judul', '=', $judul
+        )->first(); 
+
+        return view('visitor.bacaArtikel', [
+            'title' => $judul,
+            'artikel' => $data,
+        ]);
+    }
+
     public function aboutDesa()
     {
         return view('visitor.aboutDesa', [

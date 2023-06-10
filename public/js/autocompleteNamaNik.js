@@ -18,50 +18,25 @@ function autocomplete(inp, arr) {
 		/*for each item in the array...*/
 		for (i = 0; i < arr.length; i++) {
 		  /*check if the item starts with the same letters as the text field value:*/
-		  if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+		  if ((arr[i].substr(19, val.length).toUpperCase() == val.toUpperCase()) || ((arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()))) {
 			/*create a DIV element for each matching element:*/
 			b = document.createElement("DIV");
 			/*make the matching letters bold:*/
-			b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-			b.innerHTML += arr[i].substr(val.length);
+			if (typeof(val) === 'string' && isNaN(val)) {
+				b.innerHTML = arr[i].substr(0, 19);
+				b.innerHTML += "<strong>" + arr[i].substr(19, val.length) + "</strong>";
+				b.innerHTML += arr[i].substr(val.length+19);
+			} else {
+				b.innerHTML += "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+				b.innerHTML += arr[i].substr(val.length);
+			}
+			
 			/*insert a input field that will hold the current array item's value:*/
 			b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
 			/*execute a function when someone clicks on the item value (DIV element):*/
-			b.addEventListener("click", function(e) {
+				b.addEventListener("click", function(e) {
 				/*insert the value for the autocomplete text field:*/
 				inp.value = this.getElementsByTagName("input")[0].value;
-				fetch('/staf/kependudukan/penduduk/get-data/' + inp.value)
-					.then(response => response.json())
-					.then(data => {
-						const fields = [
-							{ id: 'jenis_kelamin', key: 'jenis_kelamin' },
-							{ id: 'tempat_lahir', key: 'tempat_lahir' },
-							{ id: 'tanggal_lahir', key: 'tanggal_lahir' },
-							{ id: 'agama', key: 'id_agama' },
-							{ id: 'status_perkawinan', key: 'id_status_perkawinan' },
-							{ id: 'pekerjaan', key: 'id_pekerjaan' },
-							{ id: 'kebangsaan', key: 'id_kewarganegaraan' },
-							{ id: 'alamat', key: 'alamat' },
-							{ id: 'nik', key: 'nik' },
-							{ id: 'kewarganegaraan', key: 'id_kewarganegaraan' },
-						];
-						fields.forEach(field => {
-							if (data[field.key] !== undefined) {
-								const element = document.getElementById(field.id);
-								if (element) {
-									element.value = data[field.key];
-								}
-							}
-						});
-						if (data.id_kewarganegaraan !== undefined && data.id_kewarganegaraan === 1) {
-							const kebangsaan = document.getElementById('kebangsaan');
-							if (kebangsaan) {
-								kebangsaan.value = 'Indonesia';
-							}
-						}
-					})
-					.catch(error => console.error(error));
-
 				/*close the list of autocompleted values,
 				(or any other open lists of autocompleted values:*/
 				closeAllLists();

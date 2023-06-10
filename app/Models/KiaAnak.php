@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IbuHamil extends Model
+class KiaAnak extends Model
 {
     use HasFactory;
 
-    protected $table = 'ibu_hamil';
+    protected $table = 'kia_anak';
 
     /**
      * The attributes that are mass assignable
@@ -20,18 +20,23 @@ class IbuHamil extends Model
         'id_posyandu',
         'id_kia',
         'tanggal_periksa',
-        'status_kehamilan',
-        'usia_kehamilan',
-        'tanggal_melahirkan',
-        'pemeriksaan_kehamilan',
-        'konsumsi_pil_fe',
-        'butir_pil_fe',
-        'pemeriksaan_nifas',
-        'konseling_gizi',
+        'status_gizi_anak',
+        'umur',
+        'hasil_status_tikar',
+        'imunisasi_campak',
+        'berat_badan',
+        'tinggi_badan',
+        'imunisasi_dasar',
+        'pengukuran_berat_badan',
+        'pengukuran_tinggi_badan',
+        'konseling_gizi_ayah',
+        'konseling_gizi_ibu',
         'kunjungan_rumah',
         'akses_air_bersih',
         'kepemilikan_jamban',
+        'akta_lahir',
         'jaminan_kesehatan',
+        'pengasuhan_paud',
     ];
 
     /**
@@ -41,15 +46,17 @@ class IbuHamil extends Model
      */
     protected $casts = [
         'tanggal_periksa' => 'date',
-        'tanggal_melahirkan' => 'date',
-        'pemeriksaan_kehamilan' => 'boolean',
-        'konsumsi_pil_fe' => 'boolean',
-        'pemeriksaan_nifas' => 'boolean',
-        'konseling_gizi' => 'boolean',
+        'imunisasi_dasar' => 'boolean',
+        'pengukuran_berat_badan' => 'boolean',
+        'pengukuran_tinggi_badan' => 'boolean',
+        'konseling_gizi_ayah' => 'boolean',
+        'konseling_gizi_ibu' => 'boolean',
         'kunjungan_rumah' => 'boolean',
         'akses_air_bersih' => 'boolean',
         'kepemilikan_jamban' => 'boolean',
+        'akta_lahir' => 'boolean',
         'jaminan_kesehatan' => 'boolean',
+        'pengasuhan_paud' => 'boolean',
     ];
 
     /**

@@ -61,8 +61,8 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'nullable',
             'id_status_perkawinan' => 'nullable',
             'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'nullable',
-            'nik_ibu' => 'nullable',
+            'nik_ayah' => 'required',
+            'nik_ibu' => 'required',
             'id_penduduk_tetap' => 'nullable',
             'alamat' => 'nullable',
             'telepon' => 'nullable',
@@ -105,8 +105,8 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'nullable',
             'id_status_perkawinan' => 'nullable',
             'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'nullable',
-            'nik_ibu' => 'nullable',
+            'nik_ayah' => 'required',
+            'nik_ibu' => 'required',
             'id_penduduk_tetap' => 'nullable',
             'alamat' => 'nullable',
             'telepon' => 'nullable',
@@ -125,5 +125,12 @@ class KependudukanController extends Controller
         Penduduk::destroy($data->id);
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil dihapus!');
+    }
+
+    public function getDataPenduduk($nama)
+    {
+        $data = Penduduk::where('nama', '=', $nama)->first();
+        
+        return response()->json($data);
     }
 }

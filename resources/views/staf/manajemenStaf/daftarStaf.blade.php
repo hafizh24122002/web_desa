@@ -44,24 +44,26 @@
 								<tr class="text-center align-middle">
 									<td>{{ $staf->firstitem() + $key }}</td>
 	
-									<td class="d-flex gap-1 justify-content-center">
-										<a href="/staf/manajemen-staf/edit-staf/{{ $data->id }}">
-											<button class="btn btn-sm btn-warning">
-												<i class="bx bx-edit-alt text-light"></i>
-											</button>
-										</a>
-	
-										<form action="/staf/manajemen-staf/{{ $data->id }}"
-											onsubmit="return confirm('Apakah anda yakin ingin menghapus staf dengan nama {{ $data->nama }}? Staf yang dihapus tidak akan bisa dikembalikan!')"
-											method="POST">
-											
-											@method('delete')
-											@csrf
-	
-											<button class="btn btn-sm btn-danger" type="submit">
-												<i class="bx bx-trash text-light"></i>
-											</button>
-										</form>
+									<td>
+										<div style="display: flex; gap: 5px; justify-content: center;">
+											<a href="/staf/manajemen-staf/edit-staf/{{ $data->id }}">
+												<button class="btn btn-sm btn-warning">
+													<i class="bx bx-edit-alt text-light"></i>
+												</button>
+											</a>
+		
+											<form action="/staf/manajemen-staf/{{ $data->id }}"
+												onsubmit="return confirm('Apakah anda yakin ingin menghapus staf dengan nama {{ $data->nama }}? Staf yang dihapus tidak akan bisa dikembalikan!')"
+												method="POST">
+												
+												@method('delete')
+												@csrf
+		
+												<button class="btn btn-sm btn-danger" type="submit">
+													<i class="bx bx-trash text-light"></i>
+												</button>
+											</form>
+										</div>
 									</td>
 	
 									<td>
@@ -93,7 +95,7 @@
 											@if ($data->id === $data_user->id_staf)
 												@php $exist = true; @endphp
 											@else
-											@php $exist = false; @endphp
+												@php $exist = false; @endphp
 											@endif
 										@endforeach
 

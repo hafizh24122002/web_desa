@@ -3,11 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Staf;
 use App\Models\User;
 
 class StafController extends Controller
 {
+    public function pohonStaf()
+    {
+        return view('staf.manajemenStaf.pohonStaf', [
+            'title' => 'Pohon Staf',
+            'staf' => Staf::all(),
+        ]);
+    }
+
+    public function getDataStaf()
+    {  
+        return response()->json(Staf::all());
+    }
+
     public function daftarStaf()
     {
         return view('staf.manajemenStaf.daftarStaf', [
@@ -27,17 +41,12 @@ class StafController extends Controller
     public function stafNewSubmit(Request $request)
     {
         $validateData = $request->validate([
-            'nip' => 'numeric',
+            'nip' => 'required|numeric',
             'nama' => 'required',
+            'jabatan' => 'required',
         ]);
 
-        $data = [
-            'nip' => $validateData['nip'],
-            'nama' => $validateData['nama'],
-            'jabatan' => $request->input('jabatan'),
-        ];
-
-        Staf::create($data);
+        Staf::create($validateData);
 
         return redirect('/staf/manajemen-staf/daftar-staf')->with('success', 'Staf berhasil ditambahkan!');
     }

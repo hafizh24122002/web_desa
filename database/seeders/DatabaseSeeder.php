@@ -8,14 +8,17 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Agama;
 use App\Models\Artikel;
 use App\Models\HubunganKK;
+use App\Models\IbuHamil;
 use App\Models\KelasSosial;
 use App\Models\Keluarga;
 use App\Models\Kesehatan;
 use App\Models\Kewarganegaraan;
+use App\Models\Kia;
 use App\Models\Pekerjaan;
 use App\Models\PendidikanSaatIni;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
+use App\Models\Posyandu;
 use App\Models\Rtm;
 use App\Models\StatusPerkawinan;
 use App\Models\Staf;
@@ -281,12 +284,35 @@ class DatabaseSeeder extends Seeder
             'telepon' => '081255598024',
         ]);
 
+        Penduduk::create([
+            'nama' => 'ANI',
+            'nik' => '1903051234567890',
+            'jenis_kelamin' => 'P',
+            'tempat_lahir' => 'BANGKA SELATAN',
+            'tanggal_lahir' => '1995-04-14',
+            'id_agama' => 1,
+            'id_status_perkawinan' => 2,
+            'id_kewarganegaraan' => 1,
+            'id_pekerjaan' => 2,
+            'penduduk_tetap' => true,
+        ]);
+
         Keluarga::create([
             'no_kk' => '6401042443210001',
             'nik_kepala' => '6401042412340001',
             'id_kelas_sosial' => '4',
             'alamat' => 'JL. MERPATI NO.51 RT.03/RW.02',
             'tgl_dikeluarkan' => '2006-04-15',
+        ]);
+
+        Posyandu::create([
+            'nama' => 'Posyandu Bakti Sehat',
+            'alamat' => 'Jl. Melati No. 123',
+        ]);
+
+        Kia::create([
+            'no_kia' => '12345',
+            'id_ibu' => 2,
         ]);
     }
 }

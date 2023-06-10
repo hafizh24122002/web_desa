@@ -24,7 +24,7 @@
 					@endif
 
 					<a href="/staf/manajemen-web/artikel/new-artikel" style="width: auto" class="btn btn-primary my-2">
-						<i class="bx bx-user-plus align-middle"></i> Tambah Artikel Baru
+						<i class="bx bx-plus align-middle"></i> Tambah Artikel Baru
 					</a>
 
 					<table class="table table-hover">

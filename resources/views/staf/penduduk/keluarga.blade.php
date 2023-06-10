@@ -45,24 +45,26 @@
 								<tr class="text-center align-middle">
 									<td>{{ $keluarga->firstitem() + $key }}</td>
 	
-									<td class="d-flex gap-1 justify-content-center">
-										<a href="/staf/kependudukan/keluarga/edit-keluarga/{{ $data->no_kk }}">
-											<button class="btn btn-sm btn-warning">
-												<i class="bx bx-edit-alt text-light"></i>
-											</button>
-										</a>
-	
-										<form action="/staf/kependudukan/keluarga/{{ $data->no_kk }}"
-											onsubmit="return confirm('Apakah anda yakin ingin menghapus keluarga dengan No. KK {{ $data->no_kk }}? Keluarga yang dihapus tidak akan bisa dikembalikan!')"
-											method="POST">
-											
-											@method('delete')
-											@csrf
-	
-											<button class="btn btn-sm btn-danger" type="submit">
-												<i class="bx bx-trash text-light"></i>
-											</button>
-										</form>
+									<td>
+										<div style="display: flex; gap: 5px; justify-content: center;">
+											<a href="/staf/kependudukan/keluarga/edit-keluarga/{{ $data->no_kk }}">
+												<button class="btn btn-sm btn-warning">
+													<i class="bx bx-edit-alt text-light"></i>
+												</button>
+											</a>
+		
+											<form action="/staf/kependudukan/keluarga/{{ $data->no_kk }}"
+												onsubmit="return confirm('Apakah anda yakin ingin menghapus keluarga dengan No. KK {{ $data->no_kk }}? Keluarga yang dihapus tidak akan bisa dikembalikan!')"
+												method="POST">
+												
+												@method('delete')
+												@csrf
+		
+												<button class="btn btn-sm btn-danger" type="submit">
+													<i class="bx bx-trash text-light"></i>
+												</button>
+											</form>
+										</div>
 									</td>
 	
 									<td>{{ $data->no_kk }}</td>

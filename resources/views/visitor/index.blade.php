@@ -46,7 +46,7 @@
     {{-- article-list --}}
     <div class="col">
         @foreach ($artikel as $item)
-            <a href="" class="text-reset text-decoration-none">
+            <a href="/artikel/{{ $item->judul }}" class="text-reset text-decoration-none">
                 <div class="card mb-3" style="width: 100%">
                     <div class="card-body flex-fill">
                         <h5 class="card-title"><strong>{{ $item->judul }}</strong></h5>
