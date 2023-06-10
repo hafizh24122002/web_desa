@@ -9,19 +9,21 @@ class IbuHamil extends Model
 {
     use HasFactory;
 
+    protected $table = 'ibu_hamil';
+
     /**
      * The attributes that are mass assignable
      * 
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_ibu_hamil',
         'id_posyandu',
         'id_kia',
+        'tanggal_periksa',
         'status_kehamilan',
         'usia_kehamilan',
         'tanggal_melahirkan',
-        'pemeriksaan_kelahiran',
+        'pemeriksaan_kehamilan',
         'konsumsi_pil_fe',
         'butir_pil_fe',
         'pemeriksaan_nifas',
@@ -38,7 +40,9 @@ class IbuHamil extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'pemeriksaan_kelahiran' => 'boolean',
+        'tanggal_periksa' => 'date',
+        'tanggal_melahirkan' => 'date',
+        'pemeriksaan_kehamilan' => 'boolean',
         'konsumsi_pil_fe' => 'boolean',
         'pemeriksaan_nifas' => 'boolean',
         'konseling_gizi' => 'boolean',
@@ -47,4 +51,20 @@ class IbuHamil extends Model
         'kepemilikan_jamban' => 'boolean',
         'jaminan_kesehatan' => 'boolean',
     ];
+
+    /**
+     * Get the posyandu associated with the ibuHamil.
+     */
+    public function posyandu()
+    {
+        return $this->belongsTo(Posyandu::class, 'id_posyandu');
+    }
+
+    /**
+     * Get the kia associated with the ibuHamil.
+     */
+    public function kia()
+    {
+        return $this->belongsTo(Kia::class, 'id_kia');
+    }
 }
