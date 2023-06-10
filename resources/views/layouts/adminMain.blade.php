@@ -41,8 +41,37 @@
 							<span class="nav-name">Pengguna</span>
 						</a>
 					@endif
+					
+					<div id="InfoDesa">
+						<div class="accordion-item">
+							<div class="accordion-header" id="infoDesaTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#infoDesa"
+									aria-expanded="false"
+									aria-controls="infoDesa"
+									href="/staf/info-desa">
 
-					<div id="Kependudukan"">
+									<i class='bx bx-building-house nav-icon'></i>
+									<span class="nav-name">Info Desa</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="infoDesaTitle"
+								data-bs-parent="#InfoDesa"
+								id="infoDesa">
+								
+								<a href="/staf/info-desa/identitas-desa" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bx-group nav-icon"></i>
+									<span class="nav-name">Identitas Desa</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div id="Kependudukan">
 						<div class="accordion-item">
 							<div class="accordion-header" id="pendudukTitle">
 								<button class="accordion-button collapsed nav-link"
@@ -177,6 +206,40 @@
 								<a href="/staf/layanan-surat/arsip-surat" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-archive nav-icon"></i>
 									<span class="nav-name">Arsip</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div id="BukuAdministrasiDesa">
+						<div class="accordion-item">
+							<div class="accordion-header" id="bukuAdministrasiDesaTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#bukuAdministrasiDesa"
+									aria-expanded="false"
+									aria-controls="bukuAdministrasiDesa"
+									href="/staf/layanan-surat">
+
+									<i class='bx bx-book nav-icon'></i>
+									<span class="nav-name">Buku Administrasi Desa</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="bukuAdministrasiDesaTitle"
+								data-bs-parent="#bukuAdministrasiDesa"
+								id="bukuAdministrasiDesa">
+								
+								<a href="/staf/buku-administrasi-desa/administrasi-umum" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-file nav-icon"></i>
+									<span class="nav-name">Administrasi Umum</span>
+								</a>
+
+								<a href="/staf/buku-administrasi-desa/administrasi-penduduk" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-group nav-icon"></i>
+									<span class="nav-name">Administrasi Penduduk</span>
 								</a>
 							</div>
 						</div>
