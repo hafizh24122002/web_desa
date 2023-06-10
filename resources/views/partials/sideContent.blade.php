@@ -75,7 +75,7 @@
 <style>
 .single_bottom_rightbar {
     margin-left: auto;
-    margin-right: 0;
-    width: 370px;
+    margin-right: 20;
+    width: 364px;
 }
 </style>
