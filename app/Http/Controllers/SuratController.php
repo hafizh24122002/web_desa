@@ -135,18 +135,9 @@ class SuratController extends Controller
         return $view;
     }
 
-    public function getDataPenduduk($nama)
-    {
-        $data = Penduduk::where('nama', '=', $nama)->first();
-        
-        return response()->json($data);
-    }
-
     private function suratSubmit(Request $request, $id = null)
     {
         $idTipeSurat = $request->input('id_tipe');
-
-        // dd($id);
 
         switch ($idTipeSurat) {
             /**

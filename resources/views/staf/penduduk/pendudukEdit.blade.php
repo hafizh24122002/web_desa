@@ -40,7 +40,7 @@
 						class="form-control form-control-sm @error('nik') is-invalid @enderror"
 						name="nik"
 						value="@if(null!==old('nik')){{old('nik')}}@else{{$penduduk->nik}}@endif"
-						placeholder="190305xxxxxxxxxx"
+						placeholder="1903051234567890"
 						required>
 					
 					@error('nik')
@@ -58,7 +58,7 @@
 						class="form-control form-control-sm"
 						name="no_kk"
 						value="@if(null!==old('no_kk')){{old('no_kk')}}@else{{$penduduk->no_kk}}@endif"
-						placeholder="190305xxxxxxxxxx">
+						placeholder="1903051234567890">
 				</div>
 			</div>
 
@@ -176,24 +176,24 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="nik_ayah" class="col-sm-3 col-form-label">NIK Ayah</label>
+				<label for="nik_ayah" class="col-sm-3 col-form-label">NIK Ayah<span style="color:red">*</span></label>
 				<div class="col-sm-9">
 					<input type="text"
 						class="form-control form-control-sm"
 						name="nik_ayah"
 						value="@if(null!==old('nik_ayah')){{old('nik_ayah')}}@else{{$penduduk->nik_ayah}}@endif"
-						placeholder="190305xxxxxxxxxx">
+						placeholder="1903051234567890">
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="nik_ibu" class="col-sm-3 col-form-label">NIK Ibu</label>
+				<label for="nik_ibu" class="col-sm-3 col-form-label">NIK Ibu<span style="color:red">*</span></label>
 				<div class="col-sm-9">
 					<input type="text"
 						class="form-control form-control-sm"
 						name="nik_ibu"
 						value="@if(null!==old('nik_ibu')){{old('nik_ibu')}}@else{{$penduduk->nik_ibu}}@endif"
-						placeholder="190305xxxxxxxxxx">
+						placeholder="1903051234567890">
 				</div>
 			</div>
 

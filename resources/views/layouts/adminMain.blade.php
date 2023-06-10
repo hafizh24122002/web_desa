@@ -77,6 +77,46 @@
 						</div>
 					</div>
 
+					<div id="Kesehatan"">
+						<div class="accordion-item">
+							<div class="accordion-header" id="kesehatanTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#kesehatan"
+									aria-expanded="false"
+									aria-controls="kesehatan"
+									href="/staf/kesehatan">
+
+									<i class='bx bx-health nav-icon'></i>
+									<span class="nav-name">Kesehatan</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="kesehatanTitle"
+								data-bs-parent="#Kesehatan"
+								id="kesehatan">
+								
+								<a href="/staf/kesehatan/posyandu" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bx-plus-medical nav-icon"></i>
+									<span class="nav-name">Posyandu</span>
+								</a>
+
+								<a href="/staf/kesehatan/kia" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-id-card nav-icon"></i>
+									<span class="nav-name">KIA</span>
+								</a>
+
+								<a href="/staf/kesehatan/pemantauan" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-calendar-check nav-icon"></i>
+									<span class="nav-name">Pemantauan</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
 					<div id="ManajemenStaf"">
 						<div class="accordion-item">
 							<div class="accordion-header" id="stafTitle">

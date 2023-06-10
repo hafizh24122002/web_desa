@@ -36,11 +36,18 @@ class ArtikelController extends Controller
 
     public function artikelNewSubmit(Request $request)
     {
+        $validatedData = $request->validate([
+            'judul' => 'required',
+            'content' => 'required',
+        ], [
+            'judul.required' => 'Judul artikel tidak boleh kosong!',
+            'isi.required' => 'Isi artikel tidak boleh kosong!',
+        ]);
         
         $data = [
             'id_staf' => auth()->user()->id,
-            'judul' => $request->input('judul'),
-            'isi' => $request->input('content'),
+            'judul' => $validatedData['judul'],
+            'isi' => $validatedData['content'],
             'is_active' => $request->input('is_active', false),
         ];
 
@@ -61,10 +68,15 @@ class ArtikelController extends Controller
 
     public function artikelEditSubmit(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'judul' => 'required',
+            'content' => 'required',
+        ]);
+        
         $data = [
             'id_staf' => auth()->user()->id,
-            'judul' => $request->input('judul'),
-            'isi' => $request->input('content'),
+            'judul' => $validatedData['judul'],
+            'isi' => $validatedData['content'],
             'is_active' => $request->input('is_active', false),
         ];
 
