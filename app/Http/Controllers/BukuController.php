@@ -15,18 +15,24 @@ use App\Models\Penduduk;
 use App\Models\Rt;
 use App\Models\StatusPerkawinan;
 
-class KependudukanController extends Controller
+class BukuController extends Controller
 {
-    public function kependudukan()
+    public function bukuIndukKependudukan()
     {
-        return view('staf.penduduk.kependudukan', [
-            'title' => 'Kependudukan',
+        return view('staf.bukuadministrasidesa.administrasiPenduduk', [
+            'title' => 'Buku Induk Penduduk',
             'penduduk' => Penduduk::select(
                 'nama',
                 'nik',
+                'tempat_lahir',
+                'tanggal_lahir',
                 'jenis_kelamin',
-                'telepon',
-                'penduduk_tetap',
+                'status',
+                'id_agama',
+                'id_pendidikan_terakhir',
+                'id_pekerjaan',
+                'nik_ayah',
+                'nik_ibu'
             )->paginate(10)
         ]);
     }
@@ -61,8 +67,8 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'nullable',
             'id_status_perkawinan' => 'nullable',
             'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'required',
-            'nik_ibu' => 'required',
+            'nik_ayah' => 'nullable',
+            'nik_ibu' => 'nullable',
             'id_penduduk_tetap' => 'nullable',
             'alamat' => 'nullable',
             'telepon' => 'nullable',
@@ -105,8 +111,8 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'nullable',
             'id_status_perkawinan' => 'nullable',
             'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'required',
-            'nik_ibu' => 'required',
+            'nik_ayah' => 'nullable',
+            'nik_ibu' => 'nullable',
             'id_penduduk_tetap' => 'nullable',
             'alamat' => 'nullable',
             'telepon' => 'nullable',
@@ -125,19 +131,5 @@ class KependudukanController extends Controller
         Penduduk::destroy($data->id);
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil dihapus!');
-    }
-
-    public function getDataPenduduk($nama)
-    {
-        $data = Penduduk::where('nama', '=', $nama)->first();
-        
-        return response()->json($data);
-    }
-
-    public function getTanggalLahir($nik)
-    {
-        $penduduk = Penduduk::where('nik', $nik)->firstOrFail();
-
-        return response()->json(['tanggal_lahir' => $penduduk->tanggal_lahir]);
     }
 }
