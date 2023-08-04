@@ -64,7 +64,7 @@
 							<div class="carousel-item active" style="text-align: center">
 							<img class="d-block w-100" src="https://demosid.opendesa.id/assets/images/pengguna/kuser.png" alt="First slide">
 							<tr>
-								<th id="label-meta-agenda" width="30%"><b>Nana</b></th>
+								<th id="label-meta-agenda" width="30%"><b>Riza Umami</b></th>
 								<br>
 								<td width="5%">Kepala Desa</td>
 								<br>
