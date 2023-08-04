@@ -77,8 +77,10 @@
 	<div class="body-wrapper">
 		@yield('main-content')
 		@include('partials.commonScripts')
+		@include('partials.sideContent')
 	</div>
 
 </body>
+	@include('partials.sideContent')
 	@include('partials.visitorFooter')
 </html>

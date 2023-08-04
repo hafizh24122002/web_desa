@@ -9,6 +9,8 @@ use App\Http\Controllers\StafController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\BukuController;
+use App\Http\Controllers\InfoDesaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -110,6 +112,11 @@ Route::get('/staf/layanan-surat/arsip-surat/edit-surat/{id}/{filename}', [SuratC
 Route::put('/staf/layanan-surat/arsip-surat/edit-surat/{id}/{filename}', [SuratController::class, 'suratEditSubmit'])->middleware('auth');
 Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratController::class, 'suratDelete'])->middleware('auth');
 
+Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan'])->middleware('auth');
+Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan'])->middleware('auth');
+
+Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'identitasDesa'])->middleware('auth');
+Route::get('/staf/info-desa/identitas-desa/form', [InfoDesaController::class, 'identitasDesaEdit'])->middleware('auth');
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
