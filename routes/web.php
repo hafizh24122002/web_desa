@@ -9,6 +9,7 @@ use App\Http\Controllers\StafController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\InfoDesaController;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,8 @@ Route::post('/staf/kependudukan/keluarga/new-keluarga', [KeluargaController::cla
 Route::get('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaEdit'])->middleware('auth');
 Route::put('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaEditSubmit'])->middleware('auth');
 Route::delete('/staf/kependudukan/keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete'])->middleware('auth');
+
+Route::get('/staf/statistik/statistik-kependudukan', [StatistikController::class, 'statistik'])->middleware('auth');
 
 Route::get('/staf/kesehatan/posyandu', [KesehatanController::class, 'posyandu'])->middleware('auth');
 Route::get('/staf/kesehatan/posyandu/new-posyandu', [KesehatanController::class, 'posyanduNew'])->middleware('auth');

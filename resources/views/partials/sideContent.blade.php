@@ -102,4 +102,5 @@
 
 h2 {
 	font-size: 25px;
+}
 </style>
