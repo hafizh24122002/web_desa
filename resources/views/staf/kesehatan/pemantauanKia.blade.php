@@ -27,9 +27,9 @@
 					<div class="tabs">
 						
 						<hr>
-						<input type="radio" id="tab1" name="tab-control" checked>
-						<input type="radio" id="tab2" name="tab-control">
-						<input type="radio" id="tab3" name="tab-control">
+						<input type="radio" id="tab1" name="tab-control" {{ session('currentRoute', 'tab1') === 'tab1' ? 'checked' : '' }}>
+						<input type="radio" id="tab2" name="tab-control" {{ session('currentRoute', 'tab1') === 'tab2' ? 'checked' : '' }}>
+						<input type="radio" id="tab3" name="tab-control" {{ session('currentRoute', 'tab1') === 'tab3' ? 'checked' : '' }}>
 						
 						<ul>
 							<li title="Ibu Hamil per Bulan">

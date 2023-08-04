@@ -133,4 +133,11 @@ class KependudukanController extends Controller
         
         return response()->json($data);
     }
+
+    public function getTanggalLahir($nik)
+    {
+        $penduduk = Penduduk::where('nik', $nik)->firstOrFail();
+
+        return response()->json(['tanggal_lahir' => $penduduk->tanggal_lahir]);
+    }
 }

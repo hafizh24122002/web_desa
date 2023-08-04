@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/letterNameAutoComplete.css') }}">
 <link rel="stylesheet" href="{{ asset('css/quill.snow.css') }}">
-
+<link rel="stylesheet" href="{{ asset('css/quill.imageUploader.min.css') }}">
 
 <div class="row mt-3 container">
 	<div class="col-lg">
@@ -68,7 +68,9 @@
 @include('partials.commonScripts')
 
 <script src="{{ asset('js/quill.min.js') }}"></script>
+<script src="{{ asset('js/quill.imageUploader.min.js') }}"></script>
 <script>
+	const csrfToken = "{{ csrf_token() }}";
 
 	var toolbarOptions = [
 		['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -86,9 +88,37 @@
 		['clean']                                         // remove formatting button
 	];
 
+	Quill.register('modules/imageUploader', ImageUploader);
+
 	var quill = new Quill('#editor', {
 		modules: {
-			toolbar: toolbarOptions
+			toolbar: toolbarOptions,
+			imageUploader: {
+				upload: (file) => {
+					return new Promise((resolve, reject) =>{
+						const formData = new FormData();
+                  		formData.append("image", file);
+
+						fetch("/staf/manajemen-web/artikel/upload-image", {
+								method: "POST",
+								body: formData,
+								headers: {
+									"X-CSRF-TOKEN": csrfToken
+								}
+							}
+						)
+						.then((response) => response.json())
+						.then((result) => {
+							console.log(result);
+							resolve(result.data.url);
+						})
+						.catch((error) => {
+							reject("Upload Gagal!");
+							console.error(error);
+						});
+					});
+				},
+			}
 		},
 		theme: 'snow',
 		placeholder: 'Tulis isi artikel anda disini',

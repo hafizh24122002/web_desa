@@ -49,6 +49,7 @@ Route::get('/staf/kependudukan/penduduk/edit-penduduk/{penduduk:nik}', [Kependud
 Route::put('/staf/kependudukan/penduduk/edit-penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukEditSubmit'])->middleware('auth');
 Route::delete('/staf/kependudukan/penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukDelete'])->middleware('auth');
 Route::get('/staf/kependudukan/penduduk/get-data/{nama}', [KependudukanController::class, 'getDataPenduduk'])->middleware('auth');
+Route::get('/staf/kependudukan/penduduk/get-data/tanggal-lahir/{nik}', [KependudukanController::class, 'getTanggalLahir'])->middleware('auth');
 
 Route::get('/staf/kependudukan/keluarga', [KeluargaController::class, 'keluarga'])->middleware('auth');
 Route::get('/staf/kependudukan/keluarga/new-keluarga', [KeluargaController::class, 'keluargaNew'])->middleware('auth');
@@ -77,6 +78,10 @@ Route::put('/staf/kesehatan/pemantauan/edit-pemantauan-ibu/{id}', [KesehatanCont
 Route::delete('staf/kesehatan/pemantauan/ibu/{id}', [KesehatanController::class, 'pemantauanIbuDelete'])->middleware('auth');
 Route::get('staf/kesehatan/pemantauan/new-pemantauan-anak', [KesehatanController::class, 'pemantauanAnakNew'])->middleware('auth');
 Route::post('staf/kesehatan/pemantauan/new-pemantauan-anak', [KesehatanController::class, 'pemantauanAnakNewSubmit'])->middleware('auth');
+Route::get('staf/kesehatan/pemantauan/edit-pemantauan-anak/{id}', [KesehatanController::class, 'pemantauanAnakEdit'])->middleware('auth');
+Route::put('staf/kesehatan/pemantauan/edit-pemantauan-anak/{id}', [KesehatanController::class, 'pemantauanAnakEditSubmit'])->middleware('auth');
+Route::delete('staf/kesehatan/pemantauan/anak/{id}', [KesehatanController::class, 'pemantauanAnakDelete'])->middleware('auth');
+Route::get('staf/kesehatan/pemantauan/new-sasaran-paud', [KesehatanController::class, 'sasaranPaudNew'])->middleware('auth');
 
 Route::get('/staf/manajemen-staf/', [StafController::class, 'pohonStaf'])->middleware('auth');
 Route::get('/staf/manajemen-staf/get-data', [StafController::class, 'getDataStaf'])->middleware('auth');
@@ -94,6 +99,7 @@ Route::post('/staf/manajemen-web/artikel/new-artikel', [ArtikelController::class
 Route::get('/staf/manajemen-web/artikel/edit-artikel/{id}', [ArtikelController::class, 'artikelEdit'])->middleware('auth');
 Route::put('/staf/manajemen-web/artikel/edit-artikel/{id}', [ArtikelController::class, 'artikelEditSubmit'])->middleware('auth');
 Route::delete('/staf/manajemen-web/artikel/{id}', [ArtikelController::class, 'artikelDelete'])->middleware('auth');
+Route::post('/staf/manajemen-web/artikel/upload-image', [ArtikelController::class, 'storeImage'])->middleware('auth');
 
 Route::get('/staf/layanan-surat/buat-surat', [SuratController::class, 'suratNew'])->middleware('auth');
 Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput'])->middleware('auth');
@@ -108,3 +114,4 @@ Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratControlle
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
+

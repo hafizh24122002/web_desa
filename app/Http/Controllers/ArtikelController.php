@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Artikel;
 
@@ -89,5 +91,30 @@ class ArtikelController extends Controller
         Artikel::destroy($id);
 
         return redirect('/staf/manajemen-web/artikel')->with('success', 'Artikel berhasil dihapus');
+    }
+
+    public function storeImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|max:20480',
+        ]);
+
+        $image = $request->file('image');
+        $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
+        $path = $image->storeAs('images', $filename, 'public');
+
+        $newImage = new Image();
+        $newImage->filename = $filename;
+        $newImage->path = $path;
+        $newImage->user_id = auth()->id();
+        $newImage->save();
+
+        return response()->json([
+            'success' => true,
+            'image' => [
+                'id' => $newImage->id,
+                'url' => asset('storage/' . $path),
+            ],
+        ]);
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Kia;
 use App\Models\Penduduk;
 use App\Models\IbuHamil;
 use App\Models\KiaAnak;
+use App\Models\SasaranPaud;
 
 class KesehatanController extends Controller
 {
@@ -172,6 +173,7 @@ class KesehatanController extends Controller
             'title' => 'Pemantauan Kesehatan Ibu dan Anak',
             'ibu' => IbuHamil::with('posyandu', 'kia')->paginate(10),
             'anak' => KiaAnak::with('posyandu', 'kia')->paginate(10),
+            'paud' => SasaranPaud::with('kia')->paginate(10),
         ]);
     }
 
@@ -223,7 +225,9 @@ class KesehatanController extends Controller
 
         IbuHamil::create($data);
 
-        return redirect('/staf/kesehatan/pemantauan')->with('success', 'Data pemantauan ibu hamil berhasil ditambahkan!');
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data pemantauan ibu hamil berhasil ditambahkan!')
+            ->with('currentRoute', 'tab1');
     }
 
     public function pemantauanIbuEdit($id)
@@ -274,14 +278,18 @@ class KesehatanController extends Controller
 
         IbuHamil::find($id)->update($data);
 
-        return redirect('/staf/kesehatan/pemantauan')->with('success', 'Data pemantauan ibu hamil berhasil diubah!');
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data pemantauan ibu hamil berhasil diubah!')
+            ->with('currentRoute', 'tab1');
     }
 
     public function pemantauanIbuDelete($id)
     {
         IbuHamil::destroy($id);
 
-        return redirect('/staf/kesehatan/pemantauan')->with('success', 'Data pemantauan ibu hamil berhasil dihapus!');
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data pemantauan ibu hamil berhasil dihapus!')
+            ->with('currentRoute', 'tab1');
     }
 
     public function pemantauanAnakNew()
@@ -341,6 +349,88 @@ class KesehatanController extends Controller
 
         KiaAnak::create($data);
 
-        return redirect('/staf/kesehatan/pemantauan')->with('success', 'Data pemantauan anak berhasil ditambahkan!');
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data pemantauan anak berhasil ditambahkan!')
+            ->with('currentRoute', 'tab2');
+    }
+
+    public function pemantauanAnakEdit($id)
+    {
+        return view('staf.kesehatan.pemantauanKiaAnakEdit', [
+            'title' => 'Ubah Data Anak',
+            'posyandu' => Posyandu::all(),
+            'kia' => Kia::whereNotNull('id_anak')->get(),
+            'kia_anak' => KiaAnak::find($id),
+        ]);
+    }
+
+    public function pemantauanAnakEditSubmit(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'id_kia' => 'required',
+            'tanggal_periksa' => 'required',
+            'id_posyandu' => 'required',
+            'status_gizi_anak' => 'required',
+            'umur' => 'nullable',
+            'hasil_status_tikar' => 'required',
+            'imunisasi_campak' => 'required',
+            'berat_badan' => 'nullable|required_if:pengukuran_berat_badan,on',
+            'tinggi_badan' => 'nullable|required_if:pengukuran_tinggi_badan,on',
+        ], [
+            'id_kia.required' => 'Nomor KIA tidak boleh kosong!',
+            'tanggal_periksa.required' => 'Tanggal periksa tidak boleh kosong!',
+            'id_posyandu.required' => 'Posyandu tidak boleh kosong!',
+            'status_gizi_anak.required' => 'Status kehamilan tidak boleh kosong!',
+            'hasil_status_tikar.required' => 'Hasil status tikar tidak boleh kosong!',
+            'imunisasi_campak.required' => 'Imunisasi campak tidak boleh kosong!',
+            'berat_badan.required_if' => 'Berat badan tidak boleh kosong jika pengukuran berat badan dicentang!',
+            'tinggi_badan.required_if' => 'Tinggi badan tidak boleh kosong jika pengukuran tinggi badan dicentang!',
+        ]);
+
+        $data = [
+            'id_kia' => $validatedData['id_kia'],
+            'tanggal_periksa' => $validatedData['tanggal_periksa'],
+            'id_posyandu' => $validatedData['id_posyandu'],
+            'status_gizi_anak' => $validatedData['status_gizi_anak'],
+            'umur' => $validatedData['umur'],
+            'hasil_status_tikar' => $validatedData['hasil_status_tikar'],
+            'imunisasi_campak' => $validatedData['imunisasi_campak'],
+            'berat_badan' => $validatedData['berat_badan'],
+            'tinggi_badan' => $validatedData['tinggi_badan'],
+            'imunisasi_dasar' => $request->input('imunisasi_dasar') ? true : false,
+            'pengukuran_berat_badan' => $request->input('pengukuran_berat_badan') ? true : false,
+            'pengukuran_tinggi_badan' => $request->input('pengukuran_tinggi_badan') ? true : false,
+            'konseling_gizi_ayah' => $request->input('konseling_gizi_ayah') ? true : false,
+            'konseling_gizi_ibu' => $request->input('konseling_gizi_ibu') ? true : false,
+            'kunjungan_rumah' => $request->input('kunjungan_rumah') ? true : false,
+            'akses_air_bersih' => $request->input('akses_air_bersih') ? true : false,
+            'kepemilikan_jamban' => $request->input('kepemilikan_jamban') ? true : false,
+            'akta_lahir' => $request->input('akta_lahir') ? true : false,
+            'jaminan_kesehatan' => $request->input('jaminan_kesehatan') ? true : false,
+            'pengasuhan_paud' => $request->input('pengasuhan_paud') ? true : false,
+        ];
+
+        KiaAnak::find($id)->update($data);
+
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data pemantauan anak berhasil diubah!')
+            ->with('currentRoute', 'tab2');
+    }
+
+    public function pemantauanAnakDelete($id)
+    {
+        KiaAnak::destroy($id);
+
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data pemantauan anak berhasil dihapus!')
+            ->with('currentRoute', 'tab2');
+    }
+
+    public function sasaranPaudNew()
+    {
+        return view('staf.kesehatan.pemantauanKiaPaudNew', [
+            'title' => 'Tambah Data Sasaran PAUD Anak',
+            'kia' => Kia::whereNotNull('id_anak')->get(),
+        ]);
     }
 }

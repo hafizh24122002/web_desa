@@ -10,7 +10,8 @@
 		<div class="content">
 			<div class="row mt-3 container">
 				<div class="col-lg">
-					<form action="/staf/kesehatan/pemantauan/new-pemantauan-anak" method="POST">
+					<form action="/staf/kesehatan/pemantauan/edit-pemantauan-anak/{{ $kia_anak->id }}" method="POST">
+						@method('put')
 						@csrf
 			
 						<div class="form-group row">
@@ -19,7 +20,7 @@
 								<select class="form-select form-select-sm @error('id_kia') is-invalid @enderror" id="id_kia" name="id_kia" onchange="updateUmurField()">
 									<option value="">-- Pilih --</option>
 									@foreach ($kia as $item)
-										<option value="{{ $item->id }}" {{ old('id_kia') == $item->id ? 'selected' : '' }} nik="{{ $item->anak->nik }}">{{ $item->no_kia.' - '.$item->anak->nama }}</option>
+										<option value="{{ $item->id }}" {{ (old('id_kia') ?? $kia_anak->id_kia) == $item->id ? 'selected' : '' }} nik="{{ $item->anak->nik }}">{{ $item->no_kia.' - '.$item->anak->nama }}</option>
 									@endforeach
 								</select>
 
@@ -37,7 +38,7 @@
 								<input type="date"
 									class="form-control form-control-sm @error('tanggal_periksa') is-invalid @enderror"
 									name="tanggal_periksa"
-									value="{{ old('tanggal_periksa') }}">
+									value="{{ old('tanggal_periksa') ?? $kia_anak->tanggal_periksa->format('Y-m-d') }}">
 
 								@error('tanggal_periksa')
 									<div class="invalid-feedback">
@@ -53,7 +54,7 @@
 								<select class="form-select form-select-sm @error('id_posyandu') is-invalid @enderror" id="id_posyandu" name="id_posyandu">
 									<option value="">-- Pilih --</option>
 									@foreach ($posyandu as $item)
-										<option value="{{ $loop->iteration }}" {{ old('id_posyandu') == $loop->iteration ? 'selected' : '' }}>{{ $item->nama }}</option>
+										<option value="{{ $loop->iteration }}" {{ (old('id_posyandu') ?? $kia_anak->id_posyandu) == $loop->iteration ? 'selected' : '' }}>{{ $item->nama }}</option>
 									@endforeach
 								</select>
 
@@ -70,10 +71,10 @@
 							<div class="col-sm-9">
 								<select class="form-select form-select-sm @error('status_gizi_anak') is-invalid @enderror" id="status_gizi_anak" name="status_gizi_anak">
 									<option value="">-- Pilih --</option>
-									<option value="Sehat / Normal (N)" {{ old('status_gizi_anak') == 'Sehat / Normal (N)' ? 'selected' : '' }}>Sehat / Normal (N)</option>
-									<option value="Gizi Kurang (GK)" {{ old('status_gizi_anak') == 'Gizi Kurang (GK)' ? 'selected' : '' }}>Gizi Kurang (GK)</option>
-									<option value="Gizi Buruk(GB)" {{ old('status_gizi_anak') == 'Gizi Buruk(GB)' ? 'selected' : '' }}>Gizi Buruk(GB)</option>
-									<option value="Stunting (S)" {{ old('status_gizi_anak') == 'Stunting (S)' ? 'selected' : '' }}>Stunting (S)</option>
+									<option value="Sehat / Normal (N)" {{ (old('status_gizi_anak') ?? $kia_anak->status_gizi_anak) == 'Sehat / Normal (N)' ? 'selected' : '' }}>Sehat / Normal (N)</option>
+									<option value="Gizi Kurang (GK)" {{ (old('status_gizi_anak') ?? $kia_anak->status_gizi_anak) == 'Gizi Kurang (GK)' ? 'selected' : '' }}>Gizi Kurang (GK)</option>
+									<option value="Gizi Buruk(GB)" {{ (old('status_gizi_anak') ?? $kia_anak->status_gizi_anak) == 'Gizi Buruk(GB)' ? 'selected' : '' }}>Gizi Buruk(GB)</option>
+									<option value="Stunting (S)" {{ (old('status_gizi_anak') ?? $kia_anak->status_gizi_anak) == 'Stunting (S)' ? 'selected' : '' }}>Stunting (S)</option>
 								</select>
 
 								@error('status_gizi_anak')
@@ -92,7 +93,7 @@
 									name="umur"
 									id="umur"
 									placeholder="Umur dalam Bulan"
-									value="{{ old('umur')  }}" readonly>
+									value="{{ old('umur') ?? $kia_anak->umur }}" readonly>
 
 								@error('umur')
 									<div class="invalid-feedback">
@@ -107,10 +108,10 @@
 							<div class="col-sm-9">
 								<select class="form-select form-select-sm @error('hasil_status_tikar') is-invalid @enderror" id="hasil_status_tikar" name="hasil_status_tikar">
 									<option value="">-- Pilih --</option>
-									<option value="Tidak Diukur (D)" {{ old('hasil_status_tikar') == 'Tidak Diukur (D)' ? 'selected' : '' }}>Tidak Diukur (D)</option>
-									<option value="Merah (M)" {{ old('hasil_status_tikar') == 'Merah (M)' ? 'selected' : '' }}>Merah (M)</option>
-									<option value="Kuning (K)" {{ old('hasil_status_tikar') == 'Kuning (K)' ? 'selected' : '' }}>Kuning (K)</option>
-									<option value="Hijau (H)" {{ old('hasil_status_tikar') == 'Hijau (H)' ? 'selected' : '' }}>Hijau (H)</option>
+									<option value="Tidak Diukur (D)" {{ (old('hasil_status_tikar') ?? $kia_anak->hasil_status_tikar) == 'Tidak Diukur (D)' ? 'selected' : '' }}>Tidak Diukur (D)</option>
+									<option value="Merah (M)" {{ (old('hasil_status_tikar') ?? $kia_anak->hasil_status_tikar) == 'Merah (M)' ? 'selected' : '' }}>Merah (M)</option>
+									<option value="Kuning (K)" {{ (old('hasil_status_tikar') ?? $kia_anak->hasil_status_tikar) == 'Kuning (K)' ? 'selected' : '' }}>Kuning (K)</option>
+									<option value="Hijau (H)" {{ (old('hasil_status_tikar') ?? $kia_anak->hasil_status_tikar) == 'Hijau (H)' ? 'selected' : '' }}>Hijau (H)</option>
 								</select>
 
 								@error('hasil_status_tikar')
@@ -126,8 +127,8 @@
 							<div class="col-sm-9">
 								<select class="form-select form-select-sm @error('imunisasi_campak') is-invalid @enderror" id="imunisasi_campak" name="imunisasi_campak">
 									<option value="">-- Pilih --</option>
-									<option value="0" {{ old('imunisasi_campak') == '0' ? 'selected' : '' }}>Belum</option>
-									<option value="1" {{ old('imunisasi_campak') == '1' ? 'selected' : '' }}>Sudah</option>
+									<option value="0" {{ (old('imunisasi_campak') ?? $kia_anak->imunisasi_campak) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('imunisasi_campak') ?? $kia_anak->imunisasi_campak) == '1' ? 'selected' : '' }}>Sudah</option>
 								</select>
 
 								@error('imunisasi_campak')
@@ -145,7 +146,7 @@
 									class="form-control form-control-sm @error('berat_badan') is-invalid @enderror"
 									name="berat_badan"
 									placeholder="Berat Badan (kg)"
-									value="{{ old('berat_badan') }}">
+									value="{{ old('berat_badan') ?? $kia_anak->berat_badan }}">
 
 								@error('berat_badan')
 									<div class="invalid-feedback">
@@ -162,7 +163,7 @@
 									class="form-control form-control-sm @error('tinggi_badan') is-invalid @enderror"
 									name="tinggi_badan"
 									placeholder="Tinggi Badan (cm)"
-									value="{{ old('tinggi_badan') }}">
+									value="{{ old('tinggi_badan') ?? $kia_anak->tinggi_badan }}">
 
 								@error('tinggi_badan')
 									<div class="invalid-feedback">
@@ -178,63 +179,63 @@
 
 						<div class="form-group row mt-2">
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="imunisasi_dasar" id="imunisasi_dasar" {{ old('imunisasi_dasar') ? 'checked' : '' }}>
+								<input type="checkbox" name="imunisasi_dasar" id="imunisasi_dasar" {{ (old('imunisasi_dasar') ?? $kia_anak->imunisasi_dasar) ? 'checked' : '' }}>
 								<label for="imunisasi_dasar">Imunisasi Dasar</label>
 							</div>
 
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="pengukuran_berat_badan" id="pengukuran_berat_badan" {{ old('pengukuran_berat_badan') ? 'checked' : '' }}>
+								<input type="checkbox" name="pengukuran_berat_badan" id="pengukuran_berat_badan" {{ (old('pengukuran_berat_badan') ?? $kia_anak->pengukuran_berat_badan) ? 'checked' : '' }}>
 								<label for="pengukuran_berat_badan">Pengukuran Berat Badan</label>
 							</div>
 
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="pengukuran_tinggi_badan" id="pengukuran_tinggi_badan" {{ old('pengukuran_tinggi_badan') ? 'checked' : '' }}>
+								<input type="checkbox" name="pengukuran_tinggi_badan" id="pengukuran_tinggi_badan" {{ (old('pengukuran_tinggi_badan') ?? $kia_anak->pengukuran_tinggi_badan) ? 'checked' : '' }}>
 								<label for="pengukuran_tinggi_badan">Pengukuran Tinggi Badan</label>
 							</div>
 						</div>
 
 						<div class="form-group row">
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="konseling_gizi_ayah" id="konseling_gizi_ayah" {{ old('konseling_gizi_ayah') ? 'checked' : '' }}>
+								<input type="checkbox" name="konseling_gizi_ayah" id="konseling_gizi_ayah" {{ (old('konseling_gizi_ayah') ?? $kia_anak->konseling_gizi_ayah) ? 'checked' : '' }}>
 								<label for="konseling_gizi_ayah">Konseling Gizi Ayah</label>
 							</div>
 
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="konseling_gizi_ibu" id="konseling_gizi_ibu" {{ old('konseling_gizi_ibu') ? 'checked' : '' }}>
+								<input type="checkbox" name="konseling_gizi_ibu" id="konseling_gizi_ibu" {{ (old('konseling_gizi_ibu') ?? $kia_anak->konseling_gizi_ibu) ? 'checked' : '' }}>
 								<label for="konseling_gizi_ibu">Konseling Gizi Ayah</label>
 							</div>
 
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="kunjungan_rumah" id="kunjungan_rumah" {{ old('kunjungan_rumah') ? 'checked' : '' }}>
+								<input type="checkbox" name="kunjungan_rumah" id="kunjungan_rumah" {{ (old('kunjungan_rumah') ?? $kia_anak->kunjungan_rumah) ? 'checked' : '' }}>
 								<label for="kunjungan_rumah">Kunjungan Rumah</label>
 							</div>
 						</div>
 
 						<div class="form-group row">
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="akses_air_bersih" id="akses_air_bersih" {{ old('akses_air_bersih') ? 'checked' : '' }}>
+								<input type="checkbox" name="akses_air_bersih" id="akses_air_bersih" {{ (old('akses_air_bersih') ?? $kia_anak->akses_air_bersih) ? 'checked' : '' }}>
 								<label for="akses_air_bersih">Kepemilikan Akses Air Bersih</label>
 							</div>
 
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="kepemilikan_jamban" id="kepemilikan_jamban" {{ old('kepemilikan_jamban') ? 'checked' : '' }}>
+								<input type="checkbox" name="kepemilikan_jamban" id="kepemilikan_jamban" {{ (old('kepemilikan_jamban') ?? $kia_anak->kepemilikan_jamban) ? 'checked' : '' }}>
 								<label for="kepemilikan_jamban">Kepemilikan Jamban Sehat</label>
 							</div>
 
 							<div class="col-sm d-flex gap-2">
-								<input type="checkbox" name="akta_lahir" id="akta_lahir" {{ old('akta_lahir') ? 'checked' : '' }}>
+								<input type="checkbox" name="akta_lahir" id="akta_lahir" {{ (old('akta_lahir') ?? $kia_anak->akta_lahir) ? 'checked' : '' }}>
 								<label for="akta_lahir">Akta Lahir</label>
 							</div>
 						</div>
 
 						<div class="form-group row">
 							<div class="col-sm-4 d-flex gap-2">
-								<input type="checkbox" name="jaminan_kesehatan" id="jaminan_kesehatan" {{ old('jaminan_kesehatan') ? 'checked' : '' }}>
+								<input type="checkbox" name="jaminan_kesehatan" id="jaminan_kesehatan" {{ (old('jaminan_kesehatan') ?? $kia_anak->jaminan_kesehatan) ? 'checked' : '' }}>
 								<label for="jaminan_kesehatan">Jaminan Kesehatan</label>
 							</div>
 
 							<div class="col-sm-4 d-flex gap-2">
-								<input type="checkbox" name="pengasuhan_paud" id="pengasuhan_paud" {{ old('pengasuhan_paud') ? 'checked' : '' }}>
+								<input type="checkbox" name="pengasuhan_paud" id="pengasuhan_paud" {{ (old('pengasuhan_paud') ?? $kia_anak->pengasuhan_paud) ? 'checked' : '' }}>
 								<label for="pengasuhan_paud">Pengasuhan (PAUD)</label>
 							</div>
 						</div>
@@ -242,7 +243,7 @@
 						<br>
 			
 						<div class="d-sm-flex justify-content-md-end">
-							<button class="btn btn-primary mt-2 mb-4 px-3 py-1">Tambah Data Pemantauan Anak</button>
+							<button class="btn btn-primary mt-2 mb-4 px-3 py-1">Ubah Data Pemantauan Anak</button>
 						</div>
 					</form>
 				</div>

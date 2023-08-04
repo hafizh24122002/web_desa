@@ -73,7 +73,7 @@
 
 				<td>{{ $data->kia->anak->jenis_kelamin }}</td>
 
-				<td>{{ $data->kia->anak->tanggal_lahir ?? '-' }}</td>
+				<td>{{ $data->kia->anak->tanggal_lahir ? \Illuminate\Support\Carbon::parse($data->kia->anak->tanggal_lahir)->translatedFormat('jS F Y') : '-' }}</td>
 
 				<td>{{ $data->status_gizi_anak }}</td>
 
@@ -82,7 +82,7 @@
 				<td>{{ $data->tinggi_badan ?? '-' }}</td>
 
 				<td>
-					{{ $data->kia->anak->tanggal_lahir ? Carbon\Carbon::createFromFormat('Y-m-d', $data->kia->anak->tanggal_lahir)->diffInMonths($data->tanggal_periksa) : '-' }}
+					{{ $data->umur ?? '-' }}
 				</td>
 				
 				<td>{{ $data->hasil_status_tikar }}</td>
