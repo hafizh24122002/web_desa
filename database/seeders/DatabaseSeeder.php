@@ -291,6 +291,7 @@ class DatabaseSeeder extends Seeder
             'tempat_lahir' => 'BANGKA SELATAN',
             'tanggal_lahir' => '1995-04-14',
             'id_agama' => 1,
+            'id_pendidikan_terakhir' => 2,
             'id_status_perkawinan' => 2,
             'id_kewarganegaraan' => 1,
             'id_pekerjaan' => 2,
