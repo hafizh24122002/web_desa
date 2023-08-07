@@ -11,6 +11,11 @@
 	--z-fixed: 100
 }
 
+::selection {
+	background-color: #0dcaf0;
+	color: white;
+}
+
 *,
 ::before,
 ::after {
@@ -208,4 +213,9 @@ a {
 #statistikBar .list-group {
     border-radius: 0%;
     width: 250px;
+}
+
+.sortable:hover {
+    cursor: pointer;
+	background-color: #495057;
 }

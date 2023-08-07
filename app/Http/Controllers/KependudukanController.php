@@ -17,17 +17,39 @@ use App\Models\StatusPerkawinan;
 
 class KependudukanController extends Controller
 {
-    public function kependudukan()
+    public function kependudukan(Request $request)
     {
+        $search = $request->input('search');
+        $sortField = $request->input('sort_field', 'nik'); // Default sorting field
+        $sortOrder = $request->input('sort_order', 'asc'); // Default sorting order
+
+        $query = Penduduk::select(
+            'nama',
+            'nik',
+            'jenis_kelamin',
+            'telepon',
+            'penduduk_tetap'
+        );
+
+        if ($search) {
+            $query->where('nama', 'LIKE', '%' . $search . '%')
+                ->orWhere('nik', 'LIKE', '%' . $search . '%');
+        }
+
+        $query->orderBy($sortField, $sortOrder);
+
+        $penduduk = $query->paginate(10);
+
+        if ($request->ajax()) {
+            return view('partials.pendudukTable', ['penduduk' => $penduduk])->render();
+        }
+
         return view('staf.penduduk.kependudukan', [
             'title' => 'Kependudukan',
-            'penduduk' => Penduduk::select(
-                'nama',
-                'nik',
-                'jenis_kelamin',
-                'telepon',
-                'penduduk_tetap',
-            )->paginate(10)
+            'penduduk' => $penduduk,
+            'search' => $search,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
         ]);
     }
 
@@ -68,6 +90,10 @@ class KependudukanController extends Controller
             'telepon' => 'nullable',
             'status' => 'nullable',
         ]);
+
+        $validatedData['nama'] = strtoupper($validatedData['nama']);
+        $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
+        $validatedData['alamat'] = strtoupper($validatedData['alamat']);
 
         Penduduk::create($validatedData);
 
@@ -112,6 +138,10 @@ class KependudukanController extends Controller
             'telepon' => 'nullable',
             'status' => 'nullable',
         ]);
+
+        $validatedData['nama'] = strtoupper($validatedData['nama']);
+        $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
+        $validatedData['alamat'] = strtoupper($validatedData['alamat']);
 
         Penduduk::firstWhere('nik', $penduduk->nik)->update($validatedData);
 
