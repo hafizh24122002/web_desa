@@ -146,6 +146,36 @@
 						</div>
 					</div>
 
+					<div id="Statistik"">
+						<div class="accordion-item">
+							<div class="accordion-header" id="statistikTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#statistik"
+									aria-expanded="false"
+									aria-controls="statistik"
+									href="/staf/statistik">
+
+									<i class='bi bi-clipboard-data nav-icon'></i>
+									<span class="nav-name">Statistik</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="statistikTitle"
+								data-bs-parent="#Statistik"
+								id="statistik">
+								
+								<a href="/staf/statistik/statistik-kependudukan" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bi bi-layout-text-sidebar-reverse nav-icon"></i>
+									<span class="nav-name">Statistik Kependudukan</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
 					<div id="ManajemenStaf"">
 						<div class="accordion-item">
 							<div class="accordion-header" id="stafTitle">

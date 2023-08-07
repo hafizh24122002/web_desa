@@ -2,7 +2,7 @@
 
 :root {
 	--header-height: 3rem;
-	--nav-width: 68px;
+	--nav-width: 78px;
 	--first-color: #ffffff;
 	--first-color-light: #AFA5D9;
 	--white-color: #F7F6FB;
@@ -162,6 +162,23 @@ a {
 
 .height-100 {
 	height: 100vh
+}
+
+#statistikBar {
+	width: 250px;
+}
+
+#statistikBar .accordion-button:is(.collapsed) {
+	color: black;
+}
+
+#statistikBar .accordion-button:not(.collapsed) {
+	color: black;
+}
+
+#statistikBar .list-group {
+	border-radius: 0%;
+	width: 250px;
 }
 
 @media screen and (min-width: 768px) {
