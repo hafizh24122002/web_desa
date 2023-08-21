@@ -1,7 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+  
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: 'Nunito', sans-serif;
+}
+
+footer {
+    margin-top: auto;
 }
 
 .carousel-item h5 {
@@ -18,16 +30,36 @@ body {
 }
 
 .form-control {
-    border-radius: 50px 0  0 50px !important;
+    border-radius: 50px 0 0 50px !important;
 }
 
 #searchbtn {
     border-radius: 0 50px 50px 0 !important;
 }
 
-.line-clamp {
+.card-text {
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;  
-  }
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    height: 6em; /* Adjust this value to control the number of lines */
+}
+  
+.card-text p {
+    margin: 0; /* Remove any margin to prevent extra spacing */
+}
+  
+.card-text p:last-child {
+    margin-bottom: 0; /* Remove margin at the bottom if needed */
+}
+
+.spacer {
+    flex: 1;
+    margin-top: 2.5em;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

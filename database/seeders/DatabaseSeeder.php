@@ -8,14 +8,17 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Agama;
 use App\Models\Artikel;
 use App\Models\HubunganKK;
+use App\Models\IbuHamil;
 use App\Models\KelasSosial;
 use App\Models\Keluarga;
 use App\Models\Kesehatan;
 use App\Models\Kewarganegaraan;
+use App\Models\Kia;
 use App\Models\Pekerjaan;
 use App\Models\PendidikanSaatIni;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
+use App\Models\Posyandu;
 use App\Models\Rtm;
 use App\Models\StatusPerkawinan;
 use App\Models\Staf;
@@ -210,6 +213,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('admin'),
             'id_grup' => 1,
+            'id_staf' => 11,
             'name' => 'admin',
         ]);
         User::create([
@@ -220,25 +224,51 @@ class DatabaseSeeder extends Seeder
             'name' => 'staf',
         ]);
 
+
         Staf::create([
-            'nama' => 'Hafizh Lutfi Hidayat',
+            'nama' => 'RIZA UMAMI',
+            'jabatan' => 'Kepala Desa',
         ]);
-
-        for($i = 0; $i < 20; $i++){
-            Artikel::create([
-                'id_staf' => 1,
-                'judul' => 'judul artikel',
-                'isi' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pellentesque sapien id consectetur venenatis. Donec at lectus enim. In tempor aliquam suscipit. Pellentesque scelerisque volutpat sem, a tempus felis consequat eu. Proin vel augue mattis, porta quam vel, semper urna. Etiam tellus odio, posuere at odio nec, egestas accumsan sapien. Mauris neque est, pharetra placerat arcu sit amet, efficitur laoreet leo. Suspendisse in dictum justo. Pellentesque ut urna libero. Quisque laoreet, felis in rhoncus cursus, felis purus gravida sapien, vitae egestas purus risus ac tortor. Nunc quis arcu diam. Cras commodo tincidunt tortor, ac posuere diam. Suspendisse pretium interdum ipsum vestibulum consectetur.
-    
-Vestibulum erat nibh, porta sit amet molestie ac, placerat at odio. Mauris aliquam, nisl sit amet sollicitudin molestie, mauris enim ornare lectus, sed varius dolor quam non quam. Proin at vestibulum felis, vitae posuere justo. Morbi eleifend orci vel tellus porttitor tristique. In vel orci aliquam, vulputate leo id, aliquet orci. Sed non vulputate elit, eu suscipit lacus. Sed finibus rhoncus ante, non venenatis nisl egestas sit amet. Integer imperdiet dapibus arcu sit amet lobortis. Vivamus tempor nisl et urna imperdiet sollicitudin. Nunc mattis aliquet orci, et euismod erat varius vitae. Praesent elementum porta metus, in consequat risus dignissim eget. Etiam neque odio, suscipit ac luctus non, maximus congue mauris. Proin eros lectus, tincidunt ut porta ut, eleifend at erat. Sed fermentum, nisl sit amet mattis aliquam, neque orci sagittis mauris, id mollis purus libero quis urna. Nunc et facilisis neque, quis viverra eros. Fusce bibendum convallis volutpat.
-
-Mauris sed sagittis tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus laoreet a ante ac congue. Aenean est libero, pulvinar quis ipsum a, posuere vestibulum arcu. Morbi eu cursus erat. Mauris imperdiet malesuada posuere. Curabitur pulvinar maximus imperdiet. Aenean posuere odio ac imperdiet aliquet. Quisque condimentum lobortis pellentesque. Curabitur porttitor massa justo, quis vestibulum ligula faucibus gravida.
-
-Pellentesque vel pellentesque dui. Proin tellus neque, semper ut tortor eu, sollicitudin volutpat dui. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum nisi elit, viverra vitae tortor sed, ornare egestas orci. Nullam neque lorem, venenatis eu dui ac, sodales ultricies quam. Suspendisse euismod mauris vitae fringilla gravida. Aenean leo neque, aliquam id pharetra id, sollicitudin et sem. Donec in facilisis tortor. Praesent non purus ut enim pretium convallis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-
-Duis ac pulvinar ipsum. In hac habitasse platea dictumst. Etiam sed ligula est. Mauris et gravida tellus. Quisque ac commodo elit. Sed a velit nibh. Praesent a tortor pulvinar, vehicula diam at, lobortis nisl. Etiam congue quis magna ut blandit. Nullam dictum dui urna, eget dictum justo ultrices at. Integer dolor orci, finibus eu laoreet non, mollis at massa. Praesent vel placerat turpis.',
-            ]);
-        }
+        Staf::create([
+            'nama' => 'HOTIB',
+            'jabatan' => 'Sekretaris Desa',
+        ]);
+        Staf::create([
+            'nama' => 'ISWANDI',
+            'jabatan' => 'Kasi Kesejahteraan',
+        ]);
+        Staf::create([
+            'nama' => 'RENDY SANDRA',
+            'jabatan' => 'Kasi Pelayanan',
+        ]);
+        Staf::create([
+            'nama' => 'ISBIK MIRWANTO',
+            'jabatan' => 'Kasi Pemerintahan',
+        ]);
+        Staf::create([
+            'nama' => 'DIAH ISMAINI',
+            'jabatan' => 'Kasi TU dan Umum',
+        ]);
+        Staf::create([
+            'nama' => 'SUFARTA',
+            'jabatan' => 'Kaur Perencanaan',
+        ]);
+        Staf::create([
+            'nama' => 'ERLANGGA',
+            'jabatan' => 'Kaur Keuangan',
+        ]);
+        Staf::create([
+            'nama' => 'HORMEN',
+            'jabatan' => 'Kepala Dusun 1',
+        ]);
+        Staf::create([
+            'nama' => 'SUHARDI',
+            'jabatan' => 'Kepala Dusun 2',
+        ]);
+        Staf::create([
+            'nama' => 'SILVI FEBRIANTI',
+            'jabatan' => 'Staf Administrasi',
+        ]);
 
         Penduduk::create([
             'nama' => 'HAFIZH LUTFI HIDAYAT',
@@ -254,12 +284,36 @@ Duis ac pulvinar ipsum. In hac habitasse platea dictumst. Etiam sed ligula est. 
             'telepon' => '081255598024',
         ]);
 
+        Penduduk::create([
+            'nama' => 'ANI',
+            'nik' => '1903051234567890',
+            'jenis_kelamin' => 'P',
+            'tempat_lahir' => 'BANGKA SELATAN',
+            'tanggal_lahir' => '1995-04-14',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 2,
+            'id_status_perkawinan' => 2,
+            'id_kewarganegaraan' => 1,
+            'id_pekerjaan' => 2,
+            'penduduk_tetap' => true,
+        ]);
+
         Keluarga::create([
             'no_kk' => '6401042443210001',
             'nik_kepala' => '6401042412340001',
             'id_kelas_sosial' => '4',
             'alamat' => 'JL. MERPATI NO.51 RT.03/RW.02',
             'tgl_dikeluarkan' => '2006-04-15',
+        ]);
+
+        Posyandu::create([
+            'nama' => 'Posyandu Bakti Sehat',
+            'alamat' => 'Jl. Melati No. 123',
+        ]);
+
+        Kia::create([
+            'no_kia' => '12345',
+            'id_ibu' => 2,
         ]);
     }
 }

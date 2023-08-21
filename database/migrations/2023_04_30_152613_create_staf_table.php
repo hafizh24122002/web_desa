@@ -14,7 +14,9 @@ return new class extends Migration
         // TODO
         Schema::create('staf', function (Blueprint $table) {
             $table->id();
+            $table->string('nip')->nullable()->default(NULL);
             $table->string('nama');
+            $table->string('jabatan');
             $table->timestamps();
         });
     }

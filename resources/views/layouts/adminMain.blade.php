@@ -41,8 +41,37 @@
 							<span class="nav-name">Pengguna</span>
 						</a>
 					@endif
+					
+					<div id="InfoDesa">
+						<div class="accordion-item">
+							<div class="accordion-header" id="infoDesaTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#infoDesa"
+									aria-expanded="false"
+									aria-controls="infoDesa"
+									href="/staf/info-desa">
 
-					<div id="Kependudukan"">
+									<i class='bx bx-building-house nav-icon'></i>
+									<span class="nav-name">Info Desa</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="infoDesaTitle"
+								data-bs-parent="#InfoDesa"
+								id="infoDesa">
+								
+								<a href="/staf/info-desa/identitas-desa" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bx-group nav-icon"></i>
+									<span class="nav-name">Identitas Desa</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div id="Kependudukan">
 						<div class="accordion-item">
 							<div class="accordion-header" id="pendudukTitle">
 								<button class="accordion-button collapsed nav-link"
@@ -72,6 +101,111 @@
 								<a href="/staf/kependudukan/keluarga" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-male-female nav-icon"></i>
 									<span class="nav-name">Keluarga</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div id="Kesehatan"">
+						<div class="accordion-item">
+							<div class="accordion-header" id="kesehatanTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#kesehatan"
+									aria-expanded="false"
+									aria-controls="kesehatan"
+									href="/staf/kesehatan">
+
+									<i class='bx bx-health nav-icon'></i>
+									<span class="nav-name">Kesehatan</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="kesehatanTitle"
+								data-bs-parent="#Kesehatan"
+								id="kesehatan">
+								
+								<a href="/staf/kesehatan/posyandu" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bx-plus-medical nav-icon"></i>
+									<span class="nav-name">Posyandu</span>
+								</a>
+
+								<a href="/staf/kesehatan/kia" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-id-card nav-icon"></i>
+									<span class="nav-name">KIA</span>
+								</a>
+
+								<a href="/staf/kesehatan/pemantauan" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-calendar-check nav-icon"></i>
+									<span class="nav-name">Pemantauan</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div id="Statistik"">
+						<div class="accordion-item">
+							<div class="accordion-header" id="statistikTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#statistik"
+									aria-expanded="false"
+									aria-controls="statistik"
+									href="/staf/statistik">
+
+									<i class='bi bi-clipboard-data nav-icon'></i>
+									<span class="nav-name">Statistik</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="statistikTitle"
+								data-bs-parent="#Statistik"
+								id="statistik">
+								
+								<a href="/staf/statistik/statistik-kependudukan" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bi bi-layout-text-sidebar-reverse nav-icon"></i>
+									<span class="nav-name">Statistik Kependudukan</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div id="ManajemenStaf"">
+						<div class="accordion-item">
+							<div class="accordion-header" id="stafTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#staf"
+									aria-expanded="false"
+									aria-controls="staf"
+									href="/staf/manajemen-staf">
+
+									<i class='bx bx-book-content nav-icon'></i>
+									<span class="nav-name">Manajemen Staf</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="stafTitle"
+								data-bs-parent="#ManajemenStaf"
+								id="staf">
+								
+								<a href="/staf/manajemen-staf/" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bx-sitemap nav-icon"></i>
+									<span class="nav-name">Struktur Organisasi</span>
+								</a>
+
+								<a href="/staf/manajemen-staf/daftar-staf" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bx-list-ul nav-icon"></i>
+									<span class="nav-name">Daftar Staf</span>
 								</a>
 							</div>
 						</div>
@@ -110,39 +244,73 @@
 								</a>
 							</div>
 						</div>
+					</div>
 
-						<div id="LayananSurat">
-							<div class="accordion-item">
-								<div class="accordion-header" id="layananSuratTitle">
-									<button class="accordion-button collapsed nav-link"
-										style=""
-										type="button"
-										data-bs-toggle="collapse"
-										data-bs-target="#layananSurat"
-										aria-expanded="false"
-										aria-controls="layananSurat"
-										href="/staf/layanan-surat">
-	
-										<i class='bx bx-envelope nav-icon'></i>
-										<span class="nav-name">Layanan Surat</span>
-									</button>
-								</div>
-	
-								<div class="accordion-collapse collapse"
-									aria-labelledby="layananSuratTitle"
-									data-bs-parent="#layananSurat"
-									id="layananSurat">
-									
-									<a href="/staf/layanan-surat/buat-surat" class="nav-link collapse-body" style="margin-left: 2rem">
-										<i class="bx bxs-file-plus nav-icon"></i>
-										<span class="nav-name">Buat Surat</span>
-									</a>
-	
-									<a href="/staf/layanan-surat/arsip-surat" class="nav-link collapse-body" style="margin-left: 2rem">
-										<i class="bx bxs-archive nav-icon"></i>
-										<span class="nav-name">Arsip</span>
-									</a>
-								</div>
+					<div id="LayananSurat">
+						<div class="accordion-item">
+							<div class="accordion-header" id="layananSuratTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#layananSurat"
+									aria-expanded="false"
+									aria-controls="layananSurat"
+									href="/staf/layanan-surat">
+
+									<i class='bx bx-envelope nav-icon'></i>
+									<span class="nav-name">Layanan Surat</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="layananSuratTitle"
+								data-bs-parent="#layananSurat"
+								id="layananSurat">
+								
+								<a href="/staf/layanan-surat/buat-surat" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-file-plus nav-icon"></i>
+									<span class="nav-name">Buat Surat</span>
+								</a>
+
+								<a href="/staf/layanan-surat/arsip-surat" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-archive nav-icon"></i>
+									<span class="nav-name">Arsip</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div id="BukuAdministrasiDesa">
+						<div class="accordion-item">
+							<div class="accordion-header" id="bukuAdministrasiDesaTitle">
+								<button class="accordion-button collapsed nav-link"
+									style=""
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#bukuAdministrasiDesa"
+									aria-expanded="false"
+									aria-controls="bukuAdministrasiDesa"
+									href="/staf/layanan-surat">
+
+									<i class='bx bx-book nav-icon'></i>
+									<span class="nav-name">Buku Administrasi Desa</span>
+								</button>
+							</div>
+
+							<div class="accordion-collapse collapse"
+								aria-labelledby="bukuAdministrasiDesaTitle"
+								data-bs-parent="#bukuAdministrasiDesa"
+								id="bukuAdministrasiDesa">
+								
+								<a href="/staf/buku-administrasi-desa/administrasi-umum" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-file nav-icon"></i>
+									<span class="nav-name">Administrasi Umum</span>
+								</a>
+
+								<a href="/staf/buku-administrasi-desa/administrasi-penduduk" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-group nav-icon"></i>
+									<span class="nav-name">Administrasi Penduduk</span>
+								</a>
 							</div>
 						</div>
 					</div>

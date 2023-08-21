@@ -2,13 +2,18 @@
 
 :root {
 	--header-height: 3rem;
-	--nav-width: 68px;
+	--nav-width: 78px;
 	--first-color: #ffffff;
 	--first-color-light: #AFA5D9;
 	--white-color: #F7F6FB;
 	--body-font: 'Nunito', sans-serif;
 	--normal-font-size: 1rem;
 	--z-fixed: 100
+}
+
+::selection {
+	background-color: #0dcaf0;
+	color: white;
 }
 
 *,
@@ -159,6 +164,23 @@ a {
 	height: 100vh
 }
 
+#statistikBar {
+	width: 250px;
+}
+
+#statistikBar .accordion-button:is(.collapsed) {
+	color: black;
+}
+
+#statistikBar .accordion-button:not(.collapsed) {
+	color: black;
+}
+
+#statistikBar .list-group {
+	border-radius: 0%;
+	width: 250px;
+}
+
 @media screen and (min-width: 768px) {
 	body {
 		margin: calc(var(--header-height) + 1rem) 0 0 0;
@@ -191,4 +213,26 @@ a {
 	.body-pd {
 		padding-left: calc(var(--nav-width) + 232px)
 	}
+}
+
+#statistikBar {
+    width: 250px;
+}
+
+#statistikBar .accordion-button:is(.collapsed) {
+    color: black;
+}
+
+#statistikBar .accordion-button:not(.collapsed) {
+    color: black;
+}
+
+#statistikBar .list-group {
+    border-radius: 0%;
+    width: 250px;
+}
+
+.sortable:hover {
+    cursor: pointer;
+	background-color: #495057;
 }

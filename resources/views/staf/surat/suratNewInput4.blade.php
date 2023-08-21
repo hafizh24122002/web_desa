@@ -43,7 +43,7 @@
 						class="form-control form-control-sm"
 						name="tanggal_surat"
 						id="tanggal_surat"
-						value="{{ now()->toDateString('Y-m-d') }}"
+						value="{{ old('tanggal_surat') ?? now()->toDateString('Y-m-d') }}"
 						required>
 				</div>
 			</div>
@@ -57,7 +57,8 @@
 						class="form-control form-control-sm"
 						name="nama"
 						id="nama"
-						placeholder="Andi">
+						placeholder="Andi"
+						value="{{ old('nama') }}">
 				</div>
 			</div>
 
@@ -69,7 +70,7 @@
 						name="hari_jadi_num"
 						id="hari_jadi_num"
 						placeholder="20"
-						value="{{ $hari_jadi_num }}"
+						value="{{ old('hari_jadi_num') ?? $hari_jadi_num }}"
 						required
 						readonly>
 				</div>
@@ -90,6 +91,7 @@
 						class="form-control form-control-sm"
 						name="tanggal_kegiatan"
 						id="tanggal_kegiatan"
+						value="{{ old('tanggal_kegiatan') }}"
 						required>
 				</div>
 			</div>
@@ -101,6 +103,7 @@
 						<input type="time"
 							class="form-control form-control-sm"
 							name="start_time"
+							value="{{ old('start_time') }}"
 							required>
 					</div>
 
@@ -111,6 +114,7 @@
 							class="form-control form-control-sm"
 							name="finish_time"
 							id="finish_time"
+							value="{{ old('finish_time') }}"
 							required>
 					</div>
 
@@ -134,7 +138,41 @@
 						name="tempat_kegiatan"
 						id="tempat_kegiatan"
 						placeholder="Balai Desa Malik"
+						value="{{ old('tempat_kegiatan') }}"
 						required>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="form-group row">
+				<label for="staf" class="col-sm-3 col-form-label">Ditandatangani Oleh</label>
+				<div class="col-sm-7">
+					<select class="form-select form-select-sm" id="staf" name="id_staf" required>
+						<option value="">-- Pilih --</option>
+						@foreach ($staf as $item)
+							<option value="{{ $loop->iteration }}" {{ old('id_staf') == $loop->iteration ? 'selected' : '' }}>{{ $item->jabatan.' - '.$item->nama }}</option>
+						@endforeach
+					</select>
+				</div>
+
+				<div class="col-sm-2 form-check">
+					<input class="form-check-input" type="checkbox" id="diwakilkan" name="diwakilkan">
+					<label class="form-check-label" for="flexCheckDefault">
+						Diwakilkan
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group row" id="divAtasNama">
+				<label for="staf_an" class="col-sm-3 col-form-label">Atas Nama</label>
+				<div class="col-sm-9">
+					<select class="form-select form-select-sm" id="staf_an" name="id_staf_an">
+						<option value="">-- Pilih --</option>
+						@foreach ($staf as $item)
+							<option value="{{ $loop->iteration }}" {{ old('id_staf_an') == $loop->iteration ? 'selected' : '' }}>{{ $item->jabatan.' - '.$item->nama }}</option>
+						@endforeach
+					</select>
 				</div>
 			</div>
 
@@ -152,6 +190,8 @@
 <script src="{{ asset('js/autocomplete.js') }}"></script>
 
 <script>
+	$('#divAtasNama').hide();
+	
 	var $input = $("#no");
 	var $button = $("#edit_no_surat");
 
@@ -178,16 +218,13 @@
 		}
 	});
 
-	$('#finish_time_unspecified').click(function() {
-		console.log("Checkbox clicked!");
-      if ($(this).is(':checked')) {
-        $('#finish_time').prop('readonly', true);
-        $('#finish_time').prop('required', false);
-      } else {
-        $('#finish_time').prop('readonly', false);
-        $('#finish_time').prop('required', true);
-      }
-    });
+	$('#diwakilkan').change(function() {
+		if (this.checked) {
+			$('#divAtasNama').slideDown();
+		} else {
+			$('#divAtasNama').slideUp();
+		}
+	});
 </script>
 
 @endsection

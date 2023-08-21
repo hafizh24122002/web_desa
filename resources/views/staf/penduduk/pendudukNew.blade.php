@@ -172,7 +172,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="nik_ayah" class="col-sm-3 col-form-label">NIK Ayah</label>
+				<label for="nik_ayah" class="col-sm-3 col-form-label">NIK Ayah<span style="color:red">*</span></label>
 				<div class="col-sm-9">
 					<input type="text"
 						class="form-control form-control-sm"
@@ -182,7 +182,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="nik_ibu" class="col-sm-3 col-form-label">NIK Ibu</label>
+				<label for="nik_ibu" class="col-sm-3 col-form-label">NIK Ibu<span style="color:red">*</span></label>
 				<div class="col-sm-9">
 					<input type="text"
 						class="form-control form-control-sm"

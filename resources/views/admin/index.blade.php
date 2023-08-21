@@ -24,7 +24,7 @@
                                     Wilayah Desa
                                 </p>
                                 <div class="icon">
-                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <i class="bi bi-geo-alt"></i>
                                 </div>
                             </div>
                             <div class="card-read-more">
@@ -39,17 +39,17 @@
                         <div class="card text-white bg-success mb-3 rounded">
                             <div class="card-content">
                                 <h4 class="card-title">
-                                    3
+                                    1
                                 </h4>
                                 <p class="card-text">
-                                    Wilayah Desa
+                                    Penduduk
                                 </p>
                                 <div class="icon">
-                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <i class="bi bi-person"></i>
                                 </div>
                             </div>
                             <div class="card-read-more">
-                                <a href="#" class="btn btn-link btn-block">
+                                <a href="/staf/kependudukan/penduduk" class="btn btn-link btn-block">
                                     Lihat Detail
                                     <i class="bi bi-arrow-right-circle-fill"></i>
                                 </a>
@@ -60,17 +60,17 @@
                         <div class="card text-white bg-info mb-3 rounded">
                             <div class="card-content">
                                 <h4 class="card-title">
-                                    3
+                                    1
                                 </h4>
                                 <p class="card-text">
-                                    Wilayah Desa
+                                    Keluarga
                                 </p>
                                 <div class="icon">
-                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <i class="bi bi-people"></i>
                                 </div>
                             </div>
                             <div class="card-read-more">
-                                <a href="#" class="btn btn-link btn-block">
+                                <a href="/staf/kependudukan/keluarga" class="btn btn-link btn-block">
                                     Lihat Detail
                                     <i class="bi bi-arrow-right-circle-fill"></i>
                                 </a>
@@ -81,17 +81,17 @@
                         <div class="card text-white bg-warning mb-3 rounded">
                             <div class="card-content">
                                 <h4 class="card-title">
-                                    3
+                                    2
                                 </h4>
                                 <p class="card-text">
-                                    Wilayah Desa
+                                    Surat Tercetak
                                 </p>
                                 <div class="icon">
-                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <i class="bi bi-envelope"></i>
                                 </div>
                             </div>
                             <div class="card-read-more">
-                                <a href="#" class="btn btn-link btn-block">
+                                <a href="/staf/layanan-surat/arsip-surat" class="btn btn-link btn-block">
                                     Lihat Detail
                                     <i class="bi bi-arrow-right-circle-fill"></i>
                                 </a>
@@ -105,14 +105,14 @@
                                     3
                                 </h4>
                                 <p class="card-text">
-                                    Wilayah Desa
+                                    BPNT
                                 </p>
                                 <div class="icon">
-                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <i class="bi bi-pie-chart"></i>
                                 </div>
                             </div>
                             <div class="card-read-more">
-                                <a href="#" class="btn btn-link btn-block">
+                                <a href="/staf/statistik/statistik-kependudukan" class="btn btn-link btn-block">
                                     Lihat Detail
                                     <i class="bi bi-arrow-right-circle-fill"></i>
                                 </a>
@@ -123,17 +123,17 @@
                         <div class="card text-white bg-dark mb-3 rounded">
                             <div class="card-content">
                                 <h4 class="card-title">
-                                    3
+                                    11
                                 </h4>
                                 <p class="card-text">
-                                    Wilayah Desa
+                                    Staf
                                 </p>
                                 <div class="icon">
-                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <i class="bi bi-person-rolodex"></i>
                                 </div>
                             </div>
                             <div class="card-read-more">
-                                <a href="#" class="btn btn-link btn-block">
+                                <a href="/staf/manajemen-staf/daftar-staf" class="btn btn-link btn-block">
                                     Lihat Detail
                                     <i class="bi bi-arrow-right-circle-fill"></i>
                                 </a>

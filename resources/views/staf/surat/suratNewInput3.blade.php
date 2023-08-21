@@ -42,7 +42,7 @@
 						class="form-control form-control-sm"
 						name="tanggal_surat"
 						id="tanggal_surat"
-						value="{{ now()->toDateString('Y-m-d') }}"
+						value="{{ old('tanggal_surat') ?? now()->toDateString('Y-m-d') }}"
 						required>
 				</div>
 			</div>
@@ -57,6 +57,7 @@
 						name="nama"
 						id="nama"
 						placeholder="Andi"
+						value="{{ old('nama') }}"
 						required>
 				</div>
 			</div>
@@ -66,8 +67,8 @@
 				<div class="col-sm-9">
 					<select class="form-select form-select-sm" id="jenis_kelamin" name="jenis_kelamin" required>
 						<option value="">-- Pilih --</option>
-						<option value="L">Laki-Laki</option>
-						<option value="P">Perempuan</option>
+						<option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-Laki</option>
+						<option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
 					</select>
 				</div>
 			</div>
@@ -80,6 +81,7 @@
 						name="tempat_lahir"
 						id="tempat_lahir"
 						placeholder="Bangka Selatan"
+						value="{{ old('tempat_lahir') }}"
 						required>
 				</div>
 			</div>
@@ -91,6 +93,7 @@
 						class="form-control form-control-sm"
 						name="tanggal_lahir"
 						id="tanggal_lahir"
+						value="{{ old('tanggal_lahir') }}"
 						required>
 				</div>
 			</div>
@@ -101,7 +104,7 @@
 					<select class="form-select form-select-sm" id="agama" name="id_agama" required>
 						<option value="">-- Pilih --</option>
 						@foreach ($agama as $item)
-							<option value="{{ $loop->iteration }}">{{ ucwords(strtolower($item->nama)) }}</option>
+							<option value="{{ $loop->iteration }}" {{ old('id_agama') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -113,7 +116,7 @@
 					<select class="form-select form-select-sm pekerjaan_input" id="pekerjaan" name="id_pekerjaan" required>
 						<option value="">-- Pilih --</option>
 						@foreach ($pekerjaan as $item)
-							<option value="{{ $loop->iteration }}">{{ ucwords(strtolower($item->nama)) }}</option>
+							<option value="{{ $loop->iteration }}" {{ old('id_pekerjaan') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -127,6 +130,7 @@
 						name="alamat"
 						id="alamat"
 						placeholder="Jl. Merpati no. 51"
+						value="{{ old('alamat') }}"
 						required>
 				</div>
 			</div>
@@ -141,6 +145,7 @@
 						name="nama_ortu"
 						id="nama_ortu"
 						placeholder="Andi"
+						value="{{ old('nama_ortu') }}"
 						required>
 				</div>
 			</div>
@@ -150,8 +155,8 @@
 				<div class="col-sm-9">
 					<select class="form-select form-select-sm" id="jenis_kelamin_ortu" name="jenis_kelamin_ortu" required>
 						<option value="">-- Pilih --</option>
-						<option value="L">Laki-Laki</option>
-						<option value="P">Perempuan</option>
+						<option value="L" {{ old('jenis_kelamin_ortu') == 'L' ? 'selected' : '' }}>Laki-Laki</option>
+						<option value="P" {{ old('jenis_kelamin_ortu') == 'P' ? 'selected' : '' }}>Perempuan</option>
 					</select>
 				</div>
 			</div>
@@ -164,6 +169,7 @@
 						name="tempat_lahir_ortu"
 						id="tempat_lahir_ortu"
 						placeholder="Bangka Selatan"
+						value="{{ old('tempat_lahir_ortu') }}"
 						required>
 				</div>
 			</div>
@@ -175,6 +181,7 @@
 						class="form-control form-control-sm"
 						name="tanggal_lahir_ortu"
 						id="tanggal_lahir_ortu"
+						value="{{ old('tanggal_lahir_ortu') }}"
 						required>
 				</div>
 			</div>
@@ -185,7 +192,7 @@
 					<select class="form-select form-select-sm" id="agama_ortu" name="id_agama_ortu" required>
 						<option value="">-- Pilih --</option>
 						@foreach ($agama as $item)
-							<option value="{{ $loop->iteration }}">{{ ucwords(strtolower($item->nama)) }}</option>
+							<option value="{{ $loop->iteration }}" {{ old('id_agama') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -197,7 +204,7 @@
 					<select class="form-select form-select-sm pekerjaan_input" id="pekerjaan_ortu" name="id_pekerjaan_ortu" required>
 						<option value="">-- Pilih --</option>
 						@foreach ($pekerjaan as $item)
-							<option value="{{ $loop->iteration }}">{{ ucwords(strtolower($item->nama)) }}</option>
+							<option value="{{ $loop->iteration }}" {{ old('id_pekerjaan') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -211,6 +218,7 @@
 						name="alamat_ortu"
 						id="alamat_ortu"
 						placeholder="Jl. Merpati no. 51"
+						value="{{ old('alamat_ortu') }}"
 						required>
 				</div>
 			</div>
@@ -225,8 +233,42 @@
 							name="penghasilan_ortu"
 							id="penghasilan_ortu"
 							placeholder="3500000"
+							value="{{ old('penghasilan_ortu') }}"
 							required>
 					</div>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="form-group row">
+				<label for="staf" class="col-sm-3 col-form-label">Ditandatangani Oleh</label>
+				<div class="col-sm-7">
+					<select class="form-select form-select-sm" id="staf" name="id_staf" required>
+						<option value="">-- Pilih --</option>
+						@foreach ($staf as $item)
+							<option value="{{ $loop->iteration }}" {{ old('id_staf') == $loop->iteration ? 'selected' : '' }}>{{ $item->jabatan.' - '.$item->nama }}</option>
+						@endforeach
+					</select>
+				</div>
+
+				<div class="col-sm-2 form-check">
+					<input class="form-check-input" type="checkbox" id="diwakilkan" name="diwakilkan">
+					<label class="form-check-label" for="flexCheckDefault">
+						Diwakilkan
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group row" id="divAtasNama">
+				<label for="staf_an" class="col-sm-3 col-form-label">Atas Nama</label>
+				<div class="col-sm-9">
+					<select class="form-select form-select-sm" id="staf_an" name="id_staf_an">
+						<option value="">-- Pilih --</option>
+						@foreach ($staf as $item)
+							<option value="{{ $loop->iteration }}" {{ old('id_staf_an') == $loop->iteration ? 'selected' : '' }}>{{ $item->jabatan.' - '.$item->nama }}</option>
+						@endforeach
+					</select>
 				</div>
 			</div>
 
@@ -244,6 +286,8 @@
 <script src="{{ asset('js/autocomplete.js') }}"></script>
 
 <script>
+	$('#divAtasNama').hide();
+	
 	pendudukList = @json($penduduk);
 	autocomplete(document.getElementById("nama"), pendudukList);
 
@@ -257,6 +301,14 @@
 		} else {
 			$input.prop("readonly", true);
 			$button.prop("readonly", false).empty().append("<i class='bx bx-edit'></i> Ubah");
+		}
+	});
+
+	$('#diwakilkan').change(function() {
+		if (this.checked) {
+			$('#divAtasNama').slideDown();
+		} else {
+			$('#divAtasNama').slideUp();
 		}
 	});
 </script>

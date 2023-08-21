@@ -9,6 +9,8 @@ class Kia extends Model
 {
     use HasFactory;
 
+    protected $table = 'kia';
+
     /**
      * The attributes that are mass assignable
      * 
@@ -17,7 +19,8 @@ class Kia extends Model
     protected $fillable = [
         'no_kia',
         'id_anak',
-        'hari_perkiraan_lahir',
+        'id_ibu',
+        'perkiraan_lahir',
     ];
 
     /**
@@ -26,6 +29,22 @@ class Kia extends Model
      * @var array<string, string>
      */
     protected $casts = [
-         'hari_perkiraan_lahir' => 'date'
+         'perkiraan_lahir' => 'date'
     ];
+
+    /**
+     * Get the anak associated with the kia.
+     */
+    public function anak()
+    {
+        return $this->belongsTo(Penduduk::class, 'id_anak');
+    }
+
+    /**
+     * Get the ibu associated with the kia.
+     */
+    public function ibu()
+    {
+        return $this->belongsTo(Penduduk::class, 'id_ibu');
+    }
 }

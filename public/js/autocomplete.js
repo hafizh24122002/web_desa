@@ -30,7 +30,7 @@ function autocomplete(inp, arr) {
 			b.addEventListener("click", function(e) {
 				/*insert the value for the autocomplete text field:*/
 				inp.value = this.getElementsByTagName("input")[0].value;
-				fetch('/staf/layanan-surat/buat-surat/get-data/' + inp.value)
+				fetch('/staf/kependudukan/penduduk/get-data/' + inp.value)
 					.then(response => response.json())
 					.then(data => {
 						const fields = [

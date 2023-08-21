@@ -14,9 +14,9 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="/">
 				<!-- <img src="" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> -->
-				Desa Malik
+				<div class="fw-bold text-uppercase">Desa Malik</div>
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -28,9 +28,9 @@
 							Profil Desa
 						</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Tentang Kami</a></li>
-							<li><a class="dropdown-item" href="#">Geografis Desa</a></li>
-							<li><a class="dropdown-item" href="#">Demografi Desa</a></li>
+							<li><a class="dropdown-item" href="/tentang-desa">Tentang Kami</a></li>
+							<li><a class="dropdown-item" href="/geografis-desa">Geografis Desa</a></li>
+							<li><a class="dropdown-item" href="/demografi-desa">Demografi Desa</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown">
@@ -62,22 +62,25 @@
 					</div>
 				</form>
 				@auth
-					<a href="/admin/dashboard">
-						<button type="button" class="btn btn-secondary rounded-pill ms-2">Dashboard</button>
-					</a>
+				<a href="/admin/dashboard">
+					<button type="button" class="btn btn-secondary rounded-pill ms-2">Dashboard</button>
+				</a>
 				@else
-					<a href="/login">
-						<button type="button" class="btn btn-secondary rounded-pill ms-2">Login</button>
-					</a>
+				<a href="/login">
+					<button type="button" class="btn btn-secondary rounded-pill ms-2">Login</button>
+				</a>
 				@endauth
 			</div>
 		</div>
 	</nav>
 
-	@yield('main-content')
-	@include('partials.visitorFooter')
-	@include('partials.commonScripts')
+	<div class="body-wrapper">
+		@yield('main-content')
+		@include('partials.commonScripts')
+		@include('partials.sideContent')
+	</div>
 
 </body>
-
+	@include('partials.sideContent')
+	@include('partials.visitorFooter')
 </html>

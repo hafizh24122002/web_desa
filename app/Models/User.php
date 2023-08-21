@@ -21,7 +21,7 @@ class User extends Authenticatable
         'username',
         'password',
         'id_grup',
-        'id_pamong',
+        'id_staf',
         'email',
         'last_login',
         "email_verified_at",
