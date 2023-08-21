@@ -249,6 +249,47 @@
 				</div>
 			</div>
 
+			<br>
+
+			<div class="form-group row">
+				<label for="staf" class="col-sm-3 col-form-label">Ditandatangani Oleh</label>
+				<div class="col-sm-7">
+					<select class="form-select form-select-sm" id="staf" name="id_staf" required>
+						<option value="">-- Pilih --</option>
+						@foreach ($staf as $item)
+							<option value="{{ $loop->iteration }}"
+								{{ old('id_staf') == $loop->iteration ||
+								(old('id_staf') == null && $data['id_staf'] == $item->id_staf) ? 
+								'selected' : '' }}>
+								{{ $item->jabatan.' - '.$item->nama }}
+							</option>
+							@php
+								\Log::info($data['id_staf'].' '.$item->id_staf);
+							@endphp
+						@endforeach
+					</select>
+				</div>
+
+				<div class="col-sm-2 form-check">
+					<input class="form-check-input" type="checkbox" id="diwakilkan" name="diwakilkan">
+					<label class="form-check-label" for="flexCheckDefault">
+						Diwakilkan
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group row" id="divAtasNama">
+				<label for="staf_an" class="col-sm-3 col-form-label">Atas Nama</label>
+				<div class="col-sm-9">
+					<select class="form-select form-select-sm" id="staf_an" name="id_staf_an">
+						<option value="">-- Pilih --</option>
+						@foreach ($staf as $item)
+							<option value="{{ $loop->iteration }}" {{ old('id_staf_an') == $loop->iteration ? 'selected' : '' }}>{{ $item->jabatan.' - '.$item->nama }}</option>
+						@endforeach
+					</select>
+				</div>
+			</div>
+
 			<input type="text" name="id_tipe" value="{{ $id_tipe }}" hidden>
 			<input type="text" name="tipe" value="{{ $tipe }}" hidden>
 
@@ -276,6 +317,33 @@
 		} else {
 			$input.prop("readonly", true);
 			$button.prop("readonly", false).empty().append("<i class='bx bx-edit'></i> Ubah");
+		}
+	});
+
+	$('#divAtasNama').hide();
+
+	pendudukList = @json($penduduk);
+
+	autocomplete(document.getElementById("nama"), pendudukList);
+
+	var $input = $("#no");
+	var $button = $("#edit_no_surat");
+
+	$button.on("click", function() {
+		if ($input.prop("readonly")) {
+			$input.prop("readonly", false);
+			$button.prop("readonly", true).text("Simpan");
+		} else {
+			$input.prop("readonly", true);
+			$button.prop("readonly", false).empty().append("<i class='bx bx-edit'></i> Ubah");
+		}
+	});
+
+	$('#diwakilkan').change(function() {
+		if (this.checked) {
+			$('#divAtasNama').slideDown();
+		} else {
+			$('#divAtasNama').slideUp();
 		}
 	});
 </script>

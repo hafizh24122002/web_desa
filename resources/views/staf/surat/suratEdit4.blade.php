@@ -115,7 +115,7 @@
 						class="form-control form-control-sm"
 						name="tanggal_kegiatan"
 						id="tanggal_kegiatan"
-						value="{{ old('tanggal_kegiatan') }}"
+						value="{{ old('tanggal_kegiatan') ?? \Carbon\Carbon::createFromFormat('jS F Y', $data['tanggal_kegiatan'])->format('Y-m-d') }}"
 						required>
 				</div>
 			</div>

@@ -23,61 +23,44 @@
 						</div>
 					@endif
 
+					<div class="mb-3">
+						<form id="searchForm" class="d-flex">
+							<input type="text" name="search" id="searchInput" class="form-control me-2" placeholder="Cari berdasarkan nama pembuat surat atau keterangan" value="{{ $search }}">
+							<button type="submit" class="btn btn-primary">Cari</button>
+						</form>
+					</div>
+
 					<table class="table table-hover">
 						<thead>
 							<tr class="bg-dark text-light text-center align-middle">
 								<th>No.</th>
 								<th>Aksi</th>
-								<th>Kode Surat</th>
-								<th>No. Surat</th>
-								<th>Dibuat Oleh</th>
-								<th>Keterangan</th>
-								<th>Tanggal Surat</th>
+								<th class="sortable" data-field="kode_surat" data-order="{{ $sortField === 'kode_surat' ? $sortOrder : 'asc' }}">
+									Kode Surat
+									<i class="ms-2 fas {{ $sortField === 'kode_surat' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
+								<th class="sortable" data-field="no_surat" data-order="{{ $sortField === 'no_surat' ? $sortOrder : 'asc' }}">
+									No. Surat
+									<i class="ms-2 fas {{ $sortField === 'no_surat' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
+								<th class="sortable" data-field="nama" data-order="{{ $sortField === 'nama' ? $sortOrder : 'asc' }}">
+									Dibuat Oleh
+									<i class="ms-2 fas {{ $sortField === 'nama' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
+								<th class="sortable" data-field="keterangan" data-order="{{ $sortField === 'keterangan' ? $sortOrder : 'asc' }}">
+									Keterangan
+									<i class="ms-2 fas {{ $sortField === 'keterangan' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
+								<th class="sortable" data-field="tanggal_surat" data-order="{{ $sortField === 'tanggal_surat' ? $sortOrder : 'asc' }}">
+									Tanggal Surat
+									<i class="ms-2 fas {{ $sortField === 'tanggal_surat' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
 								<th>Dibuat Pada</th>
 							</tr>
 						</thead>
 
 						<tbody>
-							@foreach ($arsip as $key => $item)
-								<tr class="text align-middle text-center">
-									<td>{{ $arsip->firstItem() + $key }}</td>
-	
-									<td>
-										<div style="display: flex; gap: 5px; justify-content: center;">
-											<a href="/staf/layanan-surat/arsip-surat/{{ $item->filename }}">
-												<button class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="Unduh Dokumen">
-													<i class="bx bxs-download text-light" style="vertical-align: middle;"></i>
-												</button>
-											</a>
-
-											<a href="/staf/layanan-surat/arsip-surat/edit-surat/{{ $item->id.'/'.$item->filename }}">
-												<button class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Ubah Dokumen">
-													<i class="bx bxs-edit text-light" style="vertical-align: middle;"></i>
-												</button>
-											</a>
-
-											<form action="/staf/layanan-surat/arsip-surat/{{ $item->id.'/'.$item->filename }}"
-												onsubmit="return confirm('Apakah anda yakin ingin menghapus surat ini? Surat yang dihapus tidak akan bisa dikembalikan!')"
-												method="POST">
-												
-												@method('delete')
-												@csrf
-		
-												<button class="btn btn-sm btn-danger" type="submit" data-bs-toggle="tooltip" title="Hapus Dokumen">
-													<i class="bx bx-trash text-light" style="vertical-align: middle;"></i>
-												</button>
-											</form>
-										</div>
-									</td>
-
-									<td>{{ $item->kode_surat }}</td>
-									<td>{{ $item->no_surat }}</td>
-									<td>{{ $item->nama }}</td>
-									<td>{{ $item->keterangan }}</td>
-									<td>{{ $item->tanggal_surat->translatedFormat('jS F Y') }}</td>
-									<td>{{ $item->created_at->translatedFormat('jS F Y') }}</td>
-								</tr>
-							@endforeach
+							@include('partials.arsipSuratTable')
 						</tbody>
 					</table>
 
@@ -91,5 +74,48 @@
 </section>
 
 @include('partials.commonScripts')
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const tableBody = document.querySelector('tbody');
+		const columnHeaderCells = document.querySelectorAll('.sortable');
+
+		columnHeaderCells.forEach(columnHeader => {
+			columnHeader.addEventListener('click', function () {
+				const sortField = this.dataset.field;
+				let sortOrder = 'asc';
+
+				if (sortField === this.dataset.field) {
+					sortOrder = this.dataset.order === 'asc' ? 'desc' : 'asc';
+				}
+
+				fetch(`/staf/layanan-surat/arsip-surat?search={{ $search }}&sort_field=${sortField}&sort_order=${sortOrder}`, {
+					method: 'GET',
+					headers: {
+						'X-Requested-With': 'XMLHttpRequest'
+					}
+				})
+				.then(response => response.text())
+				.then(data => {
+					tableBody.innerHTML = data;
+
+					// Update sorting indicators and icons
+                    columnHeaderCells.forEach(header => {
+                        if (header.dataset.field === sortField) {
+                            header.dataset.order = sortOrder;
+                            const icon = header.querySelector('i');
+                            icon.classList.remove('fa-caret-up', 'fa-caret-down');
+                            icon.classList.add(sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down');
+                        } else {
+                            header.dataset.order = '';
+                            header.querySelector('i').classList.remove('fa-caret-up', 'fa-caret-down');
+                        }
+                    });
+				})
+				.catch(error => console.error('Error:', error));
+			});
+		});
+	});
+</script>
 
 @endsection
