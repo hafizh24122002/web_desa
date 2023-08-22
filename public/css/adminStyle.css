@@ -226,3 +226,9 @@ a {
     border-radius: 0%;
     width: 250px;
 }
+
+.button-container {
+    display: flex; /* Use flexbox to align buttons horizontally */
+    justify-content: space-between; /* Spread the buttons horizontally with space between them */
+    margin-top: 10px; /* Add some space between the buttons and the form fields above */
+}
