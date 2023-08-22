@@ -11,6 +11,11 @@
 	--z-fixed: 100
 }
 
+::selection {
+	background-color: #0dcaf0;
+	color: white;
+}
+
 *,
 ::before,
 ::after {
@@ -231,4 +236,9 @@ a {
     display: flex; /* Use flexbox to align buttons horizontally */
     justify-content: space-between; /* Spread the buttons horizontally with space between them */
     margin-top: 10px; /* Add some space between the buttons and the form fields above */
+}
+
+.sortable:hover {
+    cursor: pointer;
+	background-color: #495057;
 }
