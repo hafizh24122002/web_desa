@@ -26,32 +26,68 @@
 	<div class="single_bottom_rightbar">
 		<div class="position-sticky" style="top: 2rem;">
 			<div class="p-4 mb-3 bg-light rounded">
-				<h2><i class="bi bi-calendar-event-fill"></i>&ensp;Agenda</a></h2>
-				<ul class="sidebar-latest">
-					<table id="table-agenda" width="100%">
-						<tr>
-							<td colspan="3"><b>Rapat Bulanan</b></td>
-						</tr>
-						<tr>
-							<th id="label-meta-agenda" width="30%">Waktu</th>
-							<td width="5%">:</td>
-							<td id="isi-meta-agenda" width="65%">31 Maret 2023 08:00</td>
-						</tr>
-						<tr>
-							<th id="label-meta-agenda">Lokasi</th>
-							<td>:</td>
-							<td id="isi-meta-agenda">Aula Desa</td>
-						</tr>
-						<tr>
-							<th id="label-meta-agenda">Koordinator</th>
-							<td>:</td>
-							<td id="isi-meta-agenda">Nana</td>
-						</tr>
-					</table>
+				<h2 class="box-title"><i class="bi bi-person-fill-check"></i>&ensp;Agenda Desa</h2>
+				<ul class="nav nav-tabs" id="agendaTabs" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Yang akan datang</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="past-tab" data-bs-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">Sudah lewat</a>
+					</li>
 				</ul>
+	
+				<div class="tab-content" id="agendaTabContent">
+					<div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Judul</th>
+									<th>Waktu</th>
+									<th>Lokasi</th>
+									<th>Koordinator</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($upcomingAgenda as $agenda)
+								<tr>
+									<td>{{ $agenda->judul }}</td>
+									<td>{{ $agenda->tgl_agenda }}</td>
+									<td>{{ $agenda->lokasi }}</td>
+									<td>{{ $agenda->koordinator }}</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Judul</th>
+									<th>Waktu</th>
+									<th>Lokasi</th>
+									<th>Koordinator</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($pastAgenda as $agenda)
+								<tr>
+									<td>{{ $agenda->judul }}</td>
+									<td>{{ $agenda->tgl_agenda }}</td>
+									<td>{{ $agenda->lokasi }}</td>
+									<td>{{ $agenda->koordinator }}</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	
+	
+	
 
 	<div class="single_bottom_rightbar">
 		<div class="position-sticky" style="top: 2rem;">
