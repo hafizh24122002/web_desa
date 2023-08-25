@@ -67,11 +67,47 @@ class KesehatanController extends Controller
         return redirect('/staf/kesehatan/posyandu')->with('success', 'Data posyandu berhasil dihapus!');
     }
 
-    public function kia()
+    public function kia(Request $request)
     {
+        $search = $request->input('search');
+        $sortField = $request->input('sort_field', 'no_kia');
+        $sortOrder = $request->input('sort_order', 'asc');
+
+        $query = Kia::join(
+            'penduduk as ibu', 'kia.id_ibu', '=', 'ibu.id'
+        )->join(
+            'penduduk as anak', 'kia.id_anak', '=', 'anak.id'
+        )->select(
+            'kia.*',
+            'ibu.nama as nama_ibu',
+            'anak.nama as nama_anak',
+        );
+
+        if($search) {
+            $query->where('ibu.nama', 'LIKE', '%' . $search . '%')
+                ->orWhere('anak.nama', 'LIKE', '%' . $search . '%');
+        }
+
+        if ($sortField === 'nama_ibu') {
+            $query->orderBy('ibu.nama', $sortOrder);
+        } elseif ($sortField === 'nama_anak') {
+            $query->orderBy('anak.nama', $sortOrder);
+        } else {
+            $query->orderBy($sortField, $sortOrder);
+        }
+
+        $kia = $query->paginate(10);
+
+        if ($request->ajax()) {
+            return view('partials.kiaTable', ['kia' => $kia])->render();
+        }
+
         return view('staf.kesehatan.kia', [
             'title' => 'Kesehatan Ibu dan Anak',
-            'kia' => Kia::with('anak', 'ibu')->paginate(10),
+            'kia' => $kia,
+            'search' => $search,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
         ]);
     }
 

@@ -29,7 +29,6 @@
 							<button type="submit" class="btn btn-primary">Cari</button>
 						</form>
 					</div>
-					
 	
 					<a href="/staf/kependudukan/penduduk/new-penduduk" style="width: auto" class="btn btn-primary my-2">
 						<i class="bx bx-user-plus align-middle"></i> Tambah Data Penduduk Baru

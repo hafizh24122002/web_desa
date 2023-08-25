@@ -13,7 +13,7 @@
 					'parent_link' => '/staf/kesehatan',
 					'current_page' => 'KIA',
 				])
-	
+
 				{{-- content --}}
 				<div class="row mt-3 container">
 					@if (session()->has('success'))
@@ -22,6 +22,13 @@
 							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 						</div>
 					@endif
+
+					<div class="mb-3">
+						<form id="searchForm" class="d-flex">
+							<input type="text" name="search" id="searchInput" class="form-control me-2" placeholder="Cari berdasarkan nama Ibu atau Anak" value="{{ $search }}">
+							<button type="submit" class="btn btn-primary">Cari</button>
+						</form>
+					</div>
 	
 					<a href="/staf/kesehatan/kia/new-kia" style="width: auto" class="btn btn-primary my-2">
 						<i class="bx bx-plus align-middle"></i> Tambah Data KIA Baru
@@ -32,53 +39,27 @@
 							<tr class="bg-dark text-light text-center align-middle">
 								<th>No</th>
 								<th>Aksi</th>
-								<th>No KIA</th>
-								<th>Nama Ibu</th>
-								<th>Nama Anak</th>
-								<th>Perkiraan Kelahiran</th>
+								<th class="sortable" data-field="no_kia" data-order="{{ $sortField === 'no_kia' ? $sortOrder : 'asc' }}">
+									No KIA
+									<i class="ms-2 fas {{ $sortField === 'no_kia' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
+								<th class="sortable" data-field="nama_ibu" data-order="{{ $sortField === 'nama_ibu' ? $sortOrder : 'asc' }}">
+									Nama Ibu
+									<i class="ms-2 fas {{ $sortField === 'nama_ibu' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
+								<th class="sortable" data-field="nama_anak" data-order="{{ $sortField === 'nama_anak' ? $sortOrder : 'asc' }}">
+									Nama Anak
+									<i class="ms-2 fas {{ $sortField === 'nama_anak' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
+								<th class="sortable" data-field="perkiraan_lahir" data-order="{{ $sortField === 'perkiraan_lahir' ? $sortOrder : 'asc' }}">
+									Perkiraan Kelahiran
+									<i class="ms-2 fas {{ $sortField === 'perkiraan_lahir' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+								</th>
 							</tr>
 						</thead>
 	
 						<tbody>
-							@foreach ($kia as $key => $data)
-								<tr class="align-middle">
-									<td class="text-center">{{ $kia->firstitem() + $key }}</td>
-	
-									<td class="d-flex gap-1 justify-content-center">
-										<a href="/staf/kesehatan/kia/edit-kia/{{ $data->id }}">
-											<button class="btn btn-sm btn-warning">
-												<i class="bx bx-edit-alt text-light"></i>
-											</button>
-										</a>
-	
-										<form action="/staf/kesehatan/kia/{{ $data->id }}"
-											onsubmit="return confirm('Apakah anda yakin ingin menghapus KIA dengan nomor {{ $data->no_kia }}? KIA yang dihapus tidak akan bisa dikembalikan!')"
-											method="POST">
-											
-											@method('delete')
-											@csrf
-	
-											<button class="btn btn-sm btn-danger" type="submit">
-												<i class="bx bx-trash text-light"></i>
-											</button>
-										</form>
-									</td>
-	
-									<td>{{ $data->no_kia }}</td>
-	
-									<td>
-										{{ $data->ibu->nama ?? '-' }}	
-									</td>
-
-									<td>
-										{{ $data->anak->nama ?? '-' }}
-									</td>
-
-									<td>
-										{{ $data->perkiraan_lahir ? $data->perkiraan_lahir->translatedFormat('jS F Y') : '-' }}
-									</td>
-								</tr>
-							@endforeach
+							@include('partials.kiaTable')
 						</tbody>
 					</table>
 
@@ -92,5 +73,48 @@
 </section>
 
 @include('partials.commonScripts')
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+        const tableBody = document.querySelector('tbody');
+        const columnHeaderCells = document.querySelectorAll('.sortable');
+
+        columnHeaderCells.forEach(columnHeader => {
+            columnHeader.addEventListener('click', function () {
+                const sortField = this.dataset.field;
+                let sortOrder = 'asc';
+
+                if (sortField === this.dataset.field) {
+                    sortOrder = this.dataset.order === 'asc' ? 'desc' : 'asc';
+                }
+
+                fetch(`/staf/kesehatan/kia?search={{ $search }}&sort_field=${sortField}&sort_order=${sortOrder}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.text())
+                .then(data => {
+                    tableBody.innerHTML = data;
+
+                    // Update sorting indicators and icons
+                    columnHeaderCells.forEach(header => {
+                        if (header.dataset.field === sortField) {
+                            header.dataset.order = sortOrder;
+                            const icon = header.querySelector('i');
+                            icon.classList.remove('fa-caret-up', 'fa-caret-down');
+                            icon.classList.add(sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down');
+                        } else {
+                            header.dataset.order = '';
+                            header.querySelector('i').classList.remove('fa-caret-up', 'fa-caret-down');
+                        }
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+</script>
 
 @endsection
