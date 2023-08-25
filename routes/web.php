@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\InfoDesaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -106,6 +107,14 @@ Route::put('/staf/manajemen-web/artikel/edit-artikel/{id}', [ArtikelController::
 Route::delete('/staf/manajemen-web/artikel/{id}', [ArtikelController::class, 'artikelDelete'])->middleware('auth');
 Route::post('/staf/manajemen-web/artikel/upload-image', [ArtikelController::class, 'storeImage'])->middleware('auth');
 
+Route::get('/staf/manajemen-web/agenda', [AgendaController::class, 'agendaManager'])->middleware('auth');
+Route::get('/staf/manajemen-web/agenda/new-agenda', [AgendaController::class, 'agendaNew'])->middleware('auth');
+Route::post('/staf/manajemen-web/agenda/new-agenda', [AgendaController::class, 'agendaNewSubmit'])->middleware('auth');
+Route::get('/staf/manajemen-web/agenda/edit-agenda/{id}', [AgendaController::class, 'agendaEdit'])->middleware('auth');
+Route::put('/staf/manajemen-web/agenda/edit-agenda/{id}', [AgendaController::class, 'agendaEditSubmit'])->middleware('auth');
+Route::delete('/staf/manajemen-web/agenda/{id}', [AgendaController::class, 'agendaDelete'])->middleware('auth');
+Route::post('/staf/manajemen-web/agenda/upload-image', [AgendaController::class, 'storeImage'])->middleware('auth');
+
 Route::get('/staf/layanan-surat/buat-surat', [SuratController::class, 'suratNew'])->middleware('auth');
 Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput'])->middleware('auth');
 Route::post('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInputSubmit'])->middleware('auth');
@@ -118,8 +127,9 @@ Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratControlle
 Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan'])->middleware('auth');
 Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan'])->middleware('auth');
 
-Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'identitasDesa'])->middleware('auth');
-Route::get('/staf/info-desa/identitas-desa/form', [InfoDesaController::class, 'identitasDesaEdit'])->middleware('auth');
+Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data')->middleware('auth');
+Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit')->middleware('auth');
+Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update')->middleware('auth');
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);

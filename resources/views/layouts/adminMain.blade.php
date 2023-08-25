@@ -242,6 +242,11 @@
 									<i class="bx bxs-news nav-icon"></i>
 									<span class="nav-name">Artikel</span>
 								</a>
+
+								<a href="/staf/manajemen-web/agenda" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-calendar-event nav-icon"></i>
+									<span class="nav-name">Agenda</span>
+								</a>
 							</div>
 						</div>
 					</div>
