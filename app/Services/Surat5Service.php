@@ -113,7 +113,7 @@ class Surat5Service
             'tempat_kegiatan' => $tempat_kegiatan,
             'umur' => Carbon::parse($tanggal_lahir_str)->age,
             'tanggal_surat' => Carbon::parse($tanggal_surat_str)->translatedFormat('jS F Y'),
-            'tanggal_surat_raw' => $tanggal_surat_raw,
+            'tanggal_surat_raw' => Carbon::parse($tanggal_surat_str),
             'hari_ttd' => Carbon::parse($tanggal_ttd_str)->translatedFormat('l'),
             'tanggal_ttd' => Carbon::parse($tanggal_ttd_str)->translatedFormat('jS F Y'),
             'nama_staf' => $nama_staf,

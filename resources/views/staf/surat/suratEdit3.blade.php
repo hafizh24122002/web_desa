@@ -288,11 +288,58 @@
 				</div>
 			</div>
 
+			<br>
+
+			<div class="form-group row">
+				<label for="staf" class="col-sm-3 col-form-label">Ditandatangani Oleh</label>
+				<div class="col-sm-7">
+					<select class="form-select form-select-sm" id="staf" name="id_staf" required>
+						<option value="">-- Pilih --</option>
+						@foreach ($staf as $item)
+							<option value="{{ $loop->iteration }}"
+								{{ old('id_staf') == $loop->iteration ||
+								(old('id_staf') == null && $data['id_staf'] == $item->id) ? 
+								'selected' : '' }}>
+								{{ $item->jabatan.' - '.$item->nama }}
+							</option>
+						@endforeach
+					</select>
+				</div>
+
+				<div class="col-sm-2 form-check">
+					<input class="form-check-input"
+						type="checkbox"
+						id="diwakilkan"
+						name="diwakilkan"
+						{{ isset($data['id_staf_an']) ? 'checked' : '' }}>
+					<label class="form-check-label" for="flexCheckDefault">
+						Diwakilkan
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group row" id="divAtasNama">
+				<label for="staf_an" class="col-sm-3 col-form-label">Atas Nama</label>
+				<div class="col-sm-9">
+					<select class="form-select form-select-sm" id="staf_an" name="id_staf_an">
+						<option value="">-- Pilih --</option>
+						@foreach ($staf as $item)
+							<option value="{{ $loop->iteration }}"
+								{{ old('id_staf_an') == $loop->iteration || 
+								(old('id_staf_an') == null && ($data['id_staf_an'] ?? null) == $item->id) ?
+								'selected' : '' }}>
+								{{ $item->jabatan.' - '.$item->nama }}
+							</option>
+						@endforeach
+					</select>
+				</div>
+			</div>
+
 			<input type="text" name="id_tipe" value="{{ $id_tipe }}" hidden>
 			<input type="text" name="tipe" value="{{ $tipe }}" hidden>
 
 			<div class="d-sm-flex justify-content-md-end">
-				<button class="btn btn-primary mt-2 mb-4 px-3 py-1">Buat Surat</button>
+				<button class="btn btn-primary mt-2 mb-4 px-3 py-1">Ubah Surat</button>
 			</div>
 		</form>
 	</div>
@@ -315,6 +362,20 @@
 		} else {
 			$input.prop("readonly", true);
 			$button.prop("readonly", false).empty().append("<i class='bx bx-edit'></i> Ubah");
+		}
+	});
+
+	if (!$('#diwakilkan').is(':checked')) {
+        $('#divAtasNama').hide();
+    }
+
+	$('#diwakilkan').change(function() {
+		if (this.checked) {
+			$('#divAtasNama').slideDown();
+			$('#staf_an').prop('disabled', false);
+		} else {
+			$('#divAtasNama').slideUp();
+			$('#staf_an').prop('disabled', true);
 		}
 	});
 </script>

@@ -94,6 +94,7 @@ class Surat1Service
 
         $tanggal_lahir = Carbon::parse($tanggal_lahir_str)->translatedFormat('jS F Y');
         $tanggal_surat = Carbon::parse($tanggal_surat_str)->translatedFormat('jS F Y');
+        $tanggal_surat_raw = Carbon::parse($tanggal_surat_str);
 
         $agama = ucwords(strtolower(Agama::find($id_agama)->nama));
         $status_perkawinan = ucwords(strtolower(StatusPerkawinan::find($id_status_perkawinan)->nama));

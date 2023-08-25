@@ -98,12 +98,12 @@ class SuratController extends Controller
              * 140
              */
             case 4:
-                $view = view('staf.surat.suratNewInput4', [
+                $view = view('staf.surat.suratNewInput4', 
                     array_merge(
                         $commonViewData,
                         app(Surat4Service::class)->getViewData()
                     )
-                ]);
+                );
                 break;
 
             /**
@@ -287,6 +287,9 @@ class SuratController extends Controller
         $tipe = $id_tipe->nama;
 
         $arrayData['id_staf'] = Staf::where('nama', $arrayData['nama_staf'])->first()->id;
+        if ($arrayData['an'] != "") {
+            $arrayData['id_staf_an'] = Staf::where('nama', $arrayData['nama_ttd'])->first()->id;
+        }
 
         $commonViewData = [
             'title' => 'Ubah Surat ',

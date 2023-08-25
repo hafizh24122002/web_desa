@@ -48,7 +48,7 @@ class Surat3Service
 		]);
 
 		$nomorSurat = $validate['no_surat'];
-		$tanggal_surat_str = $request->input('tanggal_surat');  
+		$tanggal_surat_str = $request->input('tanggal_surat');
 
 		$nama = strtoupper($request->input('nama'));
 		$jenis_kelamin = $request->input('jenis_kelamin');
@@ -70,6 +70,7 @@ class Surat3Service
 		$tanggal_lahir = Carbon::parse($tanggal_lahir_str)->translatedFormat('jS F Y');
 		$tanggal_lahir_ortu = Carbon::parse($tanggal_lahir_ortu_str)->translatedFormat('jS F Y');
 		$tanggal_surat = Carbon::parse($tanggal_surat_str)->translatedFormat('jS F Y');
+		$tanggal_surat_raw = Carbon::parse($tanggal_surat_str);
 		$agama = ucwords(strtolower(Agama::find($id_agama)->nama));
 		$agama_ortu = ucwords(strtolower(Agama::find($id_agama_ortu)->nama));
 		$pekerjaan = ucwords(strtolower(Pekerjaan::find($id_pekerjaan)->nama));

@@ -259,19 +259,20 @@
 						@foreach ($staf as $item)
 							<option value="{{ $loop->iteration }}"
 								{{ old('id_staf') == $loop->iteration ||
-								(old('id_staf') == null && $data['id_staf'] == $item->id_staf) ? 
+								(old('id_staf') == null && $data['id_staf'] == $item->id) ? 
 								'selected' : '' }}>
 								{{ $item->jabatan.' - '.$item->nama }}
 							</option>
-							@php
-								\Log::info($data['id_staf'].' '.$item->id_staf);
-							@endphp
 						@endforeach
 					</select>
 				</div>
 
 				<div class="col-sm-2 form-check">
-					<input class="form-check-input" type="checkbox" id="diwakilkan" name="diwakilkan">
+					<input class="form-check-input"
+						type="checkbox"
+						id="diwakilkan"
+						name="diwakilkan"
+						{{ isset($data['id_staf_an']) ? 'checked' : '' }}>
 					<label class="form-check-label" for="flexCheckDefault">
 						Diwakilkan
 					</label>
@@ -284,7 +285,12 @@
 					<select class="form-select form-select-sm" id="staf_an" name="id_staf_an">
 						<option value="">-- Pilih --</option>
 						@foreach ($staf as $item)
-							<option value="{{ $loop->iteration }}" {{ old('id_staf_an') == $loop->iteration ? 'selected' : '' }}>{{ $item->jabatan.' - '.$item->nama }}</option>
+							<option value="{{ $loop->iteration }}"
+								{{ old('id_staf_an') == $loop->iteration || 
+								(old('id_staf_an') == null && ($data['id_staf_an'] ?? null) == $item->id) ?
+								'selected' : '' }}>
+								{{ $item->jabatan.' - '.$item->nama }}
+							</option>
 						@endforeach
 					</select>
 				</div>
@@ -320,30 +326,17 @@
 		}
 	});
 
-	$('#divAtasNama').hide();
-
-	pendudukList = @json($penduduk);
-
-	autocomplete(document.getElementById("nama"), pendudukList);
-
-	var $input = $("#no");
-	var $button = $("#edit_no_surat");
-
-	$button.on("click", function() {
-		if ($input.prop("readonly")) {
-			$input.prop("readonly", false);
-			$button.prop("readonly", true).text("Simpan");
-		} else {
-			$input.prop("readonly", true);
-			$button.prop("readonly", false).empty().append("<i class='bx bx-edit'></i> Ubah");
-		}
-	});
+	if (!$('#diwakilkan').is(':checked')) {
+        $('#divAtasNama').hide();
+    }
 
 	$('#diwakilkan').change(function() {
 		if (this.checked) {
 			$('#divAtasNama').slideDown();
+			$('#staf_an').prop('disabled', false);
 		} else {
 			$('#divAtasNama').slideUp();
+			$('#staf_an').prop('disabled', true);
 		}
 	});
 </script>

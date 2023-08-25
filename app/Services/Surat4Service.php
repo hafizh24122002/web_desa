@@ -65,10 +65,12 @@ class Surat4Service
 		$staf_an = Staf::find($request->input('id_staf_an'));
 
 		if($request->input('id_staf_an')) {
+			$nama_staf = $staf->nama;
 			$nama_ttd = $staf_an->nama;
 			$an = "an. ".$staf_an->jabatan;
 			$jabatan_staf = $staf->jabatan;
 		} else {
+			$nama_staf = $staf->nama;
 			$nama_ttd = $staf->nama;
 			$jabatan_staf = $staf->jabatan;
 			$an = "";
@@ -77,7 +79,7 @@ class Surat4Service
 		// Define the values to be filled in the template
 		return [
 			'tanggal_surat' => Carbon::parse($tanggal_surat_str)->translatedFormat('jS F Y'),
-			'tanggal_surat_raw' => $tanggal_surat_raw,
+			'tanggal_surat_raw' => Carbon::parse($tanggal_surat_str),
 			'year' => Carbon::parse($tanggal_surat_str)->format('Y'),
 			'no_surat' => $nomorSurat,
 			'nama' => $nama,
@@ -88,6 +90,7 @@ class Surat4Service
 			'finish_time' => $finish_time,
 			'tempat_kegiatan' => $tempat_kegiatan,
 			'jabatan_staf' => $jabatan_staf,
+			'nama_staf' => $nama_staf,
 			'an' => $an,
 			'nama_ttd' => $nama_ttd,         
 		];
