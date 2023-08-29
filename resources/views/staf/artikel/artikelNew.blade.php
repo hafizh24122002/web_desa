@@ -38,11 +38,8 @@
 
 						{!! old('content', '') !!}
 					</div>
-					@error('isi')
-						<div class="invalid-feedback">
-							{{ $message }}
-						</div>
-					@enderror
+
+					<div class="error-messages" style="color: red"></div>
 				</div>
 			</div>
 
@@ -107,10 +104,21 @@
 								}
 							}
 						)
-						.then((response) => response.json())
+						.then(response => response.json())
 						.then((result) => {
-							console.log(result);
-							resolve(result.data.url);
+							if (result.errors) {
+								const errorMessagesElement = document.querySelector('.error-messages');
+								errorMessagesElement.innerHTML = ''; // Clear previous error messages
+
+								for (const field in result.errors) {
+									errorMessagesElement.innerHTML += `<p>${result.errors[field][0]}</p>`;
+								}
+
+								reject("Uplaod Gagal!");
+							} else {
+								console.log(result.image.url);		// debug
+								resolve(result.image.url);
+							}
 						})
 						.catch((error) => {
 							reject("Upload Gagal!");

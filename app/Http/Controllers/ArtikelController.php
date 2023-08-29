@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
 use App\Models\Artikel;
+use App\Models\Image;
 
 class ArtikelController extends Controller
 {
@@ -95,18 +98,29 @@ class ArtikelController extends Controller
 
     public function storeImage(Request $request)
     {
-        $request->validate([
-            'image' => 'required|image|max:20480',
+        $MAX_IMAGE_SIZE = 10240;     // ukuran gambar maksimal (KB)
+
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|max:'.$MAX_IMAGE_SIZE,
+        ], [
+            'image.image' => 'File yang diupload harus berupa gambar (JPEG atau PNG)!',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari '.($MAX_IMAGE_SIZE / 1024).'MB'
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
         $image = $request->file('image');
-        $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
+        $filename = uniqid() . '.' . $image->getClientOriginalExtension();
         $path = $image->storeAs('images', $filename, 'public');
 
         $newImage = new Image();
         $newImage->filename = $filename;
         $newImage->path = $path;
-        $newImage->user_id = auth()->id();
+        $newImage->id_user = auth()->id();
         $newImage->save();
 
         return response()->json([
