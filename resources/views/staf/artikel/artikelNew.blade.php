@@ -33,12 +33,17 @@
 				<div class="col-sm-10">
 					<div id="editor"
 						name="editor"
-						class=" @error('isi') is-invalid @enderror"
+						class="@error('isi') is-invalid @enderror"
 						style="height: 15rem; margin-bottom: 20px; resize: vertical; overflow: auto;">
 
 						{!! old('content', '') !!}
 					</div>
 
+					@error('isi')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+					@enderror
 					<div class="error-messages" style="color: red"></div>
 				</div>
 			</div>
@@ -53,7 +58,8 @@
 				</div>
 			</div>
 
-			<input type="hidden" name="content" id="content">
+			<input type="hidden" name="isi" id="isi">
+			<input type="hidden" name="image[]" id="image">
 
 			<div class="d-sm-flex justify-content-md-end">
 				<button class="btn btn-primary mt-2 mb-4 px-3 py-1">Tambah Artikel Baru</button>
@@ -117,6 +123,15 @@
 								reject("Uplaod Gagal!");
 							} else {
 								console.log(result.image.url);		// debug
+
+								if (!window.imageIds) {
+									window.imageIds = [];
+								}
+								window.imageIds.push(result.image.id_gambar);
+
+								const imageInput = $('input[name="image[]"]');
+								imageInput.val(window.imageIds.join(','));
+
 								resolve(result.image.url);
 							}
 						})
@@ -132,13 +147,13 @@
 		placeholder: 'Tulis isi artikel anda disini',
 	});
 
-	var content = $('input[name=content]');
-	var oldContent = {!! json_encode(old('content')) !!};
-	content.val(oldContent);
+	var isi = $('input[name=isi]');
+	var oldIsi = {!! json_encode(old('isi')) !!};
+	isi.val(oldIsi);
 
 	$('form').submit(function() {
-		content.val($('.ql-editor').html());
-  });
+		isi.val($('.ql-editor').html());
+	});
 </script>
 
 @endsection
