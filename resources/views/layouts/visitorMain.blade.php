@@ -80,6 +80,56 @@
 		{{-- @include('partials.sideContent') --}}
 	</div>
 
+	<script>
+		function generateColorPalette(numColors) {
+			const colors = [];
+			const hueStep = 360 / numColors;
+
+			for (let i = 0; i < numColors; i++) {
+				const hue = i * hueStep;
+				colors.push(`hsl(${hue}, 70%, 50%)`);
+			}
+
+			return colors;
+		}
+
+		// Mengambil data statistik
+		var genderStats = JSON.parse('{!! json_encode($arr_gender) !!}');
+		var barChartCanvas = document.getElementById('bar-chart');
+		var genderNames = genderStats.map(stat => stat.name);
+		var genderCounts = genderStats.map(stat => stat.count);
+		var colorPalette = generateColorPalette(genderNames.length);
+
+		function createChart(chartType, labels, data, backgroundColor, canvasElement) {
+			const ctx = canvasElement.getContext('2d');
+
+			if (canvasElement.chart) {
+				canvasElement.chart.destroy();
+			}
+			canvasElement.chart = new Chart(ctx, {
+				type: chartType,
+				data: {
+					labels: labels,
+					datasets: [{
+						data: data,
+						backgroundColor: backgroundColor,
+					}],
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					title: {
+						display: true,
+						text: chartType === 'pie' ? 'Pie Chart' : 'Bar Chart',
+					},
+				},
+			});
+		}
+
+		createChart('bar', genderNames, genderCounts, colorPalette, barChartCanvas);
+		document.getElementById('barchart-container').style.display = 'block';
+		
+	</script>
 </body>
 	{{-- @include('partials.sideContent') --}}
 	@include('partials.visitorFooter')
