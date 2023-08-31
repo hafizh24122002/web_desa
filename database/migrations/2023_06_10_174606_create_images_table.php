@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('filename');
             $table->string('path');
-            $table->foreignId('id_user')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('hash');
             $table->timestamps();
         });
     }

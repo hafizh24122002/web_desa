@@ -130,8 +130,13 @@ Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController
 Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data')->middleware('auth');
 Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit')->middleware('auth');
 Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update')->middleware('auth');
+
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
+// debug
+// Route::get('/get-csrf-token', function () {
+//     return response()->json(['csrf_token' => csrf_token()]);
+// });
