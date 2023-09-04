@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/letterNameAutoComplete.css') }}">
 <link rel="stylesheet" href="{{ asset('css/quill.snow.css') }}">
-
+<link rel="stylesheet" href="{{ asset('css/quill.imageUploader.min.css') }}">
 
 <div class="row mt-3 container">
 	<div class="col-lg">
@@ -16,12 +16,17 @@
 				<label for="judul" class="col-sm-2 col-form-label">Judul<span style="color:red">*</span></label>
 				<div class="col-sm-10">
 					<input type="text"
-						class="form-control form-control-sm autocomplete"
+						class="form-control form-control-sm @error('judul') is-invalid @enderror"
 						id="judul"
 						name="judul"
 						placeholder="Judul Artikel"
-						value="{{ old('judul') ?? $artikel->judul }}"
-						required>
+						value="{{ old('judul') ?? $artikel->judul }}"	>
+
+					@error('judul')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+					@enderror
 				</div>
 			</div>
 
@@ -30,11 +35,19 @@
 				<div class="col-sm-10">
 					<div id="editor"
 						name="editor"
+						class="@error('isi') is-invalid @enderror"
 						style="height: 15rem; margin-bottom: 20px; resize: vertical; overflow: auto;"
 						required>
 
 						{!! old('content', $artikel->isi) !!}
 					</div>
+
+					@error('isi')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+					@enderror
+					<div class="error-messages" style="color: red"></div>
 				</div>
 			</div>
 
@@ -53,7 +66,7 @@
 				</div>
 			</div>
 
-			<input type="hidden" name="content" id="content">
+			<input type="hidden" name="isi" id="isi">
 
 			<div class="d-sm-flex justify-content-md-end">
 				<button class="btn btn-primary mt-2 mb-4 px-3 py-1">Ubah Artikel</button>
@@ -65,17 +78,79 @@
 @include('partials.commonScripts')
 
 <script src="{{ asset('js/quill.min.js') }}"></script>
+<script src="{{ asset('js/quill.imageUploader.min.js') }}"></script>
 <script>
+	const csrfToken = "{{ csrf_token() }}";
+
+	var toolbarOptions = [
+		['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+		['blockquote', 'code-block'],
+
+		[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+		[{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+		[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+		[ 'link', 'image', 'video', 'formula' ],          // add's image support
+		[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+		[{ 'align': [] }],
+
+		['clean']                                         // remove formatting button
+	];
+
+	Quill.register('modules/imageUploader', ImageUploader);
+
 	var quill = new Quill('#editor', {
-		theme: 'snow'
+		modules: {
+			toolbar: toolbarOptions,
+			imageUploader: {
+				upload: (file) => {
+					return new Promise((resolve, reject) =>{
+						const formData = new FormData();
+						formData.append("image", file);
+
+						fetch("/staf/manajemen-web/artikel/upload-image", {
+								method: "POST",
+								body: formData,
+								headers: {
+									"X-CSRF-TOKEN": csrfToken
+								}
+							}
+						)
+						.then(response => response.json())
+						.then((result) => {
+							if (result.errors) {
+								const errorMessagesElement = document.querySelector('.error-messages');
+								errorMessagesElement.innerHTML = ''; // Clear previous error messages
+
+								for (const field in result.errors) {
+									errorMessagesElement.innerHTML += `<p>${result.errors[field][0]}</p>`;
+								}
+
+								reject("Uplaod Gagal!");
+							} else {
+								console.log(result.image.url);		// debug
+								resolve(result.image.url);
+							}
+						})
+						.catch((error) => {
+							reject("Upload Gagal!");
+							console.error(error);
+						});
+					});
+				},
+			}
+		},
+		theme: 'snow',
+		placeholder: 'Tulis isi artikel anda disini',
 	});
 
-	var content = $('input[name=content]');
-	var oldContent = {!! json_encode(old('content', $artikel->isi)) !!};
-	content.val(oldContent);
+	var isi = $('input[name=isi]');
+	var oldIsi = {!! json_encode(old('isi')) !!};
+	isi.val(oldIsi);
 
 	$('form').submit(function() {
-		content.val($('.ql-editor').html());
+		isi.val($('.ql-editor').html());
   });
 </script>
 

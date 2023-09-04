@@ -18,6 +18,7 @@ class Image extends Model
         'filename',
         'path',
         'id_user',
+        'hash',
     ];
 
     /**

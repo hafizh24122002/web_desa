@@ -77,7 +77,7 @@
 	<div class="body-wrapper">
 		@yield('main-content')
 		@include('partials.commonScripts')
-		@include('partials.sideContent')
+		{{-- @include('partials.sideContent') --}}
 	</div>
 
 	<script>
@@ -130,7 +130,6 @@
 		document.getElementById('barchart-container').style.display = 'block';
 	</script>
 </body>
-<!-- @include('partials.sideContent') -->
-@include('partials.visitorFooter')
-
+	{{-- @include('partials.sideContent') --}}
+	@include('partials.visitorFooter')
 </html>
