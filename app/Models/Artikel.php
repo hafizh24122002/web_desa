@@ -20,8 +20,7 @@ class Artikel extends Model
         'id_staf',
         'judul',
         'isi',
-        'is_active',
-        'click_count'
+        'is_active'
     ];
 
     /**

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('judul');
             $table->longText('isi');
             $table->boolean("is_active")->default(true);
-            $table->unsignedInteger('click_count')->default(0);
             $table->timestamps();
         });
     }

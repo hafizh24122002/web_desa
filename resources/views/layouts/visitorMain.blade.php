@@ -80,8 +80,6 @@
 		@include('partials.sideContent')
 	</div>
 
-	<script src="{{ asset('js/scriptVisitor.js') }}"></script>
-
 </body>
 	@include('partials.sideContent')
 	@include('partials.visitorFooter')
