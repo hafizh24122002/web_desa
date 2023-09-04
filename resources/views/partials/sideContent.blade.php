@@ -135,7 +135,7 @@
 		<div class="p-4 my-3 bg-light rounded">
 			<h2 class="box-title"><i class="bi bi-bar-chart-line-fill align-middle"></i>&ensp;Statistik Penduduk</h2>
 
-			<div class="mb-4">
+			<div class="mt-2">
 				<div id="barchart-container">
 					<canvas id="bar-chart" width="400" height="300"></canvas>
 				</div>
