@@ -330,6 +330,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Agenda::create([
+            'id_staf' => 2,
             'judul' => 'Bantuan KRS',
             'isi' => 'Pendistribusian bantuan Keluarga Berisiko Stunting (KRS) di kantor desa',
             'tgl_agenda' => '2023-08-17',

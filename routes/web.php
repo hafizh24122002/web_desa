@@ -14,6 +14,8 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\InfoDesaController;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -34,6 +36,7 @@ Route::get('/tentang-desa', [MainVisitorController::class, 'aboutDesa']);
 Route::get('/geografis-desa', [MainVisitorController::class, 'geografisDesa']);
 Route::get('/demografi-desa', [MainVisitorController::class, 'demografiDesa']);
 Route::get('/artikel/{judul}', [MainVisitorController::class, 'bacaArtikel']);
+
 
 // route admin
 Route::get('/admin/dashboard', [MainAdminController::class, 'index'])->middleware('auth');
@@ -126,6 +129,9 @@ Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratControlle
 
 Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan'])->middleware('auth');
 Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan'])->middleware('auth');
+Route::get('/staf/buku-administrasi-desa/administrasi-penduduk/BIPdownload', function () {
+    return Excel::download(new UsersExport, 'Buku Induk Penduduk.xlsx');
+})->name('users.export');
 
 Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data')->middleware('auth');
 Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit')->middleware('auth');

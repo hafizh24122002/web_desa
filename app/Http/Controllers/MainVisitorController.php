@@ -24,54 +24,77 @@ class MainVisitorController extends Controller
             '=',
             1
         )->orderBy('updated_at', 'desc')->paginate(5);
-    
+
         $currentDate = Carbon::now();
-    
+
         // Mengelompokkan agenda yang sudah lewat dan agenda yang akan datang
         $pastAgenda = Agenda::select('judul', 'tgl_agenda', 'lokasi', 'koordinator')
             ->where('tgl_agenda', '<', $currentDate)
             ->orderBy('tgl_agenda', 'desc')
             ->get();
-    
+
         $upcomingAgenda = Agenda::select('judul', 'tgl_agenda', 'lokasi', 'koordinator')
             ->where('tgl_agenda', '>', $currentDate)
             ->orderBy('tgl_agenda')
             ->get();
-    
+
         // Ubah format tgl_agenda menggunakan translatedFormat('jS F Y')
-        foreach ($pastAgenda as $agenda) {  
+        foreach ($pastAgenda as $agenda) {
             $agenda->tgl_agenda = Carbon::parse($agenda->tgl_agenda)->translatedFormat('jS F Y');
         }
-    
+
         foreach ($upcomingAgenda as $agenda) {
             $agenda->tgl_agenda = Carbon::parse($agenda->tgl_agenda)->translatedFormat('jS F Y');
         }
-    
+
         return view('visitor.index', compact('artikel', 'pastAgenda', 'upcomingAgenda'))->with('title', 'Home');
     }
-    
+
+    // public function incrementClickCount($articleId)
+    // {
+    //     $article = Artikel::find($articleId);
+    //     if ($article) {
+    //         $article->click_count++;
+    //         $article->save();
+    //     }
+    //     // Tidak perlu ada response khusus, karena ini hanya dilakukan melalui JavaScript
+    // }
 
     public function bacaArtikel($judul)
-    {
-        $data = Artikel::join(
-            'users',
-            'artikel.id_staf',
-            '=',
-            'users.id'
-        )->select(
-            'artikel.*',
-            'users.name',
-        )->where(
-            'judul',
-            '=',
-            $judul
-        )->first();
+{
+    // Ambil data artikel berdasarkan judul
+    $artikel = Artikel::where('judul', $judul)->first();
 
-        return view('visitor.bacaArtikel', [
-            'title' => $judul,
-            'artikel' => $data,
-        ]);
+    if (!$artikel) {
+        return abort(404); // Artikel tidak ditemukan
     }
+
+
+        // Tambahkan 1 ke click_count
+        $artikel->click_count++;
+        $artikel->save();
+
+    // Ambil data terbaru setelah penambahan click_count
+    $data = Artikel::join(
+        'users',
+        'artikel.id_staf',
+        '=',
+        'users.id'
+    )->select(
+        'artikel.*',
+        'users.name',
+    )->where(
+        'judul',
+        '=',
+        $judul
+    )->first();
+
+    return view('visitor.bacaArtikel', [
+        'title' => $judul,
+        'artikel' => $data,
+    ]);
+}
+
 
     public function aboutDesa()
     {

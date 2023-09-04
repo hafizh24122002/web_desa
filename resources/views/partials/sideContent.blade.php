@@ -36,7 +36,7 @@
 					</li>
 				</ul>
 	
-				<div class="tab-content" id="agendaTabContent">
+				{{-- <div class="tab-content" id="agendaTabContent">
 					<div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
 						<table class="table">
 							<thead>
@@ -84,7 +84,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	
 	
 	

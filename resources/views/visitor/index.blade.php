@@ -46,11 +46,11 @@
     {{-- article-list --}}
     <div class="col">
         @foreach ($artikel as $item)
-            <a href="/artikel/{{ $item->judul }}" class="text-reset text-decoration-none">
+        <a href="/artikel/{{ $item->judul }}" class="text-reset text-decoration-none" data-article-id="{{ $item->id }}">
                 <div class="card mb-3" style="width: 100%">
                     <div class="card-body flex-fill">
                         <h5 class="card-title"><strong>{{ $item->judul }}</strong></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><em>{{ $item->name }}</em> - {{ $item->updated_at->translatedFormat('l, jS F Y') }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><em>{{ $item->name }}</em> - {{ $item->updated_at->translatedFormat('l, jS F Y') }} - {{ $item->click_count }} pembaca</h6>
                         <div class="card-text">
                             <p>{!! $item->isi !!}</p>
                         </div>
@@ -69,4 +69,5 @@
 
     
 </div>
+<script src="{{ asset('js/scriptVisitor.js') }}"></script>
 @endsection

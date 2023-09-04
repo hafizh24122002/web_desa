@@ -6,7 +6,7 @@
     {{-- article-list --}}
     <div class="col">
         <h1>{{ $artikel->judul }}</h1>
-        <p><em>{{ $artikel->name }}</em> - {{ $artikel->updated_at->translatedFormat('l, jS F Y') }}</p>
+        <p><em>{{ $artikel->name }}</em> - {{ $artikel->updated_at->translatedFormat('l, jS F Y') }} - {{ $artikel->click_count }} pembaca</p>
 		<hr>
 
 		<p>{!! $artikel->isi !!}</p>
