@@ -1,7 +1,15 @@
 @extends('layouts/adminMain')
 
 @section('main-content')
+<style type="text/css">
+	.orgchart {
+		background: unset;
+	}
 
+	.orgchart .node .title {
+		background-color: #343a40;
+	}
+</style>
 <section class="wrapper">
 	<div class="container-fostrap">
 		<div class="content">
@@ -14,7 +22,7 @@
 
 				{{-- content --}}
 				<div class="row mt-3 container">
-					<div id="pohonStaf" style="width: 100%; height: 600px;"></div>
+					<div id="pohonStaf"></div>
 				</div>
 			</div>
 		</div>
@@ -31,51 +39,65 @@
 			'children': [{
 					'name': 'HOTIB',
 					'title': 'Sekretaris Desa',
-					'children': [{
-							'name': 'SUFARTA',
-							'title': 'Kaur Administrasi',
-							'children' : [{
-								'name' : 'SILVI FEBRIANTI',
-								'title' : 'Staf Administrasi'
-							}]
-						},
-						{
-							'name': 'ERLANGGA',
-							'title': 'Kaur Keuangan'
-						}
-					]
 				},
 				{
 					'name': 'ISWANDI',
 					'title': 'Kasi Kesejahteraan',
+					'levelOffset': 1,
 				},
 				{
 					'name': 'RENDY SANDRA',
-					'title': 'Kasi Pelayanan'
+					'title': 'Kasi Pelayanan',
+					'levelOffset': 1,
 				},
 				{
 					'name': 'ISBIK MIRWANTO',
-					'title': 'Kasi Pemerintahan'
-				},
-				{
-					'name': 'DIAH ISMAINI',
-					'title': 'Kasi TU dan Umum'
+					'title': 'Kasi Pemerintahan',
+					'levelOffset': 1,
 				},
 				{
 					'name': 'HORMEN',
-					'title': 'Kepala Dusun 1'
+					'title': 'Kepala Dusun I',
+					'levelOffset': 2
 				},
 				{
 					'name': 'SUHARDI',
-					'title': 'Kepala Dusun 2'
+					'title': 'Kepala Dusun II',
+					'levelOffset': 2
+				},
+				{
+					'name': 'DIAH ISMAINI',
+					'title': 'Kaur TU dan Umum',
+					'levelOffset': 1,
+				},
+				{
+					'name': 'SUFARTA',
+					'title': 'Kaur Perencanaan',
+					'levelOffset': 1,
+				},
+				{
+					'name': 'ERLANGGA',
+					'title': 'Kaur Keuangan',
+					'levelOffset': 1,
 				},
 			]
 		};
 
 		$('#pohonStaf').orgchart({
 			'data': datasource,
-			'nodeTitle' : 'title',
-			'nodeContent': 'name'
+			'nodeTitle': 'title',
+			'nodeContent': 'name',
+			'createNode': function(node, data) {
+				if (data.levelOffset) {
+					node.css({
+						'margin-top': (data.levelOffset * 70) + 'px',
+						'--top': (-11 - data.levelOffset * 70) + 'px',
+						'--height': (9 + data.levelOffset * 70) + 'px',
+						'--top-cross-point': (-13 - data.levelOffset * 70) + 'px',
+						'--height-cross-point': (11 + data.levelOffset * 70) + 'px'
+					});
+				}
+			}
 		});
 
 	});
