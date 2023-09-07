@@ -1,3 +1,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/js/jquery.orgchart.min.js" integrity="sha512-sH+LFgoJ3xJg6M/Cctv7Z2do3+v3pqrnBQ+syZQ2ba3m+9Pn+DRk9tnrxTNwj0UyobSLH3y5nllfW8NciXFXzA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/js/jquery.orgchart.js" integrity="sha512-9SwA1lt8gV23ocIgfPMJacGlI31kHEYtItc6g/OoB5oc2TIJSeMQZYNXackgzK0IVRdor2Qiw3DlwjoEaslMiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
