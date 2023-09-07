@@ -166,7 +166,7 @@ class ArtikelController extends Controller
         $validator = Validator::make($request->all(), [
             'image' => 'required|image|max:'.$MAX_IMAGE_SIZE,
         ], [
-            'image.image' => 'File yang diupload harus berupa gambar (JPEG atau PNG)!',
+            'image.image' => 'File yang diupload harus berupa gambar!',
             'image.max' => 'Ukuran gambar tidak boleh lebih dari '.($MAX_IMAGE_SIZE / 1024).'MB'
         ]);
 

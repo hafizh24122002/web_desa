@@ -242,3 +242,14 @@ a {
     cursor: pointer;
 	background-color: #495057;
 }
+
+.profile-picture-container {
+	position: relative;
+	overflow: hidden;
+}
+
+.profile-picture-container img {
+	width: 100%;
+	height: auto;
+	object-fit: cover; /* This property ensures the image covers the container, stretching or shrinking as needed */
+}
