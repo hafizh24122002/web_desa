@@ -126,6 +126,7 @@ Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratControlle
 
 Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan'])->middleware('auth');
 Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan'])->middleware('auth');
+Route::get('users/export/', [BukuController::class, 'export']);
 
 Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data')->middleware('auth');
 Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit')->middleware('auth');
