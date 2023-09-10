@@ -2,6 +2,8 @@
 
 @section('main-content')
 
+@include('partials.commonScripts')
+
 <section class="wrapper">
     <div class="container-fostrap">
         <div class="content">
@@ -28,21 +30,9 @@
 	</div>
 </section>
 
-@include('partials.commonScripts')
-
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#pamong-input").hide();
 		$("#pekerjaan_lainnya_input").hide();
-
-		// toggle tampilan input untuk pamong
-		$("#grup-input").change(function() {
-			if ($("#grup-input").val() == "2") {
-				$("#pamong-input").slideDown();
-			} else {
-				$("#pamong-input").slideUp();
-			}
-		});
 
 		$(".pekerjaan_input").change(function() {
 			if ($(".pekerjaan_input").val() == "84") {
@@ -52,16 +42,6 @@
 			}
 		});
 	})
-</script>
-
-<script>
-	function preview() {
-		frame.src = URL.createObjectURL(event.target.files[0]);
-	}
-	function clearImage() {
-		document.getElementById('formFile').value = null;
-		frame.src = "";
-	}
 </script>
 
 @endsection

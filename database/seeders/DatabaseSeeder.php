@@ -226,7 +226,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'staf',
         ]);
 
-
         Staf::create([
             'nama' => 'RIZA UMAMI',
             'jabatan' => 'Kepala Desa',
