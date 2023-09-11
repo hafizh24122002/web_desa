@@ -18,39 +18,6 @@ use App\Models\StatusPerkawinan;
 
 class StatistikController extends Controller
 {
-    // public function statistik()
-    // {
-    //     $totalRowPenduduk = Penduduk::count();
-    //     $totalRowPekerjaan = Pekerjaan::count();
-    //     $totalRowPendidikanTerakhir = PendidikanTerakhir::count();
-    //     $totalRowAgama = Agama::count();
-    //     $totalRowKelasSosial = KelasSosial::count();
-        
-    //     return view('staf.statistik.statistikKependudukan', [
-    //         'title' => 'Statistik Kependudukan',
-    //         'penduduk' => Penduduk::select(
-    //             'nama',
-    //             'jenis_kelamin',
-    //             'id_agama',
-    //             'id_pekerjaan',
-    //             'id_pendidikan_terakhir',
-    //             'penduduk_tetap',
-    //         )->get(),
-    //         'keluarga' => Keluarga::select(
-    //             'id_kelas_sosial'
-    //         )->get(),
-    //         'pendidikan_terakhir' => PendidikanTerakhir::all(),
-    //         'agama' => Agama::all(),
-    //         'pekerjaan' => Pekerjaan::all(),
-    //         'kelas_sosial' => KelasSosial::all(),
-    //         'totalRowAgama' => $totalRowAgama,
-    //         'totalRowPekerjaan' => $totalRowPekerjaan,
-    //         'totalRowPendidikanTerakhir' => $totalRowPendidikanTerakhir,
-    //         'totalRowKelasSosial' => $totalRowKelasSosial,
-    //         'totalRowPenduduk' => $totalRowPenduduk,
-    //     ]);
-    // }
-
     public function statistik(){
 
         $penduduk = Penduduk::all();

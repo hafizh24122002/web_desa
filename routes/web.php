@@ -155,6 +155,7 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan']);
 		Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan']);
+    Route::get('users/export/', [BukuController::class, 'export']);
 
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');

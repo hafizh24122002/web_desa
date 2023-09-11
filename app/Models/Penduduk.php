@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Agama;
+use App\Models\pendidikanTerakhir;
+use App\Models\Pekerjaan;
 
 class Penduduk extends Model
 {
@@ -51,6 +54,21 @@ class Penduduk extends Model
      * @var array<string, string>
      */
     protected $casts = [
-         'penduduk_tetap' => 'boolean'
+        'penduduk_tetap' => 'boolean'
     ];
+
+    public function agama()
+    {
+        return $this->belongsTo(Agama::class, 'id_agama', 'id');
+    }
+
+    public function pendidikanTerakhir()
+    {
+        return $this->belongsTo(PendidikanTerakhir::class, 'id_pendidikan_terakhir');
+    }
+
+    public function pekerjaan()
+    {
+        return $this->belongsTo(Pekerjaan::class, 'id_pekerjaan');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Penduduk;
 
 class Agama extends Model
 {
@@ -29,4 +30,9 @@ class Agama extends Model
     protected $casts = [
          
     ];
+
+    public function penduduk()
+    {
+        return $this->hasMany(Penduduk::class, 'id_agama', 'id');
+    }
 }
