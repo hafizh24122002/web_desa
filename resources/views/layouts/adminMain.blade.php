@@ -106,7 +106,7 @@
 						</div>
 					</div>
 
-					<div id="Kesehatan"">
+					<div id="Kesehatan">
 						<div class="accordion-item">
 							<div class="accordion-header" id="kesehatanTitle">
 								<button class="accordion-button collapsed nav-link"
@@ -146,7 +146,7 @@
 						</div>
 					</div>
 
-					<div id="Statistik"">
+					<div id="Statistik">
 						<div class="accordion-item">
 							<div class="accordion-header" id="statistikTitle">
 								<button class="accordion-button collapsed nav-link"
@@ -176,7 +176,7 @@
 						</div>
 					</div>
 
-					<div id="ManajemenStaf"">
+					<div id="ManajemenStaf">
 						<div class="accordion-item">
 							<div class="accordion-header" id="stafTitle">
 								<button class="accordion-button collapsed nav-link"
@@ -211,7 +211,7 @@
 						</div>
 					</div>
 
-					<div id="ManajemenWeb"">
+					<div id="ManajemenWeb">
 						<div class="accordion-item">
 							<div class="accordion-header" id="manajemenWebTitle">
 								<button class="accordion-button collapsed nav-link"
@@ -246,6 +246,11 @@
 								<a href="/staf/manajemen-web/agenda" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-calendar-event nav-icon"></i>
 									<span class="nav-name">Agenda</span>
+								</a>
+
+								<a href="/staf/manajemen-web/dokumen" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bxs-file nav-icon"></i>
+									<span class="nav-name">Dokumen</span>
 								</a>
 							</div>
 						</div>
