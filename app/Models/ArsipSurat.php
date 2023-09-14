@@ -17,7 +17,6 @@ class ArsipSurat extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'kode_surat',
         'no_surat',
         'id_staf',
         'id_klasifikasi_surat',
@@ -36,4 +35,20 @@ class ArsipSurat extends Model
     protected $casts = [
         'tanggal_surat' => 'date'
     ];
+
+    /**
+     * Get the staf associated with surat.
+     */
+    public function staf()
+    {
+        return $this->belongsTo(Staf::class, 'id_staf');
+    }
+
+    /**
+     * Get the surat associated with surat.
+     */
+    public function surat()
+    {
+        return $this->belongsTo(Surat::class, 'id_klasifikasi_surat');
+    }
 }

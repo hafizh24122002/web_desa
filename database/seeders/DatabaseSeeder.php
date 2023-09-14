@@ -9,6 +9,7 @@ use App\Models\Agama;
 use App\Models\Artikel;
 use App\Models\HubunganKK;
 use App\Models\IbuHamil;
+use App\Models\IdentitasDesa;
 use App\Models\KelasSosial;
 use App\Models\Keluarga;
 use App\Models\Kesehatan;
@@ -24,6 +25,7 @@ use App\Models\StatusPerkawinan;
 use App\Models\Staf;
 use App\Models\Surat;
 use App\Models\User;
+use App\Models\Agenda;
 
 class DatabaseSeeder extends Seeder
 {
@@ -224,7 +226,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'staf',
         ]);
 
-
         Staf::create([
             'nama' => 'RIZA UMAMI',
             'jabatan' => 'Kepala Desa',
@@ -314,6 +315,25 @@ class DatabaseSeeder extends Seeder
         Kia::create([
             'no_kia' => '12345',
             'id_ibu' => 2,
+        ]);
+
+        IdentitasDesa::create([
+            'nama_desa' => 'Malik',
+            'kode_desa' => '123.456',
+            'nama_kepala_desa' => 'Riza Umami',
+            'email_desa' => 'pemdesmalik@gmail.com',
+            'website' => 'malik.com',
+            'nama_kecamatan' => 'Payung',
+            'nama_kabupaten' => 'Bangka Selatan',
+            'nama_provinsi' => 'Bangka Belitung'
+        ]);
+
+        Agenda::create([
+            'judul' => 'Bantuan KRS',
+            'isi' => 'Pendistribusian bantuan Keluarga Berisiko Stunting (KRS) di kantor desa',
+            'tgl_agenda' => '2023-08-17',
+            'koordinator' => 'Amiw',
+            'lokasi' => 'Kantor Desa'
         ]);
     }
 }

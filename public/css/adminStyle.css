@@ -232,7 +232,24 @@ a {
     width: 250px;
 }
 
+.button-container {
+    display: flex; /* Use flexbox to align buttons horizontally */
+    justify-content: space-between; /* Spread the buttons horizontally with space between them */
+    margin-top: 10px; /* Add some space between the buttons and the form fields above */
+}
+
 .sortable:hover {
     cursor: pointer;
 	background-color: #495057;
+}
+
+.profile-picture-container {
+	position: relative;
+	overflow: hidden;
+}
+
+.profile-picture-container img {
+	width: 100%;
+	height: auto;
+	object-fit: cover; /* This property ensures the image covers the container, stretching or shrinking as needed */
 }

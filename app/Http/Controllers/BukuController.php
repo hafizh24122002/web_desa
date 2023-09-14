@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Agama;
-use App\Models\HubunganKK;
-use App\Models\Keluarga;
-// use App\Models\Kesehatan;
-use App\Models\Kewarganegaraan;
-use App\Models\Pekerjaan;
-use App\Models\PendidikanSaatIni;
-use App\Models\PendidikanTerakhir;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PendudukExport;
 use App\Models\Penduduk;
-use App\Models\Rt;
-use App\Models\StatusPerkawinan;
+use App\Models\ArsipSurat;
+
 
 class BukuController extends Controller
 {
@@ -37,99 +30,24 @@ class BukuController extends Controller
         ]);
     }
 
-    public function pendudukNew()
+    public function bukuAgenda()
     {
-        return view('staf.penduduk.pendudukNew', [
-            'title' => 'Tambah Penduduk Baru',
-            'agama' => Agama::all(),
-            'hubungan_kk' => HubunganKK::all(),
-            // 'kesehatan' => Kesehatan::all(),
-            'kewarganegaraan' => Kewarganegaraan::all(),
-            'pekerjaan' => Pekerjaan::all(),
-            'pendidikan_saat_ini' => PendidikanSaatIni::all(),
-            'pendidikan_terakhir' => PendidikanTerakhir::all(),
-            'status_perkawinan' => StatusPerkawinan::all(),
+        return view('staf.bukuadministrasidesa.administrasiUmum', [
+            'title' => 'Buku Agenda',
+            'penduduk' => ArsipSurat::join(
+                'staf', 'arsip_surat.id_staf', '=', 'staf.id'
+            )->join(
+                'surat', 'arsip_surat.id_klasifikasi_surat', '=', 'surat.id'
+            )->select(
+                'arsip_surat.*',
+                'staf.nama',
+                'surat.kode_surat',
+            )->paginate(10),
         ]);
     }
 
-    public function pendudukNewSubmit(Request $request)
+    public function export() 
     {
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'nik' => 'required|unique:penduduk',
-            'kk' => 'nullable',
-            'id_hubungan_kk' => 'nullable',
-            'jenis_kelamin' => 'nullable',
-            'tempat_lahir' => 'nullable',
-            'tanggal_lahir' => 'nullable',
-            'id_agama' => 'nullable',
-            'id_pendidikan_terakhir' => 'nullable',
-            'id_pekerjaan' => 'nullable',
-            'id_status_perkawinan' => 'nullable',
-            'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'nullable',
-            'nik_ibu' => 'nullable',
-            'id_penduduk_tetap' => 'nullable',
-            'alamat' => 'nullable',
-            'telepon' => 'nullable',
-            'status' => 'nullable',
-        ]);
-
-        Penduduk::create($validatedData);
-
-        return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil ditambahkan!');
-    }
-
-    public function pendudukEdit(Penduduk $penduduk)
-    {
-        return view('staf.penduduk.pendudukEdit', [
-            'title' => 'Edit Data Penduduk',
-            'penduduk' => $penduduk,
-            'agama' => Agama::all(),
-            'hubungan_kk' => HubunganKK::all(),
-            // 'kesehatan' => Kesehatan::all(),
-            'kewarganegaraan' => Kewarganegaraan::all(),
-            'pekerjaan' => Pekerjaan::all(),
-            'pendidikan_saat_ini' => PendidikanSaatIni::all(),
-            'pendidikan_terakhir' => PendidikanTerakhir::all(),
-            'status_perkawinan' => StatusPerkawinan::all(),
-        ]);
-    }
-
-    public function pendudukEditSubmit(Request $request, Penduduk $penduduk)
-    {
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'nik' => 'required|unique:penduduk,nik,'.$penduduk->id,
-            'kk' => 'nullable',
-            'id_hubungan_kk' => 'nullable',
-            'jenis_kelamin' => 'nullable',
-            'tempat_lahir' => 'nullable',
-            'tanggal_lahir' => 'nullable',
-            'id_agama' => 'nullable',
-            'id_pendidikan_terakhir' => 'nullable',
-            'id_pekerjaan' => 'nullable',
-            'id_status_perkawinan' => 'nullable',
-            'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'nullable',
-            'nik_ibu' => 'nullable',
-            'id_penduduk_tetap' => 'nullable',
-            'alamat' => 'nullable',
-            'telepon' => 'nullable',
-            'status' => 'nullable',
-        ]);
-
-        Penduduk::firstWhere('nik', $penduduk->nik)->update($validatedData);
-
-        return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil diubah!');
-    }
-
-    public function pendudukDelete(Penduduk $penduduk)
-    {
-        $data = Penduduk::firstWhere('nik', $penduduk->nik);
-
-        Penduduk::destroy($data->id);
-
-        return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil dihapus!');
+        return Excel::download(new PendudukExport, 'BIP.xlsx');
     }
 }

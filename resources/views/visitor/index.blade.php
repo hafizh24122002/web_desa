@@ -65,9 +65,7 @@
     </div>
 
     {{-- sidebar --}}
-    <div class="col">
-
-    </div>
+    
 
     
 </div>

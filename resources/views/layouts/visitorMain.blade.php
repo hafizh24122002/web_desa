@@ -76,11 +76,60 @@
 
 	<div class="body-wrapper">
 		@yield('main-content')
-		@include('partials.commonScripts')
 		@include('partials.sideContent')
+		@include('partials.commonScripts')
 	</div>
 
+	<script>
+		function generateColorPalette(numColors, alpha) {
+			const colors = [];
+			const hueStep = 360 / numColors;
+
+			for (let i = 0; i < numColors; i++) {
+				const hue = i * hueStep;
+				colors.push(`rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${alpha})`);
+			}
+
+			return colors;
+		}
+
+		// Mengambil data statistik
+		var genderStats = JSON.parse('{!! json_encode($arr_gender) !!}');
+		var barChartCanvas = document.getElementById('bar-chart');
+		var genderNames = genderStats.map(stat => stat.name);
+		var genderCounts = genderStats.map(stat => stat.count);
+		var colorPalette = generateColorPalette(genderNames.length, 0.5);
+		var borderColors = colorPalette.map(color => color.replace(/[^,]+(?=\))/, '1'));
+
+		function createChart(chartType, labels, data, backgroundColor, borderColor, canvasElement) {
+			const ctx = canvasElement.getContext('2d');
+
+			if (canvasElement.chart) {
+				canvasElement.chart.destroy();
+			}
+			canvasElement.chart = new Chart(ctx, {
+				type: chartType,
+				data: {
+					labels: labels,
+					datasets: [{
+						label: 'Data Berdasarkan Jenis Kelamin',
+						data: data,
+						backgroundColor: backgroundColor,
+						borderColor: borderColor,
+						borderWidth: 1
+					}],
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+				},
+			});
+		}
+
+		createChart('bar', genderNames, genderCounts, colorPalette, borderColors, barChartCanvas);
+		document.getElementById('barchart-container').style.display = 'block';
+	</script>
 </body>
-	@include('partials.sideContent')
+
 	@include('partials.visitorFooter')
 </html>
