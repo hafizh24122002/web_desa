@@ -37,6 +37,8 @@ Route::get('/tentang-desa', [MainVisitorController::class, 'aboutDesa']);
 Route::get('/geografis-desa', [MainVisitorController::class, 'geografisDesa']);
 Route::get('/demografi-desa', [MainVisitorController::class, 'demografiDesa']);
 Route::get('/artikel/{judul}', [MainVisitorController::class, 'bacaArtikel']);
+Route::get('/struktur-organisasi', [MainVisitorController::class, 'strukturOrganisasi']);
+Route::get('/perangkat-desa', [MainVisitorController::class, 'perangkatDesa']);
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -169,5 +171,5 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
-	// });
+	// })
 // });
