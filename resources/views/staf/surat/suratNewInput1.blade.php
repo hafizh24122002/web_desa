@@ -53,7 +53,7 @@
 			<div class="form-group row">
 				<label for="nama" class="col-sm-3 col-form-label">Nama Pemilik Usaha</label>
 				<div class="col-sm-9 autocomplete" style="position: relative; display: inline-block">
-					<input type="text" 
+					<input type="text"
 						class="form-control form-control-sm"
 						name="nama"
 						id="nama"
