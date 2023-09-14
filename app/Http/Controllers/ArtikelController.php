@@ -80,7 +80,7 @@ class ArtikelController extends Controller
         }, $validatedData['isi']);
         
         $data = [
-            'id_staf' => auth()->user()->id,
+            'id_staf' => auth()->user()->id_staf,
             'judul' => $validatedData['judul'],
             'isi' => $newIsi,
             'is_active' => $request->input('is_active', false),
@@ -141,7 +141,7 @@ class ArtikelController extends Controller
         }, $validatedData['isi']);
         
         $data = [
-            'id_staf' => auth()->user()->id,
+            'id_staf' => auth()->user()->id_staf,
             'judul' => $validatedData['judul'],
             'isi' => $newIsi,
             'is_active' => $request->input('is_active', false),
