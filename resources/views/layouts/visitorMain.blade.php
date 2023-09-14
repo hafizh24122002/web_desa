@@ -38,8 +38,8 @@
 							Pemerintahan
 						</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Struktur Organisasi</a></li>
-							<li><a class="dropdown-item" href="#">Perangkat Desa</a></li>
+							<li><a class="dropdown-item" href="/struktur-organisasi">Struktur Organisasi</a></li>
+							<li><a class="dropdown-item" href="/perangkat-desa">Perangkat Desa</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown">
@@ -73,10 +73,13 @@
 			</div>
 		</div>
 	</nav>
-
+	
+	@yield('header')
 	<div class="body-wrapper">
 		@yield('main-content')
-		@include('partials.sideContent')
+		@if(!isset($disableSidebar) || !$disableSidebar)
+			@include('partials.sideContent')
+        @endif
 		@include('partials.commonScripts')
 	</div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Artikel;
 use App\Models\Agenda;
+use App\Models\Staf;
 use App\Models\Penduduk;
 use Carbon\Carbon;
 
@@ -83,6 +84,21 @@ class MainVisitorController extends Controller
             ]
         ];
 
+        // Staf
+        $staf = Staf::all();
+
+        session([
+            'artikel' => $artikel,
+            'pastAgenda' => $pastAgenda,
+            'upcomingAgenda' => $upcomingAgenda,
+            'penduduk' => $penduduk,
+            'total_penduduk' => $total_penduduk,
+            'total_gender' => $total_gender,
+            'total_gender_percentage' => $total_gender_percentage,
+            'arr_gender' => $arr_gender,
+            'staf' => $staf,
+        ]);
+
         return view('visitor.index', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
             ->with('title', 'Home')
             ->with([
@@ -91,6 +107,7 @@ class MainVisitorController extends Controller
                 'total_gender' => $total_gender,
                 'total_gender_percentage' => $total_gender_percentage,
                 'arr_gender' => $arr_gender,
+                'staf' => $staf,
             ]);
     }
 
@@ -110,30 +127,143 @@ class MainVisitorController extends Controller
             $judul
         )->first();
 
+        $upcomingAgenda = session('upcomingAgenda');
+        $pastAgenda = session('pastAgenda');
+        $penduduk = session('penduduk');
+        $total_penduduk = session('total_penduduk');
+        $total_gender = session('total_gender');
+        $total_gender_percentage = session('total_gender_percentage');
+        $arr_gender = session('arr_gender');
+        $staf = session('staf');
+
         return view('visitor.bacaArtikel', [
             'title' => $judul,
             'artikel' => $data,
+            'upcomingAgenda' => $upcomingAgenda,
+            'pastAgenda' => $pastAgenda,
+            'penduduk' => $penduduk,
+            'total_penduduk' => $total_penduduk,
+            'total_gender' => $total_gender,
+            'total_gender_percentage' => $total_gender_percentage,
+            'arr_gender' => $arr_gender,
+            'staf' => $staf,
         ]);
     }
 
     public function aboutDesa()
     {
-        return view('visitor.aboutDesa', [
-            'title' => 'Tentang Desa',
-        ]);
+        $upcomingAgenda = session('upcomingAgenda');
+        $pastAgenda = session('pastAgenda');
+        $artikel = session('artikel');
+        $penduduk = session('penduduk');
+        $total_penduduk = session('total_penduduk');
+        $total_gender = session('total_gender');
+        $total_gender_percentage = session('total_gender_percentage');
+        $arr_gender = session('arr_gender');
+        $staf = session('staf');
+        return view('visitor.aboutDesa', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
+            ->with('title', 'Tentang Desa')
+            ->with([
+                'penduduk' => $penduduk,
+                'total_penduduk' => $total_penduduk,
+                'total_gender' => $total_gender,
+                'total_gender_percentage' => $total_gender_percentage,
+                'arr_gender' => $arr_gender,
+                'staf' => $staf,
+            ]);
     }
 
     public function demografiDesa()
     {
-        return view('visitor.demografiDesa', [
-            'title' => 'Demografi Desa',
-        ]);
+        $upcomingAgenda = session('upcomingAgenda');
+        $pastAgenda = session('pastAgenda');
+        $artikel = session('artikel');
+        $penduduk = session('penduduk');
+        $total_penduduk = session('total_penduduk');
+        $total_gender = session('total_gender');
+        $total_gender_percentage = session('total_gender_percentage');
+        $arr_gender = session('arr_gender');
+        $staf = session('staf');
+        return view('visitor.demografiDesa', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
+            ->with('title', 'Demografi Desa')
+            ->with([
+                'penduduk' => $penduduk,
+                'total_penduduk' => $total_penduduk,
+                'total_gender' => $total_gender,
+                'total_gender_percentage' => $total_gender_percentage,
+                'arr_gender' => $arr_gender,
+                'staf' => $staf,
+            ]);
     }
 
     public function geografisDesa()
     {
-        return view('visitor.geografisDesa', [
-            'title' => 'Geografis Desa',
-        ]);
+        $upcomingAgenda = session('upcomingAgenda');
+        $pastAgenda = session('pastAgenda');
+        $artikel = session('artikel');
+        $penduduk = session('penduduk');
+        $total_penduduk = session('total_penduduk');
+        $total_gender = session('total_gender');
+        $total_gender_percentage = session('total_gender_percentage');
+        $arr_gender = session('arr_gender');
+        $staf = session('staf');
+        return view('visitor.geografisDesa', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
+            ->with('title', 'Geografis Desa')
+            ->with([
+                'penduduk' => $penduduk,
+                'total_penduduk' => $total_penduduk,
+                'total_gender' => $total_gender,
+                'total_gender_percentage' => $total_gender_percentage,
+                'arr_gender' => $arr_gender,
+                'staf' => $staf,
+            ]);
+    }
+
+    public function strukturOrganisasi()
+    {
+        $upcomingAgenda = session('upcomingAgenda');
+        $pastAgenda = session('pastAgenda');
+        $artikel = session('artikel');
+        $penduduk = session('penduduk');
+        $total_penduduk = session('total_penduduk');
+        $total_gender = session('total_gender');
+        $total_gender_percentage = session('total_gender_percentage');
+        $arr_gender = session('arr_gender');
+        $staf = session('staf');
+        return view('visitor.strukturOrganisasi', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
+            ->with('title', 'Struktur Organisasi')
+            ->with([
+                'staf' => Staf::all(),
+                'penduduk' => $penduduk,
+                'total_penduduk' => $total_penduduk,
+                'total_gender' => $total_gender,
+                'total_gender_percentage' => $total_gender_percentage,
+                'arr_gender' => $arr_gender,
+                'staf' => $staf,
+            ]);
+    }
+
+    public function perangkatDesa()
+    {
+        $upcomingAgenda = session('upcomingAgenda');
+        $pastAgenda = session('pastAgenda');
+        $artikel = session('artikel');
+        $penduduk = session('penduduk');
+        $total_penduduk = session('total_penduduk');
+        $total_gender = session('total_gender');
+        $total_gender_percentage = session('total_gender_percentage');
+        $arr_gender = session('arr_gender');
+        $staf = session('staf');
+        return view('visitor.strukturOrganisasi', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
+            ->with('title', 'Struktur Organisasi')
+            ->with([
+                'staf' => Staf::all(),
+                'penduduk' => $penduduk,
+                'total_penduduk' => $total_penduduk,
+                'total_gender' => $total_gender,
+                'total_gender_percentage' => $total_gender_percentage,
+                'arr_gender' => $arr_gender,
+                'staf' => $staf,
+            ]);
     }
 }
