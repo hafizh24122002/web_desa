@@ -124,4 +124,9 @@ Route::get('/staf/info-desa/identitas-desa/form', [InfoDesaController::class, 'i
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/login/forgotPassword', [LoginController::class, 'showForgotPasswordForm']);
+Route::get('contact-form-captcha', [LoginController::class, 'indexCaptcha'])->name('password.forgot');
+Route::post('captcha-validation', [LoginController::class, 'capthcaFormValidate']);
+Route::get('reload-captcha', [LoginController::class, 'reloadCaptcha']);
+
 

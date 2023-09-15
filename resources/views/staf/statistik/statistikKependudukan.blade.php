@@ -264,7 +264,7 @@
 
                                         $total = array_sum($counterPekerjaan);
                                         for($i = 0; $i < $totalRowPekerjaan; $i++){ 
-                                            $percentagePekerjaan[$i]=($counterPekerjaan[$i] / $total) * 100; 
+                                            $percentagePekerjaan[$4i]=($counterPekerjaan[$i] / $total) * 100; 
                                         } 
                                         $total_percentage=($total / $total) * 100; 
                                         @endphp 

@@ -92,6 +92,7 @@
 			</div>
 		</div>
 	</div>	
+</div>
 
 <style>
 .single_bottom_rightbar {
@@ -102,5 +103,6 @@
 
 h2 {
 	font-size: 25px;
+
 }
 </style>
