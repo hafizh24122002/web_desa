@@ -10,14 +10,32 @@ use Illuminate\Http\Request;
 
 use App\Models\Artikel;
 use App\Models\Image;
+use App\Models\Visitor;
 
 class ArtikelController extends Controller
 {
     public function dashboard()
     {
+        // fetch data for all the cards and charts
+        $totalPublishedArticles = Artikel::count();
+        $monthlyPublishedArticles = Artikel::whereMonth('created_at', now()->month)->count();
+        $totalArticleVisitors = Visitor::count();
+        //$chartData = ...; // Fetch data for line and bar charts
+
         return view('staf.artikel.dashboard', [
             'title' => 'Dashboard Artikel',
         ]);
+        return view('staf.artikel.dashboard', compact(
+            'totalPublishedArticles',
+            'monthlyPublishedArticles',
+            'totalArticleVisitors',
+            'chartData'
+        ));
+    }
+
+    public function visitors()
+    {
+        return $this->hasMany(Visitor::class);
     }
 
     public function articleManager()
