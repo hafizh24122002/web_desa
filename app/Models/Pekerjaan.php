@@ -29,4 +29,9 @@ class Pekerjaan extends Model
     protected $casts = [
          
     ];
+
+    public function penduduk()
+    {
+        return $this->hasMany(Penduduk::class, 'id_pekerjaan');
+    }
 }

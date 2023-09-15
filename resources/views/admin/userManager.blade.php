@@ -75,7 +75,7 @@
 									</td>
 
 									<td>
-										@if ($user->id_pamong)
+										@if ($user->id_staf != 11)
 											<span class='badge bg-success'>Staf</span>
 										@else
 											<span class='badge bg-info'>Bukan staf</span>

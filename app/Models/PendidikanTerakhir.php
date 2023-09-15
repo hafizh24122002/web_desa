@@ -29,4 +29,9 @@ class PendidikanTerakhir extends Model
     protected $casts = [
          
     ];
+
+    public function penduduk()
+    {
+        return $this->hasMany(Penduduk::class, 'id_pendidikan_terakhir');
+    }
 }

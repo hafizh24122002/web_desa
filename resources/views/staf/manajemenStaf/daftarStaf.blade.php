@@ -91,11 +91,10 @@
 									</td>
 	
 									<td>
+										@php $exist = false; @endphp
 										@foreach ($user as $data_user)
 											@if ($data->id === $data_user->id_staf)
 												@php $exist = true; @endphp
-											@else
-												@php $exist = false; @endphp
 											@endif
 										@endforeach
 
