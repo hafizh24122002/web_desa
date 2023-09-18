@@ -20,10 +20,11 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->timestamp('last_login')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('email_verification_token')->nullable();
             $table->boolean('active')->default(true);
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
-            $table->string('photo')->default('{{ asset("img/kuser.png") }}');
+            $table->string('photo')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
