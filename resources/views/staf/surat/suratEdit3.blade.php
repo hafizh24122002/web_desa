@@ -347,10 +347,12 @@
 
 @include('partials.commonScripts')
 <script src="{{ asset('js/autocomplete.js') }}"></script>
+<script src="{{ asset('js/autocompleteOrtu.js') }}"></script>
 
 <script>
 	pendudukList = @json($penduduk);
 	autocomplete(document.getElementById("nama"), pendudukList);
+	autocompleteOrtu(document.getElementById("nama_ortu"), pendudukList);
 
 	var $input = $("#no");
 	var $button = $("#edit_no_surat");

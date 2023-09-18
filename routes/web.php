@@ -13,6 +13,7 @@ use App\Http\Controllers\SuratController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\InfoDesaController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\RtController;
@@ -37,11 +38,18 @@ Route::get('/tentang-desa', [MainVisitorController::class, 'aboutDesa']);
 Route::get('/geografis-desa', [MainVisitorController::class, 'geografisDesa']);
 Route::get('/demografi-desa', [MainVisitorController::class, 'demografiDesa']);
 Route::get('/artikel/{judul}', [MainVisitorController::class, 'bacaArtikel']);
+Route::get('/struktur-organisasi', [MainVisitorController::class, 'strukturOrganisasi']);
+Route::get('/perangkat-desa', [MainVisitorController::class, 'perangkatDesa']);
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/login/forgotPassword', [LoginController::class, 'showForgotPasswordForm']);
+Route::get('contact-form-captcha', [LoginController::class, 'indexCaptcha'])->name('password.forgot');
+Route::post('captcha-validation', [LoginController::class, 'capthcaFormValidate']);
+Route::get('reload-captcha', [LoginController::class, 'reloadCaptcha']);
+
 
 // debug
 Route::get('/get-csrf-token', function () {
@@ -63,7 +71,7 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 	return redirect()->to('/admin/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
 	// route admin
 	Route::get('/admin/dashboard', [MainAdminController::class, 'index']);
 
@@ -74,7 +82,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::put('/admin/user-manager/edit-user/{user:username}', [MainAdminController::class, 'editUserSubmit']);
 	Route::delete('/admin/user-manager/{user:username}', [MainAdminController::class, 'deleteUser']);
 
-	Route::middleware([VerifyEmailForStaf::class])->group(function () {
+	// Route::middleware([VerifyEmailForStaf::class])->group(function () {
 		// route staf
 		Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan']);
 		Route::get('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNew']);
@@ -145,6 +153,14 @@ Route::middleware(['auth'])->group(function () {
 		Route::delete('/staf/manajemen-web/agenda/{id}', [AgendaController::class, 'agendaDelete']);
 		Route::post('/staf/manajemen-web/agenda/upload-image', [AgendaController::class, 'storeImage']);
 
+		Route::get('/staf/manajemen-web/dokumen', [DokumenController::class, 'dokumenManager']);
+		Route::get('/staf/manajemen-web/dokumen/new-dokumen', [DokumenController::class, 'dokumenNew']);
+		Route::post('/staf/manajemen-web/dokumen/new-dokumen', [DokumenController::class, 'dokumenNewSubmit']);
+		Route::get('/staf/manajemen-web/dokumen/edit-dokumen/{id}', [DokumenController::class, 'dokumenEdit']);
+		Route::put('/staf/manajemen-web/dokumen/edit-dokumen/{id}', [DokumenController::class, 'dokumenEditSubmit']);
+		Route::delete('/staf/manajemen-web/dokumen/{id}', [DokumenController::class, 'dokumenDelete']);
+		Route::get('/staf/manajemen-web/dokumen/{dokumen:filename}', [DokumenController::class, 'dokumenDownload']);
+
 		Route::get('/staf/layanan-surat/buat-surat', [SuratController::class, 'suratNew']);
 		Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput']);
 		Route::post('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInputSubmit']);
@@ -156,13 +172,10 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan']);
 		Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan']);
-    Route::get('users/export/', [BukuController::class, 'export']);
+		Route::get('users/export/', [BukuController::class, 'export']);
 
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
-
-		Route::get('/staf/kependudukan/rumah-tangga', [RtController::class, 'index'])->middleware('auth');
-Route::get('/staf/kependudukan/rumah-tangga/new-rt', [RtController::class, 'rtNew'])->middleware('auth');
-	});
-});
+	// })
+// });

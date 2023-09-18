@@ -21,15 +21,22 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
+
             return redirect("/admin/dashboard");
         }
 
         return back()->with('loginError', 'Username atau password salah!');
     }
+
+    public function showForgotPasswordForm()
+    {
+        return view('admin.forgotPassword', [
+            'title' => 'Forgot Password',
+        ]);
+    }
+
 
     public function logout(Request $request)
     {
@@ -39,5 +46,25 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    public function indexCaptcha()
+    {
+        return view('admin.forgotPassword', [
+            'title' => 'Forgot Password',
+        ]);
+    }
+ 
+    public function capthcaFormValidate(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'captcha' => 'required|captcha',
+        ]);
+    }
+ 
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img('flat')]);
     }
 }
