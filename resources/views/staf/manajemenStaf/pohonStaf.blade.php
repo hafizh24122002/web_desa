@@ -32,51 +32,56 @@
 @include('partials.commonScripts')
 <script type="text/javascript">
 	$(function() {
+		var staf = @json($staf);
+		var stafMap = {};
+		staf.forEach(function (item) {
+			stafMap[item.jabatan] = item.nama;
+		});
 
 		var datasource = {
-			'name': 'RIZA UMAMI',
+			'name': stafMap['Kepala Desa'],
 			'title': 'Kepala Desa',
 			'children': [{
-					'name': 'HOTIB',
+					'name': stafMap['Sekretaris Desa'],
 					'title': 'Sekretaris Desa',
 				},
 				{
-					'name': 'ISWANDI',
+					'name': stafMap['Kasi Kesejahteraan'],
 					'title': 'Kasi Kesejahteraan',
 					'levelOffset': 1,
 				},
 				{
-					'name': 'RENDY SANDRA',
+					'name': stafMap['Kasi Pelayanan'],
 					'title': 'Kasi Pelayanan',
 					'levelOffset': 1,
 				},
 				{
-					'name': 'ISBIK MIRWANTO',
+					'name': stafMap['Kasi Pemerintahan'],
 					'title': 'Kasi Pemerintahan',
 					'levelOffset': 1,
 				},
 				{
-					'name': 'HORMEN',
+					'name': stafMap['Kepala Dusun 1'],
 					'title': 'Kepala Dusun I',
 					'levelOffset': 2
 				},
 				{
-					'name': 'SUHARDI',
+					'name': stafMap['Kepala Dusun 2'],
 					'title': 'Kepala Dusun II',
 					'levelOffset': 2
 				},
 				{
-					'name': 'DIAH ISMAINI',
-					'title': 'Kaur TU dan Umum',
+					'name': stafMap['Kasi TU dan Umum'],
+					'title': 'Kasi TU dan Umum',
 					'levelOffset': 1,
 				},
 				{
-					'name': 'SUFARTA',
+					'name': stafMap['Kaur Perencanaan'],
 					'title': 'Kaur Perencanaan',
 					'levelOffset': 1,
 				},
 				{
-					'name': 'ERLANGGA',
+					'name': stafMap['Kaur Keuangan'],
 					'title': 'Kaur Keuangan',
 					'levelOffset': 1,
 				},

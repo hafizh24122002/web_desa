@@ -36,14 +36,6 @@ class LoginController extends Controller
         return back()->with('loginError', 'Username atau password salah!');
     }
 
-    public function showForgotPasswordForm()
-    {
-        return view('admin.forgotPassword', [
-            'title' => 'Forgot Password',
-        ]);
-    }
-
-
     public function logout(Request $request)
     {
         Auth::logout();
@@ -56,12 +48,19 @@ class LoginController extends Controller
 
     public function forgotPasswordRequest()
     {
-        return view('auth.forgot-password');
+        return view('auth.forgot-password', [
+            'title' => 'Forgot Password',
+        ]);
     }
 
     public function forgotPasswordSubmit(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        $request->validate([
+            'email' => 'required|email',
+            'captcha' => 'required|captcha',
+        ], [
+            'captcha' => 'Captcha yang dimasukkan tidak valid!',
+        ]);
 
  
         $status = Password::sendResetLink(
@@ -106,16 +105,8 @@ class LoginController extends Controller
 
     public function indexCaptcha()
     {
-        return view('admin.forgotPassword', [
+        return view('auth.forgot-password', [
             'title' => 'Forgot Password',
-        ]);
-    }
- 
-    public function capthcaFormValidate(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'captcha' => 'required|captcha',
         ]);
     }
  
