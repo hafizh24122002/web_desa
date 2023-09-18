@@ -13,6 +13,7 @@ use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\InfoDesaController;
+use App\Http\Controllers\RtController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -126,11 +127,15 @@ Route::delete('/staf/layanan-surat/arsip-surat/{id}/{filename}', [SuratControlle
 
 Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan'])->middleware('auth');
 Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan'])->middleware('auth');
-Route::get('users/export/', [BukuController::class, 'export']);
+Route::get('penduduk/unduh/', [BukuController::class, 'export']);
 
 Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data')->middleware('auth');
 Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit')->middleware('auth');
 Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update')->middleware('auth');
+
+Route::get('/staf/kependudukan/rumah-tangga', [RtController::class, 'index'])->middleware('auth');
+Route::get('/staf/kependudukan/rumah-tangga/new-rt', [RtController::class, 'rtNew'])->middleware('auth');
+
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
