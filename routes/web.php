@@ -43,11 +43,17 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
+Route::get('/forgot-password', [LoginController::class, 'forgotPasswordRequest'])->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [LoginController::class, 'forgotPasswordSubmit'])->middleware('guest')->name('password.email');
+Route::get('/reset-password/{token}', [LoginController::class, 'passwordResetForm'])->middleware('guest')->name('password.reset');
+Route::post('reset-password', [LoginController::class, 'passwordResetSubmit'])->middleware('guest')->name('password.update');
+
 // debug
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
 
+// email verification
 Route::get('/verify-email', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -63,7 +69,7 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 	return redirect()->to('/admin/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 	// route admin
 	Route::get('/admin/dashboard', [MainAdminController::class, 'index']);
 
@@ -170,4 +176,4 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
 	// });
-// });
+});
