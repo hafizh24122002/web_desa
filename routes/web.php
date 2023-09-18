@@ -51,7 +51,9 @@ Route::get('/get-csrf-token', function () {
 });
 
 Route::get('/verify-email', function () {
-    return view('auth.verify-email');
+	$title = 'Email Verification';
+	$current_page = 'Email Verification';
+    return view('auth.verify-email', ['title' => $title, 'current_page' => $current_page]);
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/verify-email/request', function () {
@@ -65,7 +67,7 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 	return redirect()->to('/admin/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 	// route admin
 	Route::get('/admin/dashboard', [MainAdminController::class, 'index']);
 
@@ -76,7 +78,7 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 	Route::put('/admin/user-manager/edit-user/{user:username}', [MainAdminController::class, 'editUserSubmit']);
 	Route::delete('/admin/user-manager/{user:username}', [MainAdminController::class, 'deleteUser']);
 
-	// Route::middleware([VerifyEmailForStaf::class])->group(function () {
+	Route::middleware([VerifyEmailForStaf::class])->group(function () {
 		// route staf
 		Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan']);
 		Route::get('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNew']);
@@ -171,5 +173,5 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
-	// })
-// });
+	});
+});
