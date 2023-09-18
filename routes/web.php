@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\VerifyEmailForStaf;
 use App\Http\Controllers\MainVisitorController;
 use App\Http\Controllers\MainAdminController;
 use App\Http\Controllers\KependudukanController;
@@ -45,11 +44,20 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
+Route::get('/forgot-password', [LoginController::class, 'forgotPasswordRequest'])->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [LoginController::class, 'forgotPasswordSubmit'])->middleware('guest')->name('password.email');
+Route::get('/reset-password/{token}', [LoginController::class, 'passwordResetForm'])->middleware('guest')->name('password.reset');
+Route::post('reset-password', [LoginController::class, 'passwordResetSubmit'])->middleware('guest')->name('password.update');
+Route::get('/contact-form-captcha', [LoginController::class, 'indexCaptcha'])->name('password.forgot');
+Route::post('/captcha-validation', [LoginController::class, 'captchaFormValidate']);
+Route::get('/reload-captcha', [LoginController::class, 'reloadCaptcha']);
+
 // debug
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
 
+// email verification
 Route::get('/verify-email', function () {
 	$title = 'Email Verification';
 	$current_page = 'Email Verification';
@@ -71,14 +79,17 @@ Route::middleware(['auth'])->group(function () {
 	// route admin
 	Route::get('/admin/dashboard', [MainAdminController::class, 'index']);
 
-	Route::get('/admin/user-manager', [MainAdminController::class, 'userManager']);
-	Route::get('/admin/user-manager/new-user', [MainAdminController::class, 'newUser']);
-	Route::post('/admin/user-manager/new-user', [MainAdminController::class, 'addUser']);
-	Route::get('/admin/user-manager/edit-user/{user:username}', [MainAdminController::class, 'editUser']);
-	Route::put('/admin/user-manager/edit-user/{user:username}', [MainAdminController::class, 'editUserSubmit']);
-	Route::delete('/admin/user-manager/{user:username}', [MainAdminController::class, 'deleteUser']);
+	Route::middleware(['role'])->group(function () {
+		Route::get('/admin/user-manager', [MainAdminController::class, 'userManager']);
+		Route::get('/admin/user-manager/new-user', [MainAdminController::class, 'newUser']);
+		Route::post('/admin/user-manager/new-user', [MainAdminController::class, 'addUser']);
+		Route::get('/admin/user-manager/edit-user/{user:username}', [MainAdminController::class, 'editUser']);
+		Route::put('/admin/user-manager/edit-user/{user:username}', [MainAdminController::class, 'editUserSubmit']);
+		Route::delete('/admin/user-manager/{user:username}', [MainAdminController::class, 'deleteUser']);
+	});
 
-	Route::middleware([VerifyEmailForStaf::class])->group(function () {
+	// Route::middleware(['verified.staf])->group(function () {
+
 		// route staf
 		Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan']);
 		Route::get('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNew']);
@@ -173,5 +184,5 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
-	});
+	// });
 });
