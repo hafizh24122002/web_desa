@@ -59,7 +59,9 @@ Route::get('/get-csrf-token', function () {
 
 // email verification
 Route::get('/verify-email', function () {
-    return view('auth.verify-email');
+	$title = 'Email Verification';
+	$current_page = 'Email Verification';
+    return view('auth.verify-email', ['title' => $title, 'current_page' => $current_page]);
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/verify-email/request', function () {
@@ -87,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
 	});
 
 	// Route::middleware(['verified.staf])->group(function () {
+
 		// route staf
 		Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan']);
 		Route::get('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNew']);
