@@ -37,6 +37,8 @@ Route::get('/tentang-desa', [MainVisitorController::class, 'aboutDesa']);
 Route::get('/geografis-desa', [MainVisitorController::class, 'geografisDesa']);
 Route::get('/demografi-desa', [MainVisitorController::class, 'demografiDesa']);
 Route::get('/artikel/{judul}', [MainVisitorController::class, 'bacaArtikel']);
+Route::get('/struktur-organisasi', [MainVisitorController::class, 'strukturOrganisasi']);
+Route::get('/perangkat-desa', [MainVisitorController::class, 'perangkatDesa']);
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -47,6 +49,9 @@ Route::get('/forgot-password', [LoginController::class, 'forgotPasswordRequest']
 Route::post('/forgot-password', [LoginController::class, 'forgotPasswordSubmit'])->middleware('guest')->name('password.email');
 Route::get('/reset-password/{token}', [LoginController::class, 'passwordResetForm'])->middleware('guest')->name('password.reset');
 Route::post('reset-password', [LoginController::class, 'passwordResetSubmit'])->middleware('guest')->name('password.update');
+Route::get('/contact-form-captcha', [LoginController::class, 'indexCaptcha'])->name('password.forgot');
+Route::post('/captcha-validation', [LoginController::class, 'capthcaFormValidate']);
+Route::get('/reload-captcha', [LoginController::class, 'reloadCaptcha']);
 
 // debug
 Route::get('/get-csrf-token', function () {
