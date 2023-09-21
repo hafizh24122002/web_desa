@@ -14,6 +14,7 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\InfoDesaController;
+use App\Http\Controllers\TempDusunController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\RtController;
 use Illuminate\Support\Facades\Route;
@@ -89,8 +90,8 @@ Route::middleware(['auth'])->group(function () {
 		Route::delete('/admin/user-manager/{user:username}', [MainAdminController::class, 'deleteUser']);
 	});
 
-	// Route::middleware(['verified.staf])->group(function () {
-
+	// Route::middleware(['verified.staf'])->group(function () {
+		
 		// route staf
 		Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan']);
 		Route::get('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNew']);
@@ -185,5 +186,12 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
+
+		Route::get('/staf/info-desa/dusun', [TempDusunController::class, 'dataDusun']);
+		Route::get('/staf/info-desa/dusun/new-dusun', [TempDusunController::class, 'DusunNew']);
+		Route::post('/staf/info-desa/dusun/new-dusun', [TempDusunController::class, 'DusunNewSubmit']);
+		Route::get('/staf/info-desa/dusun/edit-dusun/{id}', [TempDusunController::class, 'DusunEdit']);
+		Route::put('/staf/info-desa/dusun/edit-dusun/{id}', [TempDusunController::class, 'DusunEditSubmit']);
+		Route::delete('/staf/info-desa/dusun/{id}', [TempDusunController::class, 'DusunDelete']);
 	// });
 });

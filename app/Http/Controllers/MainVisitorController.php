@@ -254,8 +254,8 @@ class MainVisitorController extends Controller
         $total_gender_percentage = session('total_gender_percentage');
         $arr_gender = session('arr_gender');
         $staf = session('staf');
-        return view('visitor.strukturOrganisasi', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
-            ->with('title', 'Struktur Organisasi')
+        return view('visitor.perangkatDesa', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
+            ->with('title', 'Perangkat Desa')
             ->with([
                 'staf' => Staf::all(),
                 'penduduk' => $penduduk,
