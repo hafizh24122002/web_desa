@@ -68,6 +68,11 @@
 									<i class="bx bx-group nav-icon"></i>
 									<span class="nav-name">Identitas Desa</span>
 								</a>
+
+								<a href="/staf/info-desa/dusun" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bi bi-map-fill"></i>
+									<span class="nav-name">Dusun</span>
+								</a>
 							</div>
 						</div>
 					</div>
