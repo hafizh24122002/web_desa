@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 50);
             $table->string('nik', 16)->unique();
-            $table->foreignId('id_kk', 11)->nullable()->default(NULL)->constrained('keluarga')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('id_hubungan_kk')->nullable()->default(NULL)->constrained('hubungan_kk')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('no_kk', 16);
+            $table->foreignId('id_hubungan_kk')->constrained('hubungan_kk')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_rtm')->nullable()->default(NULL);
-            $table->string('jenis_kelamin')->nullable()->default(NULL);
+            $table->string('jenis_kelamin')->default('L');
             $table->string('tempat_lahir')->nullable()->default(NULL);
             $table->date('tanggal_lahir')->nullable()->default(NULL);
             $table->foreignId('id_agama')->nullable()->default(NULL)->constrained('agama')->onUpdate('cascade')->onDelete('cascade');
@@ -27,11 +27,11 @@ return new class extends Migration
             $table->foreignId('id_pekerjaan')->nullable()->default(NULL)->constrained('pekerjaan')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_status_perkawinan')->nullable()->default(NULL)->constrained('status_perkawinan')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_kewarganegaraan')->nullable()->default(NULL)->constrained('kewarganegaraan')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('nik_ayah', 16)->nullable()->default(NULL);
-            $table->string('nik_ibu', 16)->nullable()->default(NULL);
+            $table->string('nik_ayah', 16);
+            $table->string('nik_ibu', 16);
             $table->string('foto')->nullable()->default(NULL);
             $table->foreignId('id_golongan_darah')->nullable()->default(NULL);
-            $table->boolean('penduduk_tetap')->nullable()->default(true);
+            $table->boolean('penduduk_tetap')->default(true);
             $table->string('alamat')->nullable()->default(NULL);
             $table->string('telepon')->nullable()->default(NULL);
             $table->foreignId('id_status_asuransi')->nullable()->default(NULL);

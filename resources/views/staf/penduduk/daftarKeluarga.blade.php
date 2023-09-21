@@ -8,14 +8,14 @@
 			<div class="container">
 				{{-- menu yang di atas --}}
 				@include('partials.adminTopMenu', [
-					'title' => 'Data Keluarga',
+					'title' => 'Daftar Anggota Keluarga',
 					'parent_page' => 'Kependudukan',
 					'parent_link' => '/staf/kependudukan/penduduk',
 					'current_page' => 'keluarga',
 				])
 	
 				{{-- content --}}
-				<div class="row mt-3 container">
+				{{-- <div class="row mt-3 container">
 					@if (session()->has('success'))
 						<div class="alert alert-success alert-dismissible fade show" style="width: 100%" role="alert">
 							{{ session('success') }}
@@ -47,7 +47,7 @@
 	
 									<td>
 										<div style="display: flex; gap: 5px; justify-content: center;">
-											<a href="/staf/kependudukan/keluarga/anggota/{{ $data->no_kk }}">
+											<a href="#">
 												<button class="btn btn-sm btn-primary">
 													<i class="bx bx-list-ul text-light"></i>
 												</button>
@@ -114,7 +114,7 @@
 					<div class="d-flex justify-content-end">
 						{{ $keluarga->links() }}
 					</div>
-				</div>
+				</div> --}}
 			</div>
 		</div>
 	</div>

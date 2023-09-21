@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Keluarga;
+use App\Models\Penduduk;
 use App\Models\KelasSosial;
 
 class KeluargaController extends Controller
@@ -25,6 +26,7 @@ class KeluargaController extends Controller
     {
         return view('staf.penduduk.keluargaNew', [
             'title' => 'Tambah Keluarga Baru',
+            'nik_kepala' => Penduduk::all(),
             'kelas_sosial' => KelasSosial::all(),
         ]);
     }
@@ -33,7 +35,7 @@ class KeluargaController extends Controller
     {
         $validatedData = $request->validate([
             'no_kk' => 'required|unique:keluarga',
-            'nik_kepala' => 'nullable',
+            'nik_kepala' => 'required',
             'id_kelas_sosial' => 'nullable',
             'alamat' => 'nullable',
             'tgl_dikeluarkan' => 'nullable',
@@ -75,5 +77,14 @@ class KeluargaController extends Controller
         Keluarga::destroy($data->id);
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data keluarga berhasil dihapus!');
+    }
+
+    public function daftarKeluarga(Keluarga $keluarga)
+    {
+        return view('staf.penduduk.daftarKeluarga', [
+            'title' => 'Edit Data Keluarga',
+            'keluarga' => $keluarga,
+            'kelas_sosial' => KelasSosial::all(),
+        ]);
     }
 }

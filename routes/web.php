@@ -97,8 +97,8 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 		Route::get('/staf/kependudukan/keluarga/new-keluarga', [KeluargaController::class, 'keluargaNew']);
 		Route::post('/staf/kependudukan/keluarga/new-keluarga', [KeluargaController::class, 'keluargaNewSubmit']);
 		Route::get('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaEdit']);
-		Route::put('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaEditSubmit']);
 		Route::delete('/staf/kependudukan/keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete']);
+		Route::get('/staf/kependudukan/keluarga/anggota/{keluarga:no_kk}', [KeluargaController::class, 'daftarKeluarga']);
 
 		Route::get('/staf/statistik/statistik-kependudukan', [StatistikController::class, 'statistik']);
 
