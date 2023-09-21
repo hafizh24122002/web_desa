@@ -42,7 +42,9 @@
 									<input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Masukkan username anda" value="{{ old('username') }}" required autofocus>
 
 									@error('username')
-									{{ $message }}
+										<div class="invalid-feedback">
+											{{ $message }}
+										</div>
 									@enderror
 								</div>
 
@@ -65,7 +67,7 @@
 								</div>
 
 								<div class="form-check d-flex justify-content-end mb-4">
-									<p><a class="nav-link" href="{{ route('password.forgot') }}">Forgot password?</a></p>
+									<p><a class="nav-link" style="" href="{{ route('password.request') }}">Forgot password?</a></p>
 								</div>
 
 								<button class="btn btn-outline-dark btn-lg mb-4 mt-2 px-5 py-2 position-relative bottom-0 start-50 translate-middle-x">Login</button>
