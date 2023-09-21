@@ -7,13 +7,17 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 use App\Models\Dokumen;
+use App\Models\Staf;
 
 class DokumenController extends Controller
 {
     public function dokumenManager()
     {
+        $documents = Dokumen::paginate(10);
+
         return view('staf.dokumen.dokumenManager', [
             'title' => 'Manajer Dokumen',
+            'documents' => $documents,
         ]);
     }
 
@@ -21,6 +25,7 @@ class DokumenController extends Controller
     {
         return view('staf.dokumen.dokumenNew', [
             'title' => 'Dokumen Baru',
+            'staf' => Staf::all(),
         ]);
     }
 
