@@ -75,7 +75,7 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 	return redirect()->to('/admin/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
 	// route admin
 	Route::get('/admin/dashboard', [MainAdminController::class, 'index']);
 
@@ -184,5 +184,12 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
+
+		Route::get('/staf/info-desa/dusun', [InfoDesaController::class, 'dusunManager']);
+		Route::get('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNew']);
+		Route::post('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNewSubmit']);
+		Route::get('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEdit']);
+		Route::put('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEditSubmit']);
+		Route::delete('/staf/info-desa/dusun/{id}', [InfoDesaController::class, 'dusunDelete']);
 	// });
-});
+// });
