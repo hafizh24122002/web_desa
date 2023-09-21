@@ -42,6 +42,34 @@
 			}
 		});
 	})
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var nikKepalaField = document.getElementById("nik_kepala");
+        var noKKField = document.getElementById("no_kk");
+        var noKKDisplay = document.getElementById("no_kk_display");
+        var selectedNik = ''; // Inisialisasi selectedNik di sini
+        var nikKepalaData = @json($nik_kepala);
+
+        nikKepalaField.addEventListener("change", function () {
+            // Mendapatkan nilai NIK kepala keluarga yang dipilih dari dropdown
+            selectedNik = nikKepalaField.value;
+
+            // Cari kepala keluarga yang sesuai dalam daftar $nik_kepalaData
+            var kepalaKeluarga = nikKepalaData.find(function(item) {
+                return item.nik === selectedNik;
+            });
+
+            // Isi nilai "No. KK" dengan nama kepala keluarga
+            noKKDisplay.textContent = kepalaKeluarga ? kepalaKeluarga.nama : '';
+        });
+    });
 </script>
+
+
+
+
+
+
+
 
 @endsection
