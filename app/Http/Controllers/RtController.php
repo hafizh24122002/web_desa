@@ -15,9 +15,9 @@ use App\Models\Penduduk;
 use App\Models\Rt;
 use App\Models\StatusPerkawinan;
 
-class KependudukanController extends Controller
+class RtController extends Controller
 {
-    public function kependudukan(Request $request)
+    public function index(Request $request)
     {
         $search = $request->input('search');
         $sortField = $request->input('sort_field', 'nik'); // Default sorting field
@@ -44,8 +44,8 @@ class KependudukanController extends Controller
             return view('partials.pendudukTable', ['penduduk' => $penduduk])->render();
         }
 
-        return view('staf.penduduk.kependudukan', [
-            'title' => 'Kependudukan',
+        return view('staf.penduduk.rt', [
+            'title' => 'Rumah Tangga',
             'penduduk' => $penduduk,
             'search' => $search,
             'sortField' => $sortField,
@@ -53,12 +53,11 @@ class KependudukanController extends Controller
         ]);
     }
 
-    public function pendudukNew()
+    public function rtNew()
     {
-        return view('staf.penduduk.pendudukNew', [
-            'title' => 'Tambah Penduduk Baru',
+        return view('staf.penduduk.rtNew', [
+            'title' => 'Tambah Rumah Tangga Baru',
             'agama' => Agama::all(),
-            'kk' => Keluarga::all(),
             'hubungan_kk' => HubunganKK::all(),
             // 'kesehatan' => Kesehatan::all(),
             'kewarganegaraan' => Kewarganegaraan::all(),
@@ -73,10 +72,10 @@ class KependudukanController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required',
-            'nik' => 'required|unique:penduduk|numeric|digits:16',
-            'no_kk' => 'required',
+            'nik' => 'required|unique:penduduk',
+            'kk' => 'nullable',
             'id_hubungan_kk' => 'nullable',
-            // 'jenis_kelamin' => 'nullable', // dikomen karena udah dibikin defaultnyaa
+            'jenis_kelamin' => 'nullable',
             'tempat_lahir' => 'nullable',
             'tanggal_lahir' => 'nullable',
             'id_agama' => 'nullable',
@@ -84,12 +83,12 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'nullable',
             'id_status_perkawinan' => 'nullable',
             'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'required|numeric|digits:16',
-            'nik_ibu' => 'required|numeric|digits:16',
+            'nik_ayah' => 'required',
+            'nik_ibu' => 'required',
             'id_penduduk_tetap' => 'nullable',
             'alamat' => 'nullable',
             'telepon' => 'nullable',
-            // 'status' => 'nullable',
+            'status' => 'nullable',
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);

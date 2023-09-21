@@ -55,7 +55,7 @@
                                         title="Cetak Buku Induk Penduduk" data-remote="false" data-toggle="modal"
                                         data-target="#modalBox" data-title="Cetak Buku Induk Penduduk"><i
                                             class="fa fa-print "></i> Cetak</a>
-                                    <a href="#" title="Unduh Buku Induk Penduduk"
+                                    <a href="/penduduk/unduh" title="Unduh Buku Induk Penduduk"
                                         class="btn btn-social btn-light btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
                                         title="Unduh Buku Induk Penduduk" data-remote="false" data-toggle="modal"
                                         data-target="#modalBox" data-title="Unduh Buku Induk Penduduk"><i
