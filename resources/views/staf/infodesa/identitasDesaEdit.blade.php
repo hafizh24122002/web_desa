@@ -22,16 +22,42 @@
                         <div class="box-body">
                             <hr>
                             <div class="row mt-3 container">
-                                {{-- <div class="col-lg-3">
-                                    <h5>Lambang Desa</h5>
-                                    <img id="frame" src="" class="img-fluid" />
-                                    <div class="input-group">
-                                        <input type="file" class="form-control form-control-sm" id="formFile"
-                                            onchange="preview()" aria-label="Upload">
-                                        <button class="btn btn-outline-secondary btn-sm" type="button"
-                                            id="inputGroupFileAddon04">Upload</button>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-header">
+                                            <span class="me-2"></span>
+                                            Lambang Desa
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="file" class="form-control form-control-sm" id="formFile"
+                                                onchange="loadFile(event)" accept="image/*" aria-label="Upload">
+                                            <img id="output" width="465px" height="auto"/>
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-secondary btn-sm" type="button"
+                                                    id="inputGroupFileAddon04">Upload</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div> --}}
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-header">
+                                            <span class="me-2"></span>
+                                            Kantor Desa
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="file" class="form-control form-control-sm" id="formFile"
+                                                onchange="loadFile(event)" accept="image/*" aria-label="Upload">
+                                            <img id="output" width="465px" height="auto"/>
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-secondary btn-sm" type="button"
+                                                    id="inputGroupFileAddon04">Upload</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
 
                                 <div class="col-lg-12">
                                     
@@ -88,4 +114,13 @@
     </section>
 
     @include('partials.commonScripts')
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    </script>
 @endsection
