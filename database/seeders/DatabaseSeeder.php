@@ -211,21 +211,6 @@ class DatabaseSeeder extends Seeder
             'filename' => 'rekomendasi_keramaian.docx',
         ]);
 
-        User::create([
-            'username' => 'admin',
-            'password' => Hash::make('admin'),
-            'id_grup' => 1,
-            'id_staf' => 11,
-            'name' => 'admin',
-        ]);
-        User::create([
-            'username' => 'staf',
-            'password' => Hash::make('password'),
-            'id_grup' => 2,
-            'id_staf' => 1,
-            'name' => 'staf',
-        ]);
-
         Staf::create([
             'nama' => 'RIZA UMAMI',
             'jabatan' => 'Kepala Desa',
@@ -360,6 +345,21 @@ class DatabaseSeeder extends Seeder
             'tgl_agenda' => '2023-08-17',
             'koordinator' => 'Amiw',
             'lokasi' => 'Kantor Desa'
+        ]);
+
+        User::create([
+            'username' => 'admin',
+            'password' => Hash::make('admin'),
+            'id_grup' => 1,
+            'id_staf' => 11,
+            'name' => 'admin',
+        ]);
+        User::create([
+            'username' => 'staf',
+            'password' => Hash::make('password'),
+            'id_grup' => 2,
+            'id_staf' => 1,
+            'name' => 'staf',
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\identitasDesa;
+use App\Models\Dusun;
 
 class InfoDesaController extends Controller
 {
@@ -54,5 +55,70 @@ class InfoDesaController extends Controller
         return redirect()
             ->route('desa.data')
             ->with('success', 'Data desa telah diperbarui!');
+    }
+
+    public function dusunManager()
+    {
+        return view('staf.infodesa.dusunManager', [
+            'title' => 'Daftar Dusun',
+            'dusun' => Dusun::all(),
+        ]);
+    }
+
+    public function dusunNew()
+    {
+        return view('staf.infodesa.dusunNew', [
+            'title' => 'Tambah Dusun',
+        ]);
+    }
+
+    public function dusunNewSubmit(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'id_kepala_dusun' => 'required|unique:dusun',
+            'no_telp_dusun' => 'nullable',
+            'jumlah_rt' => 'nullable',
+        ], [
+            'nama.required' => 'Nama dusun wajib diisi!',
+            'id_kepala_dusun.required' => 'Kepala dusun wajib diisi!',
+        ]);
+
+        Dusun::create($validatedData);
+
+        return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil ditambahkan!');
+    }
+
+    public function dusunEdit($id)
+    {
+        return view('staf.infodesa.dusunEdit', [
+            'title' => 'Edit Dusun',
+            'dusun' => Dusun::find($id),
+        ]);
+    }
+
+    public function dusunEditSubmit(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'id_kepala_dusun' => 'required|unique:dusun,id,'.$id,
+            'no_telp_dusun' => 'nullable',
+            'jumlah_rt' => 'nullable',
+        ], [
+            'nama.required' => 'Nama dusun wajib diisi!',
+            'id_kepala_dusun.required' => 'Kepala dusun wajib diisi!',
+            'id_kepala_dusun.unique' => 'Kepala dusun sudah terdaftar pada dusun lain!'
+        ]);
+
+        Dusun::find($id)->update($validatedData);
+
+        return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil diubah!');
+    }
+
+    public function dusunDelete($id)
+    {
+        Dusun::find($id)->delete();
+
+        return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil dihapus!');
     }
 }
