@@ -88,6 +88,11 @@ a {
 	overflow: hidden
 }
 
+.nav-name {
+    transition: opacity 0.5s;
+    opacity: 1;
+}
+
 .nav-logo,
 .nav-link {
 	display: grid;

@@ -77,7 +77,17 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 	return redirect()->to('/admin/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::middleware(['auth'])->group(function () {
+// fetch coordinates
+Route::get('/get-coordinates', function () {
+    $geojsonFilePath = storage_path('app/koordinat_wilayah/coordinates.geojson');
+    if (file_exists($geojsonFilePath)) {
+        $contents = Storage::get('koordinat_wilayah/coordinates.geojson');
+        return response()->json(json_decode($contents));
+    }
+    abort(404);
+});
+
+// Route::middleware(['auth'])->group(function () {
 	// route admin
 	Route::get('/admin/dashboard', [MainAdminController::class, 'index']);
 
@@ -186,12 +196,13 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
+		Route::get('/staf/info-desa/identitas-desa/wilayah', [InfoDesaController::class, 'showPetaWilayah'])->name('desa.petaWilayah');
 
-		Route::get('/staf/info-desa/dusun', [TempDusunController::class, 'dataDusun']);
-		Route::get('/staf/info-desa/dusun/new-dusun', [TempDusunController::class, 'DusunNew']);
-		Route::post('/staf/info-desa/dusun/new-dusun', [TempDusunController::class, 'DusunNewSubmit']);
-		Route::get('/staf/info-desa/dusun/edit-dusun/{id}', [TempDusunController::class, 'DusunEdit']);
-		Route::put('/staf/info-desa/dusun/edit-dusun/{id}', [TempDusunController::class, 'DusunEditSubmit']);
-		Route::delete('/staf/info-desa/dusun/{id}', [TempDusunController::class, 'DusunDelete']);
+		Route::get('/staf/info-desa/wilayah-administratif', [InfoDesaController::class, 'dusunManager']);
+		Route::get('/staf/info-desa/wilayah-administratif/new-dusun', [InfoDesaController::class, 'dusunNew']);
+		Route::post('/staf/info-desa/wilayah-administratif/new-dusun', [InfoDesaController::class, 'dusunNewSubmit']);
+		Route::get('/staf/info-desa/wilayah-administratif/edit-dusun/{id}', [InfoDesaController::class, 'dusunEdit']);
+		Route::put('/staf/info-desa/wilayah-administratif/edit-dusun/{id}', [InfoDesaController::class, 'dusunEditSubmit']);
+		Route::delete('/staf/info-desa/wilayah-administratif/{id}', [InfoDesaController::class, 'dusunDelete']);
 	// });
-});
+// });

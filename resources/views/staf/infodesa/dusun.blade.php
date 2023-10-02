@@ -18,7 +18,7 @@
                 </div>
                 @endif
 
-                <a href="/staf/info-desa/dusun/new-dusun" style="width: auto" class="btn btn-primary my-2">
+                <a href="/staf/info-desa/wilayah-administratif/new-dusun" style="width: auto" class="btn btn-primary my-2">
                     <i class="bx bx-user-plus align-middle"></i> Tambah Data Dusun
                 </a>
 

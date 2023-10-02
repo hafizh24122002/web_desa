@@ -110,7 +110,7 @@ class DokumenController extends Controller
         $validatedData['id_staf'] = auth()->user()->id_staf;
         $validatedData['is_active'] = $request->input('is_active', false);
 
-        Dokumen::find($id)->update($validatedData);
+        $document->update($validatedData);
 
         return redirect('/staf/manajemen-web/dokumen')->with('success', 'Dokumen berhasil diubah!');
     }
