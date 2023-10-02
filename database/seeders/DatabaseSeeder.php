@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\Agama;
 use App\Models\Artikel;
 use App\Models\HubunganKK;
@@ -26,6 +27,7 @@ use App\Models\Staf;
 use App\Models\Surat;
 use App\Models\User;
 use App\Models\Agenda;
+use App\Models\Coordinate;
 
 class DatabaseSeeder extends Seeder
 {
@@ -365,6 +367,17 @@ class DatabaseSeeder extends Seeder
             'id_grup' => 2,
             'id_staf' => 1,
             'name' => 'staf',
+        ]);
+
+        Coordinate::create([
+            'nama' => 'center',
+            'coordinate' => DB::raw('POINT(-2.5143220643393005, 106.11670285770147)'),
+            'zoom' => 13.4,
+        ]);
+        Coordinate::create([
+            'nama' => 'kantor_desa',
+            'coordinate' => DB::raw('POINT(-2.5143220643393005, 106.11670285770147)'),
+            'zoom' => 17,
         ]);
     }
 }
