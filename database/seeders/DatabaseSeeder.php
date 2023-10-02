@@ -318,59 +318,43 @@ class DatabaseSeeder extends Seeder
             'jabatan' => 'Staf Administrasi',
         ]);
 
-        // Penduduk::create([
-        //     'nama' => 'HAFIZH LUTFI HIDAYAT',
-        //     'nik' => '6401042412340001',
-        //     'no_kk' => '6401042412340029',
-        //     'id_hubungan_kk' => 1, 
-        //     'jenis_kelamin' => 'L',
-        //     'tempat_lahir' => 'SAMARINDA',
-        //     'tanggal_lahir' => '2002-12-24',
-        //     'id_agama' => 1,
-        //     'id_status_perkawinan' => 1,
-        //     'id_kewarganegaraan' => 1,
-        //     'id_pekerjaan' => 3,
-        //     'nik_ayah' => '6401042412340002',
-        //     'nik_ibu' => '6401042412340003',
-        //     'penduduk_tetap' => false,
-        //     'telepon' => '081255598024',
-        // ]);
+        Penduduk::create([
+            'nama' => 'HAFIZH LUTFI HIDAYAT',
+            'nik' => '6401042412340001',
+            'id_hubungan_kk' => 1, 
+            'id_jenis_kelamin' => 1,
+            'tempat_lahir' => 'SAMARINDA',
+            'tanggal_lahir' => '2002-12-24',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 1,
+            'id_pendidikan_saat_ini' => 1,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
+            'id_kewarganegaraan' => 1,
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
+            'id_penduduk_status' => 1,
+            'telepon' => '081255598024',
+        ]);
 
-        // Penduduk::create([
-        //     'nama' => 'JEAN DOE',
-        //     'nik' => '6401042412340009',
-        //     'no_kk' => '6401042412340029',
-        //     'id_hubungan_kk' => 3, 
-        //     'nik_ayah' => '6401042412340002',
-        //     'nik_ibu' => '6401042412340003',
-        // ]);
-
-        // Penduduk::create([
-        //     'nama' => 'JOHN DOE',
-        //     'nik' => '1903051234567891',
-        //     'no_kk' => '6401042412340030',
-        //     'id_hubungan_kk' => 1, 
-        //     'nik_ayah' => '6401042412340002',
-        //     'nik_ibu' => '6401042412340003',
-        // ]);
-
-        // Penduduk::create([
-        //     'nama' => 'ANI',
-        //     'nik' => '1903051234567890',
-        //     'no_kk' => '6401042412340030',
-        //     'id_hubungan_kk' => 3, 
-        //     'jenis_kelamin' => 'P',
-        //     'tempat_lahir' => 'BANGKA SELATAN',
-        //     'tanggal_lahir' => '1995-04-14',
-        //     'id_agama' => 1,
-        //     'id_pendidikan_terakhir' => 2,
-        //     'id_status_perkawinan' => 2,
-        //     'id_kewarganegaraan' => 1,
-        //     'id_pekerjaan' => 2,
-        //     'nik_ayah' => '1903051234567891',
-        //     'nik_ibu' => '1903051234567892',
-        //     'penduduk_tetap' => true,
-        // ]);
+        Penduduk::create([
+            'nama' => 'AMIRAH DZATUL HIMMAH',
+            'nik' => '6401042412340002',
+            'id_hubungan_kk' => 4, 
+            'id_jenis_kelamin' => 2,
+            'tempat_lahir' => 'BOGOR',
+            'tanggal_lahir' => '2002-11-06',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 2,
+            'id_pendidikan_saat_ini' => 2,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
+            'id_kewarganegaraan' => 1,
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
+            'id_penduduk_status' => 2,
+            'telepon' => '082114643544',
+        ]);
 
         // Keluarga::create([
         //     'no_kk' => '6401042443210001',

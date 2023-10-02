@@ -78,23 +78,34 @@ class KependudukanController extends Controller
     public function pendudukNewSubmit(Request $request)
     {
         $validatedData = $request->validate([
+            // DATA DIRI
             'nama' => 'required',
             'nik' => 'required|unique:penduduk|numeric|digits:16',
-            'no_kk' => 'required',
+            // 'no_kk' => 'required',
             'id_hubungan_kk' => 'required',
-            'jenis_kelamin' => 'nullable',
-            'tempat_lahir' => 'nullable',
-            'tanggal_lahir' => 'nullable',
+            'id_jenis_kelamin' => 'required',
             'id_agama' => 'required',
-            'id_pendidikan_terakhir' => 'nullable',
-            'id_pendidikan_saat_ini' => 'nullable',
-            'id_pekerjaan' => 'nullable',
-            'id_status_perkawinan' => 'nullable',
-            'id_kewarganegaraan' => 'nullable',
+            'id_penduduk_status' => 'required',
+            // DATA KELAHIRAN
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            // PENDIDIKAN DAN PEKERJAAN
+            'id_pendidikan_terakhir' => 'required',
+            'id_pendidikan_saat_ini' => 'required',
+            'id_pekerjaan' => 'required',
+            // DATA KEWARGANEGARAAN
+            'id_kewarganegaraan' => 'required',
+            // DATA ORANG TUA
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
-            'id_penduduk_status' => 'nullable',
+            // ALAMAT || TODO
             'telepon' => 'nullable',
+            // ... 
+            // STATUS PERKAWINAN
+            'id_status_perkawinan' => 'required',
+            // DATA KESEHATAN
+            'id_golongan_darah' => 'required',
+            
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);
@@ -113,8 +124,8 @@ class KependudukanController extends Controller
     {
         return view('staf.penduduk.pendudukEdit', [
             'title' => 'Edit Data Penduduk',
-            'penduduk' => $penduduk,
             'agama' => Agama::all(),
+            // 'kk' => Keluarga::all(),
             'hubungan_kk' => HubunganKK::all(),
             'jenis_kelamin' => JenisKelamin::all(),
             // 'kesehatan' => Kesehatan::all(),
@@ -123,30 +134,50 @@ class KependudukanController extends Controller
             'pendidikan_saat_ini' => PendidikanSaatIni::all(),
             'pendidikan_terakhir' => PendidikanTerakhir::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
+            'golongan_darah' => GolonganDarah::all(),
+            'penduduk_status' => PendudukStatus::all(),
         ]);
     }
 
     public function pendudukEditSubmit(Request $request, Penduduk $penduduk)
     {
         $validatedData = $request->validate([
+            // DATA DIRI
             'nama' => 'required',
-            'nik' => 'required',
+            'nik' => 'required|unique:penduduk|numeric|digits:16',
+            // 'no_kk' => 'required',
             'id_hubungan_kk' => 'required',
-            'jenis_kelamin' => 'required',
+            'id_jenis_kelamin' => 'required',
+            'id_agama' => 'required',
+            'id_penduduk_status' => 'required',
+            // DATA KELAHIRAN
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'id_agama' => 'required',
+            // PENDIDIKAN DAN PEKERJAAN
             'id_pendidikan_terakhir' => 'required',
             'id_pendidikan_saat_ini' => 'required',
             'id_pekerjaan' => 'required',
-            'id_status_perkawinan' => 'required',
+            // DATA KEWARGANEGARAAN
             'id_kewarganegaraan' => 'required',
-            'telepon' => 'required',
-            'status' => 'required',
+            // DATA ORANG TUA
+            'nama_ayah' => 'required',
+            'nama_ibu' => 'required',
+            // ALAMAT || TODO
+            'telepon' => 'nullable',
+            // ... 
+            // STATUS PERKAWINAN
+            'id_status_perkawinan' => 'required',
+            // DATA KESEHATAN
+            'id_golongan_darah' => 'required',
+            
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);
-        $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
+        if (isset($validatedData['tempat_lahir'])) {
+            $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
+        }
+        if (isset($validatedData['alamat'])) {
+            }
 
         Penduduk::firstWhere('nik', $penduduk->nik)->update($validatedData);
 
