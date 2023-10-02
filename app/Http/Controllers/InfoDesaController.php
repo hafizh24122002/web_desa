@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\identitasDesa;
 use App\Models\Dusun;
+use App\Models\Staf;
 
 class InfoDesaController extends Controller
 {
@@ -67,16 +68,22 @@ class InfoDesaController extends Controller
 
     public function dusunManager()
     {
-        return view('staf.infodesa.dusun', [
+        $dusun = Dusun::paginate(10);
+        $kepala_dusun = Staf::where('jabatan', 'like', 'Kepala Dusun%')->get();
+        return view('staf.infodesa.dusunManager', [
             'title' => 'Daftar Dusun',
-            'dusun' => Dusun::all(),
+            'dusun' => $dusun,
+            'kepala_dusun' => $kepala_dusun,
         ]);
     }
 
     public function dusunNew()
     {
+        $kepala_dusun = Staf::where('jabatan', 'like', 'Kepala Dusun%')->get();
+
         return view('staf.infodesa.dusunNew', [
             'title' => 'Tambah Dusun',
+            'kepala_dusun' => $kepala_dusun,
         ]);
     }
 
@@ -99,9 +106,12 @@ class InfoDesaController extends Controller
 
     public function dusunEdit($id)
     {
+        $kepala_dusun = Staf::where('jabatan', 'like', 'Kepala Dusun%')->get();
+
         return view('staf.infodesa.dusunEdit', [
             'title' => 'Edit Dusun',
             'dusun' => Dusun::find($id),
+            'kepala_dusun' => $kepala_dusun,
         ]);
     }
 
