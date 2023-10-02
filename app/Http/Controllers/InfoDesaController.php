@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\identitasDesa;
 use App\Models\Dusun;
@@ -56,6 +57,13 @@ class InfoDesaController extends Controller
         return redirect()
             ->route('desa.data')
             ->with('success', 'Data desa telah diperbarui!');
+    }
+
+    public function showPetaWilayah() {
+        return view('staf.infodesa.petaWilayah', [
+            'title' => 'Peta Wilayah',
+            'koordinat' => Storage::get('koordinat_wilayah/coordinates.json'),
+        ]);
     }
 
     public function dusunManager()

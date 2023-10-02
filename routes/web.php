@@ -77,6 +77,16 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 	return redirect()->to('/admin/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
+// fetch coordinates
+Route::get('/get-coordinates', function () {
+    $geojsonFilePath = storage_path('app/koordinat_wilayah/coordinates.geojson');
+    if (file_exists($geojsonFilePath)) {
+        $contents = Storage::get('koordinat_wilayah/coordinates.geojson');
+        return response()->json(json_decode($contents));
+    }
+    abort(404);
+});
+
 // Route::middleware(['auth'])->group(function () {
 	// route admin
 	Route::get('/admin/dashboard', [MainAdminController::class, 'index']);
@@ -186,6 +196,7 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
+		Route::get('/staf/info-desa/identitas-desa/wilayah', [InfoDesaController::class, 'showPetaWilayah'])->name('desa.petaWilayah');
 
 		Route::get('/staf/info-desa/dusun', [InfoDesaController::class, 'dusunManager']);
 		Route::get('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNew']);
