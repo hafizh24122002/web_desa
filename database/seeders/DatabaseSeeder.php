@@ -210,6 +210,11 @@ class DatabaseSeeder extends Seeder
             'kode_surat' => '300',
             'filename' => 'rekomendasi_keramaian.docx',
         ]);
+        Surat::create([
+            'nama' => 'KETERANGAN BELUM MENIKAH',
+            'kode_surat' => '474.4',
+            'filename' => 'keterangan_belum_menikah.docx',
+        ]);
 
         Staf::create([
             'nama' => 'RIZA UMAMI',
