@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Agama;
+use App\Models\GolonganDarah;
 use App\Models\HubunganKK;
+use App\Models\JenisKelamin;
 use App\Models\Keluarga;
 // use App\Models\Kesehatan;
 use App\Models\Kewarganegaraan;
@@ -12,6 +14,7 @@ use App\Models\Pekerjaan;
 use App\Models\PendidikanSaatIni;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
+use App\Models\PendudukStatus;
 use App\Models\Rt;
 use App\Models\StatusPerkawinan;
 
@@ -26,9 +29,9 @@ class KependudukanController extends Controller
         $query = Penduduk::select(
             'nama',
             'nik',
-            'jenis_kelamin',
+            'id_jenis_kelamin',
             'telepon',
-            'penduduk_tetap'
+            'id_penduduk_status'
         );
 
         if ($search) {
@@ -58,14 +61,17 @@ class KependudukanController extends Controller
         return view('staf.penduduk.pendudukNew', [
             'title' => 'Tambah Penduduk Baru',
             'agama' => Agama::all(),
-            'kk' => Keluarga::all(),
+            // 'kk' => Keluarga::all(),
             'hubungan_kk' => HubunganKK::all(),
+            'jenis_kelamin' => JenisKelamin::all(),
             // 'kesehatan' => Kesehatan::all(),
             'kewarganegaraan' => Kewarganegaraan::all(),
             'pekerjaan' => Pekerjaan::all(),
             'pendidikan_saat_ini' => PendidikanSaatIni::all(),
             'pendidikan_terakhir' => PendidikanTerakhir::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
+            'golongan_darah' => GolonganDarah::all(),
+            'penduduk_status' => PendudukStatus::all(),
         ]);
     }
 
@@ -74,27 +80,24 @@ class KependudukanController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required',
             'nik' => 'required|unique:penduduk|numeric|digits:16',
-            'no_kk' => 'required',
             'id_hubungan_kk' => 'nullable',
-            // 'jenis_kelamin' => 'nullable', // dikomen karena udah dibikin defaultnyaa
+            'id_jenis_kelamin' => 'nullable', // dikomen karena udah dibikin defaultnyaa
             'tempat_lahir' => 'nullable',
             'tanggal_lahir' => 'nullable',
-            'id_agama' => 'nullable',
+            'id_agama' => 'required',
             'id_pendidikan_terakhir' => 'nullable',
+            'id_pendidikan_saat_ini' => 'nullable',
             'id_pekerjaan' => 'nullable',
             'id_status_perkawinan' => 'nullable',
             'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'required|numeric|digits:16',
-            'nik_ibu' => 'required|numeric|digits:16',
-            'id_penduduk_tetap' => 'nullable',
-            'alamat' => 'nullable',
+            'nama_ayah' => 'required',
+            'nama_ibu' => 'required',
+            'id_penduduk_status' => 'nullable',
             'telepon' => 'nullable',
-            // 'status' => 'nullable',
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);
         $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
-        $validatedData['alamat'] = strtoupper($validatedData['alamat']);
 
         Penduduk::create($validatedData);
 
@@ -108,6 +111,7 @@ class KependudukanController extends Controller
             'penduduk' => $penduduk,
             'agama' => Agama::all(),
             'hubungan_kk' => HubunganKK::all(),
+            'jenis_kelamin' => JenisKelamin::all(),
             // 'kesehatan' => Kesehatan::all(),
             'kewarganegaraan' => Kewarganegaraan::all(),
             'pekerjaan' => Pekerjaan::all(),
@@ -121,22 +125,19 @@ class KependudukanController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required',
-            'nik' => 'required|unique:penduduk,nik,'.$penduduk->id,
-            'kk' => 'nullable',
-            'id_hubungan_kk' => 'nullable',
-            'jenis_kelamin' => 'nullable',
-            'tempat_lahir' => 'nullable',
-            'tanggal_lahir' => 'nullable',
-            'id_agama' => 'nullable',
-            'id_pendidikan_terakhir' => 'nullable',
-            'id_pekerjaan' => 'nullable',
-            'id_status_perkawinan' => 'nullable',
-            'id_kewarganegaraan' => 'nullable',
-            'nik_ayah' => 'required',
-            'nik_ibu' => 'required',
-            'id_penduduk_tetap' => 'nullable',
-            'telepon' => 'nullable',
-            'status' => 'nullable',
+            'nik' => 'required',
+            'id_hubungan_kk' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'id_agama' => 'required',
+            'id_pendidikan_terakhir' => 'required',
+            'id_pendidikan_saat_ini' => 'required',
+            'id_pekerjaan' => 'required',
+            'id_status_perkawinan' => 'required',
+            'id_kewarganegaraan' => 'required',
+            'telepon' => 'required',
+            'status' => 'required',
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);

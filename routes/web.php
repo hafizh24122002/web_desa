@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaEdit']);
 		Route::delete('/staf/kependudukan/keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete']);
 		Route::get('/staf/kependudukan/keluarga/anggota/{keluarga:no_kk}', [KeluargaController::class, 'daftarKeluarga']);
+		Route::get('/staf/kependudukan/keluarga', [KeluargaController::class, 'keluarga']);
 
 		Route::get('/staf/statistik/statistik-kependudukan', [StatistikController::class, 'statistik']);
 
