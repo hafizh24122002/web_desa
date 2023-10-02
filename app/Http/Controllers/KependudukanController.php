@@ -80,8 +80,9 @@ class KependudukanController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required',
             'nik' => 'required|unique:penduduk|numeric|digits:16',
-            'id_hubungan_kk' => 'nullable',
-            'id_jenis_kelamin' => 'nullable', // dikomen karena udah dibikin defaultnyaa
+            'no_kk' => 'required',
+            'id_hubungan_kk' => 'required',
+            'jenis_kelamin' => 'nullable',
             'tempat_lahir' => 'nullable',
             'tanggal_lahir' => 'nullable',
             'id_agama' => 'required',
@@ -97,7 +98,11 @@ class KependudukanController extends Controller
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);
-        $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
+        if (isset($validatedData['tempat_lahir'])) {
+            $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
+        }
+        if (isset($validatedData['alamat'])) {
+            }
 
         Penduduk::create($validatedData);
 

@@ -179,10 +179,16 @@
 				<label for="nik_ayah" class="col-sm-3 col-form-label">NIK Ayah<span style="color:red">*</span></label>
 				<div class="col-sm-9">
 					<input type="text"
-						class="form-control form-control-sm"
+						class="form-control form-control-sm @error('nik_ayah') is-invalid @enderror"
 						name="nik_ayah"
 						value="@if(null!==old('nik_ayah')){{old('nik_ayah')}}@else{{$penduduk->nik_ayah}}@endif"
 						placeholder="1903051234567890">
+
+					@error('nik_ayah')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+					@enderror
 				</div>
 			</div>
 
@@ -190,10 +196,16 @@
 				<label for="nik_ibu" class="col-sm-3 col-form-label">NIK Ibu<span style="color:red">*</span></label>
 				<div class="col-sm-9">
 					<input type="text"
-						class="form-control form-control-sm"
+						class="form-control form-control-sm @error('nik_ibu') is-invalid @enderror"
 						name="nik_ibu"
 						value="@if(null!==old('nik_ibu')){{old('nik_ibu')}}@else{{$penduduk->nik_ibu}}@endif"
 						placeholder="1903051234567890">
+
+					@error('nik_ibu')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+					@enderror
 				</div>
 			</div>
 

@@ -124,19 +124,14 @@ class SuratController extends Controller
              * 474.4
              */
             case 6:
-                $view = view('staf.surat.suratNewInput6', [
-                    'title' => 'Buat Surat '.$tipe,
-                    'id_tipe' => $idTipeSurat,
-                    'tipe' => $tipe,
-                    'nomorTerakhir' => $nomorTerakhir,
-                    'agama' => Agama::all(),
-                    'kewarganegaraan' => Kewarganegaraan::all(),
-                    'penduduk' => Penduduk::pluck('nama'),
-                    'pekerjaan' => Pekerjaan::all(),
-                    'staf' => Staf::all(),
-                ]);
+                $view = view('staf.surat.suratNewInput6', 
+                    array_merge(
+                        $commonViewData,
+                        app(Surat6Service::class)->getViewData()
+                    )
+                );
                 break;
-        }
+        }   
         return $view;
     }
 
@@ -184,17 +179,22 @@ class SuratController extends Controller
             case 5:
                 $values = app(Surat5Service::class)->submit($request, $id);
                 break;
+
+            /**
+             * Surat Keterangan Belum Menikah
+             * 474.4
+             */
+            case 6:
+                $values = app(Surat6Service::class)->submit($request, $id);
+                break;
         }
         $tipe = $request->input('tipe');
-
         $surat = Surat::firstWhere('nama', $tipe);
 
         // Load the docx template file
         $template = new TemplateProcessor(storage_path('app/surat/'.$surat->filename));
-
         // Fill in the template with the values
         $template->setValues($values);
-
         // Filename formatting for 'Surat Undangan Pembahasan HUT Bangka Selatan'
         if ($idTipeSurat === 4) {
             $values['nama'] = $values['hari_jadi_num'];
@@ -364,6 +364,19 @@ class SuratController extends Controller
                     array_merge(
                         $commonViewData,
                         app(Surat5Service::class)->getViewData()
+                    )
+                );
+                break;
+
+            /**
+             * Surat Keterangan Belum Menikah
+             * 474.4
+             */
+            case 6:
+                $view = view('staf.surat.suratEdit6', 
+                    array_merge(
+                        $commonViewData,
+                        app(Surat6Service::class)->getViewData()
                     )
                 );
                 break;

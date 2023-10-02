@@ -28,7 +28,7 @@
                             <a href="#"
                                 class="btn btn-social btn-success btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
                                 title="Lokasi Kantor Desa"><i class='fa fa-map-marker'></i> Lokasi Kantor Desa</a>
-                            <a href="#"
+                            <a href="{{ route('desa.petaWilayah') }}"
                                 class="btn btn-social btn-primary btn-sm btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
                                 title="Peta Wilayah Desa"><i class='fa fa-map'></i>
                                 Peta Wilayah Desa</a>
@@ -36,8 +36,21 @@
                         <div class="box-body">
                             
                             <div class="box-body bg-identitas" style="margin-top: 10px;">
-                                {{-- <img class="img-identitas img-responsive" src="{{ asset('img/malik.jpg') }}" alt="logo"
-                                    style="max-width: 150px; height: auto;"> --}}
+                                <tr>
+                                <div class="row">
+                                    <div class="card-body">
+                                        <center>
+                                        <img class="img-identitas img-responsive" src="{{ asset('img/malik.jpg') }}" alt="logo"
+                                            style="max-width: 150px; height: auto;">
+                                        <img class="img-identitas img-responsive" src="{{ asset('img/login-bg.jpg') }}" alt="kantor"
+                                            style="max-width: 300px; height: auto;">
+                                        </center>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                    </div>
+                                </div>
+                                </tr>
                                 <h3 class="text-identitas">DESA MALIK</h3>
                                 <p class="text-identitas">
                                     <b>Kecamatan Payung, Kabupaten Bangka Selatan</b>

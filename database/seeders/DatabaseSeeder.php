@@ -267,20 +267,10 @@ class DatabaseSeeder extends Seeder
             'kode_surat' => '300',
             'filename' => 'rekomendasi_keramaian.docx',
         ]);
-
-        User::create([
-            'username' => 'admin',
-            'password' => Hash::make('admin'),
-            'id_grup' => 1,
-            'id_staf' => 11,
-            'name' => 'admin',
-        ]);
-        User::create([
-            'username' => 'staf',
-            'password' => Hash::make('password'),
-            'id_grup' => 2,
-            'id_staf' => 1,
-            'name' => 'staf',
+        Surat::create([
+            'nama' => 'KETERANGAN BELUM MENIKAH',
+            'kode_surat' => '474.4',
+            'filename' => 'keterangan_belum_menikah.docx',
         ]);
 
         Staf::create([
@@ -417,6 +407,21 @@ class DatabaseSeeder extends Seeder
             'tgl_agenda' => '2023-08-17',
             'koordinator' => 'Amiw',
             'lokasi' => 'Kantor Desa'
+        ]);
+
+        User::create([
+            'username' => 'admin',
+            'password' => Hash::make('admin'),
+            'id_grup' => 1,
+            'id_staf' => 11,
+            'name' => 'admin',
+        ]);
+        User::create([
+            'username' => 'staf',
+            'password' => Hash::make('password'),
+            'id_grup' => 2,
+            'id_staf' => 1,
+            'name' => 'staf',
         ]);
     }
 }
