@@ -135,14 +135,12 @@ class KependudukanController extends Controller
             'nik_ayah' => 'required',
             'nik_ibu' => 'required',
             'id_penduduk_tetap' => 'nullable',
-            'alamat' => 'nullable',
             'telepon' => 'nullable',
             'status' => 'nullable',
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);
         $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
-        $validatedData['alamat'] = strtoupper($validatedData['alamat']);
 
         Penduduk::firstWhere('nik', $penduduk->nik)->update($validatedData);
 
