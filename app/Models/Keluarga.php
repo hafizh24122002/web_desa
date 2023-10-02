@@ -21,7 +21,6 @@ class Keluarga extends Model
         'nik_kepala',
         'id_kelas_sosial',
         'alamat',
-        'tgl_dikeluarkan',
     ];
 
     /**
