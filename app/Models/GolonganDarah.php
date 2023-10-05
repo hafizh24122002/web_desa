@@ -9,6 +9,8 @@ class GolonganDarah extends Model
 {
     use HasFactory;
 
+    protected $table = "golongan_darah";
+
     public $timestamps = false;
 
     /**

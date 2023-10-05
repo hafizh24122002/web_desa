@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dokumen extends Model
+
+class ArtikelView extends Model
 {
     use HasFactory;
-
-    protected $table = 'dokumen';
 
     /**
      * The attributes that are mass assignable
@@ -17,10 +16,7 @@ class Dokumen extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_staf',
-        'judul',
-        'keterangan',
-        'filename',
+        'id_artikel',
     ];
 
     /**
@@ -29,19 +25,11 @@ class Dokumen extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'is_active' => 'boolean'
+         
     ];
 
-    /**
-     * Get the staf associated with staf.
-     */
-    public function staf()
+    public function artikel()
     {
-        return $this->belongsTo(Staf::class, 'id_staf');
-    }
-
-    public function views()
-    {
-        return $this->hasMany(DokumenDownload::class, 'id_dokumen');
+        return $this->belongsTo(Artikel::class);
     }
 }

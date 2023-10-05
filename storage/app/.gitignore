@@ -1,5 +1,7 @@
 *
 !koordinat_wilayah/
+!koordinat_wilayah/*
 !surat/
+!surat/*
 !public/
 !.gitignore

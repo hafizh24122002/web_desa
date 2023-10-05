@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Artikel extends Model
+class CaraKb extends Model
 {
     use HasFactory;
 
-    protected $table = "artikel";
+    protected $table = "cara_kb";
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable
@@ -17,10 +18,7 @@ class Artikel extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_staf',
-        'judul',
-        'isi',
-        'is_active'
+        'nama'
     ];
 
     /**
@@ -31,9 +29,4 @@ class Artikel extends Model
     protected $casts = [
          
     ];
-
-    public function views()
-    {
-        return $this->hasMany(ArtikelView::class, 'id_artikel');
-    }
 }
