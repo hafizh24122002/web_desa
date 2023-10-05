@@ -33,7 +33,7 @@
 								<th>No</th>
 								<th>Aksi</th>
 								<th>Judul</th>
-								<th>Ditulis oleh</th>
+								<th>Diunggah oleh</th>
 								<th>Ditulis pada</th>
 								<th>Diedit pada</th>
 								<th>Aktif</th>
@@ -41,7 +41,7 @@
 						</thead>
 
 						<tbody>
-							@foreach ($documents as $document => $item)
+							@foreach ($documents as $key => $item)
 								<tr class="text-center align-middle">
 									<td>{{ $documents->firstitem() + $key }}</td>
 
@@ -54,7 +54,7 @@
 											</a>
 											
 											<form action="/staf/manajemen-web/dokumen/{{ $item->id }}"
-												onsubmit="return confirm('Apakah anda yakin ingin menghapus dokumen dengan judul {{ $item->judul }}? dokumen yang dihapus tidak akan bisa dikembalikan!')"
+												onsubmit="return confirm('Apakah anda yakin ingin menghapus dokumen dengan judul {{ $item->judul }}? Dokumen yang dihapus tidak akan bisa dikembalikan!')"
 												method="POST">
 												
 												@method('delete')
@@ -69,7 +69,7 @@
 
 									<td>{{ $item->judul }}</td>
 
-									<td>{{ $item->name }}</td>
+									<td>{{ $item->staf->nama }}</td>
 
 									<td>{{ $item->created_at }}</td>
 
