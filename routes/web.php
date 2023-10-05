@@ -199,11 +199,11 @@ Route::get('/get-coordinates', function () {
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
 		Route::get('/staf/info-desa/identitas-desa/wilayah', [InfoDesaController::class, 'showPetaWilayah'])->name('desa.petaWilayah');
 
-		Route::get('/staf/info-desa/wilayah-administratif', [InfoDesaController::class, 'dusunManager']);
-		Route::get('/staf/info-desa/wilayah-administratif/new-dusun', [InfoDesaController::class, 'dusunNew']);
-		Route::post('/staf/info-desa/wilayah-administratif/new-dusun', [InfoDesaController::class, 'dusunNewSubmit']);
-		Route::get('/staf/info-desa/wilayah-administratif/edit-dusun/{id}', [InfoDesaController::class, 'dusunEdit']);
-		Route::put('/staf/info-desa/wilayah-administratif/edit-dusun/{id}', [InfoDesaController::class, 'dusunEditSubmit']);
-		Route::delete('/staf/info-desa/wilayah-administratif/{id}', [InfoDesaController::class, 'dusunDelete']);
+		Route::get('/staf/info-desa/dusun', [InfoDesaController::class, 'dusunManager']);
+		Route::get('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNew']);
+		Route::post('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNewSubmit']);
+		Route::get('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEdit']);
+		Route::put('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEditSubmit']);
+		Route::delete('/staf/info-desa/dusun/{id}', [InfoDesaController::class, 'dusunDelete']);
 	// });
 // });
