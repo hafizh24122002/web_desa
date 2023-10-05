@@ -17,9 +17,8 @@ return new class extends Migration
             $table->string('nik', 16)->nullable(); // *
             $table->integer('id_kk')->default(0); 
             $table->integer('id_hubungan_kk')->nullable(); // *
-            // $table->string('id_rtm', 30)->nullable();
-            // $table->integer('rtm_level')->nullable();
-            // $table->string('jenis_kelamin')->default('L'); // *
+            $table->string('id_rtm', 30)->nullable();
+            $table->integer('rtm_level')->nullable();
             $table->foreignId('id_jenis_kelamin')->constrained('jenis_kelamin')->onUpdate('cascade')->onDelete('cascade')->nullable(); // *
             $table->string('tempat_lahir', 100)->nullable(); // *
             $table->date('tanggal_lahir')->nullable(); // *
@@ -29,21 +28,21 @@ return new class extends Migration
             $table->foreignId('id_pekerjaan')->nullable()->constrained('pekerjaan')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->foreignId('id_status_perkawinan')->nullable()->constrained('status_perkawinan')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->foreignId('id_kewarganegaraan')->nullable()->constrained('kewarganegaraan')->onUpdate('cascade')->onDelete('cascade')->default(1);
-            // $table->string('dokumen_pasport', 45)->nullable(); // kalau bukan penduduk tetap
-            // $table->string('dokumen_kitas', 45)->nullable(); // kalau bukan penduduk tetap
+            $table->string('dokumen_pasport', 45)->nullable(); // kalau bukan penduduk tetap
+            $table->string('dokumen_kitas', 45)->nullable(); // kalau bukan penduduk tetap
             $table->string('nik_ayah', 16)->nullable();
             $table->string('nik_ibu', 16)->nullable();
             $table->string('nama_ayah', 100)->nullable(); // *
             $table->string('nama_ibu', 100)->nullable(); // *
             $table->string('foto', 100)->nullable();
             $table->foreignId('id_golongan_darah')->nullable()->constrained('golongan_darah')->onUpdate('cascade')->onDelete('cascade'); // *
-            // $table->integer('id_cluster'); // TODO, untuk pemisahan alamat dusun - RW - RT 
-            // $table->boolean('penduduk_tetap')->default(true); // *
-            $table->foreignId('id_penduduk_status')->nullable()->constrained('penduduk_status')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_dusun')->nullable()->constrained('wilayah_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
+            // $table->integer('id_cluster'); -> jadinya bikin dua tabel Dusun dan RT terus relasi
+            $table->boolean('penduduk_tetap')->default(true);
             $table->string('alamat_sebelumnya', 200)->nullable();
             $table->string('alamat_sekarang', 200)->nullable();
-            // $table->tinyInteger('status_dasar')->default(1); // hidup, mati, pindah, hilang, pergi, tidak valid
-            $table->tinyInteger('hamil')->nullable();
+            $table->tinyInteger('status_dasar')->default(1); // hidup, mati, pindah, hilang, pergi, tidak valid
             $table->integer('cacat_id')->nullable();
             $table->integer('sakit_menahun_id')->nullable();
             $table->string('akta_lahir', 40)->nullable();
@@ -65,19 +64,12 @@ return new class extends Migration
             $table->smallInteger('berat_lahir')->nullable();
             $table->string('panjang_lahir', 10)->nullable();
             $table->string('tag_id_card', 17)->nullable();
-            $table->timestamps(0);
+            $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->tinyInteger('id_asuransi')->nullable();
             $table->string('no_asuransi', 100)->nullable();
             $table->string('email', 100)->nullable();
-            $table->string('email_token', 100)->nullable();
-            $table->dateTime('email_tgl_kadaluarsa')->nullable();
-            $table->dateTime('email_tgl_verifikasi')->nullable();
-            $table->string('telegram', 100)->nullable();
-            $table->string('telegram_token', 100)->nullable();
-            $table->dateTime('telegram_tgl_kadaluarsa')->nullable();
-            $table->dateTime('telegram_tgl_verifikasi')->nullable();
             $table->integer('bahasa_id')->nullable();
             $table->text('ket')->nullable();
             $table->string('negara_asal', 50)->nullable();
@@ -85,16 +77,6 @@ return new class extends Migration
             $table->date('tanggal_cetak_ktp')->nullable();
             $table->string('suku', 150)->nullable();
             $table->string('bpjs_ketenagakerjaan', 100)->nullable();
-            // $table->string('hubung_warga', 50)->default('Telegram'); // *
-            // $table->primary('id');
-            // $table->unique('tag_id_card');
-            // $table->unique('nik');
-            // $table->unique('telegram');
-            // $table->unique('telegram_token');
-            // $table->unique('email_token');
-            // $table->unique('email');
-            // $table->index('id_rtm');
-            // $table->index('hubung_warga');
         });
     }
 

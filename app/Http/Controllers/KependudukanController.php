@@ -144,7 +144,7 @@ class KependudukanController extends Controller
         $validatedData = $request->validate([
             // DATA DIRI
             'nama' => 'required',
-            'nik' => 'required|unique:penduduk|numeric|digits:16',
+            'nik' => 'required|unique:penduduk,nik,'.$penduduk->id,
             // 'no_kk' => 'required',
             'id_hubungan_kk' => 'required',
             'id_jenis_kelamin' => 'required',
