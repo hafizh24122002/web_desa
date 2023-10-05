@@ -26,19 +26,19 @@
 			<div>
 				<a href="/admin/dashboard" class="nav-logo">
 					<i class='bx bx-layer nav-logo-icon'></i>
-					<span class="nav-logo-name">Sistem Informasi Desa</span>
+					<span class="nav-logo-name nav-name" id="nav-name">Sistem Informasi Desa</span>
 				</a>
 				
 				<div class="nav-list">
 					<a href="/admin/dashboard" class="nav-link">
 						<i class='bx bx-grid-alt nav-icon'></i>
-						<span class="nav-name">Dashboard</span>
+						<span class="nav-name" id="nav-name">Dashboard</span>
 					</a>
 
 					@if (auth()->user()->id_grup === 1)
 						<a href="/admin/user-manager" class="nav-link">
 							<i class='bx bx-user nav-icon'></i>
-							<span class="nav-name">Pengguna</span>
+							<span class="nav-name" id="nav-name">Pengguna</span>
 						</a>
 					@endif
 					
@@ -55,7 +55,7 @@
 									href="/staf/info-desa">
 
 									<i class='bx bx-building-house nav-icon'></i>
-									<span class="nav-name">Info Desa</span>
+									<span class="nav-name" id="nav-name">Info Desa</span>
 								</button>
 							</div>
 
@@ -66,12 +66,12 @@
 								
 								<a href="/staf/info-desa/identitas-desa" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-group nav-icon"></i>
-									<span class="nav-name">Identitas Desa</span>
+									<span class="nav-name" id="nav-name">Identitas Desa</span>
 								</a>
 
 								<a href="/staf/info-desa/dusun" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bi bi-map-fill"></i>
-									<span class="nav-name">Dusun</span>
+									<span class="nav-name" id="nav-name">Dusun</span>
 								</a>
 							</div>
 						</div>
@@ -89,7 +89,7 @@
 									href="/staf/kependudukan">
 
 									<i class='bx bx-id-card nav-icon'></i>
-									<span class="nav-name">Kependudukan</span>
+									<span class="nav-name" id="nav-name">Kependudukan</span>
 								</button>
 							</div>
 
@@ -100,12 +100,12 @@
 								
 								<a href="/staf/kependudukan/penduduk" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-group nav-icon"></i>
-									<span class="nav-name">Penduduk</span>
+									<span class="nav-name" id="nav-name">Penduduk</span>
 								</a>
 
 								<a href="/staf/kependudukan/keluarga" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-male-female nav-icon"></i>
-									<span class="nav-name">Keluarga</span>
+									<span class="nav-name" id="nav-name">Keluarga</span>
 								</a>
 							</div>
 						</div>
@@ -124,7 +124,7 @@
 									href="/staf/kesehatan">
 
 									<i class='bx bx-health nav-icon'></i>
-									<span class="nav-name">Kesehatan</span>
+									<span class="nav-name" id="nav-name">Kesehatan</span>
 								</button>
 							</div>
 
@@ -135,17 +135,17 @@
 								
 								<a href="/staf/kesehatan/posyandu" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-plus-medical nav-icon"></i>
-									<span class="nav-name">Posyandu</span>
+									<span class="nav-name" id="nav-name">Posyandu</span>
 								</a>
 
 								<a href="/staf/kesehatan/kia" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-id-card nav-icon"></i>
-									<span class="nav-name">KIA</span>
+									<span class="nav-name" id="nav-name">KIA</span>
 								</a>
 
 								<a href="/staf/kesehatan/pemantauan" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-calendar-check nav-icon"></i>
-									<span class="nav-name">Pemantauan</span>
+									<span class="nav-name" id="nav-name">Pemantauan</span>
 								</a>
 							</div>
 						</div>
@@ -164,7 +164,7 @@
 									href="/staf/statistik">
 
 									<i class='bi bi-clipboard-data nav-icon'></i>
-									<span class="nav-name">Statistik</span>
+									<span class="nav-name" id="nav-name">Statistik</span>
 								</button>
 							</div>
 
@@ -175,7 +175,7 @@
 								
 								<a href="/staf/statistik/statistik-kependudukan" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bi bi-layout-text-sidebar-reverse nav-icon"></i>
-									<span class="nav-name">Statistik Kependudukan</span>
+									<span class="nav-name" id="nav-name">Statistik Kependudukan</span>
 								</a>
 							</div>
 						</div>
@@ -194,7 +194,7 @@
 									href="/staf/manajemen-staf">
 
 									<i class='bx bx-book-content nav-icon'></i>
-									<span class="nav-name">Manajemen Staf</span>
+									<span class="nav-name" id="nav-name">Manajemen Staf</span>
 								</button>
 							</div>
 
@@ -205,12 +205,12 @@
 								
 								<a href="/staf/manajemen-staf/" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-sitemap nav-icon"></i>
-									<span class="nav-name">Struktur Organisasi</span>
+									<span class="nav-name" id="nav-name">Struktur Organisasi</span>
 								</a>
 
 								<a href="/staf/manajemen-staf/daftar-staf" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bx-list-ul nav-icon"></i>
-									<span class="nav-name">Daftar Staf</span>
+									<span class="nav-name" id="nav-name">Daftar Staf</span>
 								</a>
 							</div>
 						</div>
@@ -229,7 +229,7 @@
 									href="/staf/manajemen-web">
 
 									<i class='bx bx-briefcase nav-icon'></i>
-									<span class="nav-name">Manajemen Web</span>
+									<span class="nav-name" id="nav-name">Manajemen Web</span>
 								</button>
 							</div>
 
@@ -240,17 +240,17 @@
 								
 								<a href="/staf/manajemen-web/dashboard" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-pie-chart-alt-2 nav-icon"></i>
-									<span class="nav-name">Dashboard</span>
+									<span class="nav-name" id="nav-name">Dashboard</span>
 								</a>
 
 								<a href="/staf/manajemen-web/artikel" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-news nav-icon"></i>
-									<span class="nav-name">Artikel</span>
+									<span class="nav-name" id="nav-name">Artikel</span>
 								</a>
 
 								<a href="/staf/manajemen-web/agenda" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-calendar-event nav-icon"></i>
-									<span class="nav-name">Agenda</span>
+									<span class="nav-name" id="nav-name">Agenda</span>
 								</a>
 
 								<a href="/staf/manajemen-web/dokumen" class="nav-link collapse-body" style="margin-left: 2rem">
@@ -274,7 +274,7 @@
 									href="/staf/layanan-surat">
 
 									<i class='bx bx-envelope nav-icon'></i>
-									<span class="nav-name">Layanan Surat</span>
+									<span class="nav-name" id="nav-name">Layanan Surat</span>
 								</button>
 							</div>
 
@@ -285,12 +285,12 @@
 								
 								<a href="/staf/layanan-surat/buat-surat" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-file-plus nav-icon"></i>
-									<span class="nav-name">Buat Surat</span>
+									<span class="nav-name" id="nav-name">Buat Surat</span>
 								</a>
 
 								<a href="/staf/layanan-surat/arsip-surat" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-archive nav-icon"></i>
-									<span class="nav-name">Arsip</span>
+									<span class="nav-name" id="nav-name">Arsip</span>
 								</a>
 							</div>
 						</div>
@@ -308,7 +308,7 @@
 									href="/staf/layanan-surat">
 
 									<i class='bx bx-book nav-icon'></i>
-									<span class="nav-name">Buku Administrasi Desa</span>
+									<span class="nav-name" id="nav-name">Buku Administrasi Desa</span>
 								</button>
 							</div>
 
@@ -319,12 +319,12 @@
 								
 								<a href="/staf/buku-administrasi-desa/administrasi-umum" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-file nav-icon"></i>
-									<span class="nav-name">Administrasi Umum</span>
+									<span class="nav-name" id="nav-name">Administrasi Umum</span>
 								</a>
 
 								<a href="/staf/buku-administrasi-desa/administrasi-penduduk" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-group nav-icon"></i>
-									<span class="nav-name">Administrasi Penduduk</span>
+									<span class="nav-name" id="nav-name">Administrasi Penduduk</span>
 								</a>
 							</div>
 						</div>

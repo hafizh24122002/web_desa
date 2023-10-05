@@ -26,6 +26,13 @@ use App\Models\Staf;
 use App\Models\Surat;
 use App\Models\User;
 use App\Models\Agenda;
+use App\Models\CaraKb;
+use App\Models\GolonganDarah;
+use App\Models\JenisKelamin;
+use App\Models\KetuaRt;
+use App\Models\PendudukStatus;
+use App\Models\WilayahRt;
+use App\Models\WilayahDusun;
 
 class DatabaseSeeder extends Seeder
 {
@@ -52,6 +59,59 @@ class DatabaseSeeder extends Seeder
         HubunganKK::create(['nama' => 'MERTUA']);
         HubunganKK::create(['nama' => 'FAMILI LAIN']);
         HubunganKK::create(['nama' => 'PEMBANTU']);
+
+        JenisKelamin::create(['nama' => 'LAKI-LAKI']);
+        JenisKelamin::create(['nama' => 'PEREMPUAN']);
+
+        GolonganDarah::create(['nama' => 'A']);
+        GolonganDarah::create(['nama' => 'B']);
+        GolonganDarah::create(['nama' => 'AB']);
+        GolonganDarah::create(['nama' => 'O']);
+        GolonganDarah::create(['nama' => 'A+']);
+        GolonganDarah::create(['nama' => 'A-']);
+        GolonganDarah::create(['nama' => 'B+']);
+        GolonganDarah::create(['nama' => 'B-']);
+        GolonganDarah::create(['nama' => 'AB+']);
+        GolonganDarah::create(['nama' => 'AB-']);
+        GolonganDarah::create(['nama' => 'O+']);
+        GolonganDarah::create(['nama' => 'O-']);
+        GolonganDarah::create(['nama' => 'TIDAK TAHU']);
+
+        PendudukStatus::create(['nama' => 'TETAP']);
+        PendudukStatus::create(['nama' => 'TIDAK TETAP']);
+        
+        CaraKb::create([
+            'nama' => 'PIL',
+            'id_jenis_kelamin' => '2'
+        ]);
+        CaraKb::create([
+            'nama' => 'SUNTIK',
+            'id_jenis_kelamin' => '2'
+        ]);
+        CaraKb::create([
+            'nama' => 'KONDOM',
+            'id_jenis_kelamin' => '1'
+        ]);
+        CaraKb::create([
+            'nama' => 'SUSUK KB',
+            'id_jenis_kelamin' => '2'
+        ]);
+        CaraKb::create([
+            'nama' => 'STERILISASI WANITA',
+            'id_jenis_kelamin' => '2'
+        ]);
+        CaraKb::create([
+            'nama' => 'STERILISASI PRIA',
+            'id_jenis_kelamin' => '1'
+        ]);
+        CaraKb::create([
+            'nama' => 'LAINNYA',
+            'id_jenis_kelamin' => '3'
+        ]);
+        CaraKb::create([
+            'nama' => 'TIDAK MENGGUNAKAN',
+            'id_jenis_kelamin' => '3'
+        ]);
 
         KelasSosial::create(['nama' => 'SANGAT MISKIN']);
         KelasSosial::create(['nama' => 'MISKIN']);
@@ -150,24 +210,24 @@ class DatabaseSeeder extends Seeder
         Pekerjaan::create(['nama' => 'PARANORMAL']);
         Pekerjaan::create(['nama' => 'LAINNYA']);
 
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
-        PendidikanSaatIni::create(['nama' => '']);
+        PendidikanSaatIni::create(['nama' => 'BELUM MASUK TK/KELOMPOK BERMAIN']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG TK/KELOMPOK BERMAIN']);
+        PendidikanSaatIni::create(['nama' => 'TIDAK PERNAH SEKOLAH']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG SD/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'TIDAK TAMAT/SD SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG SLTP/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG SLTA/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG D-1/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG D-2/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG D-3/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG S-1/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG S-2/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG S-3/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG SLB A/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG SLB B/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'SEDANG SLB C/SEDERAJAT']);
+        PendidikanSaatIni::create(['nama' => 'TIDAK DAPAT MEMBACA DAN MENULIS HURUF LATIN/ARAB']);
+        PendidikanSaatIni::create(['nama' => 'TIDAK SEDANG SEKOLAH']);
 
         PendidikanTerakhir::create(['nama' => 'TIDAK/BELUM SEKOLAH']);
         PendidikanTerakhir::create(['nama' => 'BELUM TAMAT SD/SEDERAJAT']);
@@ -210,20 +270,10 @@ class DatabaseSeeder extends Seeder
             'kode_surat' => '300',
             'filename' => 'rekomendasi_keramaian.docx',
         ]);
-
-        User::create([
-            'username' => 'admin',
-            'password' => Hash::make('admin'),
-            'id_grup' => 1,
-            'id_staf' => 11,
-            'name' => 'admin',
-        ]);
-        User::create([
-            'username' => 'staf',
-            'password' => Hash::make('password'),
-            'id_grup' => 2,
-            'id_staf' => 1,
-            'name' => 'staf',
+        Surat::create([
+            'nama' => 'KETERANGAN BELUM MENIKAH',
+            'kode_surat' => '474.4',
+            'filename' => 'keterangan_belum_menikah.docx',
         ]);
 
         Staf::create([
@@ -274,74 +324,82 @@ class DatabaseSeeder extends Seeder
         Penduduk::create([
             'nama' => 'HAFIZH LUTFI HIDAYAT',
             'nik' => '6401042412340001',
-            'no_kk' => '6401042412340029',
             'id_hubungan_kk' => 1, 
-            'jenis_kelamin' => 'L',
+            'id_jenis_kelamin' => 1,
             'tempat_lahir' => 'SAMARINDA',
             'tanggal_lahir' => '2002-12-24',
             'id_agama' => 1,
+            'id_pendidikan_terakhir' => 1,
+            'id_pendidikan_saat_ini' => 1,
+            'id_pekerjaan' => 3,
             'id_status_perkawinan' => 1,
             'id_kewarganegaraan' => 1,
-            'id_pekerjaan' => 3,
-            'nik_ayah' => '6401042412340002',
-            'nik_ibu' => '6401042412340003',
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
             'penduduk_tetap' => false,
             'telepon' => '081255598024',
         ]);
 
         Penduduk::create([
-            'nama' => 'JEAN DOE',
-            'nik' => '6401042412340009',
-            'no_kk' => '6401042412340029',
-            'id_hubungan_kk' => 3, 
-            'nik_ayah' => '6401042412340002',
-            'nik_ibu' => '6401042412340003',
-        ]);
-
-        Penduduk::create([
-            'nama' => 'JOHN DOE',
-            'nik' => '1903051234567891',
-            'no_kk' => '6401042412340030',
-            'id_hubungan_kk' => 1, 
-            'nik_ayah' => '6401042412340002',
-            'nik_ibu' => '6401042412340003',
-        ]);
-
-        Penduduk::create([
-            'nama' => 'ANI',
-            'nik' => '1903051234567890',
-            'no_kk' => '6401042412340030',
-            'id_hubungan_kk' => 3, 
-            'jenis_kelamin' => 'P',
-            'tempat_lahir' => 'BANGKA SELATAN',
-            'tanggal_lahir' => '1995-04-14',
+            'nama' => 'AMIRAH DZATUL HIMMAH',
+            'nik' => '6401042412340002',
+            'id_hubungan_kk' => 4, 
+            'id_jenis_kelamin' => 2,
+            'tempat_lahir' => 'BOGOR',
+            'tanggal_lahir' => '2002-11-06',
             'id_agama' => 1,
             'id_pendidikan_terakhir' => 2,
-            'id_status_perkawinan' => 2,
+            'id_pendidikan_saat_ini' => 2,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
             'id_kewarganegaraan' => 1,
-            'id_pekerjaan' => 2,
-            'nik_ayah' => '1903051234567891',
-            'nik_ibu' => '1903051234567892',
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
             'penduduk_tetap' => true,
+            'telepon' => '082114643544',
         ]);
 
-        Keluarga::create([
-            'no_kk' => '6401042443210001',
-            'nik_kepala' => '6401042412340001',
-            'id_kelas_sosial' => '4',
-            'alamat' => 'JL. MERPATI NO.51 RT.03/RW.02',
-            'tgl_dikeluarkan' => '2006-04-15',
+        KetuaRt::create(['nama' => 'AMIR']);
+        KetuaRt::create(['nama' => 'HANS']);
+
+        WilayahDusun::create([
+            'nama' => 'DUSUN 1',
+            'id_kepala_dusun' => 9,
         ]);
+        WilayahDusun::create([
+            'nama' => 'DUSUN 2',
+            'id_kepala_dusun' => 10,
+        ]);
+
+        WilayahRt::create([
+            'nama' => '001',
+            'id_kepala_rt' => 1,
+            'id_wilayah_dusun' => 1,
+        ]);
+
+        WilayahRt::create([
+            'nama' => '002',
+            'id_kepala_rt' => 2,
+            'id_wilayah_dusun' => 2,
+        ]);
+
+        // Keluarga::create([
+        //     'no_kk' => '6401042443210001',
+        //     'nik_kepala' => '6401042412340001',
+        //     'id_kelas_sosial' => '4',
+        //     'alamat' => 'JL. MERPATI NO.51 RT.03/RW.02',
+        //     'tgl_dikeluarkan' => '2006-04-15',
+        // ]);
 
         Posyandu::create([
             'nama' => 'Posyandu Bakti Sehat',
             'alamat' => 'Jl. Melati No. 123',
         ]);
 
-        Kia::create([
-            'no_kia' => '12345',
-            'id_ibu' => 2,
-        ]);
+        // Kia::create([
+        //     'no_kia' => '12345',
+        //     'id_ibu' => 2,
+        // ]);
 
         IdentitasDesa::create([
             'nama_desa' => 'Malik',
@@ -360,6 +418,21 @@ class DatabaseSeeder extends Seeder
             'tgl_agenda' => '2023-08-17',
             'koordinator' => 'Amiw',
             'lokasi' => 'Kantor Desa'
+        ]);
+
+        User::create([
+            'username' => 'admin',
+            'password' => Hash::make('admin'),
+            'id_grup' => 1,
+            'id_staf' => 11,
+            'name' => 'admin',
+        ]);
+        User::create([
+            'username' => 'staf',
+            'password' => Hash::make('password'),
+            'id_grup' => 2,
+            'id_staf' => 1,
+            'name' => 'staf',
         ]);
     }
 }

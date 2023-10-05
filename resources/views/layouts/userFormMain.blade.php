@@ -44,11 +44,4 @@
 	});
 </script>
 
-
-
-
-
-
-
-
 @endsection

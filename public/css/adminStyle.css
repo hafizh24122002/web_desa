@@ -88,6 +88,11 @@ a {
 	overflow: hidden
 }
 
+.nav-name {
+    transition: opacity 0.5s;
+    opacity: 1;
+}
+
 .nav-logo,
 .nav-link {
 	display: grid;
@@ -252,4 +257,8 @@ a {
 	width: 100%;
 	height: auto;
 	object-fit: cover; /* This property ensures the image covers the container, stretching or shrinking as needed */
+}
+
+.accordion-custom, .list-group-item {
+	max-width: 200px;
 }

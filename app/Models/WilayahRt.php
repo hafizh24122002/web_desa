@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Keluarga extends Model
+class WilayahRt extends Model
 {
     use HasFactory;
 
-    protected $table = "keluarga";
+    protected $table = 'wilayah_rt';
 
     /**
      * The attributes that are mass assignable
@@ -17,19 +17,25 @@ class Keluarga extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'no_kk',
-        'nik_kepala',
-        'id_kelas_sosial',
-        'alamat',
+        'nama',
+        'id_kepala_rt',
+        'id_wilayah_dusun',
     ];
 
     /**
-     * The attributes that should be cast
+     * The attributes that should be cast.
      *
      * @var array<string, string>
      */
     protected $casts = [
-        'tgl_daftar' => 'datetime',
-        'tgl_cetak_kk' => 'datetime',
+
     ];
+
+    /**
+     * Get the staf associated with surat.
+     */
+    public function penduduk()
+    {
+        return $this->hasOne(Penduduk::class, 'id_penduduk');
+    }
 }
