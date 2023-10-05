@@ -29,7 +29,10 @@ use App\Models\Agenda;
 use App\Models\CaraKb;
 use App\Models\GolonganDarah;
 use App\Models\JenisKelamin;
+use App\Models\KetuaRt;
 use App\Models\PendudukStatus;
+use App\Models\WilayahRt;
+use App\Models\WilayahDusun;
 
 class DatabaseSeeder extends Seeder
 {
@@ -333,7 +336,7 @@ class DatabaseSeeder extends Seeder
             'id_kewarganegaraan' => 1,
             'nama_ayah' => 'John',
             'nama_ibu' => 'Jany',
-            'id_penduduk_status' => 1,
+            'penduduk_tetap' => false,
             'telepon' => '081255598024',
         ]);
 
@@ -352,8 +355,32 @@ class DatabaseSeeder extends Seeder
             'id_kewarganegaraan' => 1,
             'nama_ayah' => 'John',
             'nama_ibu' => 'Jany',
-            'id_penduduk_status' => 2,
+            'penduduk_tetap' => true,
             'telepon' => '082114643544',
+        ]);
+
+        KetuaRt::create(['nama' => 'AMIR']);
+        KetuaRt::create(['nama' => 'HANS']);
+
+        WilayahDusun::create([
+            'nama' => 'DUSUN 1',
+            'id_kepala_dusun' => 9,
+        ]);
+        WilayahDusun::create([
+            'nama' => 'DUSUN 2',
+            'id_kepala_dusun' => 10,
+        ]);
+
+        WilayahRt::create([
+            'nama' => '001',
+            'id_kepala_rt' => 1,
+            'id_wilayah_dusun' => 1,
+        ]);
+
+        WilayahRt::create([
+            'nama' => '002',
+            'id_kepala_rt' => 2,
+            'id_wilayah_dusun' => 2,
         ]);
 
         // Keluarga::create([

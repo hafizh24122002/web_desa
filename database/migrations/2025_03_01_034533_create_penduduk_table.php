@@ -36,6 +36,8 @@ return new class extends Migration
             $table->string('nama_ibu', 100)->nullable(); // *
             $table->string('foto', 100)->nullable();
             $table->foreignId('id_golongan_darah')->nullable()->constrained('golongan_darah')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_dusun')->nullable()->constrained('wilayah_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
             // $table->integer('id_cluster'); -> jadinya bikin dua tabel Dusun dan RT terus relasi
             $table->boolean('penduduk_tetap')->default(true);
             $table->string('alamat_sebelumnya', 200)->nullable();

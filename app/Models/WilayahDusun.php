@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dusun extends Model
+class WilayahDusun extends Model
 {
     use HasFactory;
 
-    protected $table = 'dusun';
+    protected $table = 'wilayah_dusun';
 
     /**
      * The attributes that are mass assignable
@@ -19,8 +19,6 @@ class Dusun extends Model
     protected $fillable = [
         'nama',
         'id_kepala_dusun',
-        'no_telp_dusun',
-        'jumlah_rt,'
     ];
 
     /**
@@ -37,6 +35,6 @@ class Dusun extends Model
      */
     public function staf()
     {
-        return $this->belongsTo(Staf::class, 'id_staf');
+        return $this->hasOne(Staf::class, 'id_staf');
     }
 }

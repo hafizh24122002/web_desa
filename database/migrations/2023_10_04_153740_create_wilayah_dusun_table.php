@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dusun', function (Blueprint $table) {
+        Schema::create('wilayah_dusun', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->foreignId('id_kepala_dusun')->constrained('staf')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('no_telp_dusun')->nullable();
-            $table->integer('jumlah_rt')->nullable();
             $table->timestamps();
         });
     }
