@@ -85,7 +85,7 @@ Route::get('/get-coordinates', function () {
         return response()->json(json_decode($contents));
     }
     abort(404);
-});
+})->middleware('auth');
 
 // Route::middleware(['auth'])->group(function () {
 	// route admin
@@ -197,7 +197,12 @@ Route::get('/get-coordinates', function () {
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
 		Route::put('/staf/info-desa/identitas-desa/update', [InfoDesaController::class, 'updateDataDesa'])->name('desa.update');
+		Route::get('/staf/info-desa/identitas-desa/kantor', [InfoDesaController::class, 'showLokasiKantor'])->name('desa.kantorDesa');
+		Route::get('/staf/info-desa/identitas-desa/kantor/edit', [InfoDesaController::class, 'editLokasiKantor']);
+		Route::put('/staf/info-desa/identitas-desa/kantor/update', [InfoDesaController::class, 'updateLokasiKantor']);
 		Route::get('/staf/info-desa/identitas-desa/wilayah', [InfoDesaController::class, 'showPetaWilayah'])->name('desa.petaWilayah');
+		Route::get('/staf/info-desa/identitas-desa/wilayah/edit', [InfoDesaController::class, 'editPetaWilayah']);
+		Route::put('/staf/info-desa/identitas-desa/wilayah/update', [InfoDesaController::class, 'updatePetaWilayah']);
 
 		Route::get('/staf/info-desa/dusun', [InfoDesaController::class, 'dusunManager']);
 		Route::get('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNew']);

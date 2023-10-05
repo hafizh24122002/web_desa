@@ -25,7 +25,7 @@
                                 class="btn btn-social btn-danger btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
                                 title="Ubah Data Desa"><i class="fa fa-edit"></i> Ubah
                                 Data Desa</a>
-                            <a href="#"
+                            <a href="{{ route('desa.kantorDesa') }}"
                                 class="btn btn-social btn-success btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
                                 title="Lokasi Kantor Desa"><i class='fa fa-map-marker'></i> Lokasi Kantor Desa</a>
                             <a href="{{ route('desa.petaWilayah') }}"
