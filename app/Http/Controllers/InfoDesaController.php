@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\identitasDesa;
-use App\Models\Dusun;
+use App\Models\WilayahDusun;
 use App\Models\Staf;
 
 class InfoDesaController extends Controller
@@ -68,7 +68,7 @@ class InfoDesaController extends Controller
 
     public function dusunManager()
     {
-        $dusun = Dusun::paginate(10);
+        $dusun = WilayahDusun::paginate(10);
         $kepala_dusun = Staf::where('jabatan', 'like', 'Kepala Dusun%')->get();
         return view('staf.infodesa.dusunManager', [
             'title' => 'Daftar Dusun',
@@ -99,7 +99,7 @@ class InfoDesaController extends Controller
             'id_kepala_dusun.required' => 'Kepala dusun wajib diisi!',
         ]);
 
-        Dusun::create($validatedData);
+        WilayahDusun::create($validatedData);
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil ditambahkan!');
     }
@@ -110,7 +110,7 @@ class InfoDesaController extends Controller
 
         return view('staf.infodesa.dusunEdit', [
             'title' => 'Edit Dusun',
-            'dusun' => Dusun::find($id),
+            'dusun' => WilayahDusun::find($id),
             'kepala_dusun' => $kepala_dusun,
         ]);
     }
@@ -128,14 +128,14 @@ class InfoDesaController extends Controller
             'id_kepala_dusun.unique' => 'Kepala dusun sudah terdaftar pada dusun lain!'
         ]);
 
-        Dusun::find($id)->update($validatedData);
+        WilayahDusun::find($id)->update($validatedData);
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil diubah!');
     }
 
     public function dusunDelete($id)
     {
-        Dusun::find($id)->delete();
+        WilayahDusun::find($id)->delete();
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil dihapus!');
     }
