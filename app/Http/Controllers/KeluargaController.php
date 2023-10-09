@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 // use Illuminate\Support\Facades\Validator;
 
 use App\Models\HelperPendudukKeluarga;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Keluarga;
@@ -17,15 +19,19 @@ class KeluargaController extends Controller
     {
         return view('staf.penduduk.keluarga', [
             'title' => 'Keluarga',
-            'keluarga' => Keluarga::join(
-                'kelas_sosial',
-                'keluarga.id_kelas_sosial',
-                '=',
-                'kelas_sosial.id'
-            )->select(
-                'keluarga.*',
-                'kelas_sosial.nama',
-            )->paginate(10)
+            'keluarga' => HelperPendudukKeluarga::leftJoin('keluarga', 'helper_penduduk_keluarga.id', '=', 'keluarga.id_helper_penduduk_keluarga')
+                ->leftJoin('penduduk as kepala_penduduk', 'kepala_penduduk.nik', '=', 'helper_penduduk_keluarga.nik_kepala')
+                ->select(
+                    'helper_penduduk_keluarga.no_kk',
+                    'helper_penduduk_keluarga.nik_kepala as nik_kepala',
+                    DB::raw('MAX(kepala_penduduk.nama) as kepala_keluarga'), // Use MAX to get a single name
+                    DB::raw('COUNT(keluarga.id_helper_penduduk_keluarga) as jumlah_anggota'),
+                    'keluarga.alamat',
+                    'keluarga.tgl_daftar',
+                    'keluarga.tgl_cetak_kk'
+                )
+                ->groupBy('helper_penduduk_keluarga.no_kk', 'keluarga.alamat', 'keluarga.tgl_daftar', 'keluarga.tgl_cetak_kk', 'helper_penduduk_keluarga.nik_kepala')
+                ->paginate(10)
         ]);
     }
 
@@ -106,6 +112,8 @@ class KeluargaController extends Controller
             'tgl_cetak_kk' => 'nullable',
             'id_kelas_sosial' => 'nullable',
             'alamat' => 'nullable',
+            'id_dusun' => 'nullable',
+            'id_rt' => 'nullable',
         ]);
 
         // Temukan penduduk lama berdasarkan nik lama
