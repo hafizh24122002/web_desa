@@ -5,37 +5,99 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 use App\Models\Artikel;
+use App\Models\ArtikelView;
+use App\Models\Dokumen;
+use App\Models\DokumenDownload;
 use App\Models\Image;
-use App\Models\Visitor;
 
 class ArtikelController extends Controller
 {
     public function dashboard()
     {
+        $currentMonthStart = Carbon::now()->startOfMonth();
+        $currentMonthEnd = Carbon::now()->endOfMonth();
+
         // fetch data for all the cards and charts
-        $totalPublishedArticles = Artikel::count();
-        $monthlyPublishedArticles = Artikel::whereMonth('created_at', now()->month)->count();
-        $totalArticleVisitors = Visitor::count();
-        //$chartData = ...; // Fetch data for line and bar charts
+        $artikel_total = Artikel::where('is_active', '=', 1)->count();
+        $artikel_bulan = Artikel::where('is_active', '=', 1)->whereMonth('created_at', now()->month)->count();
+        $artikel_views_bulan = ArtikelView::whereMonth('created_at', now()->month)->count();
+
+        $artikel_hari = Artikel::where('is_active', '=', 1)->whereMonth('created_at', now()->month)
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->get();
+        $artikel_views_hari = ArtikelView::whereMonth('created_at', now()->month)
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->get();
+
+        $dokumen_total = Dokumen::where('is_active', '=', 1)->count();
+        $dokumen_download_bulan = DokumenDownload::whereMonth('created_at', now()->month)->count();
+
+        $datesInMonth = [];
+        $currentDate = $currentMonthStart;
+        while ($currentDate <= $currentMonthEnd) {
+            $datesInMonth[] = $currentDate->format('Y-m-d');
+            $currentDate->addDay();
+        }
+
+        $mergedDataArtikel = [];
+        foreach ($datesInMonth as $date) {
+            $found = false;
+            foreach ($artikel_hari as $entry) {
+                if ($entry->date === $date) {
+                    $mergedDataArtikel[] = [
+                        'date' => $date,
+                        'count' => $entry->count,
+                    ];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                $mergedDataArtikel[] = [
+                    'date' => $date,
+                    'count' => 0,
+                ];
+            }
+        }
+
+        $mergedDataViews = [];
+        foreach ($datesInMonth as $date) {
+            $found = false;
+            foreach ($artikel_views_hari as $entry) {
+                if ($entry->date === $date) {
+                    $mergedDataViews[] = [
+                        'date' => $date,
+                        'count' => $entry->count,
+                    ];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                $mergedDataViews[] = [
+                    'date' => $date,
+                    'count' => 0,
+                ];
+            }
+        }
 
         return view('staf.artikel.dashboard', [
             'title' => 'Dashboard Artikel',
+            'artikel_total' => $artikel_total,
+            'artikel_bulan' => $artikel_bulan,
+            'artikel_views_bulan' => $artikel_views_bulan,
+            'artikel_hari' => $mergedDataArtikel,
+            'artikel_views_hari' => $mergedDataViews,
+            'dokumen_total' => $dokumen_total,
+            'dokumen_download_bulan' => $dokumen_download_bulan
         ]);
-        return view('staf.artikel.dashboard', compact(
-            'totalPublishedArticles',
-            'monthlyPublishedArticles',
-            'totalArticleVisitors',
-            'chartData'
-        ));
-    }
-
-    public function visitors()
-    {
-        return $this->hasMany(Visitor::class);
     }
 
     public function articleManager()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Artikel;
+use App\Models\ArtikelView;
 use App\Models\Agenda;
 use App\Models\Staf;
 use App\Models\Agama;
@@ -133,6 +134,8 @@ class MainVisitorController extends Controller
             '=',
             $judul
         )->first();
+
+        $data->views()->create();       // catat artikel dilihat
 
         $upcomingAgenda = session('upcomingAgenda');
         $pastAgenda = session('pastAgenda');

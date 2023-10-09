@@ -41,7 +41,7 @@
 				$("#pekerjaan_lainnya_input").slideUp();
 			}
 		});
-	})
+	});
 </script>
 
 @endsection

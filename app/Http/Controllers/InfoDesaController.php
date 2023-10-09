@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\identitasDesa;
 use App\Models\WilayahDusun;
 use App\Models\Staf;
+use App\models\Coordinate;
 
 class InfoDesaController extends Controller
 {
@@ -59,11 +61,99 @@ class InfoDesaController extends Controller
             ->with('success', 'Data desa telah diperbarui!');
     }
 
-    public function showPetaWilayah() {
+    public function showLokasiKantor()
+    {
+        $coordinate = Coordinate::where('nama', 'kantor_desa')->first();
+        $location = DB::selectOne('SELECT X(coordinate) as lat, Y(coordinate) as lng FROM coordinates WHERE id = ?', [$coordinate->id]);
+
+        return view('staf.infodesa.lokasiKantorDesa', [
+            'title' => 'Lokasi Kantor Desa',
+            'lat' => $location->lat,
+            'lng' => $location->lng,
+            'zoom' => $coordinate->zoom,
+        ]);
+    }
+
+    public function editLokasiKantor()
+    {
+        return view('staf.infodesa.lokasiKantorDesaEdit', [
+            'title' => 'Ubah Lokasi Kantor Desa',
+        ]);
+    }
+
+    public function updateLokasiKantor(Request $request)
+    {
+        $validatedData = $request->validate([
+            'lat' => 'required',
+            'lng' => 'required',
+            'zoom' => 'nullable',
+        ]);
+
+        $latitude = $validatedData['lat'];
+        $longitude = $validatedData['lng'];
+        $coordinate = Coordinate::where('nama', 'kantor_desa')->first();
+
+        $coordinate->update([
+            'coordinate' => DB::raw("POINT($latitude, $longitude)"),
+            'zoom' => $validatedData['zoom'],
+        ]);
+
+        return redirect()
+            ->route('desa.kantorDesa')
+            ->with('success', 'Lokasi kantor berhasil diubah!');
+    }
+
+    public function showPetaWilayah()
+    {
+        $coordinate = Coordinate::where('nama', 'center')->first();
+        $location = DB::selectOne('SELECT X(coordinate) as lat, Y(coordinate) as lng FROM coordinates WHERE id = ?', [$coordinate->id]);
+
         return view('staf.infodesa.petaWilayah', [
             'title' => 'Peta Wilayah',
             'koordinat' => Storage::get('koordinat_wilayah/coordinates.json'),
+            'lat' => $location->lat,
+            'lng' => $location->lng,
+            'zoom' => $coordinate->zoom,
         ]);
+    }
+
+    public function editPetaWilayah()
+    {
+        return view('staf.infodesa.petaWilayahEdit', [
+            'title' => 'Ubah Peta Wilayah',
+        ]);
+    }
+
+    public function updatePetaWilayah(Request $request)
+    {
+        $validatedData = $request->validate([
+            'lat' => 'nullable',
+            'lng' => 'nullable',
+            'zoom' => 'nullable',
+            'geojson' => 'required'
+        ]);
+
+        if ($request->hasFile('geojson')) {
+            $file = $request->file('geojson');
+            $filename = 'coordinates.geojson';
+    
+            $file->storeAs('koordinat_wilayah', $filename);
+
+            $latitude = $validatedData['lat'];
+            $longitude = $validatedData['lng'];
+
+            $coordinate = Coordinate::where('nama', 'center')->first();
+            $coordinate->coordinate = DB::raw("POINT($latitude, $longitude)");
+            $coordinate->save();
+    
+            return redirect()
+                ->route('desa.petaWilayah')
+                ->with('success', 'Peta wilayah berhasil diubah!');
+        } else {
+            return redirect()
+                ->route('desa.petaWilayah')
+                ->with('error', 'Gagal mengunggah file. Pastikan file terlampir.');
+        }
     }
 
     public function dusunManager()

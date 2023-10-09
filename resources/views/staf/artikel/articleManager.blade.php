@@ -34,6 +34,7 @@
 								<th>Aksi</th>
 								<th>Judul</th>
 								<th>Ditulis oleh</th>
+								<th>Dilihat sebanyak</th>
 								<th>Ditulis pada</th>
 								<th>Diedit pada</th>
 								<th>Aktif</th>
@@ -70,6 +71,8 @@
 									<td>{{ $item->judul }}</td>
 
 									<td>{{ $item->name }}</td>
+
+									<td>{{ $item->views->count() }}</td>
 
 									<td>{{ $item->created_at }}</td>
 
