@@ -487,4 +487,28 @@ class MainVisitorController extends Controller
                 'staf' => $staf,
             ]);
     }
+
+    public function dokumen()
+    {
+        $upcomingAgenda = session('upcomingAgenda');
+        $pastAgenda = session('pastAgenda');
+        $artikel = session('artikel');
+        $penduduk = session('penduduk');
+        $total_penduduk = session('total_penduduk');
+        $total_gender = session('total_gender');
+        $total_gender_percentage = session('total_gender_percentage');
+        $arr_gender = session('arr_gender');
+        $staf = session('staf');
+        return view('visitor.dokumen', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
+            ->with('title', 'Dokumen')
+            ->with([
+                'staf' => Staf::all(),
+                'penduduk' => $penduduk,
+                'total_penduduk' => $total_penduduk,
+                'total_gender' => $total_gender,
+                'total_gender_percentage' => $total_gender_percentage,
+                'arr_gender' => $arr_gender,
+                'staf' => $staf,
+            ]);
+    }
 }

@@ -1,6 +1,9 @@
 <a href="/staf/kesehatan/pemantauan/new-pemantauan-anak" style="width: auto" class="btn btn-primary my-2">
 	<i class="bx bx-plus align-middle"></i> Tambah Data Anak Baru
 </a>
+<a href="/staf/kesehatan/pemantauan/scorecard" style="width: auto" class="btn btn-success my-2">
+	<i class="bi bi-list-ol align-middle"></i> Scorecard
+</a>
 
 <div style="width: 100%; overflow-x: auto;">
 	<table class="table table-hover table-bordered">

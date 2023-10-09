@@ -579,4 +579,11 @@ class KesehatanController extends Controller
             ->with('success', 'Data sasaran PAUD anak berhasil dihapus!')
             ->with('currentRoute', 'tab3');
     }
+
+    public function scorecard()
+    {
+        return view('staf.kesehatan.scorecard', [
+            'title' => 'Scorecard',
+        ]);
+    }
 }

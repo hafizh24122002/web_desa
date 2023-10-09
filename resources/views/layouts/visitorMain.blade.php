@@ -47,7 +47,7 @@
 							Informasi Publik
 						</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Agenda Kegiatan</a></li>
+							<li><a class="dropdown-item" href="/dokumen">Dokumen</a></li>
 							<li><a class="dropdown-item" href="#">Galeri</a></li>
 							<li><a class="dropdown-item" href="#">Berita Desa</a></li>
 						</ul>
