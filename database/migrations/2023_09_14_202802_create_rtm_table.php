@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('tgl_daftar'); // Kolom Tanggal Daftar
             $table->integer('jumlah_anggota')->default(0); // Kolom Jumlah Anggota
             $table->string('alamat'); // Kolom Alamat
-            
             $table->timestamps();
         });
     }

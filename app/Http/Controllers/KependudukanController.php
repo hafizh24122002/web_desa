@@ -167,7 +167,6 @@ class KependudukanController extends Controller
             'pendidikan_terakhir' => PendidikanTerakhir::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
             'golongan_darah' => GolonganDarah::all(),
-            'penduduk_status' => PendudukStatus::all(),
         ]);
     }
 

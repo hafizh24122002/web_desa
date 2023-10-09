@@ -84,7 +84,6 @@ class Penduduk extends Model
         'golonganDarah',
         'cacat',
         'statusPerkawinan',
-        'pendudukStatus',
         // 'wilayah',
     ];
 
@@ -250,16 +249,6 @@ class Penduduk extends Model
     public function hubunganKK()
     {
         return $this->belongsTo(HubunganKK::class, 'id_hubungan_kk')->withDefault();
-    }
-
-    /**
-     * Define an inverse one-to-one or many relationship.
-     *
-     * @return BelongsTo
-     */
-    public function pendudukStatus()
-    {
-        return $this->belongsTo(PendudukStatus::class, 'id_penduduk_status')->withDefault();
     }
 
     /**
