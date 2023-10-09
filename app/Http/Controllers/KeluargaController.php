@@ -137,20 +137,31 @@ class KeluargaController extends Controller
         return redirect('/staf/kependudukan/keluarga')->with('success', 'Data keluarga berhasil diubah!');
     }
 
-    public function keluargaDelete(Keluarga $keluarga)
+    public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
     {
-        $data = Keluarga::firstWhere('no_kk', $keluarga->no_kk);
+        // Ambil data keluarga yang sesuai dengan id_helper_penduduk_keluarga yang akan dihapus
+        $keluarga = Keluarga::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)->first();
 
-        Keluarga::destroy($data->id);
+        // Hapus data di tabel keluarga
+        if ($keluarga) {
+            $keluarga->delete();
+        }
 
-        return redirect('/staf/kependudukan/penduduk')->with('success', 'Data keluarga berhasil dihapus!');
+        // Hapus data di tabel helper_penduduk_keluarga
+        $helperPendudukKeluarga->delete();
+
+        return redirect('/staf/kependudukan/keluarga')->with('success', 'Data keluarga berhasil dihapus!');
     }
 
-    public function daftarKeluarga(Keluarga $keluarga)
+    public function daftarKeluarga(HelperPendudukKeluarga $helperPendudukKeluarga)
     {
+        // Ambil daftar penduduk dengan id_helper_penduduk_keluarga yang sama
+        $pendudukDalamKeluarga = Penduduk::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)->get();
+
         return view('staf.penduduk.daftarKeluarga', [
             'title' => 'Edit Data Keluarga',
-            'keluarga' => $keluarga,
+            'keluarga' => $helperPendudukKeluarga,
+            'pendudukDalamKeluarga' => $pendudukDalamKeluarga,
             'kelas_sosial' => KelasSosial::all(),
         ]);
     }

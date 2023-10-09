@@ -34,6 +34,7 @@ use App\Models\HelperPendudukKeluarga;
 use App\Models\JenisKelamin;
 use App\Models\KetuaRt;
 use App\Models\PendudukStatus;
+use App\Models\RtmHubungan;
 use App\Models\SakitMenahun;
 use App\Models\WilayahRt;
 use App\Models\WilayahDusun;
@@ -406,6 +407,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Penduduk::create([
+            'nama' => 'ABDUL KARIM',
+            'nik' => '6401042412340002',
+            'id_helper_penduduk_keluarga' => 2,
+            'id_hubungan_kk' => 4, 
+            'id_jenis_kelamin' => 1,
+            'tempat_lahir' => 'BOGOR',
+            'tanggal_lahir' => '2016-11-06',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 2,
+            'id_pendidikan_saat_ini' => 2,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
+            'id_kewarganegaraan' => 1,
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
+            'penduduk_tetap' => true,
+            'telepon' => '082114643590',
+            'id_golongan_darah' => '1',
+        ]);
+
+        Penduduk::create([
             'nama' => 'AIJO KUNCORO',
             'nik' => '6401042412340006',
             'id_hubungan_kk' => 1, 
@@ -482,6 +504,9 @@ class DatabaseSeeder extends Seeder
             'id_kelas_sosial' => '4',
             'alamat' => 'JL. GAGAK NO.51 RT.03/RW.02',
         ]);
+
+        RtmHubungan::create(['nama' => 'KEPALA RUMAH TANGGA']);
+        RtmHubungan::create(['nama' => 'ANGGOTA']);
 
         Posyandu::create([
             'nama' => 'Posyandu Bakti Sehat',

@@ -13,17 +13,7 @@ return new class extends Migration
     {
         Schema::create('rtm_hubungan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_rt'); // Kolom ID RT
-            $table->foreignId('id_penduduk'); // Kolom NIK
-            // $table->string('no_kk'); // Kolom Nomor KK
-            $table->string('hubungan')->nullable()->default(NULL); //'Kepala Rumah Tangga', 'Anggota'
-
-            // Tambahkan indeks dan foreign keys
-            // $table->foreign('id_no_rt')->references('id')->on('rt');
-            // $table->foreign('nik')->references('nik')->on('penduduk');
-            // $table->foreign('no_kk')->references('no_kk')->on('keluarga');
-
-            $table->timestamps();
+            $table->string('nama');           
         });
     }
 

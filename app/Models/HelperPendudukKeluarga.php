@@ -25,4 +25,9 @@ class HelperPendudukKeluarga extends Model
     {
         return $this->hasOne(Keluarga::class, 'id_helper_penduduk_keluarga');
     }
+
+    public function penduduk()
+    {
+        return $this->hasMany(Penduduk::class, 'id_helper_penduduk_keluarga');
+    }
 }

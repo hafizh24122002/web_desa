@@ -17,6 +17,7 @@ use App\Models\Penduduk;
 use App\Models\PendudukStatus;
 use App\Models\Rt;
 use App\Models\StatusPerkawinan;
+use App\Models\HelperPendudukKeluarga;
 
 class KependudukanController extends Controller
 {
@@ -248,9 +249,40 @@ class KependudukanController extends Controller
 
     public function pendudukDelete(Penduduk $penduduk)
     {
-        $data = Penduduk::firstWhere('nik', $penduduk->nik);
+        // Cari data penduduk berdasarkan NIK
+        $data = Penduduk::where('nik', $penduduk->nik)->first();
 
-        Penduduk::destroy($data->id);
+        // Hapus data di tabel penduduk
+        if ($data) {
+            // Simpan nilai id_helper_penduduk_keluarga untuk penduduk tertentu
+            $idHelperPendudukKeluarga = $data->id_helper_penduduk_keluarga;
+
+            // Setel nilai id_helper_penduduk_keluarga menjadi null hanya untuk penduduk yang bersangkutan
+            Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
+                ->update(['id_helper_penduduk_keluarga' => null]);
+
+            // Jika penduduk memenuhi kriteria tertentu
+            if ($data->id_helper_penduduk_keluarga && $data->id_hubungan_kk == 1) {
+                // Hapus data di tabel helper_penduduk_keluarga
+                $helperPendudukKeluarga = HelperPendudukKeluarga::find($idHelperPendudukKeluarga);
+                if ($helperPendudukKeluarga) {
+                    $helperPendudukKeluarga->delete();
+                }
+
+                // Hapus data di tabel keluarga
+                $keluarga = Keluarga::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)->first();
+                if ($keluarga) {
+                    $keluarga->delete();
+                }
+            }
+
+            // Setel nilai id_helper_penduduk_keluarga menjadi null hanya untuk penduduk yang bersangkutan
+            Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
+                ->update(['id_helper_penduduk_keluarga' => null]);
+
+            // Hapus data di tabel penduduk
+            $data->delete();
+        }
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil dihapus!');
     }
