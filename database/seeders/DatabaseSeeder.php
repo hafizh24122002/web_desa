@@ -26,11 +26,15 @@ use App\Models\Staf;
 use App\Models\Surat;
 use App\Models\User;
 use App\Models\Agenda;
+use App\Models\Asuransi;
+use App\Models\Cacat;
 use App\Models\CaraKb;
 use App\Models\GolonganDarah;
+use App\Models\HelperPendudukKeluarga;
 use App\Models\JenisKelamin;
 use App\Models\KetuaRt;
 use App\Models\PendudukStatus;
+use App\Models\SakitMenahun;
 use App\Models\WilayahRt;
 use App\Models\WilayahDusun;
 
@@ -245,6 +249,34 @@ class DatabaseSeeder extends Seeder
         StatusPerkawinan::create(['nama' => 'CERAI HIDUP']);
         StatusPerkawinan::create(['nama' => 'CERAI MATI']);
 
+        Cacat::create(['nama' => 'CACAT FISIK']);
+        Cacat::create(['nama' => 'CACAT NETRA/BUTA']);
+        Cacat::create(['nama' => 'CACAT RUNGU/WICARA']);
+        Cacat::create(['nama' => 'CACAT MENTAL/JIWA']);
+        Cacat::create(['nama' => 'CACAT FISIK DAN MENTAL']);
+        Cacat::create(['nama' => 'CACAT LAINNYA']);
+        Cacat::create(['nama' => 'TIDAK CACAT']);
+
+        Asuransi::create(['nama' => 'TIDAK/BELUM PUNYA']);
+        Asuransi::create(['nama' => 'BPJS PENERIMA BANTUAN IURAN']);
+        Asuransi::create(['nama' => 'BPJS NON PENERIMA BANTUAN IURAN']);
+        Asuransi::create(['nama' => 'ASURANSI LAINNYA']);
+
+        SakitMenahun::create(['nama' => 'JANTUNG']);
+        SakitMenahun::create(['nama' => 'LEVER']);
+        SakitMenahun::create(['nama' => 'PARU-PARU']);
+        SakitMenahun::create(['nama' => 'KANKER']);
+        SakitMenahun::create(['nama' => 'STROKE']);
+        SakitMenahun::create(['nama' => 'DIABETES MELITUS']);
+        SakitMenahun::create(['nama' => 'GINJAL']);
+        SakitMenahun::create(['nama' => 'MALARIA']);
+        SakitMenahun::create(['nama' => 'LEPRA/KUSTA']);
+        SakitMenahun::create(['nama' => 'HIV/AIDS']);
+        SakitMenahun::create(['nama' => 'GILA/STRESS']);
+        SakitMenahun::create(['nama' => 'TBC']);
+        SakitMenahun::create(['nama' => 'ASTHMA']);
+        SakitMenahun::create(['nama' => 'TIDAK ADA/TIDAK SAKIT']);
+
         Surat::create([
             'nama' => 'KETERANGAN USAHA',
             'kode_surat' => '521',
@@ -321,9 +353,20 @@ class DatabaseSeeder extends Seeder
             'jabatan' => 'Staf Administrasi',
         ]);
 
-        Penduduk::create([
+        HelperPendudukKeluarga::create([
+            'no_kk' => '1234567891234567',
+            'nik_kepala' => '6401042412340001',
+        ]);
+
+        HelperPendudukKeluarga::create([
+            'no_kk' => '1234567891234568',
+            'nik_kepala' => '6401042412340002',
+        ]);
+
+        Penduduk::create([ 
             'nama' => 'HAFIZH LUTFI HIDAYAT',
             'nik' => '6401042412340001',
+            'id_helper_penduduk_keluarga' => 1,
             'id_hubungan_kk' => 1, 
             'id_jenis_kelamin' => 1,
             'tempat_lahir' => 'SAMARINDA',
@@ -338,12 +381,14 @@ class DatabaseSeeder extends Seeder
             'nama_ibu' => 'Jany',
             'penduduk_tetap' => false,
             'telepon' => '081255598024',
+            'id_golongan_darah' => '4',
         ]);
 
         Penduduk::create([
             'nama' => 'AMIRAH DZATUL HIMMAH',
             'nik' => '6401042412340002',
-            'id_hubungan_kk' => 4, 
+            'id_helper_penduduk_keluarga' => 2,
+            'id_hubungan_kk' => 1, 
             'id_jenis_kelamin' => 2,
             'tempat_lahir' => 'BOGOR',
             'tanggal_lahir' => '2002-11-06',
@@ -357,6 +402,47 @@ class DatabaseSeeder extends Seeder
             'nama_ibu' => 'Jany',
             'penduduk_tetap' => true,
             'telepon' => '082114643544',
+            'id_golongan_darah' => '1',
+        ]);
+
+        Penduduk::create([
+            'nama' => 'AIJO KUNCORO',
+            'nik' => '6401042412340006',
+            'id_hubungan_kk' => 1, 
+            'id_jenis_kelamin' => 2,
+            'tempat_lahir' => 'DEPOK',
+            'tanggal_lahir' => '2000-11-06',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 2,
+            'id_pendidikan_saat_ini' => 2,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
+            'id_kewarganegaraan' => 1,
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
+            'penduduk_tetap' => true,
+            'telepon' => '082114643544',
+            'id_golongan_darah' => '2',
+        ]);
+
+        Penduduk::create([
+            'nama' => 'JEANY',
+            'nik' => '6401042412340007',
+            'id_hubungan_kk' => 2, 
+            'id_jenis_kelamin' => 2,
+            'tempat_lahir' => 'DEPOK',
+            'tanggal_lahir' => '2000-11-06',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 2,
+            'id_pendidikan_saat_ini' => 2,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
+            'id_kewarganegaraan' => 1,
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
+            'penduduk_tetap' => true,
+            'telepon' => '082114643544',
+            'id_golongan_darah' => '3',
         ]);
 
         KetuaRt::create(['nama' => 'AMIR']);
@@ -383,13 +469,19 @@ class DatabaseSeeder extends Seeder
             'id_wilayah_dusun' => 2,
         ]);
 
-        // Keluarga::create([
-        //     'no_kk' => '6401042443210001',
-        //     'nik_kepala' => '6401042412340001',
-        //     'id_kelas_sosial' => '4',
-        //     'alamat' => 'JL. MERPATI NO.51 RT.03/RW.02',
-        //     'tgl_dikeluarkan' => '2006-04-15',
-        // ]);
+        Keluarga::create([
+            'id_helper_penduduk_keluarga' => 1,
+            'tgl_cetak_kk'=> '2002-11-06',
+            'id_kelas_sosial' => '4',
+            'alamat' => 'JL. MERPATI NO.51 RT.03/RW.02',
+        ]);
+
+        Keluarga::create([
+            'id_helper_penduduk_keluarga' => 2,
+            'tgl_cetak_kk'=> '2002-11-06',
+            'id_kelas_sosial' => '4',
+            'alamat' => 'JL. GAGAK NO.51 RT.03/RW.02',
+        ]);
 
         Posyandu::create([
             'nama' => 'Posyandu Bakti Sehat',

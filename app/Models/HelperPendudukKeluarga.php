@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cacat extends Model
+class HelperPendudukKeluarga extends Model
 {
     use HasFactory;
 
-    protected $table = "cacat";
-    public $timestamps = false;
+    protected $table = "helper_penduduk_keluarga";
 
     /**
      * The attributes that are mass assignable
@@ -18,15 +17,12 @@ class Cacat extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama'
+        'no_kk',
+        'nik_kepala'
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-         
-    ];
+    public function keluarga()
+    {
+        return $this->hasOne(Keluarga::class, 'id_helper_penduduk_keluarga');
+    }
 }

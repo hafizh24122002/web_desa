@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rtm extends Model
 {
+    protected $table = "rtm";
     use HasFactory;
 
     /**

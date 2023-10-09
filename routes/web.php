@@ -115,7 +115,8 @@ Route::get('/get-coordinates', function () {
 		Route::get('/staf/kependudukan/keluarga', [KeluargaController::class, 'keluarga']);
 		Route::get('/staf/kependudukan/keluarga/new-keluarga', [KeluargaController::class, 'keluargaNew']);
 		Route::post('/staf/kependudukan/keluarga/new-keluarga', [KeluargaController::class, 'keluargaNewSubmit']);
-		Route::get('/staf/kependudukan/keluarga/edit-keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaEdit']);
+		Route::get('/staf/kependudukan/keluarga/edit-keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaEdit']);
+		Route::put('/staf/kependudukan/keluarga/edit-keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaEditSubmit']);
 		Route::delete('/staf/kependudukan/keluarga/{keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete']);
 		Route::get('/staf/kependudukan/keluarga/anggota/{keluarga:no_kk}', [KeluargaController::class, 'daftarKeluarga']);
 		Route::get('/staf/kependudukan/keluarga', [KeluargaController::class, 'keluarga']);
