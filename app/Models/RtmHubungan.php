@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cacat extends Model
+class RtmHubungan extends Model
 {
     use HasFactory;
 
-    protected $table = "cacat";
+    protected $table = "rtm_hubungan";
     public $timestamps = false;
 
     /**

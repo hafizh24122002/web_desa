@@ -15,14 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100); // *
             $table->string('nik', 16)->nullable(); // *
-            $table->integer('id_kk')->default(0); 
-            $table->integer('id_hubungan_kk')->nullable(); // *
-            $table->string('id_rtm', 30)->nullable();
-            $table->integer('rtm_level')->nullable();
+            $table->string('no_kk_sebelumnya', 16)->nullable();            
+            $table->foreignId('id_helper_penduduk_keluarga')->nullable()->constrained('helper_penduduk_keluarga')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_hubungan_kk')->nullable()->constrained('hubungan_kk')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_rtm')->nullable()->constrained('rtm')->onUpdate('cascade')->onDelete('cascade'); 
+            $table->foreignId('id_rtm_hubungan')->nullable()->constrained('rtm_hubungan')->onUpdate('cascade')->onDelete('cascade'); 
             $table->foreignId('id_jenis_kelamin')->constrained('jenis_kelamin')->onUpdate('cascade')->onDelete('cascade')->nullable(); // *
             $table->string('tempat_lahir', 100)->nullable(); // *
             $table->date('tanggal_lahir')->nullable(); // *
             $table->foreignId('id_agama')->nullable()->constrained('agama')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->boolean('penduduk_tetap')->default(true);
             $table->foreignId('id_pendidikan_terakhir')->nullable()->constrained('pendidikan_terakhir')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->foreignId('id_pendidikan_saat_ini')->nullable()->constrained('pendidikan_saat_ini')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_pekerjaan')->nullable()->constrained('pekerjaan')->onUpdate('cascade')->onDelete('cascade'); // *
@@ -38,22 +40,19 @@ return new class extends Migration
             $table->foreignId('id_golongan_darah')->nullable()->constrained('golongan_darah')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->foreignId('id_dusun')->nullable()->constrained('wilayah_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->foreignId('id_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
-            // $table->integer('id_cluster'); -> jadinya bikin dua tabel Dusun dan RT terus relasi
-            $table->boolean('penduduk_tetap')->default(true);
             $table->string('alamat_sebelumnya', 200)->nullable();
             $table->string('alamat_sekarang', 200)->nullable();
             $table->tinyInteger('status_dasar')->default(1); // hidup, mati, pindah, hilang, pergi, tidak valid
-            $table->integer('cacat_id')->nullable();
-            $table->integer('sakit_menahun_id')->nullable();
+            $table->foreignId('id_cacat')->nullable()->constrained('cacat')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_sakit_menahun')->nullable()->constrained('sakit_menahun')->onUpdate('cascade')->onDelete('cascade');
             $table->string('akta_lahir', 40)->nullable();
             $table->string('akta_perkawinan', 40)->nullable();
             $table->date('tanggal_perkawinan')->nullable();
             $table->string('akta_perceraian', 40)->nullable();
             $table->date('tanggal_perceraian')->nullable();
-            $table->tinyInteger('id_cara_kb')->nullable();
+            $table->foreignId('id_cara_kb')->nullable()->constrained('cara_kb')->onUpdate('cascade')->onDelete('cascade');
             $table->string('telepon', 20)->nullable();
             $table->date('tanggal_akhir_paspor')->nullable();
-            $table->string('no_kk_sebelumnya', 30)->nullable();
             $table->tinyInteger('ktp_el')->nullable();
             $table->tinyInteger('status_rekam')->nullable();
             $table->string('waktu_lahir', 5)->nullable();
@@ -65,9 +64,9 @@ return new class extends Migration
             $table->string('panjang_lahir', 10)->nullable();
             $table->string('tag_id_card', 17)->nullable();
             $table->timestamps();
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->tinyInteger('id_asuransi')->nullable();
+            $table->integer('created_by')->nullable(); // belum connect dengan user
+            $table->integer('updated_by')->nullable(); // belum connect dengan user
+            $table->foreignId('id_asuransi')->nullable()->constrained('asuransi')->onUpdate('cascade')->onDelete('cascade');
             $table->string('no_asuransi', 100)->nullable();
             $table->string('email', 100)->nullable();
             $table->integer('bahasa_id')->nullable();

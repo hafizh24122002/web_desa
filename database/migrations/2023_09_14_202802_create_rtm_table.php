@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rt', function (Blueprint $table) {
+        Schema::create('rtm', function (Blueprint $table) {
             $table->id();
             $table->string('no_rt'); // Kolom No. Rumah Tangga
             $table->foreignId('id_penduduk'); // Kolom NIK Kepala
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rt');
+        Schema::dropIfExists('rtm');
     }
 };

@@ -8,4 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class SakitMenahun extends Model
 {
     use HasFactory;
+
+    protected $table = "sakit_menahun";
+    public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable
+     * 
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'nama'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+         
+    ];
 }

@@ -17,6 +17,7 @@ use App\Models\Penduduk;
 use App\Models\PendudukStatus;
 use App\Models\Rt;
 use App\Models\StatusPerkawinan;
+use App\Models\HelperPendudukKeluarga;
 
 class KependudukanController extends Controller
 {
@@ -31,7 +32,7 @@ class KependudukanController extends Controller
             'nik',
             'id_jenis_kelamin',
             'telepon',
-            'id_penduduk_status'
+            'penduduk_tetap'
         );
 
         if ($search) {
@@ -71,7 +72,7 @@ class KependudukanController extends Controller
             'pendidikan_terakhir' => PendidikanTerakhir::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
             'golongan_darah' => GolonganDarah::all(),
-            'penduduk_status' => PendudukStatus::all(),
+            // 'penduduk_status' => PendudukStatus::all(),
         ]);
     }
 
@@ -81,31 +82,62 @@ class KependudukanController extends Controller
             // DATA DIRI
             'nama' => 'required',
             'nik' => 'required|unique:penduduk|numeric|digits:16',
-            // 'no_kk' => 'required',
+            // status kepemilikan identitas
+            // 'ktp_el' => 'nullable',
+            // 'status_rekam' => 'nullable',
+            // 'tag_id_card' => 'nullable',
+            'no_kk_sebelumnya' => 'nullable',
             'id_hubungan_kk' => 'required',
             'id_jenis_kelamin' => 'required',
             'id_agama' => 'required',
-            'id_penduduk_status' => 'required',
+            'penduduk_tetap' => 'required',
             // DATA KELAHIRAN
+            'akta_lahir' => 'nullable',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
+            'waktu_lahir' => 'nullable',
+            'tempat_dilahirkan' => 'nullable',
+            'jenis_kelahiran' => 'nullable',
+            'kelahiran_anak_ke' => 'nullable',
+            'penolong_kelahiran' => 'nullable',
+            'berat_lahir' => 'nullable',
+            'panjang_lahir' => 'nullable',
             // PENDIDIKAN DAN PEKERJAAN
             'id_pendidikan_terakhir' => 'required',
             'id_pendidikan_saat_ini' => 'required',
             'id_pekerjaan' => 'required',
             // DATA KEWARGANEGARAAN
             'id_kewarganegaraan' => 'required',
+            'dokumen_passport' => 'nullable',
+            'tanggal_akhir_paspor' => 'nullable',
+            'dokumen_kitap' => 'nullable',
+            'negara_asal' => 'nullable',
             // DATA ORANG TUA
+            'nik_ayah' => 'nullable',
             'nama_ayah' => 'required',
+            'nik_ibu' => 'nullable',
             'nama_ibu' => 'required',
             // ALAMAT || TODO
+            // 'alamat_kk' => 'nullable',
+            'id_dusun' => 'required',
+            'id_rt' => 'required',
+            'alamat_sebelumnya' => 'required',
+            'alamat_sekarang' => 'nullable',
             'telepon' => 'nullable',
-            // ... 
             // STATUS PERKAWINAN
+            'akta_perkawinan' => 'nullable',
             'id_status_perkawinan' => 'required',
+            'tanggal_perkawinan' => 'nullable',
+            'akta_perceraian' => 'nullable',
+            'tanggal_perceraian' => 'nullable',
             // DATA KESEHATAN
             'id_golongan_darah' => 'required',
-            
+            'id_cacat' => 'nullable',
+            'id_sakit_menahun' => 'nullable',
+            'id_cara_kb' => 'nullable',
+            'id_asuransi' => 'nullable',
+            'no_asuransi' => 'nullable',
+            'bpjs_ketenagakerjaan' => 'nullable',
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);
@@ -113,7 +145,7 @@ class KependudukanController extends Controller
             $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
         }
         if (isset($validatedData['alamat'])) {
-            }
+        }
 
         Penduduk::create($validatedData);
 
@@ -144,32 +176,63 @@ class KependudukanController extends Controller
         $validatedData = $request->validate([
             // DATA DIRI
             'nama' => 'required',
-            'nik' => 'required|unique:penduduk,nik,'.$penduduk->id,
-            // 'no_kk' => 'required',
+            'nik' => 'required|unique:penduduk,nik,' . $penduduk->id,
+            // status kepemilikan identitas
+            // 'ktp_el' => 'nullable',
+            // 'status_rekam' => 'nullable',
+            // 'tag_id_card' => 'nullable',
+            'no_kk_sebelumnya' => 'nullable',
             'id_hubungan_kk' => 'required',
             'id_jenis_kelamin' => 'required',
             'id_agama' => 'required',
-            'id_penduduk_status' => 'required',
+            'penduduk_tetap' => 'required',
             // DATA KELAHIRAN
+            'akta_lahir' => 'nullable',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
+            'waktu_lahir' => 'nullable',
+            'tempat_dilahirkan' => 'nullable',
+            'jenis_kelahiran' => 'nullable',
+            'kelahiran_anak_ke' => 'nullable',
+            'penolong_kelahiran' => 'nullable',
+            'berat_lahir' => 'nullable',
+            'panjang_lahir' => 'nullable',
             // PENDIDIKAN DAN PEKERJAAN
             'id_pendidikan_terakhir' => 'required',
             'id_pendidikan_saat_ini' => 'required',
             'id_pekerjaan' => 'required',
             // DATA KEWARGANEGARAAN
             'id_kewarganegaraan' => 'required',
+            'dokumen_passport' => 'nullable',
+            'tanggal_akhir_paspor' => 'nullable',
+            'dokumen_kitap' => 'nullable',
+            'negara_asal' => 'nullable',
             // DATA ORANG TUA
+            'nik_ayah' => 'nullable',
             'nama_ayah' => 'required',
+            'nik_ibu' => 'nullable',
             'nama_ibu' => 'required',
             // ALAMAT || TODO
+            // 'alamat_kk' => 'nullable',
+            'id_dusun' => 'required',
+            'id_rt' => 'required',
+            'alamat_sebelumnya' => 'required',
+            'alamat_sekarang' => 'nullable',
             'telepon' => 'nullable',
-            // ... 
             // STATUS PERKAWINAN
+            'akta_perkawinan' => 'nullable',
             'id_status_perkawinan' => 'required',
+            'tanggal_perkawinan' => 'nullable',
+            'akta_perceraian' => 'nullable',
+            'tanggal_perceraian' => 'nullable',
             // DATA KESEHATAN
             'id_golongan_darah' => 'required',
-            
+            'id_cacat' => 'nullable',
+            'id_sakit_menahun' => 'nullable',
+            'id_cara_kb' => 'nullable',
+            'id_asuransi' => 'nullable',
+            'no_asuransi' => 'nullable',
+            'bpjs_ketenagakerjaan' => 'nullable',
         ]);
 
         $validatedData['nama'] = strtoupper($validatedData['nama']);
@@ -177,7 +240,7 @@ class KependudukanController extends Controller
             $validatedData['tempat_lahir'] = strtoupper($validatedData['tempat_lahir']);
         }
         if (isset($validatedData['alamat'])) {
-            }
+        }
 
         Penduduk::firstWhere('nik', $penduduk->nik)->update($validatedData);
 
@@ -186,9 +249,40 @@ class KependudukanController extends Controller
 
     public function pendudukDelete(Penduduk $penduduk)
     {
-        $data = Penduduk::firstWhere('nik', $penduduk->nik);
+        // Cari data penduduk berdasarkan NIK
+        $data = Penduduk::where('nik', $penduduk->nik)->first();
 
-        Penduduk::destroy($data->id);
+        // Hapus data di tabel penduduk
+        if ($data) {
+            // Simpan nilai id_helper_penduduk_keluarga untuk penduduk tertentu
+            $idHelperPendudukKeluarga = $data->id_helper_penduduk_keluarga;
+
+            // Setel nilai id_helper_penduduk_keluarga menjadi null hanya untuk penduduk yang bersangkutan
+            Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
+                ->update(['id_helper_penduduk_keluarga' => null]);
+
+            // Jika penduduk memenuhi kriteria tertentu
+            if ($data->id_helper_penduduk_keluarga && $data->id_hubungan_kk == 1) {
+                // Hapus data di tabel helper_penduduk_keluarga
+                $helperPendudukKeluarga = HelperPendudukKeluarga::find($idHelperPendudukKeluarga);
+                if ($helperPendudukKeluarga) {
+                    $helperPendudukKeluarga->delete();
+                }
+
+                // Hapus data di tabel keluarga
+                $keluarga = Keluarga::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)->first();
+                if ($keluarga) {
+                    $keluarga->delete();
+                }
+            }
+
+            // Setel nilai id_helper_penduduk_keluarga menjadi null hanya untuk penduduk yang bersangkutan
+            Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
+                ->update(['id_helper_penduduk_keluarga' => null]);
+
+            // Hapus data di tabel penduduk
+            $data->delete();
+        }
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil dihapus!');
     }
@@ -196,7 +290,7 @@ class KependudukanController extends Controller
     public function getDataPenduduk($nama)
     {
         $data = Penduduk::where('nama', '=', $nama)->first();
-        
+
         return response()->json($data);
     }
 

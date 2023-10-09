@@ -13,14 +13,11 @@ return new class extends Migration
     {
         Schema::create('keluarga', function (Blueprint $table) {
             $table->id();
-            $table->string('no_kk', 16)->nullable()->unique();
-            $table->string('nik_kepala', 200)->nullable();
+            $table->foreignId('id_helper_penduduk_keluarga')->constrained('helper_penduduk_keluarga')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->timestamp('tgl_daftar')->nullable()->useCurrent();
-            $table->smallInteger('kelas_sosial')->nullable();
+            $table->foreignId('id_kelas_sosial')->nullable();
             $table->datetime('tgl_cetak_kk')->nullable();
             $table->string('alamat', 200)->nullable();
-            // $table->foreignId('id_cluster')->constrained();
-            // $table->foreignId('updated_by')->constrained('users');
             $table->timestamps();
         });
     }
