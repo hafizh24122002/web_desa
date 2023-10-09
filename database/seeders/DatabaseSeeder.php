@@ -35,7 +35,6 @@ use App\Models\GolonganDarah;
 use App\Models\HelperPendudukKeluarga;
 use App\Models\JenisKelamin;
 use App\Models\KetuaRt;
-use App\Models\PendudukStatus;
 use App\Models\RtmHubungan;
 use App\Models\SakitMenahun;
 use App\Models\WilayahRt;
@@ -83,9 +82,6 @@ class DatabaseSeeder extends Seeder
         GolonganDarah::create(['nama' => 'O+']);
         GolonganDarah::create(['nama' => 'O-']);
         GolonganDarah::create(['nama' => 'TIDAK TAHU']);
-
-        PendudukStatus::create(['nama' => 'TETAP']);
-        PendudukStatus::create(['nama' => 'TIDAK TETAP']);
         
         CaraKb::create([
             'nama' => 'PIL',

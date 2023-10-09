@@ -33,10 +33,12 @@
 								<th>No</th>
 								<th>Aksi</th>
 								<th>No KK</th>
-								<th>NIK Kepala Keluarga</th>
-								<th>Kelas Sosial</th>
+								<th>Kepala Keluarga</th>
+								<th>NIK</th>
+								<th>Jumlah Anggota</th>
 								<th>Alamat</th>
-								<th>Tanggal Dikeluarkan</th>
+								<th>Tanggal Daftar</th>
+								<th>Tanggal Cetak</th>
 							</tr>
 						</thead>
 	
@@ -74,6 +76,14 @@
 									</td>
 	
 									<td>{{ $data->no_kk }}</td>
+
+									<td>
+										@if ($data->kepala_keluarga)
+											{{ $data->kepala_keluarga }}	
+										@else
+											{{ "-" }}
+										@endif
+									</td>
 	
 									<td>
 										@if ($data->nik_kepala)
@@ -82,10 +92,10 @@
 											{{ "-" }}
 										@endif
 									</td>
-	
+
 									<td>
-										@if ($data->nama)
-											{{ $data->nama }}
+										@if ($data->jumlah_anggota)
+											{{ $data->jumlah_anggota }}	
 										@else
 											{{ "-" }}
 										@endif
@@ -100,8 +110,16 @@
 									</td>
 	
 									<td>
-										@if ($data->tgl_dikeluarkan)
-											{{ $data->tgl_dikeluarkan }}
+										@if ($data->tgl_daftar)
+											{{ $data->tgl_daftar }}
+										@else
+											{{ "-" }}
+										@endif
+									</td>
+
+									<td>
+										@if ($data->tgl_cetak_kk)
+											{{ $data->tgl_cetak_kk }}
 										@else
 											{{ "-" }}
 										@endif

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('id_kelas_sosial')->nullable();
             $table->datetime('tgl_cetak_kk')->nullable();
             $table->string('alamat', 200)->nullable();
+            $table->foreignId('id_dusun')->nullable()->constrained('wilayah_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->timestamps();
         });
     }
