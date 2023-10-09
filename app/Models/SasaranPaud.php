@@ -19,7 +19,8 @@ class SasaranPaud extends Model
     protected $fillable = [
         'id_kia',
         'tanggal_periksa',
-        'kategori_usia',        // usia 2 - <3 tahun bernilai 0, uisa 3 - 6 tahun bernilai 1
+        'id_posyandu',
+        'kategori_usia',        // usia 2 - <3 tahun bernilai 1, uisa 3 - 6 tahun bernilai 2
         'januari',
         'februari',
         'maret',
@@ -41,19 +42,6 @@ class SasaranPaud extends Model
      */
     protected $casts = [
          'tanggal_periksa' => 'date',
-         'kategori_usia' => 'boolean',
-         'januari' => 'boolean',
-         'februari' => 'boolean',
-         'maret' => 'boolean',
-         'april' => 'boolean',
-         'mei' => 'boolean',
-         'juni' => 'boolean',
-         'juli' => 'boolean',
-         'agustus' => 'boolean',
-         'september' => 'boolean',
-         'oktober' => 'boolean',
-         'november' => 'boolean',
-         'desember' => 'boolean',
     ];
 
     /**
@@ -62,5 +50,13 @@ class SasaranPaud extends Model
     public function kia()
     {
         return $this->belongsTo(Penduduk::class, 'id_anak');
+    }
+
+    /**
+     * Get the posyandu associated with the sasaran_paud.
+     */
+    public function posyandu()
+    {
+        return $this->belongsTo(Penduduk::class, 'id_posyandu');
     }
 }

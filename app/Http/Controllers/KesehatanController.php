@@ -467,6 +467,116 @@ class KesehatanController extends Controller
         return view('staf.kesehatan.pemantauanKiaPaudNew', [
             'title' => 'Tambah Data Sasaran PAUD Anak',
             'kia' => Kia::whereNotNull('id_anak')->get(),
+            'posyandu' => Posyandu::all(),
         ]);
+    }
+
+    public function sasaranPaudNewSubmit(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id_kia' => 'required',
+            'tanggal_periksa' => 'required',
+            'id_posyandu' => 'required',
+            'kategori_usia' => 'required',
+            'januari' => 'required',
+            'februari' => 'required',
+            'maret' => 'required',
+            'april' => 'required',
+            'mei' => 'required',
+            'juni' => 'required',
+            'juli' => 'required',
+            'agustus' => 'required',
+            'september' => 'required',
+            'oktober' => 'required',
+            'november' => 'required',
+            'desember' => 'required',
+        ], [
+            'id_kia.required' => 'Nomor KIA tidak boleh kosong!',
+            'tanggal_periksa.required' => 'Tanggal periksa tidak boleh kosong!',
+            'id_posyandu.required' => 'Posyandu tidak boleh kosong!',
+            'kategori_usia.required' => 'Kategori usia tidak boleh kosong!',
+            'januari.required' => 'Data tidak boleh kosong!',
+            'februari.required' => 'Data tidak boleh kosong!',
+            'maret.required' => 'Data tidak boleh kosong!',
+            'april.required' => 'Data tidak boleh kosong!',
+            'mei.required' => 'Data tidak boleh kosong!',
+            'juni.required' => 'Data tidak boleh kosong!',
+            'juli.required' => 'Data tidak boleh kosong!',
+            'agustus.required' => 'Data tidak boleh kosong!',
+            'septemeber.required' => 'Data tidak boleh kosong!',
+            'oktober.required' => 'Data tidak boleh kosong!',
+            'november.required' => 'Data tidak boleh kosong!',
+            'desember.required' => 'Data tidak boleh kosong!',
+        ]);
+
+        SasaranPaud::create($data);
+
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data sasaran PAUD anak berhasil ditambahkan!')
+            ->with('currentRoute', 'tab3');
+    }
+
+    public function sasaranPaudEdit($id)
+    {
+        return view('staf.kesehatan.pemantauanKiaPaudEdit', [
+            'title' => 'Tambah Data Sasaran PAUD Anak',
+            'kia' => Kia::whereNotNull('id_anak')->get(),
+            'posyandu' => Posyandu::all(),
+            'sasaran_paud' => SasaranPaud::find($id),
+        ]);
+    }
+
+    public function sasaranPaudEditSubmit(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'id_kia' => 'required',
+            'tanggal_periksa' => 'required',
+            'id_posyandu' => 'required',
+            'kategori_usia' => 'required',
+            'januari' => 'required',
+            'februari' => 'required',
+            'maret' => 'required',
+            'april' => 'required',
+            'mei' => 'required',
+            'juni' => 'required',
+            'juli' => 'required',
+            'agustus' => 'required',
+            'september' => 'required',
+            'oktober' => 'required',
+            'november' => 'required',
+            'desember' => 'required',
+        ], [
+            'id_kia.required' => 'Nomor KIA tidak boleh kosong!',
+            'tanggal_periksa.required' => 'Tanggal periksa tidak boleh kosong!',
+            'id_posyandu.required' => 'Posyandu tidak boleh kosong!',
+            'kategori_usia.required' => 'Kategori usia tidak boleh kosong!',
+            'januari.required' => 'Data tidak boleh kosong!',
+            'februari.required' => 'Data tidak boleh kosong!',
+            'maret.required' => 'Data tidak boleh kosong!',
+            'april.required' => 'Data tidak boleh kosong!',
+            'mei.required' => 'Data tidak boleh kosong!',
+            'juni.required' => 'Data tidak boleh kosong!',
+            'juli.required' => 'Data tidak boleh kosong!',
+            'agustus.required' => 'Data tidak boleh kosong!',
+            'septemeber.required' => 'Data tidak boleh kosong!',
+            'oktober.required' => 'Data tidak boleh kosong!',
+            'november.required' => 'Data tidak boleh kosong!',
+            'desember.required' => 'Data tidak boleh kosong!',
+        ]);
+
+        SasaranPaud::find($id)->update($data);
+
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data sasaran PAUD anak berhasil diubah!')
+            ->with('currentRoute', 'tab3');
+    }
+
+    public function sasaranPaudDelete($id)
+    {
+        SasaranPaud::destroy($id);
+
+        return redirect('/staf/kesehatan/pemantauan')
+            ->with('success', 'Data sasaran PAUD anak berhasil dihapus!')
+            ->with('currentRoute', 'tab3');
     }
 }
