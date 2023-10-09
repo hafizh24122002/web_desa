@@ -40,6 +40,7 @@ Route::get('/demografi-desa', [MainVisitorController::class, 'demografiDesa']);
 Route::get('/artikel/{judul}', [MainVisitorController::class, 'bacaArtikel']);
 Route::get('/struktur-organisasi', [MainVisitorController::class, 'strukturOrganisasi']);
 Route::get('/perangkat-desa', [MainVisitorController::class, 'perangkatDesa']);
+Route::get('/dokumen', [MainVisitorController::class, 'dokumen']);
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -147,6 +148,7 @@ Route::get('/get-coordinates', function () {
 		Route::put('staf/kesehatan/pemantauan/edit-pemantauan-anak/{id}', [KesehatanController::class, 'pemantauanAnakEditSubmit']);
 		Route::delete('staf/kesehatan/pemantauan/anak/{id}', [KesehatanController::class, 'pemantauanAnakDelete']);
 		Route::get('staf/kesehatan/pemantauan/new-sasaran-paud', [KesehatanController::class, 'sasaranPaudNew']);
+		Route::get('staf/kesehatan/pemantauan/scorecard', [KesehatanController::class, 'scorecard']);
 
 		Route::get('/staf/manajemen-staf/', [StafController::class, 'pohonStaf']);
 		Route::get('/staf/manajemen-staf/get-data', [StafController::class, 'getDataStaf']);

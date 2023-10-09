@@ -469,4 +469,11 @@ class KesehatanController extends Controller
             'kia' => Kia::whereNotNull('id_anak')->get(),
         ]);
     }
+
+    public function scorecard()
+    {
+        return view('staf.kesehatan.scorecard', [
+            'title' => 'Scorecard',
+        ]);
+    }
 }
