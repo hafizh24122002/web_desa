@@ -152,7 +152,7 @@ Route::get('/get-coordinates', function () {
 		Route::get('staf/kesehatan/pemantauan/edit-sasaran-paud/{id}', [KesehatanController::class, 'sasaranPaudEdit']);
 		Route::put('staf/kesehatan/pemantauan/edit-sasaran-paud/{id}', [KesehatanController::class, 'sasaranPaudEditSubmit']);
 		Route::delete('staf/kesehatan/pemantauan/paud/{id}', [KesehatanController::class, 'sasaranPaudDelete']);
-    Route::get('staf/kesehatan/pemantauan/scorecard', [KesehatanController::class, 'scorecard']);
+    	Route::get('staf/kesehatan/pemantauan/scorecard', [KesehatanController::class, 'scorecard']);
 
 		Route::get('/staf/manajemen-staf/', [StafController::class, 'pohonStaf']);
 		Route::get('/staf/manajemen-staf/get-data', [StafController::class, 'getDataStaf']);
@@ -199,6 +199,7 @@ Route::get('/get-coordinates', function () {
 
 		Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan']);
 		Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan']);
+		Route::get('/staf/buku-administrasi-desa/get-data/{type}', [BukuController::class, 'getData']);
 		Route::get('users/export/', [BukuController::class, 'export']);
 
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');

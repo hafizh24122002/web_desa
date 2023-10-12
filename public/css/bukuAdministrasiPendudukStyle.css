@@ -1,0 +1,35 @@
+th {
+	white-space: pre-line;
+}
+
+.list-group-item {
+	transition: background-color 0.2s;
+	cursor: pointer;
+}
+
+.list-group-item:not(.active):hover {
+    background-color: #dfefff;
+}
+
+.list-group-item:is(.active):hover {
+    background-color: #005fbf;
+}
+
+.active::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 0;
+	height: 0;
+	background-color: var(--white-color)
+}
+
+#table-container {
+    transition: opacity 0.5s; /* Use your preferred duration and easing function */
+}
+
+/* Initially, set opacity to 0 to hide the container */
+#table-container.hidden {
+    opacity: 0;
+}
+  
