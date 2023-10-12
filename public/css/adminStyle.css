@@ -2,7 +2,7 @@
 
 :root {
 	--header-height: 3rem;
-	--nav-width: 78px;
+	--nav-width: 95px;
 	--first-color: #ffffff;
 	--first-color-light: #AFA5D9;
 	--white-color: #F7F6FB;
@@ -16,9 +16,7 @@
 	color: white;
 }
 
-*,
-::before,
-::after {
+* {
 	box-sizing: border-box
 }
 
@@ -28,7 +26,7 @@ body {
 	padding: 0 1rem;
 	font-family: var(--body-font);
 	font-size: var(--normal-font-size);
-	transition: .5s
+	transition: .5s;
 }
 
 a {
@@ -181,7 +179,7 @@ a {
 	color: black;
 }
 
-#statistikBar .list-group {
+#statistikBar {
 	border-radius: 0%;
 	width: 250px;
 }
@@ -232,7 +230,7 @@ a {
     color: black;
 }
 
-#statistikBar .list-group {
+#statistikBar {
     border-radius: 0%;
     width: 250px;
 }
@@ -259,6 +257,63 @@ a {
 	object-fit: cover; /* This property ensures the image covers the container, stretching or shrinking as needed */
 }
 
-.accordion-custom, .list-group-item {
+.accordion-custom {
 	max-width: 200px;
+}
+
+/* Style to remove border and background color of the accordion items */
+.accordion-item {
+	border: none;
+	background: none;
+}
+
+/* Style to remove the border of the accordion headers */
+.accordion-button {
+	border: none;
+}
+
+/* Style to remove the border of the accordion collapse content */
+.accordion-collapse {
+	border: none;
+}
+
+/* Style to change the color of the accordion headers when collapsed */
+.accordion-button.collapsed {
+	background-color: transparent; /* Change the background color when collapsed */
+}
+  
+.accordion-button.collapsed::after,
+.accordion-button:not(.collapsed)::after {
+	display: none;
+}
+
+.btn-link:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Hide the default scroll bar */
+::-webkit-scrollbar {
+	width: 8px; /* Set the width of the vertical scrollbar */
+}
+  
+/* Track (the area on the side of the content) */
+::-webkit-scrollbar-track {
+	background: #f1f1f1; /* Background color of the track */
+	border-radius: 10px;
+}
+  
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+	background: #acacac; /* Color of the scrollbar handle */
+	border-radius: 10px;
+}
+  
+/* On hover, the handle will change color */
+::-webkit-scrollbar-thumb:hover {
+	background: #888888;
+}
+  
+/* Set the height of the horizontal scrollbar */
+::-webkit-scrollbar-horizontal {
+	height: 8px;
 }
