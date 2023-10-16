@@ -49,17 +49,19 @@
 					{{ strtoupper($data->tanggal_lahir->translatedFormat('jS F Y')) }}
 				</td>
 
-				<td>@if ($data->jenis_kelamin === 'L')
-					{{ "Laki-laki" }}
-					@elseif ($data->jenis_kelamin === 'P')
-					{{ "Perempuan" }}
+				<td>
+					@if ($data->jenisKelamin->id === 1)
+						L
+					@elseif ($data->jenisKelamin->id === 2)
+						P
 					@else
-					{{ "-" }}
-					@endif</td>
+						-
+					@endif
+				</td>
 
 				<td>
-					@if ($data->status)
-					{{ $data->status }}
+					@if ($data->id_status_dasar)
+					{{ $data->statusDasar->nama }}
 					@else
 					{{ "-" }}
 					@endif
@@ -67,7 +69,7 @@
 
 				<td>
 					@if ($data->id_agama)
-					{{ $data->id_agama }}
+					{{ $data->agama->nama }}
 					@else
 					{{ "-" }}
 					@endif
@@ -75,31 +77,23 @@
 
 				<td>
 					@if ($data->id_pendidikan_terakhir)
-					{{ $data->id_pendidikan_terakhir }}
+					{{ $data->pendidikanTerakhir->nama }}
 					@else
 					{{ "-" }}
 					@endif
 				</td>
 				<td>
 					@if ($data->id_pekerjaan)
-					{{ ($data->id_pekerjaan) }}
+					{{ ($data->pekerjaan->nama) }}
 					@else
 					{{ "-" }}
 					@endif
 				</td>
 				<td>
-					{{-- @if ($data->nik_ayah)
-					{{ ($data->nik_ayah) }}
-					@else
-					{{ "-" }}
-					@endif --}}
+					{{ $data->nik_ayah ? $data->ayah->nama : ($data->nama_ayah ?? '-') }}
 				</td>
 				<td>
-					{{-- @if ($data->nik_ibu)
-					{{ ($data->nik_ibu) }}
-					@else
-					{{ "-" }}
-					@endif --}}
+					{{ $data->nik_ibu ? $data->ibu->nama : ($data->nama_ibu ?? '-') }}
 				</td>
 			</tr>
 			@endforeach

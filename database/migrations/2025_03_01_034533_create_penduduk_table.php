@@ -42,7 +42,7 @@ return new class extends Migration
             $table->foreignId('id_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->string('alamat_sebelumnya', 200)->nullable();
             $table->string('alamat_sekarang', 200)->nullable();
-            $table->tinyInteger('status_dasar')->default(1); // hidup, mati, pindah, hilang, pergi, tidak valid
+            $table->foreignId('id_status_dasar')->default(1); // hidup, mati, pindah, hilang, pergi, tidak valid
             $table->foreignId('id_cacat')->nullable()->constrained('cacat')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_sakit_menahun')->nullable()->constrained('sakit_menahun')->onUpdate('cascade')->onDelete('cascade');
             $table->string('akta_lahir', 40)->nullable();

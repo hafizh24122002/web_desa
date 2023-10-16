@@ -56,13 +56,15 @@ class BukuController extends Controller
                         'nik',
                         'tempat_lahir',
                         'tanggal_lahir',
-                        // 'jenis_kelamin',
-                        // 'status',
+                        'id_jenis_kelamin',
+                        'id_status_dasar',
                         'id_agama',
                         'id_pendidikan_terakhir',
                         'id_pekerjaan',
                         'nik_ayah',
-                        'nik_ibu'
+                        'nama_ayah',
+                        'nik_ibu',
+                        'nama_ibu'
                     )->paginate(10)
                 ]);
             case 'rekapitulasiJumlahPenduduk':
@@ -70,9 +72,13 @@ class BukuController extends Controller
                     'penduduk' => Penduduk::all(),
                     'dusun' => WilayahDusun::paginate(10),
                 ]);
+            case 'pendudukSementara':
+                return view('staf.bukuadministrasidesa.partials.'.$type, [
+                    'penduduk' => Penduduk::where('penduduk_tetap', '=', '0')->paginate(10),
+                ]);
             case 'ktpKk':
                 return view('staf.bukuadministrasidesa.partials.'.$type, [
-                    'penduduk' => Penduduk::paginate(3),
+                    'penduduk' => Penduduk::paginate(10),
                 ]);
         }
     }

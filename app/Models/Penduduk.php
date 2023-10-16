@@ -85,6 +85,7 @@ class Penduduk extends Model
         'golonganDarah',
         'cacat',
         'statusPerkawinan',
+        'statusDasar',
         // 'wilayah',
     ];
 
@@ -281,6 +282,11 @@ class Penduduk extends Model
     {
         return $this->belongsTo(Rtm::class, 'id_rtm', 'no_kk')->withDefault();
     }
+    
+    public function statusDasar()
+    {
+        return $this->belongsTo(StatusDasar::class, 'id_status_dasar');
+    }
 
     /**
      * Define an inverse one-to-one or many relationship.
@@ -295,5 +301,10 @@ class Penduduk extends Model
     public function getUsiaAttribute()
     {
         return $this->tanggal_lahir->diffInYears(Carbon::now());
+    }
+
+    public function logPenduduk()
+    {
+        return $this->hasMany(LogPenduduk::class, 'id_penduduk');
     }
 }

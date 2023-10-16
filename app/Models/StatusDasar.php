@@ -9,7 +9,7 @@ class StatusDasar extends Model
 {
     use HasFactory;
     
-    protected $table = "status";
+    protected $table = "status_dasar";
     public $timestamps = false;
 
      /**
