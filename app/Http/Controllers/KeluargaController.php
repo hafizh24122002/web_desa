@@ -36,6 +36,7 @@ class KeluargaController extends Controller
         ]);
     }
 
+
     public function keluargaNew()
     {
         return view('staf.penduduk.keluargaNew', [
@@ -164,24 +165,27 @@ class KeluargaController extends Controller
 
     public function daftarKeluarga(HelperPendudukKeluarga $helperPendudukKeluarga)
     {
-        // Ambil daftar penduduk dengan id_helper_penduduk_keluarga yang sama
-        $pendudukDalamKeluarga = $helperPendudukKeluarga->penduduk;
-
-        // Check if the helper_penduduk_keluarga is found
-        if (!$pendudukDalamKeluarga) {
-            abort(404); // You may customize this to handle the not found case appropriately
-        }
-
-        // If $pendudukDalamKeluarga is a collection, apply pagination
-        if ($pendudukDalamKeluarga instanceof \Illuminate\Database\Eloquent\Collection) {
-            $pendudukDalamKeluarga = $pendudukDalamKeluarga->paginate(10);
-        }
+        // Retrieve the related Penduduk records and paginate them
+        $pendudukDalamKeluarga = $helperPendudukKeluarga->penduduk()->paginate(10);
 
         return view('staf.penduduk.daftarKeluarga', [
             'title' => 'Edit Data Keluarga',
             'keluarga' => $helperPendudukKeluarga,
             'pendudukDalamKeluarga' => $pendudukDalamKeluarga,
             'kelas_sosial' => KelasSosial::all(),
+        ]);
+    }
+
+    public function newDaftarKeluargaSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
+    {
+        $validatedData = $request->validate([
+            'no_kk' => 'required|unique:helper_penduduk_keluarga,no_kk,' . $helperPendudukKeluarga->id,
+            'nik_kepala' => [
+                'required',
+                Rule::exists('penduduk', 'nik')->where(function ($query) {
+                    $query->whereNull('id_helper_penduduk_keluarga');
+                }),
+            ],
         ]);
     }
 }

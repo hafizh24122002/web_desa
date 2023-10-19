@@ -16,6 +16,10 @@
                     <div class="container">
                         <h1>Data Penduduk dalam Keluarga</h1>
 
+						<a href="#" style="width: auto" class="btn btn-primary my-2">
+							<i class="bx bx-user-plus align-middle"></i> Tambah Anggota Keluarga Baru
+						</a>
+
                         @foreach ($pendudukDalamKeluarga as $penduduk)
                             <div class="card mb-3">
                                 <div class="card-body">
