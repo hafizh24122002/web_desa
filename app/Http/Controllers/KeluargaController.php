@@ -21,16 +21,17 @@ class KeluargaController extends Controller
             'title' => 'Keluarga',
             'keluarga' => HelperPendudukKeluarga::leftJoin('keluarga', 'helper_penduduk_keluarga.id', '=', 'keluarga.id_helper_penduduk_keluarga')
                 ->leftJoin('penduduk as kepala_penduduk', 'kepala_penduduk.nik', '=', 'helper_penduduk_keluarga.nik_kepala')
+                ->leftJoin('penduduk', 'penduduk.id_helper_penduduk_keluarga', '=', 'helper_penduduk_keluarga.id')
                 ->select(
                     'helper_penduduk_keluarga.no_kk',
-                    'helper_penduduk_keluarga.nik_kepala as nik_kepala',
-                    DB::raw('MAX(kepala_penduduk.nama) as kepala_keluarga'), // Use MAX to get a single name
-                    DB::raw('COUNT(keluarga.id_helper_penduduk_keluarga) as jumlah_anggota'),
+                    'helper_penduduk_keluarga.nik_kepala',
+                    'kepala_penduduk.nama as nama_kepala_keluarga',
+                    DB::raw('COUNT(DISTINCT penduduk.id) as jumlah_anggota'),
                     'keluarga.alamat',
                     'keluarga.tgl_daftar',
                     'keluarga.tgl_cetak_kk'
                 )
-                ->groupBy('helper_penduduk_keluarga.no_kk', 'keluarga.alamat', 'keluarga.tgl_daftar', 'keluarga.tgl_cetak_kk', 'helper_penduduk_keluarga.nik_kepala')
+                ->groupBy('helper_penduduk_keluarga.no_kk', 'helper_penduduk_keluarga.nik_kepala', 'kepala_penduduk.nama', 'keluarga.alamat', 'keluarga.tgl_daftar', 'keluarga.tgl_cetak_kk')
                 ->paginate(10)
         ]);
     }
@@ -164,7 +165,17 @@ class KeluargaController extends Controller
     public function daftarKeluarga(HelperPendudukKeluarga $helperPendudukKeluarga)
     {
         // Ambil daftar penduduk dengan id_helper_penduduk_keluarga yang sama
-        $pendudukDalamKeluarga = Penduduk::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)->get();
+        $pendudukDalamKeluarga = $helperPendudukKeluarga->penduduk;
+
+        // Check if the helper_penduduk_keluarga is found
+        if (!$pendudukDalamKeluarga) {
+            abort(404); // You may customize this to handle the not found case appropriately
+        }
+
+        // If $pendudukDalamKeluarga is a collection, apply pagination
+        if ($pendudukDalamKeluarga instanceof \Illuminate\Database\Eloquent\Collection) {
+            $pendudukDalamKeluarga = $pendudukDalamKeluarga->paginate(10);
+        }
 
         return view('staf.penduduk.daftarKeluarga', [
             'title' => 'Edit Data Keluarga',
