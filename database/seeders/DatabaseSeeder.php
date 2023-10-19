@@ -16,12 +16,16 @@ use App\Models\Keluarga;
 use App\Models\Kesehatan;
 use App\Models\Kewarganegaraan;
 use App\Models\Kia;
+use App\Models\LogPenduduk;
 use App\Models\Pekerjaan;
 use App\Models\PendidikanSaatIni;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
+use App\Models\Peristiwa;
+use App\Models\Pindah;
 use App\Models\Posyandu;
 use App\Models\Rtm;
+use App\Models\StatusDasar;
 use App\Models\StatusPerkawinan;
 use App\Models\Staf;
 use App\Models\Surat;
@@ -242,6 +246,25 @@ class DatabaseSeeder extends Seeder
         PendidikanTerakhir::create(['nama' => 'DIPLOMA IV/STRATA I']);
         PendidikanTerakhir::create(['nama' => 'STRATA II']);
         PendidikanTerakhir::create(['nama' => 'STRATA III']);
+
+        Peristiwa::create(['nama' => 'Lahir']);
+        Peristiwa::create(['nama' => 'Mati']);
+        Peristiwa::create(['nama' => 'Pindah Keluar']);
+        Peristiwa::create(['nama' => 'Hilang']);
+        Peristiwa::create(['nama' => 'Pindah Masuk']);
+        Peristiwa::create(['nama' => 'Pergi']);
+
+        Pindah::create(['nama' => 'Pindah keluar Desa/Kelurahan']);
+        Pindah::create(['nama' => 'Pindah keluar Kecamatan']);
+        Pindah::create(['nama' => 'Pindah keluar Kabupaten/Kota']);
+        Pindah::create(['nama' => 'Pindah keluar Provinsi']);
+
+        StatusDasar::create(['nama' => 'HIDUP']);
+        StatusDasar::create(['nama' => 'MATI']);
+        StatusDasar::create(['nama' => 'PINDAH']);
+        StatusDasar::create(['nama' => 'HILANG']);
+        StatusDasar::create(['nama' => 'PERGI']);
+        StatusDasar::create(['nama' => 'TIDAK VALID']);
 
         StatusPerkawinan::create(['nama' => 'BELUM KAWIN']);
         StatusPerkawinan::create(['nama' => 'KAWIN']);

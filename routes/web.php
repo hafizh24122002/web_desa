@@ -40,6 +40,7 @@ Route::get('/demografi-desa', [MainVisitorController::class, 'demografiDesa']);
 Route::get('/artikel/{judul}', [MainVisitorController::class, 'bacaArtikel']);
 Route::get('/struktur-organisasi', [MainVisitorController::class, 'strukturOrganisasi']);
 Route::get('/perangkat-desa', [MainVisitorController::class, 'perangkatDesa']);
+Route::get('/dokumen', [MainVisitorController::class, 'dokumen']);
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -147,6 +148,11 @@ Route::get('/get-coordinates', function () {
 		Route::put('staf/kesehatan/pemantauan/edit-pemantauan-anak/{id}', [KesehatanController::class, 'pemantauanAnakEditSubmit']);
 		Route::delete('staf/kesehatan/pemantauan/anak/{id}', [KesehatanController::class, 'pemantauanAnakDelete']);
 		Route::get('staf/kesehatan/pemantauan/new-sasaran-paud', [KesehatanController::class, 'sasaranPaudNew']);
+		Route::post('staf/kesehatan/pemantauan/new-sasaran-paud', [KesehatanController::class, 'sasaranPaudNewSubmit']);
+		Route::get('staf/kesehatan/pemantauan/edit-sasaran-paud/{id}', [KesehatanController::class, 'sasaranPaudEdit']);
+		Route::put('staf/kesehatan/pemantauan/edit-sasaran-paud/{id}', [KesehatanController::class, 'sasaranPaudEditSubmit']);
+		Route::delete('staf/kesehatan/pemantauan/paud/{id}', [KesehatanController::class, 'sasaranPaudDelete']);
+    	Route::get('staf/kesehatan/pemantauan/scorecard', [KesehatanController::class, 'scorecard']);
 
 		Route::get('/staf/manajemen-staf/', [StafController::class, 'pohonStaf']);
 		Route::get('/staf/manajemen-staf/get-data', [StafController::class, 'getDataStaf']);
@@ -193,6 +199,7 @@ Route::get('/get-coordinates', function () {
 
 		Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan']);
 		Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan']);
+		Route::get('/staf/buku-administrasi-desa/get-data/{type}', [BukuController::class, 'getData']);
 		Route::get('users/export/', [BukuController::class, 'export']);
 
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');

@@ -75,6 +75,7 @@ class Penduduk extends Model
      * {@inheritDoc}
      */
     protected $with = [
+        'helperPendudukKeluarga',
         'jenisKelamin',
         'agama',
         'pendidikanSaatIni',
@@ -84,6 +85,7 @@ class Penduduk extends Model
         'golonganDarah',
         'cacat',
         'statusPerkawinan',
+        'statusDasar',
         // 'wilayah',
     ];
 
@@ -238,7 +240,7 @@ class Penduduk extends Model
      */
     public function statusPerkawinan()
     {
-        return $this->belongsTo(StatusPerkawinan::class, 'status_kawin')->withDefault();
+        return $this->belongsTo(StatusPerkawinan::class, 'id_status_perkawinan')->withDefault();
     }
 
     /**
@@ -266,9 +268,24 @@ class Penduduk extends Model
      *
      * @return BelongsTo
      */
+    public function helperPendudukKeluarga()
+    {
+        return $this->belongsTo(HelperPendudukKeluarga::class, 'id_helper_penduduk_keluarga');
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
     public function rtm()
     {
         return $this->belongsTo(Rtm::class, 'id_rtm', 'no_kk')->withDefault();
+    }
+    
+    public function statusDasar()
+    {
+        return $this->belongsTo(StatusDasar::class, 'id_status_dasar');
     }
 
     /**
@@ -279,5 +296,15 @@ class Penduduk extends Model
     public function Wilayah()
     {
         return $this->belongsTo(Wilayah::class, 'id_cluster');
+    }
+
+    public function getUsiaAttribute()
+    {
+        return $this->tanggal_lahir->diffInYears(Carbon::now());
+    }
+
+    public function logPenduduk()
+    {
+        return $this->hasMany(LogPenduduk::class, 'id_penduduk');
     }
 }
