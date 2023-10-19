@@ -248,43 +248,34 @@ class KependudukanController extends Controller
 
     public function pendudukDelete(Penduduk $penduduk)
     {
-        // Cari data penduduk berdasarkan NIK
-        $data = Penduduk::where('nik', $penduduk->nik)->first();
+        // Find data based on NIK
+        $deletedPenduduk = Penduduk::where('nik', $penduduk->nik)->first();
 
-        // Hapus data di tabel penduduk
-        if ($data) {
-            // Simpan nilai id_helper_penduduk_keluarga untuk penduduk tertentu
-            $idHelperPendudukKeluarga = $data->id_helper_penduduk_keluarga;
+        // Check if the data is found
+        if ($deletedPenduduk) {
+            // Store the id_helper_penduduk_keluarga for later use
+            $idHelperPendudukKeluarga = $deletedPenduduk->id_helper_penduduk_keluarga;
 
-            // Setel nilai id_helper_penduduk_keluarga menjadi null hanya untuk penduduk yang bersangkutan
-            Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
-                ->update(['id_helper_penduduk_keluarga' => null]);
+            // Delete the Penduduk record
+            $deletedPenduduk->delete();
 
-            // Jika penduduk memenuhi kriteria tertentu
-            if ($data->id_helper_penduduk_keluarga && $data->id_hubungan_kk == 1) {
-                // Hapus data di tabel helper_penduduk_keluarga
-                $helperPendudukKeluarga = HelperPendudukKeluarga::find($idHelperPendudukKeluarga);
-                if ($helperPendudukKeluarga) {
-                    $helperPendudukKeluarga->delete();
-                }
+            // Check conditions for updating id_hubungan_kk
+            if ($idHelperPendudukKeluarga !== null && $deletedPenduduk->id_hubungan_kk === 1) {
+                // Find the first Penduduk record with the same id_helper_penduduk_keluarga
+                $newHead = Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
+                    ->where('id', '!=', $deletedPenduduk->id) // Exclude the deleted record
+                    ->first();
 
-                // Hapus data di tabel keluarga
-                $keluarga = Keluarga::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)->first();
-                if ($keluarga) {
-                    $keluarga->delete();
+                // Update id_hubungan_kk to 1 (if a new head exists)
+                if ($newHead) {
+                    $newHead->update(['id_hubungan_kk' => 1]);
                 }
             }
-
-            // Setel nilai id_helper_penduduk_keluarga menjadi null hanya untuk penduduk yang bersangkutan
-            Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
-                ->update(['id_helper_penduduk_keluarga' => null]);
-
-            // Hapus data di tabel penduduk
-            $data->delete();
         }
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil dihapus!');
     }
+
 
     public function getDataPenduduk($nama)
     {

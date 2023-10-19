@@ -1,21 +1,38 @@
 @extends('layouts/adminMain')
 
 @section('main-content')
+    <section class="wrapper">
+        <div class="container-fostrap">
+            <div class="content">
+                <div class="container">
+                    {{-- menu yang di atas --}}
+                    @include('partials.adminTopMenu', [
+                        'title' => 'Daftar Anggota Keluarga',
+                        'parent_page' => 'Kependudukan',
+                        'parent_link' => '/staf/kependudukan/penduduk',
+                        'current_page' => 'keluarga',
+                    ])
 
-<section class="wrapper">
-	<div class="container-fostrap">
-		<div class="content">
-			<div class="container">
-				{{-- menu yang di atas --}}
-				@include('partials.adminTopMenu', [
-					'title' => 'Daftar Anggota Keluarga',
-					'parent_page' => 'Kependudukan',
-					'parent_link' => '/staf/kependudukan/penduduk',
-					'current_page' => 'keluarga',
-				])
-	
-				{{-- content --}}
-				{{-- <div class="row mt-3 container">
+                    <div class="container">
+                        <h1>Data Penduduk dalam Keluarga</h1>
+
+                        @foreach ($pendudukDalamKeluarga as $penduduk)
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $penduduk->nama }}</h5>
+                                    <p class="card-text">ID Helper Penduduk Keluarga:
+                                        {{ $penduduk->id_helper_penduduk_keluarga }}</p>
+                                    <p class="card-text">ID Hubungan KK: {{ $penduduk->id_hubungan_kk }}</p>
+                                    <!-- Add other fields you want to display -->
+                                </div>
+                            </div>
+                        @endforeach
+
+                        {{ $pendudukDalamKeluarga->links() }}
+                    </div>
+
+                    {{-- content --}}
+                    {{-- <div class="row mt-3 container">
 					@if (session()->has('success'))
 						<div class="alert alert-success alert-dismissible fade show" style="width: 100%" role="alert">
 							{{ session('success') }}
@@ -115,11 +132,10 @@
 						{{ $keluarga->links() }}
 					</div>
 				</div> --}}
-			</div>
-		</div>
-	</div>
-</section>
+                </div>
+            </div>
+        </div>
+    </section>
 
-@include('partials.commonScripts')
-
+    @include('partials.commonScripts')
 @endsection
