@@ -78,8 +78,8 @@
 									<td>{{ $data->no_kk }}</td>
 
 									<td>
-										@if ($data->kepala_keluarga)
-											{{ $data->kepala_keluarga }}	
+										@if ($data->nama_kepala_keluarga)
+											{{ $data->nama_kepala_keluarga }}	
 										@else
 											{{ "-" }}
 										@endif

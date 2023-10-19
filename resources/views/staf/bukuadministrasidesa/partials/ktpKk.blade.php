@@ -37,8 +37,16 @@
                     <td>{{ $data->helperPendudukKeluarga->no_kk ?? '-' }}</td>
                     <td>{{ $data->nama }}</td>
                     <td>{{ $data->nik ?? '-' }}</td>
-                    <td>{{ $data->jenisKelamin->nama ?? '-' }}</td>
-                    <td>{{ $data->tempat_lahir.', '.$data->tanggal_lahir->translatedFormat('jS F Y') ?? '-' }}</td>
+                    <td>
+                        @if ($data->jenisKelamin->id === 1)
+							L
+						@elseif ($data->jenisKelamin->id === 2)
+							P
+						@else
+							-
+						@endif
+                    </td>
+                    <td>{{ $data->tempat_lahir.', '.strtoupper($data->tanggal_lahir->translatedFormat('jS F Y')) ?? '-' }}</td>
                     <td>{{ $data->golonganDarah->nama ?? '-' }}</td>
                     <td>{{ $data->agama->nama ?? '-' }}</td>
                     <td>{{ $data->pendidikanTerakhir->nama ?? '-' }}</td>
