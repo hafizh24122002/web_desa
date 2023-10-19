@@ -26,28 +26,10 @@
 			<tr class="text-center align-middle">
 				<td>{{ $penduduk->firstItem() + $key }}</td>
 
-				<td class="d-flex gap-1 justify-content-center">
-					@if ($data->nama)
-					{{ $data->nama }}
-					@else
-					{{ "-" }}
-					@endif
-				</td>
-				<td>
-					@if ($data->nik)
-					{{ $data->nik }}
-					@else
-					{{ "-" }}
-					@endif
-				</td>
-
-				<td>
-					{{ $data->tempat_lahir }}
-				</td>
-
-				<td>
-					{{ strtoupper($data->tanggal_lahir->translatedFormat('jS F Y')) }}
-				</td>
+				<td>{{ $data->nama ?? '-' }}</td>
+				<td>{{ $data->nik ?? '-' }}</td>
+				<td>{{ $data->tempat_lahir ?? '-' }}</td>
+				<td>{{ $data->tanggal_lahir ? strtoupper($data->tanggal_lahir->translatedFormat('jS F Y')) : '-' }}</td>
 
 				<td>
 					@if ($data->jenisKelamin->id === 1)

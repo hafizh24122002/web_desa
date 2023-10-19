@@ -3,7 +3,7 @@
         class="table table-condensed table-bordered dataTable table-striped table-hover tabel-daftar table text-nowrap bg-light">
         <thead class="bg-gray color-palette">
             <tr class="bg-dark text-light text-center align-middle">
-                <th rowspan="2">NO</th>
+                <th rowspan="2">NO URUT</th>
                 <th rowspan="2">NAMA LENGKAP</th>
                 <th rowspan="2">JENIS KELAMIN</th>
                 <th rowspan="2">NOMOR IDENTITAS / TANDA PENGENAL</th>
@@ -26,45 +26,53 @@
         </thead>
 
         <tbody>
-            @foreach ($penduduk as $key => $data)
+            @foreach ($logPenduduk as $key => $data)
                 <tr class="text-center align-middle">
-                    <td>{{ $penduduk->firstItem() + $key }}</td>
-                    <td>{{ $data->nama }}</td>
+                    <td>{{ $logPenduduk->firstItem() + $key }}</td>
+                    <td>{{ $data->penduduk->nama }}</td>
                     <td>
-						@if ($data->jenisKelamin->id === 1)
+						@if ($data->penduduk->jenisKelamin->id === 1)
 							L
-						@elseif ($data->jenisKelamin->id === 2)
+						@elseif ($data->penduduk->jenisKelamin->id === 2)
 							P
 						@else
 							-
 						@endif
 					</td>
                     <td>
-						{{ ($data->nik !== null) ? 
-							$data->nik : (($data->tag_id_card !== null) ?
-							$data->tag_id_card : '-') }}
+						{{ ($data->penduduk->nik !== null) ? 
+							$data->penduduk->nik : (($data->penduduk->tag_id_card !== null) ?
+							$data->penduduk->tag_id_card : '-') }}
 					</td>
                     <td>
-						@if ($data->tempat_lahir !== null || $data->tanggal_lahir !== null)
-							{{ $data->tempat_lahir.', '.strtoupper($data->tanggal_lahir->translatedFormat('jS F Y')).' / '.$data->usia }}
-						@else
-							-
-						@endif
+                        {{ ($data->penduduk->tempat_lahir ?? '-').', '.($data->penduduk->tanggal_lahir ? strtoupper($data->penduduk->tanggal_lahir->translatedFormat('jS F Y')) : '-').' / '.$data->penduduk->usia }}
 					</td>
-                    <td>{{ $data->pekerjaan->nama ?? '-' }}</td>
-                    <td>{{ $data->kewarganegaraan->nama ?? '-' }}</td>
-                    <td>{{ $data->suku ?? '-' }}</td>
-                    <td>{{ $data->alamat_sebelumnya ?? '-' }}</td>
-                    <td>{{ $todo ?? '-' }}</td> 			{{-- maksud dan tujuan --}}
-					<td>{{ $data->alamat_sekarang ?? '-' }}</td>
-					<td>{{ $todo ?? '-' }}</td> 			{{-- datang tanggal --}}
-					<td>{{ $todo ?? '-' }}</td>				{{-- pergi tanggal --}}
-					<td>{{ $todo ?? '-' }}</td>				{{-- ket --}}
+                    <td>{{ $data->penduduk->pekerjaan->nama ?? '-' }}</td>
+                    <td>{{ $data->penduduk->kewarganegaraan->nama ?? '-' }}</td>
+                    <td>{{ $data->penduduk->suku ?? '-' }}</td>
+                    <td>{{ $data->penduduk->alamat_sebelumnya ?? '-' }}</td>
+                    <td>{{ $data->maksud_tujuan_kedatangan ?? '-' }}</td>
+					<td>{{ $data->alamat_tujuan ?? '-' }}</td>
+					<td>{{ $data->tanggal_lapor ? strtoupper($data->tanggal_lapor->translatedFormat('jS F Y')) : '-' }}</td> 
+					<td>
+                        @if ($data->tamu)
+                            {{ $data->tamu->logPenduduk ? strtoupper($data->tamu->logPenduduk->tanggal_lapor->translatedFormat('jS F Y')) : '-' }}
+                        @else
+                            -
+                        @endif
+                    </td>
+					<td>
+                        @if ($data->tamu)
+                            {{ $data->tamu->logPenduduk ? $data->tamu->logPenduduk->catatan : '-' }}
+                        @else
+                            -
+                        @endif
+                    </td>
             @endforeach
         </tbody>
     </table>
 </div>
 
 <div class="d-flex justify-content-end mt-4">
-    {{ $penduduk->links() }}
+    {{ $logPenduduk->links() }}
 </div>
