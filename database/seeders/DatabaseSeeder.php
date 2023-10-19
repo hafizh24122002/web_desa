@@ -432,7 +432,7 @@ class DatabaseSeeder extends Seeder
 
         Penduduk::create([
             'nama' => 'ABDUL KARIM',
-            'nik' => '6401042412340002',
+            'nik' => '6401042412340003',
             'id_helper_penduduk_keluarga' => 2,
             'id_hubungan_kk' => 4, 
             'id_jenis_kelamin' => 1,
