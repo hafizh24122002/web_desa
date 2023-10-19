@@ -3,7 +3,7 @@
         class="table table-condensed table-bordered dataTable table-striped table-hover tabel-daftar table text-nowrap bg-light">
         <thead class="bg-gray color-palette">
             <tr class="bg-dark text-light text-center align-middle">
-                <th rowspan="2">NO</th>
+                <th rowspan="2">NO URUT</th>
                 <th rowspan="2">NO KK</th>
                 <th rowspan="2">NAMA LENGKAP</th>
                 <th rowspan="2">NIK</th>
@@ -46,7 +46,7 @@
 							-
 						@endif
                     </td>
-                    <td>{{ $data->tempat_lahir.', '.strtoupper($data->tanggal_lahir->translatedFormat('jS F Y')) ?? '-' }}</td>
+                    <td>{{ ($data->tempat_lahir ?? '-').', '.($data->tanggal_lahir ? strtoupper($data->tanggal_lahir->translatedFormat('jS F Y')) : '-') }}</td>
                     <td>{{ $data->golonganDarah->nama ?? '-' }}</td>
                     <td>{{ $data->agama->nama ?? '-' }}</td>
                     <td>{{ $data->pendidikanTerakhir->nama ?? '-' }}</td>
@@ -64,8 +64,8 @@
                     <td>{{ $data->kewarganegaraan->nama ?? '-' }}</td>
                     <td>{{ $data->nama_ayah ?? '-' }}</td>
                     <td>{{ $data->nama_ibu ?? '-' }}</td>
-                    <td>{{ $todo ?? '-' }}</td>
-                    <td>{{ $todo ?? '-' }}</td>
+                    <td>{{ $data->created_at ? strtoupper($data->created_at->translatedFormat('jS F Y')) : '-' }}</td>
+                    <td>{{ $data->ket ?? '-' }}</td>
             @endforeach
         </tbody>
     </table>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PendudukExport;
 use App\Models\Penduduk;
+use App\Models\LogPenduduk;
 use App\Models\ArsipSurat;
 use App\Models\WilayahDusun;
 
@@ -19,14 +20,18 @@ class BukuController extends Controller
                 'nik',
                 'tempat_lahir',
                 'tanggal_lahir',
-                // 'jenis_kelamin',
-                // 'status',
+                'id_jenis_kelamin',
+                'id_status_dasar',
                 'id_agama',
                 'id_pendidikan_terakhir',
                 'id_pekerjaan',
                 'nik_ayah',
-                'nik_ibu'
-            )->paginate(10)
+                'nama_ayah',
+                'nik_ibu',
+                'nama_ibu'
+            )
+            // ->orderBy('nama', 'asc')
+            ->paginate(10)
         ]);
     }
 
@@ -65,16 +70,25 @@ class BukuController extends Controller
                         'nama_ayah',
                         'nik_ibu',
                         'nama_ibu'
-                    )->paginate(10)
+                    )
+                    // ->orderBy('nama', 'asc')
+                    ->paginate(10)
+                ]);
+            case 'mutasiPendudukDesa':
+                return view('staf.bukuadministrasidesa.partials.'.$type, [
+                    'logPenduduk' => LogPenduduk::where('id_peristiwa', '=', 2)
+                                                ->where('id_peristiwa', '=', 3)
+                                                ->where('id_peristiwa', '=', 5)
+                                                ->paginate(10),
                 ]);
             case 'rekapitulasiJumlahPenduduk':
                 return view('staf.bukuadministrasidesa.partials.'.$type, [
-                    'penduduk' => Penduduk::all(),
+                    'penduduk' => Penduduk::all(),  //TODO
                     'dusun' => WilayahDusun::paginate(10),
                 ]);
             case 'pendudukSementara':
                 return view('staf.bukuadministrasidesa.partials.'.$type, [
-                    'penduduk' => Penduduk::where('penduduk_tetap', '=', '0')->paginate(10),
+                    'logPenduduk' => LogPenduduk::whereNot('id_peristiwa', 6)->paginate(10),
                 ]);
             case 'ktpKk':
                 return view('staf.bukuadministrasidesa.partials.'.$type, [

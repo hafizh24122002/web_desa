@@ -3,7 +3,7 @@
         class="table table-condensed table-bordered dataTable table-striped table-hover tabel-daftar table text-nowrap ">
         <thead class="bg-gray color-palette">
             <tr class="bg-dark text-light text-center align-middle">
-                <th rowspan="5">NO</th>
+                <th rowspan="5">NO URUT</th>
                 <th rowspan="5">NAMA DUSUN</th>
                 <th colspan="7">JUMLAH PENDUDUK AWAL BULAN</th>
                 <th colspan="8">TAMBAHAN BULAN INI</th>

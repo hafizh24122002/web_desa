@@ -41,12 +41,32 @@ class LogPenduduk extends Model
     ];
 
     /**
-     * Get the penduduk that owns the LogPenduduk
+     * Get the Penduduk that owns the LogPenduduk
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return App\Models\BelongsTo
      */
-    public function penduduk(): BelongsTo
+    public function penduduk()
     {
         return $this->belongsTo(Penduduk::class, 'id_penduduk');
+    }
+
+    /**
+     * Get the Pindah that owns the LogPenduduk
+     *
+     * @return App\Models\BelongsTo
+     */
+    public function pindah()
+    {
+        return $this->belongsTo(Pindah::class, 'id_pindah');
+    }
+
+    /**
+     * Get the Tamu associated with the LogPenduduk
+     *
+     * @return App\Models\HasOne
+     */
+    public function tamu()
+    {
+        return $this->hasOne(Tamu::class, 'id_log_penduduk_masuk');
     }
 }

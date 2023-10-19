@@ -244,6 +244,7 @@ a {
 .sortable:hover {
     cursor: pointer;
 	background-color: #495057;
+	transition: .3s;
 }
 
 .profile-picture-container {

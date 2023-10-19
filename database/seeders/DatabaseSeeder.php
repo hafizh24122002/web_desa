@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 use App\Models\Agama;
 use App\Models\Artikel;
 use App\Models\HubunganKK;
@@ -29,6 +31,7 @@ use App\Models\StatusDasar;
 use App\Models\StatusPerkawinan;
 use App\Models\Staf;
 use App\Models\Surat;
+use App\Models\Tamu;
 use App\Models\User;
 use App\Models\Agenda;
 use App\Models\Coordinate;
@@ -486,6 +489,56 @@ class DatabaseSeeder extends Seeder
             'penduduk_tetap' => true,
             'telepon' => '082114643544',
             'id_golongan_darah' => '3',
+        ]);
+
+        LogPenduduk::create([
+            'id_penduduk' => 1,
+            'id_peristiwa' => 5,
+            'alamat_tujuan' => 'JL. MERPATI NO. 51 RT.03/RW.02',
+            'maksud_tujuan_kedatangan' => 'Melaksanakan KKN',
+            'tanggal_lapor' => Carbon::now(),
+            'tanggal_peristiwa' => Carbon::now(),
+        ]);
+        LogPenduduk::create([
+            'id_penduduk' => 2,
+            'id_peristiwa' => 1,
+            'tanggal_lapor' => Carbon::now(),
+            'tanggal_peristiwa' => Carbon::now(),
+        ]);
+        LogPenduduk::create([
+            'id_penduduk' => 3,
+            'id_peristiwa' => 1,
+            'tanggal_lapor' => Carbon::now(),
+            'tanggal_peristiwa' => Carbon::now(),
+        ]);
+        LogPenduduk::create([
+            'id_penduduk' => 4,
+            'id_peristiwa' => 1,
+            'tanggal_lapor' => Carbon::now(),
+            'tanggal_peristiwa' => Carbon::now(),
+        ]);
+        LogPenduduk::create([
+            'id_penduduk' => 5,
+            'id_peristiwa' => 5,
+            'alamat_tujuan' => 'JL. MERPATI NO. 51 RT.03/RW.02',
+            'maksud_tujuan_kedatangan' => 'Melaksanakan KKN',
+            'tanggal_lapor' => Carbon::now(),
+            'tanggal_peristiwa' => Carbon::now(),
+        ]);
+        LogPenduduk::create([
+            'id_penduduk' => 5,
+            'id_peristiwa' => 6,
+            'catatan' => 'Kegiatan selesai',
+            'tanggal_lapor' => Carbon::now(),
+            'tanggal_peristiwa' => Carbon::now(),
+        ]);
+
+        Tamu::create([
+            'id_log_penduduk_masuk' => 1,
+        ]);
+        Tamu::create([
+            'id_log_penduduk_masuk' => 5,
+            'id_log_penduduk_pergi' => 6,
         ]);
 
         KetuaRt::create(['nama' => 'AMIR']);

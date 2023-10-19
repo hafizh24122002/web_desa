@@ -38,7 +38,7 @@
 									<td class="d-flex gap-1 justify-content-center">
 										<a href="/staf/layanan-surat/buat-surat/{{ $item->nama }}">
 											<button class="btn btn-sm btn-primary text-light" data-bs-toggle="tooltip" title="Buat Surat Baru">
-												Buat Surat
+												Buat&nbsp;Surat
 											</button>
 										</a>
 									</td>
