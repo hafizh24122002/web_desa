@@ -40,6 +40,7 @@ use App\Models\Cacat;
 use App\Models\CaraKb;
 use App\Models\GolonganDarah;
 use App\Models\HelperPendudukKeluarga;
+use App\Models\HelperPendudukRtm;
 use App\Models\JenisKelamin;
 use App\Models\KetuaRt;
 use App\Models\RtmHubungan;
@@ -73,6 +74,9 @@ class DatabaseSeeder extends Seeder
         HubunganKK::create(['nama' => 'FAMILI LAIN']);
         HubunganKK::create(['nama' => 'PEMBANTU']);
 
+        RtmHubungan::create(['nama' => 'KEPALA RUMAH TANGGA']);
+        RtmHubungan::create(['nama' => 'ANGGOTA']);
+
         JenisKelamin::create(['nama' => 'LAKI-LAKI']);
         JenisKelamin::create(['nama' => 'PEREMPUAN']);
 
@@ -89,7 +93,7 @@ class DatabaseSeeder extends Seeder
         GolonganDarah::create(['nama' => 'O+']);
         GolonganDarah::create(['nama' => 'O-']);
         GolonganDarah::create(['nama' => 'TIDAK TAHU']);
-        
+
         CaraKb::create([
             'nama' => 'PIL',
             'id_jenis_kelamin' => '2'
@@ -378,6 +382,16 @@ class DatabaseSeeder extends Seeder
             'jabatan' => 'Staf Administrasi',
         ]);
 
+        HelperPendudukRtm::create([
+            'no_rtm' => '10000000001',
+            'nik_kepala' => '6401042412340001',
+        ]);
+
+        HelperPendudukRtm::create([
+            'no_rtm' => '10000000002',
+            'nik_kepala' => '6401042412340002',
+        ]);
+
         HelperPendudukKeluarga::create([
             'no_kk' => '1234567891234567',
             'nik_kepala' => '6401042412340001',
@@ -388,11 +402,13 @@ class DatabaseSeeder extends Seeder
             'nik_kepala' => '6401042412340002',
         ]);
 
-        Penduduk::create([ 
+        Penduduk::create([
             'nama' => 'HAFIZH LUTFI HIDAYAT',
             'nik' => '6401042412340001',
             'id_helper_penduduk_keluarga' => 1,
-            'id_hubungan_kk' => 1, 
+            'id_helper_penduduk_rtm' => 1,
+            'id_hubungan_kk' => 1,
+            'id_rtm_hubungan' => 1,
             'id_jenis_kelamin' => 1,
             'tempat_lahir' => 'SAMARINDA',
             'tanggal_lahir' => '2002-12-24',
@@ -413,7 +429,9 @@ class DatabaseSeeder extends Seeder
             'nama' => 'AMIRAH DZATUL HIMMAH',
             'nik' => '6401042412340002',
             'id_helper_penduduk_keluarga' => 2,
-            'id_hubungan_kk' => 1, 
+            'id_helper_penduduk_rtm' => 2,
+            'id_hubungan_kk' => 1,
+            'id_rtm_hubungan' => 1,
             'id_jenis_kelamin' => 2,
             'tempat_lahir' => 'BOGOR',
             'tanggal_lahir' => '2002-11-06',
@@ -434,7 +452,7 @@ class DatabaseSeeder extends Seeder
             'nama' => 'ABDUL KARIM',
             'nik' => '6401042412340003',
             'id_helper_penduduk_keluarga' => 2,
-            'id_hubungan_kk' => 4, 
+            'id_hubungan_kk' => 4,
             'id_jenis_kelamin' => 1,
             'tempat_lahir' => 'BOGOR',
             'tanggal_lahir' => '2016-11-06',
@@ -454,7 +472,7 @@ class DatabaseSeeder extends Seeder
         Penduduk::create([
             'nama' => 'AIJO KUNCORO',
             'nik' => '6401042412340006',
-            'id_hubungan_kk' => 1, 
+            'id_hubungan_kk' => 1,
             'id_jenis_kelamin' => 2,
             'tempat_lahir' => 'DEPOK',
             'tanggal_lahir' => '2000-11-06',
@@ -474,7 +492,7 @@ class DatabaseSeeder extends Seeder
         Penduduk::create([
             'nama' => 'JEANY',
             'nik' => '6401042412340007',
-            'id_hubungan_kk' => 2, 
+            'id_hubungan_kk' => 2,
             'id_jenis_kelamin' => 2,
             'tempat_lahir' => 'DEPOK',
             'tanggal_lahir' => '2000-11-06',
@@ -567,20 +585,33 @@ class DatabaseSeeder extends Seeder
 
         Keluarga::create([
             'id_helper_penduduk_keluarga' => 1,
-            'tgl_cetak_kk'=> '2002-11-06',
+            'tgl_cetak_kk' => '2002-11-06',
             'id_kelas_sosial' => '4',
             'alamat' => 'JL. MERPATI NO.51 RT.03/RW.02',
         ]);
 
         Keluarga::create([
             'id_helper_penduduk_keluarga' => 2,
-            'tgl_cetak_kk'=> '2002-11-06',
+            'tgl_cetak_kk' => '2002-11-06',
             'id_kelas_sosial' => '4',
             'alamat' => 'JL. GAGAK NO.51 RT.03/RW.02',
         ]);
 
-        RtmHubungan::create(['nama' => 'KEPALA RUMAH TANGGA']);
-        RtmHubungan::create(['nama' => 'ANGGOTA']);
+        Rtm::create([
+            'id_helper_penduduk_rtm' => 1,
+            'id_kelas_sosial' => 1,
+            'bdt' => '',
+            'dtks' => false,
+            'alamat' => "JL. CEMPAKA",
+        ]);
+
+        Rtm::create([
+            'id_helper_penduduk_rtm' => 2,
+            'id_kelas_sosial' => 1,
+            'bdt' => '10000000000000001',
+            'dtks' => true,
+            'alamat' => "JL. CEMPAKA",
+        ]);
 
         Posyandu::create([
             'nama' => 'Posyandu Bakti Sehat',

@@ -17,7 +17,6 @@ class Keluarga extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'no_kk',
         'id_helper_penduduk_keluarga',
         'id_kelas_sosial',
         'tgl_daftar',

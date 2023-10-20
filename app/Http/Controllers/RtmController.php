@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
-// use Illuminate\Support\Facades\Validator;
-
 use App\Models\HelperPendudukKeluarga;
+use App\Models\HelperPendudukRtm;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -13,13 +11,13 @@ use App\Models\Keluarga;
 use App\Models\Penduduk;
 use App\Models\KelasSosial;
 
-class KeluargaController extends Controller
+class RtmController extends Controller
 {
-    public function keluarga()
+    public function rtm()
     {
-        return view('staf.penduduk.keluarga', [
-            'title' => 'Keluarga',
-            'keluarga' => HelperPendudukKeluarga::leftJoin('keluarga', 'helper_penduduk_keluarga.id', '=', 'keluarga.id_helper_penduduk_keluarga')
+        return view('staf.penduduk.rtm', [
+            'title' => 'Rumah Tangga',
+            'rtm' => HelperPendudukRtm::leftJoin('rtm', 'helper_penduduk_rtm.id', '=', 'keluarga.id_helper_penduduk_rtm')
                 ->leftJoin('penduduk as kepala_penduduk', 'kepala_penduduk.nik', '=', 'helper_penduduk_keluarga.nik_kepala')
                 ->leftJoin('penduduk', 'penduduk.id_helper_penduduk_keluarga', '=', 'helper_penduduk_keluarga.id')
                 ->select(

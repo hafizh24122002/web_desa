@@ -107,6 +107,11 @@
 									<i class="bx bx-male-female nav-icon"></i>
 									<span class="nav-name" id="nav-name">Keluarga</span>
 								</a>
+
+								<a href="/staf/kependudukan/rtm" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class="bx bx-home nav-icon"></i>
+									<span class="nav-name" id="nav-name">Rumah Tangga</span>
+								</a>
 							</div>
 						</div>
 					</div>
