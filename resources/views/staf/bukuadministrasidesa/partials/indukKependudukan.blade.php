@@ -1,6 +1,6 @@
 <div class="table-responsive table-min-height">
 	<table
-		class="table table-condensed table-bordered dataTable table-striped table-hover tabel-daftar table text-nowrap ">
+		class="table table-bordered table-striped table-hover text-nowrap">
 		<thead class="bg-gray color-palette">
 			<tr class="bg-dark text-light text-center align-middle">
 				<th rowspan="2">No</th>
@@ -16,7 +16,7 @@
 			</tr>
 			<tr class="bg-dark text-light text-center align-middle">
 				<th>Tempat Lahir</th>
-				<th width="50px">Tgl</th>
+				<th>Tgl</th>
 				<th>Ayah</th>
 				<th>Ibu</th>
 			</tr>

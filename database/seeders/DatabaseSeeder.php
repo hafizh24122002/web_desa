@@ -504,7 +504,7 @@ class DatabaseSeeder extends Seeder
             'id_kewarganegaraan' => 1,
             'nama_ayah' => 'John',
             'nama_ibu' => 'Jany',
-            'penduduk_tetap' => true,
+            'penduduk_tetap' => false,
             'telepon' => '082114643544',
             'id_golongan_darah' => '3',
         ]);

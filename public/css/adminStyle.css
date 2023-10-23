@@ -167,6 +167,10 @@ a {
 	height: 100vh
 }
 
+.container {
+	max-width: 80vw;
+}
+
 #statistikBar {
 	width: 250px;
 }
@@ -184,7 +188,7 @@ a {
 	width: 250px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1368px) {
 	body {
 		margin: calc(var(--header-height) + 1rem) 0 0 0;
 		padding-left: calc(var(--nav-width) + 2rem)
@@ -286,6 +290,27 @@ a {
 .accordion-button.collapsed::after,
 .accordion-button:not(.collapsed)::after {
 	display: none;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd):hover {
+    --mdb-table-accent-bg: var(--mdb-table-striped-bg);
+    background-color: rgba(0, 0, 0, 0.1);
+    color: var(--mdb-table-striped-color);
+}
+
+.table {
+    --mdb-table-bg: transparent;
+    --mdb-table-striped-color: #212529;
+    --mdb-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --mdb-table-active-color: #212529;
+    --mdb-table-active-bg: rgba(0, 0, 0, 0.1);
+    --mdb-table-hover-color: #212529;
+    --mdb-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #e0e0e0;
 }
 
 .btn-link:hover {
