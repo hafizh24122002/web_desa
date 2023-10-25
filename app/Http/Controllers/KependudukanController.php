@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Agama;
+use App\Models\Asuransi;
+use App\Models\Cacat;
+use App\Models\CaraKb;
 use App\Models\GolonganDarah;
 use App\Models\HubunganKK;
 use App\Models\JenisKelamin;
@@ -16,8 +19,11 @@ use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
 use App\Models\PendudukStatus;
 use App\Models\Rt;
+use App\Models\SakitMenahun;
 use App\Models\StatusPerkawinan;
 use App\Models\HelperPendudukKeluarga;
+use App\Models\WilayahDusun;
+use App\Models\WilayahRt;
 
 class KependudukanController extends Controller
 {
@@ -70,8 +76,14 @@ class KependudukanController extends Controller
             'pekerjaan' => Pekerjaan::all(),
             'pendidikan_saat_ini' => PendidikanSaatIni::all(),
             'pendidikan_terakhir' => PendidikanTerakhir::all(),
+            'wilayah_dusun' => WilayahDusun::all(),
+            'wilayah_rt' => WilayahRt::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
             'golongan_darah' => GolonganDarah::all(),
+            'cacat' => Cacat::all(),
+            'sakit_menahun' => SakitMenahun::all(),
+            'cara_kb' => CaraKb::all(),
+            'asuransi' => Asuransi::all(),
             // 'penduduk_status' => PendudukStatus::all(),
         ]);
     }
@@ -108,9 +120,9 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'required',
             // DATA KEWARGANEGARAAN
             'id_kewarganegaraan' => 'required',
-            'dokumen_passport' => 'nullable',
+            'dokumen_pasport' => 'nullable',
             'tanggal_akhir_paspor' => 'nullable',
-            'dokumen_kitap' => 'nullable',
+            'dokumen_kitas' => 'nullable',
             'negara_asal' => 'nullable',
             // DATA ORANG TUA
             'nik_ayah' => 'nullable',
@@ -165,8 +177,15 @@ class KependudukanController extends Controller
             'pekerjaan' => Pekerjaan::all(),
             'pendidikan_saat_ini' => PendidikanSaatIni::all(),
             'pendidikan_terakhir' => PendidikanTerakhir::all(),
+            'wilayah_dusun' => WilayahDusun::all(),
+            'wilayah_rt' => WilayahRt::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
             'golongan_darah' => GolonganDarah::all(),
+            'cacat' => Cacat::all(),
+            'sakit_menahun' => SakitMenahun::all(),
+            'cara_kb' => CaraKb::all(),
+            'asuransi' => Asuransi::all(),
+            'penduduk' => Penduduk::firstWhere('nik', $penduduk->nik),
         ]);
     }
 
@@ -202,9 +221,9 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'required',
             // DATA KEWARGANEGARAAN
             'id_kewarganegaraan' => 'required',
-            'dokumen_passport' => 'nullable',
+            'dokumen_pasport' => 'nullable',
             'tanggal_akhir_paspor' => 'nullable',
-            'dokumen_kitap' => 'nullable',
+            'dokumen_kitas' => 'nullable',
             'negara_asal' => 'nullable',
             // DATA ORANG TUA
             'nik_ayah' => 'nullable',
