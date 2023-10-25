@@ -15,6 +15,12 @@
 		<form action="/staf/kependudukan/penduduk/edit-penduduk/{{ $penduduk->nik }}" method="POST">
 			@method('put')
 			@csrf
+
+			<div class="form-group row">
+                <label for="judul" class="col-sm-3 col-form-label">DATA DIRI</label>
+                <hr>
+            </div>
+
 			<div class="form-group row">
 				<label for="nama" class="col-sm-3 col-form-label">Nama<span style="color:red">*</span></label>
 				<div class="col-sm-9">
@@ -52,18 +58,25 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="kk" class="col-sm-3 col-form-label">No. Kartu Keluarga</label>
+				<label for="no_kk_sebelumnya" class="col-sm-3 col-form-label">No. Kartu Keluarga</label>
 				<div class="col-sm-9">
 					<input type="text"
-						class="form-control form-control-sm"
-						name="no_kk"
-						value="@if(null!==old('no_kk')){{old('no_kk')}}@else{{$penduduk->no_kk}}@endif"
-						placeholder="1903051234567890">
+						class="form-control form-control-sm @error('no_kk_sebelumnya') is-invalid @enderror"
+						name="no_kk_sebelumnya"
+						value="@if(null!==old('no_kk_sebelumnya')){{old('no_kk_sebelumnya')}}@else{{$penduduk->no_kk_sebelumnya}}@endif"
+						placeholder="1903051234567890"
+						required>
+					
+					@error('no_kk_sebelumnya')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+					@enderror
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="hubungan_kk" class="col-sm-3 col-form-label">Status hubungan dalam KK</label>
+				<label for="hubungan_kk" class="col-sm-3 col-form-label">Status hubungan dalam KK<span style="color:red">*</span></label>
 				<div class="col-sm-9">
 					<select class="form-select form-select-sm" id="grup-input" name="id_hubungan_kk">
 						<option value="">-- Pilih --</option>
@@ -75,21 +88,13 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="rt" class="col-sm-3 col-form-label">No. Rumah Tangga</label>
+				<label for="id_jenis_kelamin" class="col-sm-3 col-form-label">Status hubungan dalam KK<span style="color:red">*</span></label>
 				<div class="col-sm-9">
-					<select class="form-select form-select-sm" id="grup-input" name="id_rt">
-						<option value="1">TODO</option>    {{-- TODO --}}
-					</select>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="jenis_kelamin" class="col-sm-3 col-form-label">Jenis Kelamin</label>
-				<div class="col-sm-9">
-					<select class="form-select form-select-sm" id="grup-input" name="jenis_kelamin">
+					<select class="form-select form-select-sm" id="grup-input" name="id_jenis_kelamin">
 						<option value="">-- Pilih --</option>
-						<option value="L" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) == "L" ? "selected":"" }}>LAKI-LAKI</option>
-						<option value="P" {{ old('jenis_kelamin', $penduduk->jenis_kelamin) == "P" ? "selected":"" }}>PEREMPUAN</option>
+						@foreach ($hubungan_kk as $item)
+							<option value="{{ $loop->iteration }}" {{ old('id_jenis_kelamin', $penduduk->id_jenis_kelamin) == $loop->iteration ? "selected":"" }}>{{ $item->nama }}</option>
+						@endforeach
 					</select>
 				</div>
 			</div>
