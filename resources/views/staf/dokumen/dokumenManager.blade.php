@@ -33,7 +33,6 @@
 								<th>No</th>
 								<th>Aksi</th>
 								<th>Judul</th>
-								<th>Diunggah oleh</th>
 								<th>Ditulis pada</th>
 								<th>Diedit pada</th>
 								<th>Aktif</th>
@@ -68,8 +67,6 @@
 									</td>
 
 									<td>{{ $item->judul }}</td>
-
-									<td>{{ $item->staf->nama }}</td>
 
 									<td>{{ $item->created_at }}</td>
 

@@ -26,27 +26,17 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label>
+				<label for="keterangan" class="col-sm-2 col-form-label">Keterangan<span style="color:red">*</span></label>
 				<div class="col-sm-10">
 					<input type="text"
-						class="form-control form-control-sm"
+						class="form-control form-control-sm  @error('keterangan') is-invalid @enderror"
+						id="keterangan"
 						name="keterangan"
-						placeholder="Isi keterangan dokumen">
-				</div>
-			</div>
-
-            <div class="form-group row">
-				<label for="filename" class="col-sm-2 col-form-label">Unggah File<span style="color:red">*</span></label>
-				<div class="col-sm-10">
-					<input type="file"
-						class="form-control form-control-sm"
-						name="file"
-						placeholder="Isi keterangan dokumen"
-                        value="{{ old('filename') }}"
-						accept=".doc,.docx,.pdf"
+						placeholder="Isi Keteranagn Dokumen"
+						value="{{ old('keterangan') }}"
                         required>
 
-						@error('filename')
+						@error('keterangan')
 							<div class="invalid-feedback">
 								{{ $message }}
 							</div>
@@ -54,22 +44,20 @@
 				</div>
 			</div>
 
-            <div class="form-group row">
-				<label for="id_staf" class="col-sm-2 col-form-label">Pengunggah<span style="color:red">*</span></label>
-				<div class="col-sm-10">
-					<select class="form-select form-select-sm" id="grup-input" name="id_staf" required>
-						<option value="">-- Pilih --</option>
-						@foreach ($staf as $item)
-							<option value="{{ $loop->iteration }}" {{ old('id_staf') == $loop->iteration ? "selected":"" }}>{{ $item->nama }}</option>
-						@endforeach
-					</select>
-					@error('id_staf')
-						<div class="invalid-feedback">
-							{{ $message }}
-						</div>
-					@enderror
-				</div>
-			</div>
+			<div class="form-group row">
+                    <label for="filename" class="col-sm-2 col-form-label">Unggah File<span style="color:red">*</span></label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control form-control-sm @error('filename') is-invalid @enderror"
+                            name="filename" placeholder="NO. KK" value="{{ old('filename') }}" accept=".doc,.docx,.pdf"
+                        	required>
+
+                        @error('filename')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
 
 			<div class="form-group row">
 				<label for="is_active" class="col-sm-2 col-form-label">Status Dokumen</label>
