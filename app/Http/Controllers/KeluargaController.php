@@ -36,7 +36,6 @@ class KeluargaController extends Controller
         ]);
     }
 
-
     public function keluargaNew()
     {
         return view('staf.penduduk.keluargaNew', [
@@ -149,6 +148,10 @@ class KeluargaController extends Controller
 
     public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
     {
+        // Perbarui id_helper_penduduk_keluarga di Penduduk
+        Penduduk::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)
+            ->update(['id_helper_penduduk_keluarga' => null]);
+
         // Ambil data keluarga yang sesuai dengan id_helper_penduduk_keluarga yang akan dihapus
         $keluarga = Keluarga::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)->first();
 

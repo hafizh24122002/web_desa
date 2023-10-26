@@ -8,10 +8,10 @@
 			<div class="container">
 				{{-- menu yang di atas --}}
 				@include('partials.adminTopMenu', [
-					'title' => 'Data Keluarga',
+					'title' => 'Rumah Tangga',
 					'parent_page' => 'Kependudukan',
 					'parent_link' => '/staf/kependudukan/penduduk',
-					'current_page' => 'keluarga',
+					'current_page' => 'Rumah Tangga',
 				])
 	
 				{{-- content --}}
@@ -24,7 +24,7 @@
 					@endif
 	
 					<a href="/staf/kependudukan/keluarga/new-keluarga" style="width: auto" class="btn btn-primary my-2">
-						<i class="bx bx-user-plus align-middle"></i> Tambah Data Keluarga Baru
+						<i class="bx bx-user-plus align-middle"></i> Tambah Data Rumah Tangga Baru
 					</a>
 	
 					<table class="table table-hover">
@@ -32,23 +32,23 @@
 							<tr class="bg-dark text-light text-center align-middle">
 								<th>No</th>
 								<th>Aksi</th>
-								<th>No KK</th>
-								<th>Kepala Keluarga</th>
+								<th>No Rumah Tangga</th>
+								<th>Kepala Rumah Tangga</th>
 								<th>NIK</th>
+								<th>DTKS</th>
 								<th>Jumlah Anggota</th>
 								<th>Alamat</th>
 								<th>Tanggal Daftar</th>
-								<th>Tanggal Cetak</th>
 							</tr>
 						</thead>
 	
 						<tbody>
-							@include('partials.keluargaTable')
+							@include('partials.rtmTable')
 						</tbody>
 					</table>
 
 					<div class="d-flex justify-content-end">
-						{{ $keluarga->links() }}
+						{{ $rtm->links() }}
 					</div>
 				</div>
 			</div>

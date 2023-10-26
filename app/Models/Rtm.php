@@ -16,11 +16,12 @@ class Rtm extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'no_rumah_tangga',
-        'nik_kepala',
+        'id_helper_penduduk_rtm',
         'id_kelas_sosial',
-        'bdt',                  // bedah desa terpadu
+        'bdt',
+        'dtks',
         'tgl_daftar',
+        'alamat',
     ];
 
     /**
@@ -31,4 +32,9 @@ class Rtm extends Model
     protected $casts = [
         'tgl_daftar' => 'datetime',
     ];
+
+    public function helperPendudukRtm()
+    {
+        return $this->belongsTo(HelperPendudukRtm::class, 'id_helper_penduduk_rtm');
+    }
 }

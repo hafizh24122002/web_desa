@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nama', 100); // *
             $table->string('nik', 16)->nullable(); // *
             $table->string('no_kk_sebelumnya', 16)->nullable();            
-            $table->foreignId('id_helper_penduduk_keluarga')->nullable()->constrained('helper_penduduk_keluarga')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_helper_penduduk_keluarga')->nullable()->constrained('helper_penduduk_keluarga')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_hubungan_kk')->nullable()->constrained('hubungan_kk')->onUpdate('cascade')->onDelete('cascade'); // *
-            $table->foreignId('id_rtm')->nullable()->constrained('rtm')->onUpdate('cascade')->onDelete('cascade'); 
+            $table->foreignId('id_helper_penduduk_rtm')->nullable()->constrained('helper_penduduk_rtm')->onUpdate('cascade')->onDelete('cascade'); 
             $table->foreignId('id_rtm_hubungan')->nullable()->constrained('rtm_hubungan')->onUpdate('cascade')->onDelete('cascade'); 
             $table->foreignId('id_jenis_kelamin')->constrained('jenis_kelamin')->onUpdate('cascade')->onDelete('cascade')->nullable(); // *
             $table->string('tempat_lahir', 100)->nullable(); // *
