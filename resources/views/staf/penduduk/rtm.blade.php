@@ -39,7 +39,6 @@
 								<th>Jumlah Anggota</th>
 								<th>Alamat</th>
 								<th>Tanggal Daftar</th>
-								<th>Tanggal Cetak</th>
 							</tr>
 						</thead>
 	

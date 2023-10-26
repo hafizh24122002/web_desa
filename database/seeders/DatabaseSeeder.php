@@ -452,7 +452,9 @@ class DatabaseSeeder extends Seeder
             'nama' => 'ABDUL KARIM',
             'nik' => '6401042412340003',
             'id_helper_penduduk_keluarga' => 2,
+            'id_helper_penduduk_rtm' => 2,
             'id_hubungan_kk' => 4,
+            'id_rtm_hubungan' => 2,
             'id_jenis_kelamin' => 1,
             'tempat_lahir' => 'BOGOR',
             'tanggal_lahir' => '2016-11-06',
@@ -610,7 +612,7 @@ class DatabaseSeeder extends Seeder
             'id_kelas_sosial' => 1,
             'bdt' => '10000000000000001',
             'dtks' => true,
-            'alamat' => "JL. CEMPAKA",
+            'alamat' => "JL. KENANGA",
         ]);
 
         Posyandu::create([

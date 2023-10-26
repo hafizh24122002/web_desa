@@ -35,6 +35,6 @@ class Rtm extends Model
 
     public function helperPendudukRtm()
     {
-        return $this->belongsTo(HelperPendudukRtm::class, 'id_helper_penduduk_keluarga');
+        return $this->belongsTo(HelperPendudukRtm::class, 'id_helper_penduduk_rtm');
     }
 }
