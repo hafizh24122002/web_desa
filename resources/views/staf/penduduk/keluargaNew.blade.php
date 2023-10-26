@@ -9,7 +9,7 @@
             <div class="form-group row">
                 <label for="nik_kepala" class="col-sm-3 col-form-label">NIK Kepala Keluarga<span style="color:red">*</span></label>
                 <div class="col-sm-9">
-                    <select class="form-select form-select-sm" id="nik_kepala" name="nik_kepala" data-nik-kepala="{{ $nik_kepala }}">
+                    <select class="form-select form-select-sm" id="nik_kepala" name="nik_kepala"">
                         <option value="">-- Pilih --</option>
                         @foreach ($nik_kepala as $item)
                         @if ($item->id_hubungan_kk == 1)
@@ -21,9 +21,9 @@
             </div>
 
             <div class="form-group row">
-                <label for="no_kk" class="col-sm-3 col-form-label">No. KK</label>
+                <label for="no_kk" class="col-sm-3 col-form-label">No. KK<span style="color:red"></label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-sm" name="no_kk" id="no_kk" readonly>
+                    <input type="text" class="form-control form-control-sm" name="no_kk" id="no_kk" required>
                 </div>
             </div>
 
@@ -48,9 +48,9 @@
             </div>
 
             <div class="form-group row">
-                <label for="tgl_dikeluarkan" class="col-sm-3 col-form-label">Tanggal KK Dikeluarkan</label>
+                <label for="tgl_dikeluarkan" class="col-sm-3 col-form-label">Tanggal Cetak KK</label>
                 <div class="col-sm-9">
-                    <input type="date" class="form-control form-control-sm" name="tgl_dikeluarkan">
+                    <input type="date" class="form-control form-control-sm" name="tgl_cetak_kk">
                 </div>
             </div>
 
@@ -60,22 +60,5 @@
         </form>
     </div>
 </div>
-
-<script>
-    var nikKepalaField = document.getElementById("nik_kepala");
-    var noKKField = document.getElementById("no_kk");
-
-    nikKepalaField.addEventListener("change", function () {
-        var selectedNik = nikKepalaField.value;
-        var nikKepalaData = JSON.parse(nikKepalaField.getAttribute('data-nik-kepala'));
-
-        var kepalaKeluarga = nikKepalaData.find(function(item) {
-            return item.nik === selectedNik;
-        });
-
-        noKKField.value = kepalaKeluarga ? kepalaKeluarga.no_kk : '';
-        namaKepalaField.value = kepalaKeluarga ? kepalaKeluarga.nama : '';
-    });
-</script>
 
 @endsection

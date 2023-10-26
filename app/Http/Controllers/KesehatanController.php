@@ -115,7 +115,7 @@ class KesehatanController extends Controller
     {
         return view('staf.kesehatan.kiaNew', [
             'title' => 'Tambah data KIA',
-            'dataIbu' => Penduduk::where('jenis_kelamin', '=', 'P')->selectRaw("CONCAT(nik, ' - ', nama) AS nik_nama")->pluck('nik_nama'),
+            'dataIbu' => Penduduk::where('id_jenis_kelamin', '=', '2')->selectRaw("CONCAT(nik, ' - ', nama) AS nik_nama")->pluck('nik_nama'),
             'penduduk' => Penduduk::selectRaw("CONCAT(nik, ' - ', nama) AS nik_nama")->pluck('nik_nama'),
         ]);
     }
@@ -158,7 +158,7 @@ class KesehatanController extends Controller
         return view('staf.kesehatan.kiaEdit', [
             'title' => 'Ubah data KIA',
             'kia' => Kia::with('anak', 'ibu')->find($id),
-            'dataIbu' => Penduduk::where('jenis_kelamin', '=', 'P')->selectRaw("CONCAT(nik, ' - ', nama) AS nik_nama")->pluck('nik_nama'),
+            'dataIbu' => Penduduk::where('id_jenis_kelamin', '=', '2')->selectRaw("CONCAT(nik, ' - ', nama) AS nik_nama")->pluck('nik_nama'),
             'penduduk' => Penduduk::selectRaw("CONCAT(nik, ' - ', nama) AS nik_nama")->pluck('nik_nama'),
         ]);
     }
@@ -509,6 +509,23 @@ class KesehatanController extends Controller
             'desember.required' => 'Data tidak boleh kosong!',
         ]);
 
+        $data = [
+            'id_kia' => $validatedData['id_kia'],
+            'tanggal_periksa' => $validatedData['tanggal_periksa'],
+            'januari' => $validatedData['januari'],
+            'februari' => $validatedData['februari'],
+            'maret' => $validatedData['maret'],
+            'april' => $validatedData['april'],
+            'mei' => $validatedData['mei'],
+            'juni' => $validatedData['juni'],
+            'juli' => $validatedData['juli'],
+            'agustus' => $validatedData['agustus'],
+            'september' => $validatedData['september'],
+            'oktober' => $validatedData['oktober'],
+            'november' => $validatedData['november'],
+            'desember' => $validatedData['desember'],
+        ];
+
         SasaranPaud::create($data);
 
         return redirect('/staf/kesehatan/pemantauan')
@@ -563,6 +580,23 @@ class KesehatanController extends Controller
             'november.required' => 'Data tidak boleh kosong!',
             'desember.required' => 'Data tidak boleh kosong!',
         ]);
+
+        $data = [
+            'id_kia' => $validatedData['id_kia'],
+            'tanggal_periksa' => $validatedData['tanggal_periksa'],
+            'januari' => $validatedData['januari'],
+            'februari' => $validatedData['februari'],
+            'maret' => $validatedData['maret'],
+            'april' => $validatedData['april'],
+            'mei' => $validatedData['mei'],
+            'juni' => $validatedData['juni'],
+            'juli' => $validatedData['juli'],
+            'agustus' => $validatedData['agustus'],
+            'september' => $validatedData['september'],
+            'oktober' => $validatedData['oktober'],
+            'november' => $validatedData['november'],
+            'desember' => $validatedData['desember'],
+        ];
 
         SasaranPaud::find($id)->update($data);
 

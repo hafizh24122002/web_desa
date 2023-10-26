@@ -11,7 +11,7 @@
 					'title' => 'Data Keluarga',
 					'parent_page' => 'Kependudukan',
 					'parent_link' => '/staf/kependudukan/penduduk',
-					'current_page' => 'keluarga',
+					'current_page' => 'Keluarga',
 				])
 	
 				{{-- content --}}
@@ -41,7 +41,7 @@
 								<th>Tanggal Cetak</th>
 							</tr>
 						</thead>
-	
+							
 						<tbody>
 							@foreach ($keluarga as $key => $data)
 								<tr class="text-center align-middle">
@@ -76,7 +76,7 @@
 									</td>
 	
 									<td>{{ $data->no_kk }}</td>
-
+					
 									<td>
 										@if ($data->nama_kepala_keluarga)
 											{{ $data->nama_kepala_keluarga }}	

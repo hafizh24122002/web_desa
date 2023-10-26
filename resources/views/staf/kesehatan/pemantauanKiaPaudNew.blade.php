@@ -106,9 +106,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('januari') is-invalid @enderror" id="januari" name="januari">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('januari') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('januari') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('januari') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('januari') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('januari') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('januari') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('januari')
@@ -121,9 +121,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('februari') is-invalid @enderror" id="februari" name="februari">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('februari') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('februari') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('februari') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('februari') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('februari') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('februari') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('februari')
@@ -136,9 +136,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('maret') is-invalid @enderror" id="maret" name="maret">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('maret') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('maret') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('maret') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('maret') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('maret') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('maret') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('maret')
@@ -151,9 +151,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('april') is-invalid @enderror" id="april" name="april">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('april') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('april') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('april') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('april') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('april') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('april') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('april')
@@ -186,9 +186,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('mei') is-invalid @enderror" id="mei" name="mei">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('mei') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('mei') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('mei') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('mei') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('mei') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('mei') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('mei')
@@ -201,9 +201,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('juni') is-invalid @enderror" id="juni" name="juni">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('juni') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('juni') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('juni') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('juni') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('juni') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('juni') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('juni')
@@ -216,9 +216,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('juli') is-invalid @enderror" id="juli" name="juli">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('juli') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('juli') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('juli') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('juli') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('juli') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('juli') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('juli')
@@ -231,9 +231,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('agustus') is-invalid @enderror" id="agustus" name="agustus">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('agustus') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('agustus') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('agustus') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('agustus') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('agustus') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('agustus') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('agustus')
@@ -266,9 +266,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('september') is-invalid @enderror" id="september" name="september">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('september') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('september') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('september') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('september') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('september') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('september') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('september')
@@ -281,9 +281,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('oktober') is-invalid @enderror" id="oktober" name="oktober">
 									<option value="">-- Pilih --</option>oktober
-									<option value="belum" {{ old('oktober') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('oktober') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('oktober') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('oktober') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('oktober') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('oktober') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('oktober')
@@ -296,9 +296,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('november') is-invalid @enderror" id="november" name="november">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('november') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('november') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('november') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('november') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('november') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('november') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('november')
@@ -311,9 +311,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('desember') is-invalid @enderror" id="desember" name="desember">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ old('desember') == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ old('desember') == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ old('desember') == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ old('desember') == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ old('desember') == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ old('desember') == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('desember')

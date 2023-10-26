@@ -92,6 +92,7 @@ class KeluargaController extends Controller
         return view('staf.penduduk.keluargaEdit', [
             'title' => 'Edit Data Keluarga',
             'keluarga' => $keluarga,
+            'nik_kepala' => Penduduk::all(),
             'kelas_sosial' => KelasSosial::all(),
         ]);
     }
@@ -147,8 +148,12 @@ class KeluargaController extends Controller
         return redirect('/staf/kependudukan/keluarga')->with('success', 'Data keluarga berhasil diubah!');
     }
 
-    public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
+public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
     {
+        // Perbarui id_helper_penduduk_keluarga di Penduduk
+        Penduduk::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)
+            ->update(['id_helper_penduduk_keluarga' => null]);
+
         // Ambil data keluarga yang sesuai dengan id_helper_penduduk_keluarga yang akan dihapus
         $keluarga = Keluarga::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)->first();
 
