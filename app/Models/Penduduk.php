@@ -9,6 +9,7 @@ use App\Models\Agama;
 use App\Models\pendidikanTerakhir;
 use App\Models\Pekerjaan;
 use App\Models\JenisKelamin;
+use App\Models\RtmHubungan;
 
 class Penduduk extends Model
 {
@@ -258,6 +259,16 @@ class Penduduk extends Model
      *
      * @return BelongsTo
      */
+    public function rtmHubungan()
+    {
+        return $this->belongsTo(RtmHubungan::class, 'id_rtm_hubungan')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
     public function keluarga()
     {
         return $this->belongsTo(Keluarga::class, 'id_kk')->withDefault();
@@ -281,6 +292,16 @@ class Penduduk extends Model
     public function rtm()
     {
         return $this->belongsTo(Rtm::class, 'id_rtm', 'no_kk')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function helperPendudukRtm()
+    {
+        return $this->belongsTo(HelperPendudukRtm::class, 'id_helper_penduduk_rtm');
     }
     
     public function statusDasar()
