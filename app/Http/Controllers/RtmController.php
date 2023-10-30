@@ -109,7 +109,7 @@ class RtmController extends Controller
             ],
         ]);
 
-        // Validasi untuk 'tgl_cetak_kk', 'id_kelas_sosial', dan 'alamat' di tabel keluarga
+        // Validasi tabel rtm
         $validatedSpecificData = $request->validate([
             'dtks' => 'nullable',
             'alamat' => 'nullable',
