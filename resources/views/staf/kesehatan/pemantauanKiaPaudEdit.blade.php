@@ -107,9 +107,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('januari') is-invalid @enderror" id="januari" name="januari">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('januari') ?? $sasaran_paud->januari) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('januari') ?? $sasaran_paud->januari) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('januari') ?? $sasaran_paud->januari)== 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('januari') ?? $sasaran_paud->januari) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('januari') ?? $sasaran_paud->januari) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('januari') ?? $sasaran_paud->januari)== '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('januari')
@@ -122,9 +122,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('februari') is-invalid @enderror" id="februari" name="februari">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('februari') ?? $sasaran_paud->februari) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('februari') ?? $sasaran_paud->februari) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('februari') ?? $sasaran_paud->februari) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('februari') ?? $sasaran_paud->februari) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('februari') ?? $sasaran_paud->februari) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('februari') ?? $sasaran_paud->februari) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('februari')
@@ -137,9 +137,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('maret') is-invalid @enderror" id="maret" name="maret">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('maret') ?? $sasaran_paud->maret) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('maret') ?? $sasaran_paud->maret) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('maret') ?? $sasaran_paud->maret) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('maret') ?? $sasaran_paud->maret) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('maret') ?? $sasaran_paud->maret) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('maret') ?? $sasaran_paud->maret) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('maret')
@@ -152,9 +152,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('april') is-invalid @enderror" id="april" name="april">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('april') ?? $sasaran_paud->april) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('april') ?? $sasaran_paud->april) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('april') ?? $sasaran_paud->april) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('april') ?? $sasaran_paud->april) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('april') ?? $sasaran_paud->april) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('april') ?? $sasaran_paud->april) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('april')
@@ -187,9 +187,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('mei') is-invalid @enderror" id="mei" name="mei">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('mei') ?? $sasaran_paud->mei) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('mei') ?? $sasaran_paud->mei) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('mei') ?? $sasaran_paud->mei) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('mei') ?? $sasaran_paud->mei) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('mei') ?? $sasaran_paud->mei) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('mei') ?? $sasaran_paud->mei) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('mei')
@@ -202,9 +202,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('juni') is-invalid @enderror" id="juni" name="juni">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('juni') ?? $sasaran_paud->juni) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('juni') ?? $sasaran_paud->juni) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('juni') ?? $sasaran_paud->juni) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('juni') ?? $sasaran_paud->juni) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('juni') ?? $sasaran_paud->juni) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('juni') ?? $sasaran_paud->juni) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('juni')
@@ -217,9 +217,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('juli') is-invalid @enderror" id="juli" name="juli">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('juli') ?? $sasaran_paud->juli) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('juli') ?? $sasaran_paud->juli) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('juli') ?? $sasaran_paud->juli) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('juli') ?? $sasaran_paud->juli) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('juli') ?? $sasaran_paud->juli) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('juli') ?? $sasaran_paud->juli) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('juli')
@@ -232,9 +232,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('agustus') is-invalid @enderror" id="agustus" name="agustus">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('agustus') ?? $sasaran_paud->agustus) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('agustus') ?? $sasaran_paud->agustus) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('agustus') ?? $sasaran_paud->agustus) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('agustus') ?? $sasaran_paud->agustus) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('agustus') ?? $sasaran_paud->agustus) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('agustus') ?? $sasaran_paud->agustus) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('agustus')
@@ -267,9 +267,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('september') is-invalid @enderror" id="september" name="september">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('september') ?? $sasaran_paud->september) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('september') ?? $sasaran_paud->september) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('september') ?? $sasaran_paud->september) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('september') ?? $sasaran_paud->september) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('september') ?? $sasaran_paud->september) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('september') ?? $sasaran_paud->september) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('september')
@@ -282,9 +282,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('oktober') is-invalid @enderror" id="oktober" name="oktober">
 									<option value="">-- Pilih --</option>oktober
-									<option value="belum" {{ (old('oktober') ?? $sasaran_paud->oktober) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('oktober') ?? $sasaran_paud->oktober) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('oktober') ?? $sasaran_paud->oktober) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('oktober') ?? $sasaran_paud->oktober) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('oktober') ?? $sasaran_paud->oktober) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('oktober') ?? $sasaran_paud->oktober) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('oktober')
@@ -297,9 +297,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('november') is-invalid @enderror" id="november" name="november">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('november') ?? $sasaran_paud->november) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('november') ?? $sasaran_paud->november) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('november') ?? $sasaran_paud->november) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('november') ?? $sasaran_paud->november) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('november') ?? $sasaran_paud->november) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('november') ?? $sasaran_paud->november) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('november')
@@ -312,9 +312,9 @@
 							<div class="col-sm gap-2">
 								<select class="form-select form-select-sm @error('desember') is-invalid @enderror" id="desember" name="desember">
 									<option value="">-- Pilih --</option>
-									<option value="belum" {{ (old('desember') ?? $sasaran_paud->desember) == 'belum' ? 'selected' : '' }}>Belum</option>
-									<option value="mengikuti" {{ (old('desember') ?? $sasaran_paud->desember) == 'mengikuti' ? 'selected' : '' }}>Mengikuti</option>
-									<option value="tidak mengikuti" {{ (old('desember') ?? $sasaran_paud->desember) == 'tidak mengikuti' ? 'selected' : '' }}>Tidak Mengikuti</option>
+									<option value="0" {{ (old('desember') ?? $sasaran_paud->desember) == '0' ? 'selected' : '' }}>Belum</option>
+									<option value="1" {{ (old('desember') ?? $sasaran_paud->desember) == '1' ? 'selected' : '' }}>Mengikuti</option>
+									<option value="2" {{ (old('desember') ?? $sasaran_paud->desember) == '2' ? 'selected' : '' }}>Tidak Mengikuti</option>
 								</select>
 
 								@error('desember')

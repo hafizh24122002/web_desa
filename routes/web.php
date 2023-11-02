@@ -41,6 +41,7 @@ Route::get('/artikel/{judul}', [MainVisitorController::class, 'bacaArtikel']);
 Route::get('/struktur-organisasi', [MainVisitorController::class, 'strukturOrganisasi']);
 Route::get('/perangkat-desa', [MainVisitorController::class, 'perangkatDesa']);
 Route::get('/dokumen', [MainVisitorController::class, 'dokumen']);
+Route::get('/dokumen/download/{filename}', [MainVisitorController::class, 'downloadDokumen']);
 
 // session
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -120,7 +121,7 @@ Route::get('/get-coordinates', function () {
 		Route::put('/staf/kependudukan/keluarga/edit-keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaEditSubmit']);
 		Route::delete('/staf/kependudukan/keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete']);
 		Route::get('/staf/kependudukan/keluarga/anggota/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'daftarKeluarga']);
-
+		Route::get('/staf/kependudukan/keluarga', [KeluargaController::class, 'keluarga']);
 		Route::get('/staf/kependudukan/rtm', [RtmController::class, 'rtm']);
 		Route::post('/staf/kependudukan/rtm/new-rtm', [RtmController::class, 'rtmNewSubmit']);
 		Route::get('/staf/kependudukan/rtm/edit-rtm{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmEdit']);

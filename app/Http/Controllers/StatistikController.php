@@ -26,8 +26,8 @@ class StatistikController extends Controller
         // Tabel 1 - Gender
         $arr_gender = [];
 
-        $l_count = $penduduk->where('jenis_kelamin', 'L')->count();
-        $p_count = $penduduk->where('jenis_kelamin', 'P')->count();
+        $l_count = $penduduk->where('id_jenis_kelamin', '1')->count();
+        $p_count = $penduduk->where('id_jenis_kelamin', '2')->count();
         $total_gender = $l_count + $p_count;
 
         $l_percentage = $total_penduduk > 0 ? ($l_count / $total_penduduk) * 100 : 0;

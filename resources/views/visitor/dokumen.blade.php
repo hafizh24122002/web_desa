@@ -11,26 +11,35 @@
         <div class="row">
             <table class="table table-hover">
                 <thead>
-                    <tr class="table-dark">
+                    <tr class="table-dark text-center">
+                        <th>No</th>
                         <th>File</th>
                         <th>Download</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
+                    @foreach ($documents as $item)
                     <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td>
-                            <strong>File Name</strong>
-                            <p>File Description</p>
+                            <strong class="fw-bold text-capitalize"> {{ $item->judul }} </strong>
+                            <p>{{ $item->keterangan }}</p>
                         </td>
-                        <td>
-                            <button type="button" class="btn btn-light btn-sm">
-                                <i class="bi bi-download"></i> 
-                                Download
-                            </button>
+                        <td class="text-center">
+                            <a href="/dokumen/download/{{$item->judul}}">
+                                <button type="button" class="btn btn-light btn-sm">
+                                    <i class="bi bi-download"></i>
+                                    Download
+                                </button>
+                            </a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end">
+                {{ $documents->links() }}
+            </div>
         </div>
     </div>
 </div>
