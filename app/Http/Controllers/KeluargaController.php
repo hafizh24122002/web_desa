@@ -102,8 +102,11 @@ class KeluargaController extends Controller
             'no_kk' => 'required|unique:helper_penduduk_keluarga,no_kk,' . $helperPendudukKeluarga->id,
             'nik_kepala' => [
                 'required',
-                Rule::exists('penduduk', 'nik')->where(function ($query) {
-                    $query->whereNull('id_helper_penduduk_keluarga');
+                Rule::exists('penduduk', 'nik')->where(function ($query) use ($helperPendudukKeluarga) {
+                    $query->where(function ($subquery) use ($helperPendudukKeluarga) {
+                        $subquery->whereNull('id_helper_penduduk_keluarga')
+                                 ->orWhere('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id);
+                    });
                 }),
             ],
         ]);
