@@ -38,7 +38,6 @@ class KeluargaController extends Controller
         ]);
     }
 
-
     public function keluargaNew()
     {
         return view('staf.penduduk.keluargaNew', [
