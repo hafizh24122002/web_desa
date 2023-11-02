@@ -127,6 +127,7 @@ Route::get('/get-coordinates', function () {
 		Route::get('/staf/kependudukan/rtm/edit-rtm{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmEdit']);
 		Route::put('/staf/kependudukan/rtm/edit-rtm/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmEditSubmit']);
 		Route::delete('/staf/kependudukan/rtm/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmDelete']);
+		Route::get('/staf/kependudukan/rtm/anggota/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'daftarRtm']);
 
 		Route::get('/staf/statistik/statistik-kependudukan', [StatistikController::class, 'statistik']);
 

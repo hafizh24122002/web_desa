@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('rtm', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_helper_penduduk_rtm')->constrained('helper_penduduk_rtm')->onUpdate('cascade')->onDelete('cascade'); // *
-            $table->foreignId('id_kelas_sosial'); 
-            $table->string('bdt'); 
+            $table->foreignId('id_kelas_sosial')->nullable()->constrained('kelas_sosial')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('bdt')->nullable(); 
             $table->boolean('dtks')->default(false); // Kolom DTKS
             $table->timestamp('tgl_daftar')->nullable()->useCurrent();
-            $table->string('alamat');
+            $table->string('alamat')->nullable();
             $table->foreignId('id_dusun')->nullable()->constrained('wilayah_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->foreignId('id_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->timestamps();

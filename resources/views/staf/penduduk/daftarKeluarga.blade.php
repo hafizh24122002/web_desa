@@ -16,22 +16,22 @@
 				<div class="container">
 					<h1>Data Penduduk dalam Keluarga</h1>
 
-					<a href="#" style="width: auto" class="btn btn-primary my-2">
-						<i class="bx bx-user-plus align-middle"></i> Tambah Anggota Keluarga Baru
-					</a>
+						<a href="#\" style="width: auto" class="btn btn-primary my-2">
+							<i class="bx bx-user-plus align-middle"></i> Tambah Anggota Keluarga Baru
+						</a>
 
-					@foreach ($pendudukDalamKeluarga as $penduduk)
-					<div class="card mb-3">
-						<div class="card-body">
-							<h5 class="card-title">{{ $penduduk->nama }}</h5>
-							<p class="card-text">ID Helper Penduduk Keluarga:
-								{{ $penduduk->id_helper_penduduk_keluarga }}
-							</p>
-							<p class="card-text">ID Hubungan KK: {{ $penduduk->id_hubungan_kk }}</p>
-							<!-- Add other fields you want to display -->
-						</div>
-					</div>
-					@endforeach
+                        @foreach ($pendudukDalamKeluarga as $penduduk)
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $penduduk->nama }}</h5>
+                                    <p class="card-text">Jenis Kelamin:
+                                        {{ $penduduk->jenisKelamin->nama }}</p>
+                                    <p class="card-text">NIK: {{ $penduduk->nik }}</p>
+                                    <p class="card-text">Hubungan: {{ $penduduk->hubunganKK->nama }}</p>
+                                    <p class="card-text">Alamat: {{ $penduduk->alamat_sekarang }}</p>
+                                    <!-- Add other fields you want to display -->
+                                </div>
+                        @endforeach
 
 					{{ $pendudukDalamKeluarga->links() }}
 				</div>
