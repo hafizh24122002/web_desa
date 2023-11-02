@@ -120,16 +120,13 @@ Route::get('/get-coordinates', function () {
 		Route::get('/staf/kependudukan/keluarga/edit-keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaEdit']);
 		Route::put('/staf/kependudukan/keluarga/edit-keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaEditSubmit']);
 		Route::delete('/staf/kependudukan/keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete']);
-<<<<<<< HEAD
 		Route::get('/staf/kependudukan/keluarga/anggota/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'daftarKeluarga']);
 		Route::get('/staf/kependudukan/keluarga', [KeluargaController::class, 'keluarga']);
-=======
 		Route::get('/staf/kependudukan/rtm', [RtmController::class, 'rtm']);
 		Route::post('/staf/kependudukan/rtm/new-rtm', [RtmController::class, 'rtmNewSubmit']);
 		Route::get('/staf/kependudukan/rtm/edit-rtm{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmEdit']);
 		Route::put('/staf/kependudukan/rtm/edit-rtm/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmEditSubmit']);
 		Route::delete('/staf/kependudukan/rtm/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmDelete']);
->>>>>>> 42c711108344671960de0136cc5c43288ca724ca
 
 		Route::get('/staf/statistik/statistik-kependudukan', [StatistikController::class, 'statistik']);
 
