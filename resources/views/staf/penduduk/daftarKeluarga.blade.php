@@ -16,57 +16,46 @@
 				<div class="container">
 					<h1>Data Penduduk dalam Keluarga</h1>
 
-						<a href="#\" style="width: auto" class="btn btn-primary my-2">
-							<i class="bx bx-user-plus align-middle"></i> Tambah Anggota Keluarga Baru
-						</a>
+					<a href="#\" style="width: auto" class="btn btn-primary my-2">
+						<i class="bx bx-user-plus align-middle"></i> Tambah Anggota Keluarga Baru
+					</a>
+					<div class="row mt-3 container">
+						@if (session()->has('success'))
+						<div class="alert alert-success alert-dismissible fade show" style="width: 100%" role="alert">
+							{{ session('success') }}
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+						@endif
 
-                        @foreach ($pendudukDalamKeluarga as $penduduk)
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $penduduk->nama }}</h5>
-                                    <p class="card-text">Jenis Kelamin:
-                                        {{ $penduduk->jenisKelamin->nama }}</p>
-                                    <p class="card-text">NIK: {{ $penduduk->nik }}</p>
-                                    <p class="card-text">Hubungan: {{ $penduduk->hubunganKK->nama }}</p>
-                                    <p class="card-text">Alamat: {{ $penduduk->alamat_sekarang }}</p>
-                                    <!-- Add other fields you want to display -->
-                                </div>
-                        @endforeach
+						<table class="table table-hover">
+							<thead>
+								<tr class="bg-dark text-light text-center align-middle">
+									<th>No</th>
+									<th>NIK</th>
+									<th>Nama</th>
+									<th>Alamat</th>
+									<th>Hubungan</th>
+								</tr>
+							</thead>
 
-					{{ $pendudukDalamKeluarga->links() }}
-				</div>
+							<tbody>
+								@foreach ($pendudukDalamKeluarga as $penduduk)
+								<tr class="text-center align-middle">
+									<td>{{ $loop->iteration }}</td>
+									<td>{{ $penduduk->nik }}</td>
+									<td>{{ $penduduk->nama }}</td>
+									<td>{{ $penduduk->alamat_sekarang }}</td>
+									<td>{{ $penduduk->hubunganKK->nama }}</td>
 
-				{{-- content --}}
-				<div class="row mt-3 container">
-					@if (session()->has('success'))
-					<div class="alert alert-success alert-dismissible fade show" style="width: 100%" role="alert">
-						{{ session('success') }}
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+						{{ $pendudukDalamKeluarga->links() }}
 					</div>
-					@endif
-
-					<table class="table table-hover">
-						<thead>
-							<tr class="bg-dark text-light text-center align-middle">
-								<th>No</th>
-								<th>Aksi</th>
-								<th>NIK</th>
-								<th>Nama</th>
-								<th>Tanggal Lahir</th>
-								<th>Jenis Kelamin</th>
-								<th>Hubungan</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr class="text-center align-middle">
-							</tr>
-						</tbody>
-					</table>
 				</div>
 			</div>
 		</div>
-	</div>
 </section>
 
 @include('partials.commonScripts')
