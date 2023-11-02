@@ -22,6 +22,8 @@ class Rtm extends Model
         'dtks',
         'tgl_daftar',
         'alamat',
+        'id_dusun',
+        'id_rt'
     ];
 
     /**

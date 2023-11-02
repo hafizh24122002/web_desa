@@ -22,6 +22,8 @@ class Keluarga extends Model
         'tgl_daftar',
         'tgl_cetak_kk',
         'alamat',
+        'id_dusun',
+        'id_rt'
     ];
 
     /**

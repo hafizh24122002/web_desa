@@ -109,7 +109,7 @@ class RtmController extends Controller
             ],
         ]);
 
-        // Validasi untuk 'tgl_cetak_kk', 'id_kelas_sosial', dan 'alamat' di tabel keluarga
+        // Validasi tabel rtm
         $validatedSpecificData = $request->validate([
             'dtks' => 'nullable',
             'alamat' => 'nullable',
@@ -166,20 +166,20 @@ class RtmController extends Controller
         return redirect('/staf/kependudukan/rtm')->with('success', 'Data rumah tangga berhasil dihapus!');
     }
 
-    public function daftarKeluarga(HelperPendudukKeluarga $helperPendudukKeluarga)
+    public function daftarRtm(HelperPendudukRtm $helperPendudukRtm)
     {
         // Retrieve the related Penduduk records and paginate them
-        $pendudukDalamKeluarga = $helperPendudukKeluarga->penduduk()->paginate(10);
+        $pendudukDalamRtm = $helperPendudukRtm->penduduk()->paginate(10);
 
-        return view('staf.penduduk.daftarKeluarga', [
+        return view('staf.penduduk.daftarRtm', [
             'title' => 'Edit Data Keluarga',
-            'keluarga' => $helperPendudukKeluarga,
-            'pendudukDalamKeluarga' => $pendudukDalamKeluarga,
+            'rtm' => $helperPendudukRtm,
+            'pendudukDalamRtm' => $pendudukDalamRtm,
             'kelas_sosial' => KelasSosial::all(),
         ]);
     }
 
-    public function newDaftarKeluargaSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
+    public function newDaftarRtmSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
     {
         $validatedData = $request->validate([
             'no_kk' => 'required|unique:helper_penduduk_keluarga,no_kk,' . $helperPendudukKeluarga->id,

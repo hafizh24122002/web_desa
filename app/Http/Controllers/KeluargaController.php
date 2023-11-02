@@ -102,13 +102,16 @@ class KeluargaController extends Controller
             'no_kk' => 'required|unique:helper_penduduk_keluarga,no_kk,' . $helperPendudukKeluarga->id,
             'nik_kepala' => [
                 'required',
-                Rule::exists('penduduk', 'nik')->where(function ($query) {
-                    $query->whereNull('id_helper_penduduk_keluarga');
+                Rule::exists('penduduk', 'nik')->where(function ($query) use ($helperPendudukKeluarga) {
+                    $query->where(function ($subquery) use ($helperPendudukKeluarga) {
+                        $subquery->whereNull('id_helper_penduduk_keluarga')
+                                 ->orWhere('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id);
+                    });
                 }),
             ],
         ]);
 
-        // Validasi untuk 'tgl_cetak_kk', 'id_kelas_sosial', dan 'alamat' di tabel keluarga
+        // Validasi untuk tabel keluarga
         $validatedSpecificData = $request->validate([
             'tgl_cetak_kk' => 'nullable',
             'id_kelas_sosial' => 'nullable',
@@ -128,8 +131,8 @@ class KeluargaController extends Controller
         }
 
         // Update data di tabel keluarga
-        $validatedSpecificData['id_helper_penduduk_keluarga'] = $helperPendudukKeluarga->id;
-        $helperPendudukKeluarga->keluarga->update($validatedSpecificData);
+        Keluarga::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)
+            ->update($validatedSpecificData);
 
         // Update id_helper_penduduk_keluarga di tabel penduduk
         Penduduk::where('nik', $validatedCommonData['nik_kepala'])
