@@ -22,7 +22,7 @@
                     <label for="nama" class="col-sm-3 col-form-label">Nama<span style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm 	@error('nama') is-invalid @enderror"
-                            name="nama" placeholder="NAMA" value="{{ old('nama') }}" required-field>
+                            name="nama" placeholder="Nama" value="{{ old('nama') }}" required>
 
                         @error('nama')
                             <div class="invalid-feedback">
@@ -36,7 +36,7 @@
                     <label for="nik" class="col-sm-3 col-form-label">NIK<span style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm @error('nik') is-invalid @enderror"
-                            name="nik" value="{{ old('nik') }}" placeholder="1903051234567890" required-field>
+                            name="nik" value="{{ old('nik') }}" placeholder="NIK" required>
 
                         @error('nik')
                             <div class="invalid-feedback">
@@ -50,7 +50,7 @@
                     <label for="no_kk_sebelumnya" class="col-sm-3 col-form-label">No. Kartu Keluarga</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm @error('no_kk_sebelumnya') is-invalid @enderror"
-                            name="no_kk_sebelumnya" placeholder="NO. KK" value="{{ old('no_kk_sebelumnya') }}">
+                            name="no_kk_sebelumnya" placeholder="Nomor KK" value="{{ old('no_kk_sebelumnya') }}">
 
                         @error('no_kk_sebelumnya')
                             <div class="invalid-feedback">
@@ -65,7 +65,7 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_hubungan_kk">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Status hubungan dalam KK--</option>
                             @foreach ($hubungan_kk as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_hubungan_kk') == $loop->iteration ? 'selected' : '' }}>
@@ -95,7 +95,7 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_jenis_kelamin">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Jenis Kelamin--</option>
                             @foreach ($jenis_kelamin as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_jenis_kelamin') == $loop->iteration ? 'selected' : '' }}>
@@ -116,7 +116,7 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_agama">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Agama--</option>
                             @foreach ($agama as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_agama') == $loop->iteration ? 'selected' : '' }}>
@@ -137,7 +137,7 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="penduduk_tetap">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Status Penduduk--</option>
                             <option value="1">TETAP</option>
                             <option value="0">TIDAK TETAP</option>
                         </select>
@@ -172,7 +172,7 @@
                     <label for="tempat_lahir" class="col-sm-3 col-form-label">Tempat Lahir<span style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm 	@error('tempat_lahir') is-invalid @enderror"
-                            name="tempat_lahir" placeholder="BANGKA SELATAN" value="{{ old('tempat_lahir') }}" required-field>
+                            name="tempat_lahir" placeholder="Tempat Lahir" value="{{ old('tempat_lahir') }}" required>
 
                         @error('tempat_lahir')
                             <div class="invalid-feedback">
@@ -186,7 +186,7 @@
                     <label for="tanggal_lahir" class="col-sm-3 col-form-label">Tanggal Lahir<span style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <input type="date" class="form-control form-control-sm 	@error('tanggal_lahir') is-invalid @enderror"
-                            name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required-field>
+                            name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
 
                         @error('tanggal_lahir')
                             <div class="invalid-feedback">
@@ -197,10 +197,10 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="tanggal_lahir" class="col-sm-3 col-form-label">Waktu Lahir</label>
+                    <label for="waktu_lahir" class="col-sm-3 col-form-label">Waktu Lahir</label>
                     <div class="col-sm-9">
                         <input type="time" class="form-control form-control-sm 	@error('tanggal_lahir') is-invalid @enderror"
-                            name="waktu_lahir" value="{{ old('waktu_lahir') }}" required-field>
+                            name="waktu_lahir" placeholder="Isi Waktu Lahir" value="{{ old('waktu_lahir') }}" required-field>
 
                         @error('waktu_lahir')
                             <div class="invalid-feedback">
@@ -214,7 +214,7 @@
                     <label for="tempat_dilahirkan" class="col-sm-3 col-form-label">Tempat Dilahirkan</label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="tempat_dilahirkan">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Tempat Dilahirkan--</option>
                             @foreach (\App\Models\Penduduk::TEMPAT_LAHIR as $key => $value)
                                 <option value="{{ $key }}"
                                     {{ old('tempat_dilahirkan') == $key ? 'selected' : '' }}>
@@ -234,7 +234,7 @@
                     <label for="jenis_kelahiran" class="col-sm-3 col-form-label">Jenis Kelahiran</label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="jenis_kelahiran">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Jenis Kelahiran--</option>
                             @foreach (\App\Models\Penduduk::JENIS_KELAHIRAN as $key => $value)
                                 <option value="{{ $key }}"
                                     {{ old('jenis_kelahiran') == $key ? 'selected' : '' }}>
@@ -265,10 +265,10 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="penolong_kelahiran" class="col-sm-3 col-form-label">Penolong Lahir</label>
+                    <label for="penolong_kelahiran" class="col-sm-3 col-form-label">Penolong Kelahiran</label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="penolong_kelahiran">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Penolong Kelahiran--</option>
                             @foreach (\App\Models\Penduduk::PENOLONG_KELAHIRAN as $key => $value)
                                 <option value="{{ $key }}"
                                     {{ old('penolong_kelahiran') == $key ? 'selected' : '' }}>
@@ -285,7 +285,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="berat_lahir" class="col-sm-3 col-form-label">Berat Lahir(kg)</label>
+                    <label for="berat_lahir" class="col-sm-3 col-form-label">Berat Lahir (gram)</label>
                     <div class="col-sm-9">
                         <input type="number" class="form-control form-control-sm 	@error('berat_lahir') is-invalid @enderror"
                             name="berat_lahir" placeholder="Isi dengan angka" value="{{ old('berat_lahir') }}">
@@ -299,7 +299,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="panjang_lahir" class="col-sm-3 col-form-label">Panjang Lahir(cm)</label>
+                    <label for="panjang_lahir" class="col-sm-3 col-form-label">Panjang Lahir (cm)</label>
                     <div class="col-sm-9">
                         <input type="number" class="form-control form-control-sm 	@error('panjang_lahir') is-invalid @enderror"
                             name="panjang_lahir" placeholder="Isi dengan angka" value="{{ old('panjang_lahir') }}">
@@ -318,11 +318,11 @@
                 </div>
                 
                 <div class="form-group row">
-                    <label for="id_pendidikan_saat_ini" class="col-sm-3 col-form-label">Pendidikan Terakhir<span
+                    <label for="id_pendidikan_terakhir" class="col-sm-3 col-form-label">Pendidikan Dalam KK<span
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_pendidikan_terakhir">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Pendidikan Dalam KK--</option>
                             @foreach ($pendidikan_terakhir as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_pendidikan_terakhir') == $loop->iteration ? 'selected' : '' }}>
@@ -339,11 +339,11 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="id_pendidikan_saat_ini" class="col-sm-3 col-form-label">Pendidikan Saat Ini<span
+                    <label for="pendidikan_saat_ini" class="col-sm-3 col-form-label">Pendidikan Sedang Ditempuh<span
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_pendidikan_saat_ini">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Pendidikan Sedang Ditempuh--</option>
                             @foreach ($pendidikan_saat_ini as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_pendidikan_saat_ini') == $loop->iteration ? 'selected' : '' }}>
@@ -360,11 +360,11 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="id_pekerjaan" class="col-sm-3 col-form-label">Pekerjaan<span
+                    <label for="pekerjaan" class="col-sm-3 col-form-label">Pekerjaan<span
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input pekerjaan_input" id="grup-input" name="id_pekerjaan">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Pekerjaan--</option>
                             @foreach ($pekerjaan as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_pekerjaan') == $loop->iteration ? 'selected' : '' }}>
@@ -390,7 +390,7 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_kewarganegaraan">
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Kewarganegaraan--</option>
                             @foreach ($kewarganegaraan as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_kewarganegaraan') == $loop->iteration ? 'selected' : '' }}>
@@ -410,7 +410,7 @@
                     <label for="dokumen_pasport" class="col-sm-3 col-form-label">No. Paspor</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm 	@error('dokumen_pasport') is-invalid @enderror"
-                            name="dokumen_pasport" placeholder="Isi dengan nomor paspor" value="{{ old('dokumen_pasport') }}">
+                            name="dokumen_pasport" placeholder="Nomor Paspor" value="{{ old('dokumen_pasport') }}">
 
                         @error('dokumen_pasport')
                             <div class="invalid-feedback">
@@ -421,7 +421,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="tanggal_akhir_paspor" class="col-sm-3 col-form-label">Tanggal Kadaluarsa Paspor</label>
+                    <label for="tanggal_akhir_paspor" class="col-sm-3 col-form-label">Tanggal Berakhir Paspor</label>
                     <div class="col-sm-9">
                         <input type="date" class="form-control form-control-sm 	@error('tanggal_akhir_paspor') is-invalid @enderror"
                             name="tanggal_akhir_paspor" placeholder="Isi dengan nomor paspor" value="{{ old('tanggal_akhir_paspor') }}">
@@ -438,7 +438,7 @@
                     <label for="dokumen_kitas" class="col-sm-3 col-form-label">No. KITAS</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm 	@error('dokumen_kitas') is-invalid @enderror"
-                            name="dokumen_kitas" placeholder="Isi dengan nomor KITAS" value="{{ old('dokumen_kitas') }}">
+                            name="dokumen_kitas" placeholder="Nomor KITAS" value="{{ old('dokumen_kitas') }}">
 
                         @error('dokumen_kitas')
                             <div class="invalid-feedback">
@@ -452,7 +452,7 @@
                     <label for="negara_asal" class="col-sm-3 col-form-label">Negara Asal</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm 	@error('negara_asal') is-invalid @enderror"
-                            name="negara_asal" placeholder="Isi dengan nomor KITAS" value="{{ old('negara_asal') }}">
+                            name="negara_asal" placeholder="Negara Asal" value="{{ old('negara_asal') }}">
 
                         @error('negara_asal')
                             <div class="invalid-feedback">
@@ -471,7 +471,7 @@
                     <label for="nik_ayah" class="col-sm-3 col-form-label">NIK Ayah</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm @error('nik_ayah') is-invalid @enderror"
-                            name="nik_ayah" value="{{ old('nik_ayah') }}" placeholder="1903051234567890">
+                            name="nik_ayah" value="{{ old('nik_ayah') }}" placeholder="NIK Ayah">
 
                         @error('nik_ayah')
                             <div class="invalid-feedback">
@@ -485,7 +485,7 @@
                     <label for="nama_ayah" class="col-sm-3 col-form-label">Nama Ayah<span style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm 	@error('nama_ayah') is-invalid @enderror"
-                            name="nama_ayah" placeholder="Nama Ayah" value="{{ old('nama_ayah') }}" required-field>
+                            name="nama_ayah" placeholder="Nama Ayah" value="{{ old('nama_ayah') }}" required>
 
                         @error('nama_ayah')
                             <div class="invalid-feedback">
@@ -499,7 +499,7 @@
                     <label for="nik_ibu" class="col-sm-3 col-form-label">NIK Ibu</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm @error('nik_ibu') is-invalid @enderror"
-                            name="nik_ibu" value="{{ old('nik_ibu') }}" placeholder="1903051234567890">
+                            name="nik_ibu" value="{{ old('nik_ibu') }}" placeholder="NIK Ibu">
 
                         @error('nik_ibu')
                             <div class="invalid-feedback">
@@ -513,7 +513,7 @@
                     <label for="nama_ibu" class="col-sm-3 col-form-label">Nama Ibu<span style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm 	@error('nama_ibu') is-invalid @enderror"
-                            name="nama_ibu" placeholder="Nama Ibu" value="{{ old('nama_ibu') }}" required-field>
+                            name="nama_ibu" placeholder="Nama Ibu" value="{{ old('nama_ibu') }}" required>
 
                         @error('nama_ibu')
                             <div class="invalid-feedback">
@@ -533,7 +533,7 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_dusun" required-field>
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Dusun--</option>
                             @foreach ($wilayah_dusun as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_dusun') == $loop->iteration ? 'selected' : '' }}>
@@ -554,7 +554,7 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_rt" required-field>
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih RT--</option>
                             @foreach ($wilayah_rt as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_rt') == $loop->iteration ? 'selected' : '' }}>
@@ -622,7 +622,7 @@
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
                         <select class="form-select form-select-sm grup-input" id="grup-input" name="id_status_perkawinan" required-field>
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Pilih Status Perkawinan--</option>
                             @foreach ($status_perkawinan as $item)
                                 <option value="{{ $loop->iteration }}"
                                     {{ old('id_status_perkawinan') == $loop->iteration ? 'selected' : '' }}>
@@ -894,7 +894,7 @@
             });
 
             // Menggunakan jQuery untuk mendeteksi perubahan pada elemen input teks
-            $('.required-field').on('input', function() {
+            $('.required-field').each('input', function() {
                 if ($(this).val() === '') {
                     $(this).addClass('is-invalid');
                 } else {
