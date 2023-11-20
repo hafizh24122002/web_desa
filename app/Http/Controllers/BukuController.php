@@ -23,18 +23,22 @@ class BukuController extends Controller
                     'log_penduduk.id_penduduk')
                 ->select(
                     'nama',
-                    'nik',
+                    'id_jenis_kelamin',
+                    'id_status_perkawinan',
                     'tempat_lahir',
                     'tanggal_lahir',
-                    'id_jenis_kelamin',
-                    'id_status_dasar',
                     'id_agama',
                     'id_pendidikan_terakhir',
                     'id_pekerjaan',
-                    'nik_ayah',
-                    'nama_ayah',
-                    'nik_ibu',
-                    'nama_ibu', 
+                    'id_bahasa',
+                    'id_kewarganegaraan',
+                    'id_dusun',
+                    'id_rt',
+                    'alamat_sekarang',
+                    'id_hubungan_kk',
+                    'nik',
+                    'id_helper_penduduk_keluarga',
+                    'ket',
                     'tanggal_lapor')
                 ->where('penduduk_tetap', 1)
                 // ->orderBy('nama', 'asc')
@@ -46,55 +50,132 @@ class BukuController extends Controller
     {
         $earliestYear =  date('Y', strtotime(LogPenduduk::min('tanggal_lapor'))) ?? date('Y');
 
-        $nama = request()->input('nama');
+        $nama = request()->input('nama') ?? '';
         $month = request()->input('month');
         $year = request()->input('year');
+        $paginate = request()->input('paginate');
+
+        $indukKependudukanQuery = Penduduk::join(
+                'log_penduduk',
+                'penduduk.id',
+                '=',
+                'log_penduduk.id_penduduk'
+            )->select(
+                'nama',
+                'id_jenis_kelamin',
+                'id_status_perkawinan',
+                'tempat_lahir',
+                'tanggal_lahir',
+                'id_agama',
+                'id_pendidikan_terakhir',
+                'id_pekerjaan',
+                'id_bahasa',
+                'id_kewarganegaraan',
+                'id_dusun',
+                'id_rt',
+                'alamat_sekarang',
+                'id_hubungan_kk',
+                'nik',
+                'id_helper_penduduk_keluarga',
+                'ket',
+                'tanggal_lapor'
+            )->where('penduduk_tetap', 1)
+                ->where('nama', 'LIKE', '%' . $nama . '%')
+                ->whereMonth('tanggal_lapor', '<=', $month)
+                ->whereYear('tanggal_lapor', '<=', $year);
+
+
+        $mutasiPendudukDesaQuery = LogPenduduk::where('id_peristiwa', 2)
+            ->where('id_peristiwa', 3)
+            ->where('id_peristiwa', 5)
+            ->whereMonth('tanggal_lapor', '<=', $month)
+            ->whereYear('tanggal_lapor', '<=', $year)
+            ->whereHas('penduduk', function ($query) use ($nama) {
+                $query->where('penduduk_tetap', 1)
+                    ->where('nama', 'LIKE', '%'.$nama.'%');
+            });
+
+        // $pendudukSementaraQuery = LogPenduduk::where('id_peristiwa', 5)
+        //     ->whereMonth('tanggal_lapor', '<=', $month)
+        //     ->whereYear('tanggal_lapor', '<=', $year)
+        //     ->whereHas('penduduk', function ($query) use ($nama) {
+        //         $query->where('penduduk_tetap', 0)
+        //             ->where('nama', 'LIKE', '%'.$nama.'%');
+        //     });
+
+        $pendudukSementaraQuery = LogPenduduk::where('id_peristiwa', 5)
+        ->whereMonth('tanggal_lapor', '<=', $month)
+        ->whereYear('tanggal_lapor', '<=', $year)
+        ->with(['penduduk' => function ($query) use ($nama) {
+            $query->select(
+                'id',
+                'nama',
+                'id_jenis_kelamin',
+                'nik',
+                'tempat_lahir',
+                'tanggal_lahir',
+                'id_pekerjaan',
+                'id_kewarganegaraan',
+                'suku',
+                'alamat_sebelumnya',
+            )
+            ->where('penduduk_tetap', 0)
+            ->where('nama', 'LIKE', '%'.$nama.'%');
+        }, 'tamu' => function ($query) {
+            $query->select(
+                'id',
+                'id_log_penduduk_pergi'
+            );
+        }]);
+
+        $ktpKkQuery = Penduduk::join(
+                'log_penduduk',
+                'penduduk.id',
+                '=',
+                'log_penduduk.id_penduduk'
+            )->select(
+                'id_helper_penduduk_keluarga',
+                'nama',
+                'nik',
+                'id_jenis_kelamin',
+                'tempat_lahir',
+                'tanggal_lahir',
+                'id_golongan_darah',
+                'id_agama',
+                'id_pendidikan_terakhir',
+                'id_pekerjaan',
+                'alamat_sekarang',
+                'id_status_perkawinan',
+                'tempat_cetak_ktp',
+                'tanggal_cetak_ktp',
+                'id_hubungan_kk',
+                'id_kewarganegaraan',
+                'nama_ayah',
+                'nama_ibu',
+                'tanggal_lapor',
+                'ket'
+            )->where('penduduk_tetap', 1)
+            ->whereHas('logPenduduk', function ($query) use ($month, $year) {
+                $query->select('tanggal_lapor')
+                    ->whereMonth('tanggal_lapor', '<=', $month)
+                    ->whereYear('tanggal_lapor', '<=', $year);
+            })
+            ->where('nama', 'LIKE', '%'.$nama.'%');
 
         switch ($type) {
             case 'indukKependudukan':
-                return view('staf.bukuadministrasidesa.partials.'.$type, [
+                $view = view('staf.bukuadministrasidesa.partials.' . $type, [
                     'earliestYear' => $earliestYear,
-                    'penduduk' => Penduduk::join(
-                            'log_penduduk',
-                            'penduduk.id',
-                            '=',
-                            'log_penduduk.id_penduduk')
-                        ->select(
-                            'nama',
-                            'nik',
-                            'tempat_lahir',
-                            'tanggal_lahir',
-                            'id_jenis_kelamin',
-                            'id_status_dasar',
-                            'id_agama',
-                            'id_pendidikan_terakhir',
-                            'id_pekerjaan',
-                            'nik_ayah',
-                            'nama_ayah',
-                            'nik_ibu',
-                            'nama_ibu', 
-                            'tanggal_lapor')
-                        ->where('penduduk_tetap', 1)
-                        ->where('nama', 'LIKE', '%'.$nama.'%')
-                        ->whereMonth('tanggal_lapor', '<=', $month)
-                        ->whereYear('tanggal_lapor', '<=', $year)
-                        // ->orderBy('nama', 'asc')
+                    'penduduk' => $indukKependudukanQuery
                         ->paginate(10)
                 ]);
+                return $paginate === 'true' ? $view : $indukKependudukanQuery->get();
             case 'mutasiPendudukDesa':
-                return view('staf.bukuadministrasidesa.partials.'.$type, [
+                $view = view('staf.bukuadministrasidesa.partials.'.$type, [
                     'earliestYear' => $earliestYear,
-                    'logPenduduk' => LogPenduduk::where('id_peristiwa', 2)
-                                                ->where('id_peristiwa', 3)
-                                                ->where('id_peristiwa', 5)
-                                                ->whereMonth('tanggal_lapor', '<=', $month)
-                                                ->whereYear('tanggal_lapor', '<=', $year)
-                                                ->whereHas('penduduk', function ($query) use ($nama) {
-                                                    $query->where('penduduk_tetap', 1)
-                                                          ->where('nama', 'LIKE', '%'.$nama.'%');
-                                                })
-                                                ->paginate(10),
+                    'logPenduduk' =>  $mutasiPendudukDesaQuery->paginate(10),
                 ]);
+                return $paginate === 'true' ? $view : $mutasiPendudukDesaQuery->get();
             case 'rekapitulasiJumlahPenduduk':
                 return view('staf.bukuadministrasidesa.partials.'.$type, [
                     'earliestYear' => $earliestYear,
@@ -102,28 +183,17 @@ class BukuController extends Controller
                     'dusun' => WilayahDusun::paginate(10),
                 ]);
             case 'pendudukSementara':
-                return view('staf.bukuadministrasidesa.partials.'.$type, [
+                $view = view('staf.bukuadministrasidesa.partials.'.$type, [
                     'earliestYear' => $earliestYear,
-                    'logPenduduk' => LogPenduduk::where('id_peristiwa', 5)
-                                                ->whereMonth('tanggal_lapor', '<=', $month)
-                                                ->whereYear('tanggal_lapor', '<=', $year)
-                                                ->whereHas('penduduk', function ($query) use ($nama) {
-                                                    $query->where('penduduk_tetap', 0)
-                                                          ->where('nama', 'LIKE', '%'.$nama.'%');
-                                                })->paginate(10),
+                    'logPenduduk' => $pendudukSementaraQuery->paginate(10),
                 ]);
+                return $paginate === 'true' ? $view : $pendudukSementaraQuery->get();
             case 'ktpKk':
-                return view('staf.bukuadministrasidesa.partials.'.$type, [
+                $view = view('staf.bukuadministrasidesa.partials.'.$type, [
                     'earliestYear' => $earliestYear,
-                    'penduduk' => Penduduk::where('penduduk_tetap', 1)
-                                          ->whereHas('logPenduduk', function ($query) use ($month, $year) {
-                                              $query->select('tanggal_lapor')
-                                                    ->whereMonth('tanggal_lapor', '<=', $month)
-                                                    ->whereYear('tanggal_lapor', '<=', $year);
-                                          })
-                                          ->where('nama', 'LIKE', '%'.$nama.'%')
-                                          ->paginate(10),
+                    'penduduk' => $ktpKkQuery->paginate(10),
                 ]);
+                return $paginate === 'true' ? $view : $ktpKkQuery->get();
         }
     }
 

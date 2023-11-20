@@ -23,6 +23,7 @@ use App\Models\Pekerjaan;
 use App\Models\PendidikanSaatIni;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
+use App\Models\PendudukBahasa;
 use App\Models\Peristiwa;
 use App\Models\Pindah;
 use App\Models\Posyandu;
@@ -77,8 +78,14 @@ class DatabaseSeeder extends Seeder
         RtmHubungan::create(['nama' => 'KEPALA RUMAH TANGGA']);
         RtmHubungan::create(['nama' => 'ANGGOTA']);
 
-        JenisKelamin::create(['nama' => 'LAKI-LAKI']);
-        JenisKelamin::create(['nama' => 'PEREMPUAN']);
+        JenisKelamin::create([
+            'nama' => 'LAKI-LAKI',
+            'singkatan' => 'L'
+        ]);
+        JenisKelamin::create([
+            'nama' => 'PEREMPUAN',
+            'singkatan' => 'P'
+        ]);
 
         GolonganDarah::create(['nama' => 'A']);
         GolonganDarah::create(['nama' => 'B']);
@@ -253,6 +260,31 @@ class DatabaseSeeder extends Seeder
         PendidikanTerakhir::create(['nama' => 'DIPLOMA IV/STRATA I']);
         PendidikanTerakhir::create(['nama' => 'STRATA II']);
         PendidikanTerakhir::create(['nama' => 'STRATA III']);
+
+        PendudukBahasa::create([
+            'nama' => 'Latin',
+            'singkatan' => 'L'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Daerah',
+            'singkatan' => 'D'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Arab',
+            'singkatan' => 'A'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Arab dan Latin',
+            'singkatan' => 'AL'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Arab dan Daerah',
+            'singkatan' => 'AD'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Arab, Latin, dan Daerah',
+            'singkatan' => 'ALD'
+        ]);
 
         Peristiwa::create(['nama' => 'Lahir']);
         Peristiwa::create(['nama' => 'Mati']);

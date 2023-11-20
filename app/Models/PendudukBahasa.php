@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JenisKelamin extends Model
+class PendudukBahasa extends Model
 {
     use HasFactory;
 
-    protected $table = "jenis_kelamin";
+    use HasFactory;
+
+    protected $table = "penduduk_bahasa";
     public $timestamps = false;
 
     /**
@@ -19,7 +21,7 @@ class JenisKelamin extends Model
      */
     protected $fillable = [
         'nama',
-        'singkatan'
+        'singkatan',
     ];
 
     /**

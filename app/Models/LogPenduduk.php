@@ -30,6 +30,11 @@ class LogPenduduk extends Model
         'maksud_tujuan_kedatangan',
     ];
 
+    protected $with = [
+        'pindah',
+        'tamu'
+    ];
+
     /**
      * The attributes that should be cast.
      *
