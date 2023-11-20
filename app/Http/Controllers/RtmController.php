@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Keluarga;
 use App\Models\Penduduk;
 use App\Models\KelasSosial;
+use App\Models\Rtm;
 
 class RtmController extends Controller
 {
@@ -17,74 +18,76 @@ class RtmController extends Controller
     {
         return view('staf.penduduk.rtm', [
             'title' => 'Rumah Tangga',
-            'rtm' => HelperPendudukRtm::leftJoin('rtm', 'helper_penduduk_rtm.id', '=', 'keluarga.id_helper_penduduk_rtm')
-                ->leftJoin('penduduk as kepala_penduduk', 'kepala_penduduk.nik', '=', 'helper_penduduk_keluarga.nik_kepala')
-                ->leftJoin('penduduk', 'penduduk.id_helper_penduduk_keluarga', '=', 'helper_penduduk_keluarga.id')
+            'rtm' => HelperPendudukRtm::leftJoin('rtm', 'helper_penduduk_rtm.id', '=', 'rtm.id_helper_penduduk_rtm')
+                ->leftJoin('penduduk as kepala_penduduk', 'kepala_penduduk.nik', '=', 'helper_penduduk_rtm.nik_kepala')
+                ->leftJoin('helper_penduduk_keluarga', 'kepala_penduduk.id_helper_penduduk_keluarga', '=', 'helper_penduduk_keluarga.id')
+                ->leftJoin('keluarga', 'helper_penduduk_keluarga.id', '=', 'keluarga.id_helper_penduduk_keluarga')
                 ->select(
-                    'helper_penduduk_keluarga.no_kk',
-                    'helper_penduduk_keluarga.nik_kepala',
+                    'helper_penduduk_rtm.no_rtm',
+                    'helper_penduduk_rtm.nik_kepala',
                     'kepala_penduduk.nama as nama_kepala_keluarga',
-                    DB::raw('COUNT(DISTINCT penduduk.id) as jumlah_anggota'),
-                    'keluarga.alamat',
-                    'keluarga.tgl_daftar',
-                    'keluarga.tgl_cetak_kk'
+                    DB::raw('COUNT(DISTINCT kepala_penduduk.id) as jumlah_anggota'),
+                    'rtm.alamat',
+                    'rtm.dtks',
+                    'rtm.tgl_daftar',
                 )
-                ->groupBy('helper_penduduk_keluarga.no_kk', 'helper_penduduk_keluarga.nik_kepala', 'kepala_penduduk.nama', 'keluarga.alamat', 'keluarga.tgl_daftar', 'keluarga.tgl_cetak_kk')
+                ->groupBy('helper_penduduk_rtm.no_rtm', 'helper_penduduk_rtm.nik_kepala', 'kepala_penduduk.nama', 'rtm.alamat', 'rtm.tgl_daftar', 'rtm.dtks')
                 ->paginate(10)
         ]);
     }
 
-    public function keluargaNew()
+    public function rtmNew()
     {
-        return view('staf.penduduk.keluargaNew', [
-            'title' => 'Tambah Keluarga Baru',
+        return view('staf.penduduk.rtmNew', [
+            'title' => 'Tambah Rumah Tangga Baru',
             'nik_kepala' => Penduduk::all(),
             'kelas_sosial' => KelasSosial::all(),
         ]);
     }
 
-    public function keluargaNewSubmit(Request $request)
+    public function rtmNewSubmit(Request $request)
     {
-        // Validasi untuk 'no_kk' dan 'nik_kepala' di tabel helper_penduduk_keluarga
+        // Validasi untuk 'no_kk' dan 'nik_kepala' di tabel helper_penduduk_krtm
         $validatedCommonData = $request->validate([
-            'no_kk' => 'required|unique:helper_penduduk_keluarga',
+            'no_rtm' => 'required|unique:helper_penduduk_rtm',
             'nik_kepala' => [
                 'required',
                 Rule::exists('penduduk', 'nik')->where(function ($query) {
-                    $query->whereNull('id_helper_penduduk_keluarga');
+                    $query->whereNull('id_helper_penduduk_rtm');
                 }),
             ],
         ]);
 
-        // Menyimpan data di tabel helper_penduduk_keluarga
-        $helperPendudukKeluarga = HelperPendudukKeluarga::create($validatedCommonData);
+        // Menyimpan data di tabel helper_penduduk_rtm
+        $helperPendudukRtm = HelperPendudukRtm::create($validatedCommonData);
 
-        // Validasi untuk 'tgl_cetak_kk', 'id_kelas_sosial', dan 'alamat' di tabel keluarga
+        // Validasi tabel rtm
         $validatedSpecificData = $request->validate([
-            'tgl_cetak_kk' => 'nullable',
-            'id_kelas_sosial' => 'nullable',
+            'dtks' => 'nullable',
             'alamat' => 'nullable',
+            'id_dusun' => 'nullable',
+            'id_rt' => 'nullable',
         ]);
 
         if (isset($validatedSpecificData['alamat'])) {
             $validatedSpecificData['alamat'] = strtoupper($validatedSpecificData['alamat']);
         }
 
-        // Menyimpan data di tabel keluarga
-        $validatedSpecificData['id_helper_penduduk_keluarga'] = $helperPendudukKeluarga->id;
-        $keluarga = Keluarga::create($validatedSpecificData);
+        // Menyimpan data di tabel rtm
+        $validatedSpecificData['id_helper_penduduk_rtm'] = $helperPendudukRtm->id;
+        $rtm = Rtm::create($validatedSpecificData);
 
-        // Update id_helper_penduduk_keluarga di tabel penduduk
+        // Update id_helper_penduduk_rtm di tabel penduduk
         Penduduk::where('nik', $validatedCommonData['nik_kepala'])
             ->update([
-                'id_helper_penduduk_keluarga' => $helperPendudukKeluarga->id,
-                'id_hubungan_kk' => 1,  // Update id_hubungan_kk to 1
+                'id_helper_penduduk_rtm' => $helperPendudukRtm->id,
+                'id_rtm_hubungan' => 1, // jadikan kepala rtm
             ]);
 
-        return redirect('/staf/kependudukan/keluarga')->with('success', 'Data keluarga berhasil ditambahkan!');
+        return redirect('/staf/kependudukan/rtm')->with('success', 'Data rumah tangga berhasil ditambahkan!');
     }
 
-    public function keluargaEdit(Keluarga $keluarga)
+    public function rtmEdit(Keluarga $keluarga)
     {
         return view('staf.penduduk.keluargaEdit', [
             'title' => 'Edit Data Keluarga',
@@ -93,87 +96,90 @@ class RtmController extends Controller
         ]);
     }
 
-    public function keluargaEditSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
+    public function rtmEditSubmit(Request $request, HelperPendudukRtm $helperPendudukRtm)
     {
-        // Validasi untuk 'no_kk' dan 'nik_kepala' di tabel helper_penduduk_keluarga
+        // Validasi untuk 'no_rtm' dan 'nik_kepala' di tabel helper_penduduk_rtm
         $validatedCommonData = $request->validate([
-            'no_kk' => 'required|unique:helper_penduduk_keluarga,no_kk,' . $helperPendudukKeluarga->id,
+            'no_rtm' => 'required|unique:helper_penduduk_rtm,no_rtm,' . $helperPendudukRtm->id,
             'nik_kepala' => [
                 'required',
                 Rule::exists('penduduk', 'nik')->where(function ($query) {
-                    $query->whereNull('id_helper_penduduk_keluarga');
+                    $query->whereNull('id_helper_penduduk_rtm');
                 }),
             ],
         ]);
 
-        // Validasi untuk 'tgl_cetak_kk', 'id_kelas_sosial', dan 'alamat' di tabel keluarga
+        // Validasi tabel rtm
         $validatedSpecificData = $request->validate([
-            'tgl_cetak_kk' => 'nullable',
-            'id_kelas_sosial' => 'nullable',
+            'dtks' => 'nullable',
             'alamat' => 'nullable',
             'id_dusun' => 'nullable',
             'id_rt' => 'nullable',
         ]);
 
         // Temukan penduduk lama berdasarkan nik lama
-        $oldPenduduk = Penduduk::where('nik', $helperPendudukKeluarga->nik_kepala)->first();
+        $oldPenduduk = Penduduk::where('nik', $helperPendudukRtm->nik_kepala)->first();
 
-        // Update data di tabel helper_penduduk_keluarga
-        $helperPendudukKeluarga->update($validatedCommonData);
+        // Update data di tabel helper_penduduk_rtm
+        $helperPendudukRtm->update($validatedCommonData);
 
         if (isset($validatedSpecificData['alamat'])) {
             $validatedSpecificData['alamat'] = strtoupper($validatedSpecificData['alamat']);
         }
 
-        // Update data di tabel keluarga
-        $validatedSpecificData['id_helper_penduduk_keluarga'] = $helperPendudukKeluarga->id;
-        $helperPendudukKeluarga->keluarga->update($validatedSpecificData);
+        // Update data di tabel rtm
+        $validatedSpecificData['id_helper_penduduk_rtm'] = $helperPendudukRtm->id;
+        $helperPendudukRtm->rtm->update($validatedSpecificData);
 
-        // Update id_helper_penduduk_keluarga di tabel penduduk
+        // Update id_helper_penduduk_rtm di tabel penduduk
         Penduduk::where('nik', $validatedCommonData['nik_kepala'])
             ->update([
-                'id_helper_penduduk_keluarga' => $helperPendudukKeluarga->id,
-                'id_hubungan_kk' => 1,  // Update id_hubungan_kk to 1
+                'id_helper_penduduk_rtm' => $helperPendudukRtm->id,
+                'id_rtm_hubungan' => 1,  // Update id_rtm_hubungan to 1
             ]);
 
-        // Jika nik kepala keluarga diganti, set id_helper_penduduk_keluarga pada penduduk lama menjadi null
+        // Jika nik kepala rtm diganti, set id_helper_penduduk_rtm pada penduduk lama menjadi null
         if ($oldPenduduk && $oldPenduduk->nik !== $validatedCommonData['nik_kepala']) {
-            $oldPenduduk->update(['id_helper_penduduk_keluarga' => null]);
+            $oldPenduduk->update(['id_helper_penduduk_rtm' => null]);
         }
 
-        return redirect('/staf/kependudukan/keluarga')->with('success', 'Data keluarga berhasil diubah!');
+        return redirect('/staf/kependudukan/rtm')->with('success', 'Data rumah tangga berhasil diubah!');
     }
 
-    public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
+    public function rtmDelete(HelperPendudukRtm $helperPendudukRtm)
     {
-        // Ambil data keluarga yang sesuai dengan id_helper_penduduk_keluarga yang akan dihapus
-        $keluarga = Keluarga::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)->first();
+        // Perbarui id_helper_penduduk_keluarga di Penduduk
+        Penduduk::where('id_helper_penduduk_rtm', $helperPendudukRtm->id)
+            ->update(['id_helper_penduduk_rtm' => null]);
+
+        // Ambil data rtm yang sesuai dengan id_helper_penduduk_rtm yang akan dihapus
+        $rtm = Rtm::where('id_helper_penduduk_rtm', $helperPendudukRtm->id)->first();
 
         // Hapus data di tabel keluarga
-        if ($keluarga) {
-            $keluarga->delete();
+        if ($rtm) {
+            $rtm->delete();
         }
 
         // Hapus data di tabel helper_penduduk_keluarga
-        $helperPendudukKeluarga->delete();
+        $helperPendudukRtm->delete();
 
-        return redirect('/staf/kependudukan/keluarga')->with('success', 'Data keluarga berhasil dihapus!');
+        return redirect('/staf/kependudukan/rtm')->with('success', 'Data rumah tangga berhasil dihapus!');
     }
 
-    public function daftarKeluarga(HelperPendudukKeluarga $helperPendudukKeluarga)
+    public function daftarRtm(HelperPendudukRtm $helperPendudukRtm)
     {
         // Retrieve the related Penduduk records and paginate them
-        $pendudukDalamKeluarga = $helperPendudukKeluarga->penduduk()->paginate(10);
+        $pendudukDalamRtm = $helperPendudukRtm->penduduk()->paginate(10);
 
-        return view('staf.penduduk.daftarKeluarga', [
+        return view('staf.penduduk.daftarRtm', [
             'title' => 'Edit Data Keluarga',
-            'keluarga' => $helperPendudukKeluarga,
-            'pendudukDalamKeluarga' => $pendudukDalamKeluarga,
+            'rtm' => $helperPendudukRtm,
+            'pendudukDalamRtm' => $pendudukDalamRtm,
             'kelas_sosial' => KelasSosial::all(),
         ]);
     }
 
-    public function newDaftarKeluargaSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
+    public function newDaftarRtmSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
     {
         $validatedData = $request->validate([
             'no_kk' => 'required|unique:helper_penduduk_keluarga,no_kk,' . $helperPendudukKeluarga->id,

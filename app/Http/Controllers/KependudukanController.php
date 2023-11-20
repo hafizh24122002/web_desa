@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Agama;
+use App\Models\Asuransi;
+use App\Models\Cacat;
+use App\Models\CaraKb;
 use App\Models\GolonganDarah;
 use App\Models\HubunganKK;
 use App\Models\JenisKelamin;
@@ -16,8 +19,12 @@ use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
 use App\Models\PendudukStatus;
 use App\Models\Rt;
+use App\Models\SakitMenahun;
 use App\Models\StatusPerkawinan;
 use App\Models\HelperPendudukKeluarga;
+use App\Models\WilayahDusun;
+use App\Models\WilayahRt;
+use App\Models\HelperPendudukRtm;
 
 class KependudukanController extends Controller
 {
@@ -70,8 +77,14 @@ class KependudukanController extends Controller
             'pekerjaan' => Pekerjaan::all(),
             'pendidikan_saat_ini' => PendidikanSaatIni::all(),
             'pendidikan_terakhir' => PendidikanTerakhir::all(),
+            'wilayah_dusun' => WilayahDusun::all(),
+            'wilayah_rt' => WilayahRt::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
             'golongan_darah' => GolonganDarah::all(),
+            'cacat' => Cacat::all(),
+            'sakit_menahun' => SakitMenahun::all(),
+            'cara_kb' => CaraKb::all(),
+            'asuransi' => Asuransi::all(),
             // 'penduduk_status' => PendudukStatus::all(),
         ]);
     }
@@ -108,9 +121,9 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'required',
             // DATA KEWARGANEGARAAN
             'id_kewarganegaraan' => 'required',
-            'dokumen_passport' => 'nullable',
+            'dokumen_pasport' => 'nullable',
             'tanggal_akhir_paspor' => 'nullable',
-            'dokumen_kitap' => 'nullable',
+            'dokumen_kitas' => 'nullable',
             'negara_asal' => 'nullable',
             // DATA ORANG TUA
             'nik_ayah' => 'nullable',
@@ -165,8 +178,15 @@ class KependudukanController extends Controller
             'pekerjaan' => Pekerjaan::all(),
             'pendidikan_saat_ini' => PendidikanSaatIni::all(),
             'pendidikan_terakhir' => PendidikanTerakhir::all(),
+            'wilayah_dusun' => WilayahDusun::all(),
+            'wilayah_rt' => WilayahRt::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
             'golongan_darah' => GolonganDarah::all(),
+            'cacat' => Cacat::all(),
+            'sakit_menahun' => SakitMenahun::all(),
+            'cara_kb' => CaraKb::all(),
+            'asuransi' => Asuransi::all(),
+            'penduduk' => Penduduk::firstWhere('nik', $penduduk->nik),
         ]);
     }
 
@@ -202,9 +222,9 @@ class KependudukanController extends Controller
             'id_pekerjaan' => 'required',
             // DATA KEWARGANEGARAAN
             'id_kewarganegaraan' => 'required',
-            'dokumen_passport' => 'nullable',
+            'dokumen_pasport' => 'nullable',
             'tanggal_akhir_paspor' => 'nullable',
-            'dokumen_kitap' => 'nullable',
+            'dokumen_kitas' => 'nullable',
             'negara_asal' => 'nullable',
             // DATA ORANG TUA
             'nik_ayah' => 'nullable',
@@ -247,59 +267,91 @@ class KependudukanController extends Controller
     }
 
     public function pendudukDelete(Penduduk $penduduk)
-{
-    // Find data based on NIK
-    $deletedPenduduk = Penduduk::where('nik', $penduduk->nik)->first();
+    {
+        // Find data based on NIK
+        $deletedPenduduk = Penduduk::where('nik', $penduduk->nik)->first();
 
-    // Check if the data is found
-    if ($deletedPenduduk) {
-        // Store the id_helper_penduduk_keluarga for later use
-        $idHelperPendudukKeluarga = $deletedPenduduk->id_helper_penduduk_keluarga;
+        // Check if the data is found
+        if ($deletedPenduduk) {
+            // Store the id_helper_penduduk_keluarga for later use
+            $idHelperPendudukKeluarga = $deletedPenduduk->id_helper_penduduk_keluarga;
+            $idHelperPendudukRtm = $deletedPenduduk->id_helper_penduduk_rtm;
 
-        // Delete the Penduduk record
-        $deletedPenduduk->delete();
+            // Delete the Penduduk record
+            $deletedPenduduk->delete();
 
-        // Check conditions for updating id_hubungan_kk (after deleting the record)
-        if ($idHelperPendudukKeluarga !== null) {
-            // Find the first Penduduk record with the same id_helper_penduduk_keluarga
-            $newHead = Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
-                ->where('id', '!=', $deletedPenduduk->id) // Exclude the deleted record
-                ->first();
+            // Check conditions for updating id_hubungan_kk (after deleting the record)
+            if ($idHelperPendudukKeluarga !== null) {
+                // Find the first Penduduk record with the same id_helper_penduduk_keluarga
+                $newHead = Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
+                    ->where('id', '!=', $deletedPenduduk->id) // Exclude the deleted record
+                    ->first();
 
-            // Check if id_hubungan_kk was 1 before deletion
-            if ($newHead && $deletedPenduduk->id_hubungan_kk === 1) {
-                // Update id_hubungan_kk to 1 for the new head
-                $newHead->update(['id_hubungan_kk' => 1]);
+                // Check if id_hubungan_kk was 1 before deletion
+                if ($newHead && $deletedPenduduk->id_hubungan_kk === 1) {
+                    // Update id_hubungan_kk to 1 for the new head
+                    $newHead->update(['id_hubungan_kk' => 1]);
+                }
             }
+            if ($idHelperPendudukRtm !== null) {
+                // Find the first Penduduk record with the same id_helper_penduduk_rtm
+                $newHead = Penduduk::where('id_helper_penduduk_rtm', $idHelperPendudukRtm)
+                    ->where('id', '!=', $deletedPenduduk->id) // Exclude the deleted record
+                    ->first();
+
+                // Check if id_hubungan_kk was 1 before deletion
+                if ($newHead && $deletedPenduduk->id_rtm_hubungan === 1) {
+                    // Update id_hubungan_kk to 1 for the new head
+                    $newHead->update(['id_rtm_hubungan' => 1]);
+                }
+            }
+        }
+
+        // Update nik_kepala in helper_penduduk_keluarga or delete if necessary
+        if ($deletedPenduduk->id_hubungan_kk === 1 && $idHelperPendudukKeluarga !== null) {
+            $this->updateNikKepalaKeluarga($idHelperPendudukKeluarga);
+        }
+        // Update nik_kepala in helper_penduduk_keluarga or delete if necessary
+        if ($deletedPenduduk->id_rtm_hubungan === 1 && $idHelperPendudukRtm !== null) {
+            $this->updateNikKepalaRtm($idHelperPendudukRtm);
+        }
+
+        return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil dihapus!');
+    }
+
+    private function updateNikKepalaKeluarga($idHelperPendudukKeluarga)
+    {
+        // Find the first Penduduk record with the same id_helper_penduduk_keluarga
+        $newHead = Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
+            ->where('id_hubungan_kk', 1)
+            ->first();
+
+        if ($newHead) {
+            // Update nik_kepala in helper_penduduk_keluarga
+            HelperPendudukKeluarga::where('id', $idHelperPendudukKeluarga)
+                ->update(['nik_kepala' => $newHead->nik]);
+        } else {
+            // Delete the record in helper_penduduk_keluarga
+            HelperPendudukKeluarga::where('id', $idHelperPendudukKeluarga)->delete();
         }
     }
 
-    // Update nik_kepala in helper_penduduk_keluarga or delete if necessary
-    if ($deletedPenduduk->id_hubungan_kk === 1 && $idHelperPendudukKeluarga !== null) {
-        $this->updateNikKepala($idHelperPendudukKeluarga);
+    private function updateNikKepalaRtm($idHelperPendudukRtm)
+    {
+        // Find the first Penduduk record with the same id_helper_penduduk_rtm
+        $newHead = Penduduk::where('id_helper_penduduk_rtm', $idHelperPendudukRtm)
+            ->where('id_rtm_hubungan', 1)
+            ->first();
+
+        if ($newHead) {
+            // Update nik_kepala in helper_penduduk_rtm
+            HelperPendudukRtm::where('id', $idHelperPendudukRtm)
+                ->update(['nik_kepala' => $newHead->nik]);
+        } else {
+            // Delete the record in helper_penduduk_keluarga
+            HelperPendudukRtm::where('id', $idHelperPendudukRtm)->delete();
+        }
     }
-
-    return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil dihapus!');
-}
-
-private function updateNikKepala($idHelperPendudukKeluarga)
-{
-    // Find the first Penduduk record with the same id_helper_penduduk_keluarga
-    $newHead = Penduduk::where('id_helper_penduduk_keluarga', $idHelperPendudukKeluarga)
-        ->where('id_hubungan_kk', 1)
-        ->first();
-
-    if ($newHead) {
-        // Update nik_kepala in helper_penduduk_keluarga
-        HelperPendudukKeluarga::where('id', $idHelperPendudukKeluarga)
-            ->update(['nik_kepala' => $newHead->nik]);
-    } else {
-        // Delete the record in helper_penduduk_keluarga
-        HelperPendudukKeluarga::where('id', $idHelperPendudukKeluarga)->delete();
-    }
-}
-
-
 
     public function getDataPenduduk($nama)
     {

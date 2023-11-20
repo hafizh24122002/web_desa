@@ -11,7 +11,7 @@
 					'title' => 'Data Keluarga',
 					'parent_page' => 'Kependudukan',
 					'parent_link' => '/staf/kependudukan/penduduk',
-					'current_page' => 'keluarga',
+					'current_page' => 'Keluarga',
 				])
 	
 				{{-- content --}}
@@ -41,7 +41,7 @@
 								<th>Tanggal Cetak</th>
 							</tr>
 						</thead>
-	
+							
 						<tbody>
 							@include('partials.keluargaTable')
 						</tbody>

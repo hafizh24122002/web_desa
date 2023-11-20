@@ -22,6 +22,8 @@ class Rtm extends Model
         'dtks',
         'tgl_daftar',
         'alamat',
+        'id_dusun',
+        'id_rt'
     ];
 
     /**
@@ -35,6 +37,6 @@ class Rtm extends Model
 
     public function helperPendudukRtm()
     {
-        return $this->belongsTo(HelperPendudukRtm::class, 'id_helper_penduduk_keluarga');
+        return $this->belongsTo(HelperPendudukRtm::class, 'id_helper_penduduk_rtm');
     }
 }

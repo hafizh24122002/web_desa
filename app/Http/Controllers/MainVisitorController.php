@@ -15,7 +15,9 @@ use App\Models\Pekerjaan;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
 use App\Models\StatusPerkawinan;
+use App\Models\Dokumen;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class MainVisitorController extends Controller
 {
@@ -63,8 +65,8 @@ class MainVisitorController extends Controller
 
         $arr_gender = [];
 
-        $l_count = $penduduk->where('jenis_kelamin', 'L')->count();
-        $p_count = $penduduk->where('jenis_kelamin', 'P')->count();
+        $l_count = $penduduk->where('id_jenis_kelamin', '1')->count();
+        $p_count = $penduduk->where('id_jenis_kelamin', '2')->count();
         $total_gender = $l_count + $p_count;
 
         $l_percentage = $total_penduduk > 0 ? ($l_count / $total_penduduk) * 100 : 0;
@@ -499,6 +501,7 @@ class MainVisitorController extends Controller
         $total_gender_percentage = session('total_gender_percentage');
         $arr_gender = session('arr_gender');
         $staf = session('staf');
+        $documents = Dokumen::paginate(10);
         return view('visitor.dokumen', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
             ->with('title', 'Dokumen')
             ->with([
@@ -509,6 +512,38 @@ class MainVisitorController extends Controller
                 'total_gender_percentage' => $total_gender_percentage,
                 'arr_gender' => $arr_gender,
                 'staf' => $staf,
+                'documents' => $documents
             ]);
+    }
+
+    public function downloadDokumen($filename)
+    {
+        $folder = 'documents'; // Change this to your actual folder name
+
+        // Get the list of files in the directory
+        $files = Storage::disk('public')->files($folder);
+
+        // Find the file with a matching name (without extension)
+        $matchingFile = null;
+        foreach ($files as $file) {
+            if (pathinfo($file, PATHINFO_FILENAME) === $filename) {
+                $matchingFile = $file;
+                break;
+            }
+        }
+
+        if ($matchingFile) {
+            // Determine the MIME type of the file
+            $mime = mime_content_type(storage_path('app/public/' . $matchingFile));
+
+            // Set the appropriate HTTP headers for the response
+            return response()->file(storage_path('app/public/' . $matchingFile), [
+                'Content-Type' => $mime,
+                'Content-Disposition' => 'attachment; filename="' . basename($matchingFile) . '"',
+            ]);
+        } else {
+            // File not found, handle appropriately (e.g., show an error or redirect)
+            return abort(404);
+        }
     }
 }
