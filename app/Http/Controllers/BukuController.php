@@ -95,14 +95,6 @@ class BukuController extends Controller
                     ->where('nama', 'LIKE', '%'.$nama.'%');
             });
 
-        // $pendudukSementaraQuery = LogPenduduk::where('id_peristiwa', 5)
-        //     ->whereMonth('tanggal_lapor', '<=', $month)
-        //     ->whereYear('tanggal_lapor', '<=', $year)
-        //     ->whereHas('penduduk', function ($query) use ($nama) {
-        //         $query->where('penduduk_tetap', 0)
-        //             ->where('nama', 'LIKE', '%'.$nama.'%');
-        //     });
-
         $pendudukSementaraQuery = LogPenduduk::where('id_peristiwa', 5)
         ->whereMonth('tanggal_lapor', '<=', $month)
         ->whereYear('tanggal_lapor', '<=', $year)

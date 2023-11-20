@@ -62,7 +62,7 @@ a {
 	overflow: hidden
 }
 
-.header-img img {
+.header-img opacityimg {
 	width: 40px
 }
 
@@ -87,8 +87,11 @@ a {
 }
 
 .nav-name {
+	will-change: opacity;
     transition: opacity 0.5s;
     opacity: 1;
+	white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden; /* Set overflow to hidden during the animation */
 }
 
 .nav-logo,
@@ -131,6 +134,37 @@ a {
 
 .accordion-button:is(.collapsed) {
 	color: var(--first-color-light);
+}
+
+/* Style to remove border and background color of the accordion items */
+.accordion-item {
+	border: none;
+	background: none;
+}
+
+/* Style to remove the border of the accordion headers */
+.accordion-button {
+	border: none;
+}
+
+/* Style to remove the border of the accordion collapse content */
+.accordion-collapse {
+	border: none;
+}
+
+/* Style to change the color of the accordion headers when collapsed */
+.accordion-button.collapsed {
+	background-color: transparent; /* Change the background color when collapsed */
+}
+  
+.accordion-button.collapsed::after,
+.accordion-button:not(.collapsed)::after {
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23afa5d9'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+	display: none;	/* set to block to show accordion arrow */
+}
+
+.accordion-collapse.collapse.show {
+	width: fit-content;
 }
 
 .nav-link:hover,
@@ -188,7 +222,7 @@ a {
 	width: 250px;
 }
 
-@media screen and (min-width: 1368px) {
+@media screen and (min-width: 0) {
 	body {
 		margin: calc(var(--header-height) + 1rem) 0 0 0;
 		padding-left: calc(var(--nav-width) + 2rem)
@@ -266,30 +300,8 @@ a {
 	max-width: 200px;
 }
 
-/* Style to remove border and background color of the accordion items */
-.accordion-item {
-	border: none;
-	background: none;
-}
-
-/* Style to remove the border of the accordion headers */
-.accordion-button {
-	border: none;
-}
-
-/* Style to remove the border of the accordion collapse content */
-.accordion-collapse {
-	border: none;
-}
-
-/* Style to change the color of the accordion headers when collapsed */
-.accordion-button.collapsed {
-	background-color: transparent; /* Change the background color when collapsed */
-}
-  
-.accordion-button.collapsed::after,
-.accordion-button:not(.collapsed)::after {
-	display: none;
+.tooltip {
+	width: fit-content;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd):hover {
@@ -319,7 +331,8 @@ a {
 
 /* Hide the default scroll bar */
 ::-webkit-scrollbar {
-	width: 8px; /* Set the width of the vertical scrollbar */
+	width: 10px; /* Set the width of the vertical scrollbar */
+	height: 10px; /* Set the height of the horizontal scrollbar */
 }
   
 /* Track (the area on the side of the content) */
@@ -330,16 +343,35 @@ a {
   
 /* Handle (the draggable part of the scrollbar) */
 ::-webkit-scrollbar-thumb {
-	background: #acacac; /* Color of the scrollbar handle */
+	background: #c7c7c7; /* Color of the scrollbar handle */
+	border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:horizontal{
+	background: #c7c7c7; /* Color of the scrollbar handle */
 	border-radius: 10px;
 }
   
 /* On hover, the handle will change color */
 ::-webkit-scrollbar-thumb:hover {
+	background: #b1b1b1;
+}
+::-webkit-scrollbar-thumb:hover:horizontal{
+	background: #b1b1b1;
+}
+
+/* On click/drag, the handle will change color */
+::-webkit-scrollbar-thumb:active {
 	background: #888888;
 }
-  
-/* Set the height of the horizontal scrollbar */
-::-webkit-scrollbar-horizontal {
-	height: 8px;
+::-webkit-scrollbar-thumb:active:horizontal{
+	background: #888888;
 }
+
+.invalid-feedback, .invalid-tooltip {
+	position: relative;
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23f93154'%3E%3Ccircle cx='6' cy='6' r='4.5'/%3E%3Cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3E%3Ccircle cx='6' cy='8.2' r='.6' fill='%23f93154' stroke='none'/%3E%3C/svg%3E");
+}
+  

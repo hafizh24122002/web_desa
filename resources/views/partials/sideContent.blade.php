@@ -1,5 +1,5 @@
-<div class="side_content">
-	<div class="single_bottom_rightbar">
+<div class="side_content mt-5 px-4" style="overflow: hidden">
+	<div class="single_bottom_rightbar shadow">
 		<div class="position-sticky" style="top: 2rem;">
 			<div class="p-4 mb-3 bg-light rounded">
 				<h2><i class="bi bi-geo-alt-fill"></i>&ensp;Peta Wilayah Desa</h2>
@@ -23,7 +23,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="single_bottom_rightbar">
+
+	<div class="single_bottom_rightbar shadow">
 		<div class="position-sticky" style="top: 2rem;">
 			<div class="p-4 mb-3 bg-light rounded">
 				<h2 class="box-title"><i class="bi bi-person-fill-check"></i>&ensp;Agenda Desa</h2>
@@ -86,7 +87,7 @@
 		</div>
 	</div>
 
-	<div class="single_bottom_rightbar">
+	<div class="single_bottom_rightbar shadow">
 		<div class="position-sticky" style="top: 2rem;">
 			<div class="p-4 bg-light rounded">
 				<h2 class="box-title"><i class="bi bi-person-fill-check"></i>&ensp;Aparatur Desa</h2>
@@ -124,7 +125,7 @@
 		</div>
 	</div>
 
-	<div class="single_bottom_rightbar">
+	<div class="single_bottom_rightbar shadow">
 		<div class="position-sticky" style="top: 2rem;">
 			<div class="p-4 my-3 bg-light rounded">
 				<h2 class="box-title"><i class="bi bi-bar-chart-line-fill align-middle"></i>&ensp;Statistik Penduduk</h2>

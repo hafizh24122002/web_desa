@@ -29,10 +29,22 @@
 							<button type="submit" class="btn btn-primary">Cari</button>
 						</form>
 					</div>
-	
-					<a href="/staf/kependudukan/penduduk/new-penduduk" style="width: auto" class="btn btn-primary my-2">
-						<i class="bx bx-user-plus align-middle"></i> Tambah Data Penduduk Baru
-					</a>
+
+					<div>
+						<button class="btn btn-primary my-2 dropdown-toggle w-auto"
+							type="button"
+							id="newPendudukDropdownButton"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false">
+
+							<i class="bx bx-user-plus align-middle"></i> Tambah Data Penduduk Baru
+						</button>
+
+						<ul class="dropdown-menu dropdown-menu-end" style="width: fit-content" aria-labelledby="newPendudukDropdownButton">
+							<li><a class="dropdown-item" href="/staf/kependudukan/penduduk/new-penduduk/lahir">Penduduk Lahir</a></li>
+							<li><a class="dropdown-item" href="/staf/kependudukan/penduduk/new-penduduk/masuk">Penduduk Masuk</a></li>
+						</ul>
+					</div>
 
 					<table class="table table-hover">
 						<thead>
@@ -47,9 +59,9 @@
 									Nama
 									<i class="ms-2 fas {{ $sortField === 'nama' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
 								</th>
-								<th class="sortable" data-field="jenis_kelamin" data-order="{{ $sortField === 'jenis_kelamin' ? $sortOrder : 'asc' }}">
+								<th class="sortable" data-field="id_jenis_kelamin" data-order="{{ $sortField === 'id_jenis_kelamin' ? $sortOrder : 'asc' }}">
 									Jenis Kelamin
-									<i class="ms-2 fas {{ $sortField === 'jenis_kelamin' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+									<i class="ms-2 fas {{ $sortField === 'id_jenis_kelamin' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
 								</th>
 								<th class="sortable" data-field="telepon" data-order="{{ $sortField === 'telepon' ? $sortOrder : 'asc' }}">
 									Telepon

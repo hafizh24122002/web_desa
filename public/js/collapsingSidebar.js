@@ -32,6 +32,29 @@ $(document).ready(function() {
 				});
 			});
 		}
+		
+		var x = window.matchMedia("(max-width: 1368px)")
+		minWidthListener(x) // Call listener function at run time
+		x.addListener(minWidthListener) // Attach listener function on state changes
+
+		function minWidthListener(x) {
+			if (x.matches) { // If media query matches
+				if(!isNavHidden) {
+					toggleNav();
+	
+					accordioncollapse = document.querySelectorAll('.' + accordionCollapseClass);
+					accordioncollapse.forEach(element => {
+						if(element.classList.contains('show')) {
+							new bootstrap.Collapse(element);
+						}
+					});
+				}
+			} else {
+				if (isNavHidden) {
+					toggleNav();
+				}
+			}
+		}
 	
 		// Function to toggle nav-bar visibility
 		function toggleNav() {

@@ -11,6 +11,7 @@ use App\Models\GolonganDarah;
 use App\Models\HubunganKK;
 use App\Models\JenisKelamin;
 use App\Models\Keluarga;
+use App\Models\LogPenduduk;
 // use App\Models\Kesehatan;
 use App\Models\Kewarganegaraan;
 use App\Models\Pekerjaan;
@@ -20,6 +21,7 @@ use App\Models\Penduduk;
 use App\Models\PendudukStatus;
 use App\Models\Rt;
 use App\Models\SakitMenahun;
+use App\Models\StatusDasar;
 use App\Models\StatusPerkawinan;
 use App\Models\HelperPendudukKeluarga;
 use App\Models\WilayahDusun;
@@ -64,7 +66,7 @@ class KependudukanController extends Controller
         ]);
     }
 
-    public function pendudukNew()
+    public function pendudukLahirNew()
     {
         return view('staf.penduduk.pendudukNew', [
             'title' => 'Tambah Penduduk Baru',
@@ -89,7 +91,12 @@ class KependudukanController extends Controller
         ]);
     }
 
-    public function pendudukNewSubmit(Request $request)
+    public function pendudukMasukNew()
+    {
+        // TODO
+    }
+
+    private function pendudukNewValidate(Request $request)
     {
         $validatedData = $request->validate([
             // DATA DIRI
@@ -160,7 +167,37 @@ class KependudukanController extends Controller
         if (isset($validatedData['alamat'])) {
         }
 
-        Penduduk::create($validatedData);
+        return $validatedData;
+    }
+
+    public function pendudukNewLahirSubmit(Request $request)
+    {
+        pendudukNewValidate($request);
+
+        $pendudukData = Penduduk::create($validatedData);
+        LogPenduduk::create([
+            'id_penduduk' => $pendudukData->id,
+            'id_peristiwa' => 1,    // id peristiwa untuk LAHIR
+            'tanggal_lapor' => $pendudukData->created_at,
+            'tanggal_peristiwa' => $pendudukData->tanggal_lahir
+        ]);
+
+        return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil ditambahkan!');
+    }
+
+    public function pendudukNewMasukSubmit(Request $request)
+    {
+        pendudukNewValidate($request);
+
+        $pendudukData = Penduduk::create($validatedData);
+        LogPenduduk::create([
+            'id_penduduk' => $pendudukData->id,
+            'id_peristiwa' => 5,    // id peristiwa untuk MASUK
+
+            // TODO
+            // 'tanggal_lapor' => $pendudukData->created_at,
+            // 'tanggal_peristiwa' => $pendudukData->tanggal_lahir
+        ]);
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil ditambahkan!');
     }
@@ -264,6 +301,24 @@ class KependudukanController extends Controller
         Penduduk::firstWhere('nik', $penduduk->nik)->update($validatedData);
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil diubah!');
+    }
+
+    public function pendudukStatusDasarEdit($nik)
+    {
+        return view('staf.penduduk.pendudukStatusDasarEdit', [
+            'title' => 'Edit Status Dasar Penduduk',
+            'nik' => $nik,
+            'status_dasar' => StatusDasar::all(),
+        ]);
+    }
+
+    public function pendudukStatusDasarEditSubmit(Request $request, Penduduk $penduduk)
+    {
+        // TODO
+        $validatedData = $request->validate([
+            'id_status_dasar' => 'required',
+
+        ]);
     }
 
     public function pendudukDelete(Penduduk $penduduk)

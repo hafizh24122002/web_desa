@@ -107,10 +107,14 @@ Route::middleware(['auth'])->group(function () {
 		
 		// route staf
 		Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan']);
-		Route::get('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNew']);
-		Route::post('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNewSubmit']);
+		Route::get('/staf/kependudukan/penduduk/new-penduduk/lahir', [KependudukanController::class, 'pendudukLahirNew']);
+		Route::get('/staf/kependudukan/penduduk/new-penduduk/masuk', [KependudukanController::class, 'pendudukMasukNew']);
+		Route::post('/staf/kependudukan/penduduk/new-penduduk/lahir', [KependudukanController::class, 'pendudukNewlahirSubmit']);
+		Route::post('/staf/kependudukan/penduduk/new-penduduk/masuk', [KependudukanController::class, 'pendudukNewMasukSubmit']);
 		Route::get('/staf/kependudukan/penduduk/edit-penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukEdit']);
 		Route::put('/staf/kependudukan/penduduk/edit-penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukEditSubmit']);
+		Route::get('/staf/kependudukan/penduduk/edit-penduduk/status-dasar/{nik}', [KependudukanController::class, 'pendudukStatusDasarEdit']);
+		Route::put('/staf/kependudukan/penduduk/edit-penduduk/status-dasar/{penduduk:nik}', [KependudukanController::class, 'pendudukStatusDasarEditSubmit']);
 		Route::delete('/staf/kependudukan/penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukDelete']);
 		Route::get('/staf/kependudukan/penduduk/get-data/{nama}', [KependudukanController::class, 'getDataPenduduk']);
 		Route::get('/staf/kependudukan/penduduk/get-data/tanggal-lahir/{nik}', [KependudukanController::class, 'getTanggalLahir']);
@@ -209,7 +213,6 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan']);
 		Route::get('/staf/buku-administrasi-desa/get-data/{type}', [BukuController::class, 'getData'])->name('buku.getData');
 		Route::post('/staf/buku-administrasi-desa/export/{type}/{month}/{year}', [BukuExportController::class, 'bukuExport'])->name('buku.export');
-		// Route::get('users/export/', [BukuController::class, 'export']);
 
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');

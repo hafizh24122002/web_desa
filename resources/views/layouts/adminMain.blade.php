@@ -45,8 +45,7 @@
 					<div id="InfoDesa">
 						<div class="accordion-item bg-dark">
 							<div class="accordion-header" id="infoDesaTitle">
-								<button class="accordion-button collapsed nav-link bg-dark"
-									style=""
+								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									type="button"
 									data-bs-toggle="collapse"
 									data-bs-target="#infoDesa"
@@ -79,7 +78,7 @@
 					<div id="Kependudukan">
 						<div class="accordion-item bg-dark">
 							<div class="accordion-header" id="pendudukTitle">
-								<button class="accordion-button collapsed nav-link bg-dark"
+								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									style=""
 									type="button"
 									data-bs-toggle="collapse"
@@ -119,7 +118,7 @@
 					<div id="Kesehatan">
 						<div class="accordion-item bg-dark">
 							<div class="accordion-header" id="kesehatanTitle">
-								<button class="accordion-button collapsed nav-link bg-dark"
+								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									style=""
 									type="button"
 									data-bs-toggle="collapse"
@@ -159,7 +158,7 @@
 					<div id="Statistik">
 						<div class="accordion-item bg-dark">
 							<div class="accordion-header" id="statistikTitle">
-								<button class="accordion-button collapsed nav-link bg-dark"
+								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									style=""
 									type="button"
 									data-bs-toggle="collapse"
@@ -189,7 +188,7 @@
 					<div id="ManajemenStaf">
 						<div class="accordion-item bg-dark">
 							<div class="accordion-header" id="stafTitle">
-								<button class="accordion-button collapsed nav-link bg-dark"
+								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									style=""
 									type="button"
 									data-bs-toggle="collapse"
@@ -224,7 +223,7 @@
 					<div id="ManajemenWeb">
 						<div class="accordion-item bg-dark">
 							<div class="accordion-header" id="manajemenWebTitle">
-								<button class="accordion-button collapsed nav-link bg-dark"
+								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									style=""
 									type="button"
 									data-bs-toggle="collapse"
@@ -269,7 +268,7 @@
 					<div id="LayananSurat">
 						<div class="accordion-item bg-dark">
 							<div class="accordion-header" id="layananSuratTitle">
-								<button class="accordion-button collapsed nav-link bg-dark"
+								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									style=""
 									type="button"
 									data-bs-toggle="collapse"
@@ -303,7 +302,7 @@
 					<div id="BukuAdministrasiDesa">
 						<div class="accordion-item bg-dark">
 							<div class="accordion-header" id="bukuAdministrasiDesaTitle">
-								<button class="accordion-button collapsed nav-link bg-dark"
+								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									style=""
 									type="button"
 									data-bs-toggle="collapse"
