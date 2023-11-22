@@ -18,7 +18,7 @@
                 {{-- content --}}
                 <div class="row mt-3">
                     <div class="col-xl-3">
-                        <div class="card rounded">
+                        <div class="card rounded shadow">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item active" data-type="indukKependudukan">Buku Induk Kependudukan</li>
                                 <li class="list-group-item" data-type="mutasiPendudukDesa">Buku Mutasi Penduduk Desa</li>

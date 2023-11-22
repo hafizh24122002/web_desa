@@ -31,7 +31,7 @@
                     <td>{{ $logPenduduk->firstItem() + $key }}</td>
                     <td>{{ $data->penduduk->nama }}</td>
                     <td>{{ $data->penduduk->tempat_lahir ?? '-' }}</td>
-                    <td>{{ $data->penduduk->tanggal_lahir ? strtoupper($data->tanggal_lahir->translatedFormat('jS F Y')) : '-' }}</td>
+                    <td>{{ $data->penduduk->tanggal_lahir ? strtoupper($data->penduduk->tanggal_lahir->translatedFormat('jS F Y')) : '-' }}</td>
 					<td>{{ $data->penduduk->jenisKelamin->nama ?? '-' }}</td>
 					<td>{{ $data->penduduk->kewarganegaraan->nama }}</td>
 					<td>
@@ -43,7 +43,7 @@
 					</td>
 					<td>
 						@if ($data->id_peristiwa === 5)
-							{{ $data->tanggal_lapor ?? '-' }}
+							{{ $data->tanggal_lapor ? strtoupper($data->tanggal_lapor->translatedFormat('jS F Y')) : '-' }}
 						@else
 							-
 						@endif
@@ -57,7 +57,7 @@
 					</td>
 					<td>
 						@if ($data->id_peristiwa === 3)
-							{{ $data->tanggal_lapor ?? '-' }}
+							{{ $data->tanggal_lapor ? strtoupper($data->tanggal_lapor->translatedFormat('jS F Y')) : '-' }}
 						@else
 							-
 						@endif
@@ -71,7 +71,7 @@
 					</td>
 					<td>
 						@if ($data->id_peristiwa === 2)
-							{{ $data->tanggal_lapor ?? '-' }}
+							{{ $data->tanggal_lapor ? strtoupper($data->tanggal_lapor->translatedFormat('jS F Y')) : '-' }}
 						@else
 							-
 						@endif

@@ -11,9 +11,39 @@
 	</div> --}}
 
         <div class="col-lg">
-            <form id="pendudukForm" action="/staf/kependudukan/penduduk/new-penduduk/lahir" method="POST">
+            <form id="pendudukForm" action="/staf/kependudukan/penduduk/new-penduduk/{{ $type }}" method="POST">
                 @csrf
                 <div class="form-group row">
+                    <label for="tanggal_lapor" class="col-sm-3 col-form-label">Tanggal Lapor<span style="color:red">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control form-control-sm 	@error('tanggal_lapor') is-invalid @enderror"
+                            name="tanggal_lapor" placeholder="Tanggal Lapor" value="{{ old('tanggal_lapor') ?? \Carbon\Carbon::now()->toDateString() }}">
+
+                        @error('tanggal_lapor')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+
+                @if ($type === 'masuk')
+                    <div class="form-group row mb-4">
+                        <label for="tanggal_peristiwa" class="col-sm-3 col-form-label">Tanggal Pindah Masuk<span style="color:red">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm 	@error('tanggal_peristiwa') is-invalid @enderror"
+                                name="tanggal_peristiwa" placeholder="Tanggal Pindah Masuk" value="{{ old('tanggal_peristiwa') ?? \Carbon\Carbon::now()->toDateString() }}">
+
+                            @error('tanggal_peristiwa')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                @endif
+
+                <div class="form-group row mt-4">
                     <label for="judul" class="col-sm-3 col-form-label">DATA DIRI</label>
                     <hr>
                 </div>

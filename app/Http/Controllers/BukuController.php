@@ -86,39 +86,52 @@ class BukuController extends Controller
 
 
         $mutasiPendudukDesaQuery = LogPenduduk::where('id_peristiwa', 2)
-            ->where('id_peristiwa', 3)
-            ->where('id_peristiwa', 5)
+            ->orWhere('id_peristiwa', 3)
+            ->orWhere('id_peristiwa', 5)
             ->whereMonth('tanggal_lapor', '<=', $month)
             ->whereYear('tanggal_lapor', '<=', $year)
             ->whereHas('penduduk', function ($query) use ($nama) {
                 $query->where('penduduk_tetap', 1)
                     ->where('nama', 'LIKE', '%'.$nama.'%');
-            });
+            })
+            ->with(['penduduk' => function ($query) use ($nama) {
+                $query->select(
+                    'id',
+                    'nama',
+                    'tempat_lahir',
+                    'tanggal_lahir',
+                    'id_jenis_kelamin',
+                    'id_kewarganegaraan',
+                    'alamat_sebelumnya',
+                );
+            }]);
 
         $pendudukSementaraQuery = LogPenduduk::where('id_peristiwa', 5)
-        ->whereMonth('tanggal_lapor', '<=', $month)
-        ->whereYear('tanggal_lapor', '<=', $year)
-        ->with(['penduduk' => function ($query) use ($nama) {
-            $query->select(
-                'id',
-                'nama',
-                'id_jenis_kelamin',
-                'nik',
-                'tempat_lahir',
-                'tanggal_lahir',
-                'id_pekerjaan',
-                'id_kewarganegaraan',
-                'suku',
-                'alamat_sebelumnya',
-            )
-            ->where('penduduk_tetap', 0)
-            ->where('nama', 'LIKE', '%'.$nama.'%');
-        }, 'tamu' => function ($query) {
-            $query->select(
-                'id',
-                'id_log_penduduk_pergi'
-            );
-        }]);
+            ->whereMonth('tanggal_lapor', '<=', $month)
+            ->whereYear('tanggal_lapor', '<=', $year)
+            ->whereHas('penduduk', function ($query) use ($nama) {
+                $query->where('penduduk_tetap', 0)
+                    ->where('nama', 'LIKE', '%'.$nama.'%');
+            })
+            ->with(['penduduk' => function ($query) use ($nama) {
+                $query->select(
+                    'id',
+                    'nama',
+                    'id_jenis_kelamin',
+                    'nik',
+                    'tempat_lahir',
+                    'tanggal_lahir',
+                    'id_pekerjaan',
+                    'id_kewarganegaraan',
+                    'suku',
+                    'alamat_sebelumnya',
+                ); 
+            }, 'tamu' => function ($query) {
+                $query->select(
+                    'id',
+                    'id_log_penduduk_pergi'
+                );
+            }]);
 
         $ktpKkQuery = Penduduk::join(
                 'log_penduduk',

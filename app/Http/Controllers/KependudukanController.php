@@ -66,7 +66,7 @@ class KependudukanController extends Controller
         ]);
     }
 
-    public function pendudukLahirNew()
+    public function pendudukNew($type)
     {
         return view('staf.penduduk.pendudukNew', [
             'title' => 'Tambah Penduduk Baru',
@@ -88,15 +88,11 @@ class KependudukanController extends Controller
             'cara_kb' => CaraKb::all(),
             'asuransi' => Asuransi::all(),
             // 'penduduk_status' => PendudukStatus::all(),
+            'type' => $type,
         ]);
     }
 
-    public function pendudukMasukNew()
-    {
-        // TODO
-    }
-
-    private function pendudukNewValidate(Request $request)
+    public function pendudukNewSubmit(Request $request, $type)
     {
         $validatedData = $request->validate([
             // DATA DIRI
@@ -167,37 +163,24 @@ class KependudukanController extends Controller
         if (isset($validatedData['alamat'])) {
         }
 
-        return $validatedData;
-    }
-
-    public function pendudukNewLahirSubmit(Request $request)
-    {
-        pendudukNewValidate($request);
-
         $pendudukData = Penduduk::create($validatedData);
-        LogPenduduk::create([
-            'id_penduduk' => $pendudukData->id,
-            'id_peristiwa' => 1,    // id peristiwa untuk LAHIR
-            'tanggal_lapor' => $pendudukData->created_at,
-            'tanggal_peristiwa' => $pendudukData->tanggal_lahir
-        ]);
 
-        return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil ditambahkan!');
-    }
-
-    public function pendudukNewMasukSubmit(Request $request)
-    {
-        pendudukNewValidate($request);
-
-        $pendudukData = Penduduk::create($validatedData);
-        LogPenduduk::create([
-            'id_penduduk' => $pendudukData->id,
-            'id_peristiwa' => 5,    // id peristiwa untuk MASUK
-
-            // TODO
-            // 'tanggal_lapor' => $pendudukData->created_at,
-            // 'tanggal_peristiwa' => $pendudukData->tanggal_lahir
-        ]);
+        if ($type === 'lahir') {
+            LogPenduduk::create([
+                'id_penduduk' => $pendudukData->id,
+                'id_peristiwa' => 1,    // id peristiwa untuk LAHIR
+                'tanggal_lapor' => $request->tanggal_lapor,
+                'tanggal_peristiwa' => $pendudukData->tanggal_lahir
+            ]);
+        } else if ($type === 'masuk') {
+            LogPenduduk::create([
+                'id_penduduk' => $pendudukData->id,
+                'id_peristiwa' => 5,    // id peristiwa untuk MASUK
+                'tanggal_lapor' => $request->tanggal_lapor,
+                'tanggal_peristiwa' => $request->tanggal_peristiwa
+            ]);
+        }
+        
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil ditambahkan!');
     }
