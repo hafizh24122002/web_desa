@@ -9,7 +9,18 @@ class HubunganKK extends Model
 {
     use HasFactory;
 
-    protected $table = "hubungan_kk";
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'hubungan_kk';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -17,9 +28,7 @@ class HubunganKK extends Model
      * 
      * @var array<int, string>
      */
-    protected $fillable = [
-        'nama'
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes that should be cast.

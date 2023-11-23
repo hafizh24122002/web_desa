@@ -40,6 +40,7 @@ class BukuController extends Controller
                     'id_helper_penduduk_keluarga',
                     'ket',
                     'tanggal_lapor')
+                ->where('id_status_dasar', 1)
                 ->where('penduduk_tetap', 1)
                 // ->orderBy('nama', 'asc')
                 ->paginate(10)
@@ -55,7 +56,7 @@ class BukuController extends Controller
         $year = request()->input('year');
         $paginate = request()->input('paginate');
 
-        $indukKependudukanQuery = Penduduk::join(
+        $indukKependudukanQuery = Penduduk::leftJoin(
                 'log_penduduk',
                 'penduduk.id',
                 '=',
@@ -80,6 +81,7 @@ class BukuController extends Controller
                 'ket',
                 'tanggal_lapor'
             )->where('penduduk_tetap', 1)
+                ->where('id_status_dasar', 1)
                 ->where('nama', 'LIKE', '%' . $nama . '%')
                 ->whereMonth('tanggal_lapor', '<=', $month)
                 ->whereYear('tanggal_lapor', '<=', $year);
@@ -160,6 +162,7 @@ class BukuController extends Controller
                 'tanggal_lapor',
                 'ket'
             )->where('penduduk_tetap', 1)
+            ->where('id_status_dasar', 1)
             ->whereHas('logPenduduk', function ($query) use ($month, $year) {
                 $query->select('tanggal_lapor')
                     ->whereMonth('tanggal_lapor', '<=', $month)

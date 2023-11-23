@@ -111,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::post('/staf/kependudukan/penduduk/new-penduduk/{type}', [KependudukanController::class, 'pendudukNewSubmit']);
 		Route::get('/staf/kependudukan/penduduk/edit-penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukEdit']);
 		Route::put('/staf/kependudukan/penduduk/edit-penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukEditSubmit']);
-		Route::get('/staf/kependudukan/penduduk/edit-penduduk/status-dasar/{nik}', [KependudukanController::class, 'pendudukStatusDasarEdit']);
+		Route::get('/staf/kependudukan/penduduk/edit-penduduk/status-dasar/{penduduk:nik}', [KependudukanController::class, 'pendudukStatusDasarEdit']);
 		Route::put('/staf/kependudukan/penduduk/edit-penduduk/status-dasar/{penduduk:nik}', [KependudukanController::class, 'pendudukStatusDasarEditSubmit']);
 		Route::delete('/staf/kependudukan/penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukDelete']);
 		Route::get('/staf/kependudukan/penduduk/get-data/{nama}', [KependudukanController::class, 'getDataPenduduk']);

@@ -40,7 +40,7 @@
 							<i class="bx bx-user-plus align-middle"></i> Tambah Data Penduduk Baru
 						</button>
 
-						<ul class="dropdown-menu dropdown-menu-end" style="width: fit-content" aria-labelledby="newPendudukDropdownButton">
+						<ul class="dropdown-menu dropdown-menu-end shadow" style="width: fit-content" aria-labelledby="newPendudukDropdownButton">
 							<li><a class="dropdown-item" href="/staf/kependudukan/penduduk/new-penduduk/lahir">Penduduk Lahir</a></li>
 							<li><a class="dropdown-item" href="/staf/kependudukan/penduduk/new-penduduk/masuk">Penduduk Masuk</a></li>
 						</ul>

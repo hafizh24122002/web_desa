@@ -24,6 +24,8 @@ use App\Models\PendidikanSaatIni;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
 use App\Models\PendudukBahasa;
+use App\Models\PenyebabKematian;
+use App\Models\PenolongKematian;
 use App\Models\Peristiwa;
 use App\Models\Pindah;
 use App\Models\Posyandu;
@@ -285,6 +287,18 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Arab, Latin, dan Daerah',
             'singkatan' => 'ALD'
         ]);
+
+        PenyebabKematian::create(['nama' => 'Sakit biasa / tua']);
+        PenyebabKematian::create(['nama' => 'Wabah penyakit']);
+        PenyebabKematian::create(['nama' => 'Kecelakaan']);
+        PenyebabKematian::create(['nama' => 'Kriminalitas']);
+        PenyebabKematian::create(['nama' => 'Bunuh diri']);
+        PenyebabKematian::create(['nama' => 'Lainnya']);
+
+        PenolongKematian::create(['nama' => 'Dokter']);
+        PenolongKematian::create(['nama' => 'Tenaga Kesehatan']);
+        PenolongKematian::create(['nama' => 'Kepolisian']);
+        PenolongKematian::create(['nama' => 'Lainnya']);
 
         Peristiwa::create(['nama' => 'Lahir']);
         Peristiwa::create(['nama' => 'Mati']);

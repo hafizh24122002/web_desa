@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CaraKb extends Model
+class PenolongKematian extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class CaraKb extends Model
      *
      * @var string
      */
-    protected $table = 'cara_kb';
+    protected $table = 'penolong_kematian';
 
     /**
      * Indicates if the model should be timestamped.
@@ -35,7 +35,5 @@ class CaraKb extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [
-         
-    ];
+    protected $casts = [];
 }

@@ -41,7 +41,7 @@
 						<i class="bx bxs-edit-alt text-light"></i>
 					</button>
 
-					<ul class="dropdown-menu" style="width: fit-content" aria-labelledby="editDropdownMenuButton">
+					<ul class="dropdown-menu shadow" style="width: fit-content" aria-labelledby="editDropdownMenuButton">
 						<li><a class="dropdown-item" href="/staf/kependudukan/penduduk/edit-penduduk/{{ $data->nik }}">Ubah detail penduduk</a></li>
 						<li><a class="dropdown-item" href="/staf/kependudukan/penduduk/edit-penduduk/status-dasar/{{ $data->nik }}">Ubah status dasar penduduk</a></li>
 					</ul>
