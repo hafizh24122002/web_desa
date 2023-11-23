@@ -25,9 +25,16 @@ class LogPenduduk extends Model
         'penolong_mati',
         'no_akta_mati',
         'alamat_tujuan',
+        'tanggal_lapor',
+        'tanggal_peristiwa',
         'catatan',
         'id_pindah',
         'maksud_tujuan_kedatangan',
+    ];
+
+    protected $with = [
+        'pindah',
+        'tamu'
     ];
 
     /**

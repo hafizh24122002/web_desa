@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+
 use App\Models\Agama;
 use App\Models\Asuransi;
 use App\Models\Cacat;
@@ -11,6 +13,7 @@ use App\Models\GolonganDarah;
 use App\Models\HubunganKK;
 use App\Models\JenisKelamin;
 use App\Models\Keluarga;
+use App\Models\LogPenduduk;
 // use App\Models\Kesehatan;
 use App\Models\Kewarganegaraan;
 use App\Models\Pekerjaan;
@@ -18,8 +21,12 @@ use App\Models\PendidikanSaatIni;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
 use App\Models\PendudukStatus;
+use App\Models\PenyebabKematian;
+use App\Models\PenolongKematian;
+use App\Models\Pindah;
 use App\Models\Rt;
 use App\Models\SakitMenahun;
+use App\Models\StatusDasar;
 use App\Models\StatusPerkawinan;
 use App\Models\HelperPendudukKeluarga;
 use App\Models\WilayahDusun;
@@ -64,7 +71,7 @@ class KependudukanController extends Controller
         ]);
     }
 
-    public function pendudukNew()
+    public function pendudukNew($type)
     {
         return view('staf.penduduk.pendudukNew', [
             'title' => 'Tambah Penduduk Baru',
@@ -86,10 +93,11 @@ class KependudukanController extends Controller
             'cara_kb' => CaraKb::all(),
             'asuransi' => Asuransi::all(),
             // 'penduduk_status' => PendudukStatus::all(),
+            'type' => $type,
         ]);
     }
 
-    public function pendudukNewSubmit(Request $request)
+    public function pendudukNewSubmit(Request $request, $type)
     {
         $validatedData = $request->validate([
             // DATA DIRI
@@ -160,7 +168,24 @@ class KependudukanController extends Controller
         if (isset($validatedData['alamat'])) {
         }
 
-        Penduduk::create($validatedData);
+        $pendudukData = Penduduk::create($validatedData);
+
+        if ($type === 'lahir') {
+            LogPenduduk::create([
+                'id_penduduk' => $pendudukData->id,
+                'id_peristiwa' => 1,    // id peristiwa untuk LAHIR
+                'tanggal_lapor' => $request->tanggal_lapor,
+                'tanggal_peristiwa' => $pendudukData->tanggal_lahir
+            ]);
+        } else if ($type === 'masuk') {
+            LogPenduduk::create([
+                'id_penduduk' => $pendudukData->id,
+                'id_peristiwa' => 5,    // id peristiwa untuk MASUK
+                'tanggal_lapor' => $request->tanggal_lapor,
+                'tanggal_peristiwa' => $request->tanggal_peristiwa
+            ]);
+        }
+        
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil ditambahkan!');
     }
@@ -264,6 +289,76 @@ class KependudukanController extends Controller
         Penduduk::firstWhere('nik', $penduduk->nik)->update($validatedData);
 
         return redirect('/staf/kependudukan/penduduk')->with('success', 'Data penduduk berhasil diubah!');
+    }
+
+    public function pendudukStatusDasarEdit(Penduduk $penduduk)
+    {
+        if ($penduduk->penduduk_tetap === 1) {
+            $statusDasar = StatusDasar::find([2,3,4]);
+        } else {
+            $statusDasar = StatusDasar::find([2,3,4,5]);
+        }
+
+        return view('staf.penduduk.pendudukStatusDasarEdit', [
+            'title' => 'Edit Status Dasar Penduduk',
+            'nik' => $penduduk->nik,
+            'status_dasar' => $statusDasar,
+            'penyebab_kematian' => PenyebabKematian::all(),
+            'penolong_kematian' => PenolongKematian::all(),
+            'pindah' => Pindah::all(),
+        ]);
+    }
+
+    public function pendudukStatusDasarEditSubmit(Request $request, Penduduk $penduduk)
+    {
+        $validatedData = $request->validate([
+            'id_status_dasar' => 'required',
+            // required only if status dasar is MATI
+                'meninggal_di' => 'required_if:id_status_dasar,2',
+                'jam_mati' => 'required_if:id_status_dasar,2',
+                'id_penyebab_kematian' => 'required_if:id_status_dasar,2',
+                'id_penolong_kematian' => 'required_if:id_status_dasar,2',
+                'no_akta_mati' => 'required_if:id_status_dasar,2',
+            // required only if status dasar is PINDAH
+                'id_pindah' => 'required_if:id_status_dasar,3',
+                'alamat_tujuan' => 'required_if:id_status_dasar,3',
+            'tanggal_peristiwa' => 'required',
+            'tanggal_lapor' => 'required',
+            'catatan' => 'nullable'
+        ], [
+            'meninggal_di.required_if' => 'Tempat meninggal harus diisi jika status dasar diisi "MATI"!',
+            'jam_mati.required_if' => 'Jam kematian harus diisi jika status dasar diisi "MATI"!',
+            'id_penyebab_kematian.required_if' => 'Penyebab kematian harus diisi jika status dasar diisi "MATI"!',
+            'id_penolong_kematian.required_if' => 'Yang menerangkan kematian harus diisi jika status dasar diisi "MATI"!',
+            'no_akta_mati.required_if' => 'Nomor Akta Kematian harus diisi jika status dasar diisi "MATI"!',
+            'id_pindah.required_if' => 'Tujuan pindah harus diisi jika status dasar diisi "PINDAH"!',
+            'alamat_tujuan.required_if' => 'Alamat tujuan harus diisi jika status dasar diisi "PINDAH"!',
+        ]);
+
+        $penduduk->update(['id_status_dasar' => $validatedData['id_status_dasar']]);
+
+        switch ($validatedData['id_status_dasar']) {
+            case 2:
+                $peristiwa = 2;     // MATI
+                break;
+            case 3:
+                $peristiwa = 3;     // PINDAH KELUAR
+                break;
+            case 4:
+                $peristiwa = 4;     // HILANG
+                break;
+            case 5:
+                $peristiwa = 6;     // PERGI
+                break;
+        }
+
+        $logData = Arr::except($validatedData, ['id_status_dasar']);
+        LogPenduduk::create(array_merge([
+            'id_penduduk' => $penduduk->id,
+            'id_peristiwa' => $peristiwa,
+        ], $logData));
+
+        return redirect('/staf/kependudukan/penduduk')->with('success', 'Data status dasar penduduk berhasil diubah!');
     }
 
     public function pendudukDelete(Penduduk $penduduk)

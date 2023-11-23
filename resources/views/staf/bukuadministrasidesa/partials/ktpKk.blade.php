@@ -64,7 +64,7 @@
                     <td>{{ $data->kewarganegaraan->nama ?? '-' }}</td>
                     <td>{{ $data->nama_ayah ?? '-' }}</td>
                     <td>{{ $data->nama_ibu ?? '-' }}</td>
-                    <td>{{ $data->created_at ? strtoupper($data->created_at->translatedFormat('jS F Y')) : '-' }}</td>
+                    <td>{{ $data->tanggal_lapor ? strtoupper(\Carbon\Carbon::parse($data->tanggal_lapor)->translatedFormat('jS F Y')) : '-' }}</td>
                     <td>{{ $data->ket ?? '-' }}</td>
             @endforeach
         </tbody>

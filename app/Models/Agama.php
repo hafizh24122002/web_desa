@@ -10,7 +10,18 @@ class Agama extends Model
 {
     use HasFactory;
 
-    protected $table = "agama";
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'agama';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -18,18 +29,14 @@ class Agama extends Model
      * 
      * @var array<int, string>
      */
-    protected $fillable = [
-        'nama'
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
-    protected $casts = [
-         
-    ];
+    protected $casts = [];
 
     public function penduduk()
     {

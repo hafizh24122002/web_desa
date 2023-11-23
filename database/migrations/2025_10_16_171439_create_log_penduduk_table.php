@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('id_peristiwa')->nullable()->constrained('peristiwa')->onUpdate('cascade')->onUpdate('cascade');
             $table->string('meninggal_di', 50)->nullable();
             $table->time('jam_mati')->nullable();
-            $table->string('sebab', 50)->nullable();
-            $table->string('penolong_mati', 50)->nullable();
+            $table->foreignId('id_penyebab_kematian')->nullable()->constrained('penyebab_kematian')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_penolong_kematian')->nullable()->constrained('penolong_kematian')->onUpdate('cascade')->onDelete('cascade');
             $table->string('no_akta_mati', 50)->nullable();
             $table->string('alamat_tujuan')->nullable();
             $table->date('tanggal_lapor');

@@ -13,8 +13,10 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "maatwebsite/excel": "3.1.48",
+        "maatwebsite/excel": "^3.1",
         "mews/captcha": "^3.3",
+        "mpdf/mpdf": "^8.2",
+        "phpoffice/phpspreadsheet": "^1.29",
         "phpoffice/phpword": "^1.1"
     },
     "minimum-stability": "stable",

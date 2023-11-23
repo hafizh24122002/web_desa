@@ -5,11 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
-use App\Models\Agama;
-use App\Models\pendidikanTerakhir;
-use App\Models\Pekerjaan;
-use App\Models\JenisKelamin;
-use App\Models\RtmHubungan;
 
 class Penduduk extends Model
 {
@@ -69,7 +64,7 @@ class Penduduk extends Model
      */
     protected $appends = [
         'usia',
-        'alamat_wilayah',
+        // 'alamat_wilayah',
     ];
 
     /**
@@ -77,6 +72,7 @@ class Penduduk extends Model
      */
     protected $with = [
         'helperPendudukKeluarga',
+        'hubunganKk',
         'jenisKelamin',
         'agama',
         'pendidikanSaatIni',
@@ -87,6 +83,7 @@ class Penduduk extends Model
         'cacat',
         'statusPerkawinan',
         'statusDasar',
+        'bahasa'
         // 'wilayah',
     ];
 
@@ -307,6 +304,11 @@ class Penduduk extends Model
     public function statusDasar()
     {
         return $this->belongsTo(StatusDasar::class, 'id_status_dasar');
+    }
+
+    public function bahasa()
+    {
+        return $this->belongsTo(PendudukBahasa::class, 'id_bahasa');
     }
 
     /**

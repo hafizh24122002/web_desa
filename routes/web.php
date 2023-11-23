@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\BukuExportController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\InfoDesaController;
@@ -33,7 +34,7 @@ use Carbon\Carbon;
 */
 
 // route pengunjung
-Route::get('/', [MainVisitorController::class, 'index']);
+Route::get('/', [MainVisitorController::class, 'index'])->name('visitor.home');
 Route::get('/tentang-desa', [MainVisitorController::class, 'aboutDesa']);
 Route::get('/geografis-desa', [MainVisitorController::class, 'geografisDesa']);
 Route::get('/demografi-desa', [MainVisitorController::class, 'demografiDesa']);
@@ -89,7 +90,7 @@ Route::get('/get-coordinates', function () {
     abort(404);
 })->middleware('auth');
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 	// route admin
 	Route::get('/admin/dashboard', [MainAdminController::class, 'index']);
 
@@ -106,10 +107,12 @@ Route::get('/get-coordinates', function () {
 		
 		// route staf
 		Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan']);
-		Route::get('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNew']);
-		Route::post('/staf/kependudukan/penduduk/new-penduduk', [KependudukanController::class, 'pendudukNewSubmit']);
+		Route::get('/staf/kependudukan/penduduk/new-penduduk/{type}', [KependudukanController::class, 'pendudukNew']);
+		Route::post('/staf/kependudukan/penduduk/new-penduduk/{type}', [KependudukanController::class, 'pendudukNewSubmit']);
 		Route::get('/staf/kependudukan/penduduk/edit-penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukEdit']);
 		Route::put('/staf/kependudukan/penduduk/edit-penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukEditSubmit']);
+		Route::get('/staf/kependudukan/penduduk/edit-penduduk/status-dasar/{penduduk:nik}', [KependudukanController::class, 'pendudukStatusDasarEdit']);
+		Route::put('/staf/kependudukan/penduduk/edit-penduduk/status-dasar/{penduduk:nik}', [KependudukanController::class, 'pendudukStatusDasarEditSubmit']);
 		Route::delete('/staf/kependudukan/penduduk/{penduduk:nik}', [KependudukanController::class, 'pendudukDelete']);
 		Route::get('/staf/kependudukan/penduduk/get-data/{nama}', [KependudukanController::class, 'getDataPenduduk']);
 		Route::get('/staf/kependudukan/penduduk/get-data/tanggal-lahir/{nik}', [KependudukanController::class, 'getTanggalLahir']);
@@ -206,8 +209,8 @@ Route::get('/get-coordinates', function () {
 
 		Route::get('/staf/buku-administrasi-desa/administrasi-umum', [BukuController::class, 'kependudukan']);
 		Route::get('/staf/buku-administrasi-desa/administrasi-penduduk', [BukuController::class, 'bukuIndukKependudukan']);
-		Route::get('/staf/buku-administrasi-desa/get-data/{type}', [BukuController::class, 'getData']);
-		Route::get('users/export/', [BukuController::class, 'export']);
+		Route::get('/staf/buku-administrasi-desa/get-data/{type}', [BukuController::class, 'getData'])->name('buku.getData');
+		Route::post('/staf/buku-administrasi-desa/export/{type}/{month}/{year}', [BukuExportController::class, 'bukuExport'])->name('buku.export');
 
 		Route::get('/staf/info-desa/identitas-desa', [InfoDesaController::class, 'showDataDesa'])->name('desa.data');
 		Route::get('/staf/info-desa/identitas-desa/edit', [InfoDesaController::class, 'editDataDesa'])->name('desa.edit');
@@ -226,4 +229,4 @@ Route::get('/get-coordinates', function () {
 		Route::put('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEditSubmit']);
 		Route::delete('/staf/info-desa/dusun/{id}', [InfoDesaController::class, 'dusunDelete']);
 	// });
-// });
+});

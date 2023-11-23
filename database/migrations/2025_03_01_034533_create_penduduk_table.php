@@ -69,7 +69,7 @@ return new class extends Migration
             $table->foreignId('id_asuransi')->nullable()->constrained('asuransi')->onUpdate('cascade')->onDelete('cascade');
             $table->string('no_asuransi', 100)->nullable();
             $table->string('email', 100)->nullable();
-            $table->integer('bahasa_id')->nullable();
+            $table->integer('id_bahasa')->nullable();
             $table->text('ket')->nullable();
             $table->string('negara_asal', 50)->nullable();
             $table->string('tempat_cetak_ktp', 150)->nullable();

@@ -18,7 +18,8 @@ class JenisKelamin extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama'
+        'nama',
+        'singkatan'
     ];
 
     /**

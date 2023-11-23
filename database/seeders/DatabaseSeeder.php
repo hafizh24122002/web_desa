@@ -23,6 +23,9 @@ use App\Models\Pekerjaan;
 use App\Models\PendidikanSaatIni;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
+use App\Models\PendudukBahasa;
+use App\Models\PenyebabKematian;
+use App\Models\PenolongKematian;
 use App\Models\Peristiwa;
 use App\Models\Pindah;
 use App\Models\Posyandu;
@@ -77,8 +80,14 @@ class DatabaseSeeder extends Seeder
         RtmHubungan::create(['nama' => 'KEPALA RUMAH TANGGA']);
         RtmHubungan::create(['nama' => 'ANGGOTA']);
 
-        JenisKelamin::create(['nama' => 'LAKI-LAKI']);
-        JenisKelamin::create(['nama' => 'PEREMPUAN']);
+        JenisKelamin::create([
+            'nama' => 'LAKI-LAKI',
+            'singkatan' => 'L'
+        ]);
+        JenisKelamin::create([
+            'nama' => 'PEREMPUAN',
+            'singkatan' => 'P'
+        ]);
 
         GolonganDarah::create(['nama' => 'A']);
         GolonganDarah::create(['nama' => 'B']);
@@ -253,6 +262,43 @@ class DatabaseSeeder extends Seeder
         PendidikanTerakhir::create(['nama' => 'DIPLOMA IV/STRATA I']);
         PendidikanTerakhir::create(['nama' => 'STRATA II']);
         PendidikanTerakhir::create(['nama' => 'STRATA III']);
+
+        PendudukBahasa::create([
+            'nama' => 'Latin',
+            'singkatan' => 'L'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Daerah',
+            'singkatan' => 'D'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Arab',
+            'singkatan' => 'A'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Arab dan Latin',
+            'singkatan' => 'AL'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Arab dan Daerah',
+            'singkatan' => 'AD'
+        ]);
+        PendudukBahasa::create([
+            'nama' => 'Arab, Latin, dan Daerah',
+            'singkatan' => 'ALD'
+        ]);
+
+        PenyebabKematian::create(['nama' => 'Sakit biasa / tua']);
+        PenyebabKematian::create(['nama' => 'Wabah penyakit']);
+        PenyebabKematian::create(['nama' => 'Kecelakaan']);
+        PenyebabKematian::create(['nama' => 'Kriminalitas']);
+        PenyebabKematian::create(['nama' => 'Bunuh diri']);
+        PenyebabKematian::create(['nama' => 'Lainnya']);
+
+        PenolongKematian::create(['nama' => 'Dokter']);
+        PenolongKematian::create(['nama' => 'Tenaga Kesehatan']);
+        PenolongKematian::create(['nama' => 'Kepolisian']);
+        PenolongKematian::create(['nama' => 'Lainnya']);
 
         Peristiwa::create(['nama' => 'Lahir']);
         Peristiwa::create(['nama' => 'Mati']);
@@ -506,7 +552,7 @@ class DatabaseSeeder extends Seeder
             'id_kewarganegaraan' => 1,
             'nama_ayah' => 'John',
             'nama_ibu' => 'Jany',
-            'penduduk_tetap' => true,
+            'penduduk_tetap' => false,
             'telepon' => '082114643544',
             'id_golongan_darah' => '3',
         ]);
