@@ -9,8 +9,8 @@
 				{{-- menu yang di atas --}}
 				@include('partials.adminTopMenu', [
 					'title' => 'Rumah Tangga',
-					'parent_page' => 'Kependudukan',
-					'parent_link' => '/staf/kependudukan/penduduk',
+					'parent_page' => 'rtm',
+					'parent_link' => '/staf/kependudukan/rtm',
 					'current_page' => 'Rumah Tangga',
 				])
 	
@@ -23,7 +23,7 @@
 						</div>
 					@endif
 	
-					<a href="/staf/kependudukan/keluarga/new-keluarga" style="width: auto" class="btn btn-primary my-2">
+					<a href="/staf/kependudukan/rtm/new-rtm" style="width: auto" class="btn btn-primary my-2">
 						<i class="bx bx-user-plus align-middle"></i> Tambah Data Rumah Tangga Baru
 					</a>
 	
