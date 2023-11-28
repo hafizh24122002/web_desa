@@ -42,6 +42,7 @@ class RtmController extends Controller
             'title' => 'Tambah Rumah Tangga Baru',
             'nik_kepala' => Penduduk::all(),
             'kelas_sosial' => KelasSosial::all(),
+
         ]);
     }
 
@@ -65,8 +66,10 @@ class RtmController extends Controller
         $validatedSpecificData = $request->validate([
             'dtks' => 'nullable',
             'alamat' => 'nullable',
+            'id_helper_penduduk_rtm' => 'required',
             'id_dusun' => 'nullable',
             'id_rt' => 'nullable',
+            'bdt' => 'nullable',
         ]);
 
         if (isset($validatedSpecificData['alamat'])) {
@@ -115,6 +118,7 @@ class RtmController extends Controller
             'alamat' => 'nullable',
             'id_dusun' => 'nullable',
             'id_rt' => 'nullable',
+            'bdt' => 'nullable',
         ]);
 
         // Temukan penduduk lama berdasarkan nik lama

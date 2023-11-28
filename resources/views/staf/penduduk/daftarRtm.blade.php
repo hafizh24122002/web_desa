@@ -7,32 +7,66 @@
                 <div class="container">
                     {{-- menu yang di atas --}}
                     @include('partials.adminTopMenu', [
-                        'title' => 'Daftar Anggota Keluarga',
+                        'title' => 'Daftar Anggota Rumah Tangga',
                         'parent_page' => 'Kependudukan',
                         'parent_link' => '/staf/kependudukan/penduduk',
                         'current_page' => 'Rumah Tangga',
                     ])
 
                     <div class="container">
-                        <h1>Data Penduduk dalam Rumah Tangga</h1>
-
 						<a href="#" style="width: auto" class="btn btn-primary my-2">
 							<i class="bx bx-user-plus align-middle"></i> Tambah Anggota Rumah Tangga Baru
 						</a>
 
-                        @foreach ($pendudukDalamRtm as $penduduk)
+						<a href="#" style="width: auto" class="btn btn-danger my-2">
+							<i class="bx bx-user-plus align-middle"></i> Hapus Data Terpilih
+						</a>
+
+						<a href="#" style="width: auto" class="btn btn-info my-2">
+							<i class="bx bx-user-plus align-middle"></i> Kembali ke Daftar Rumah Tangga
+						</a>
+						<br>
+						<br>
+						<h6>Rincian Keluarga</h6>
+
+						@foreach ($pendudukDalamRtm as $penduduk)
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $penduduk->nama }}</h5>
-                                    <p class="card-text">Jenis Kelamin:
-                                        {{ $penduduk->jenisKelamin->nama }}</p>
-                                    <p class="card-text">No. KK: {{ $penduduk->helperPendudukKeluarga->no_kk }}</p>
-                                    <p class="card-text">Hubungan: {{ $penduduk->rtmHubungan->nama }}</p>
-                                    <p class="card-text">Alamat: {{ $penduduk->alamat_sekarang }}</p>
-                                    <!-- Add other fields you want to display -->
+									<table class="table table-sm table-hover">
+										<tr>
+											<td>Nomor Rumah Tangga (RT)</td>
+											<td>:</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>Kepala Rumah Tangga</td>
+											<td>:</td>
+											<td>{{ $penduduk->nama }}</td>
+										</tr>
+										<tr>
+											<td>Alamat</td>
+											<td>:</td>
+											<td>{{ $penduduk->alamat_sekarang }}</td>
+										</tr>
+										<tr>
+											<td>BDT</td>
+											<td>:</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>Program Bantuan</td>
+											<td>:</td>
+											<td></td>
+										</tr>
+									</table>
                                 </div>
                             </div>
                         @endforeach
+						
+						<div class="card mb-3">
+							<h6>Daftar Anggota</h6>
+						</div>
+						
 
                         {{ $pendudukDalamRtm->links() }}
                     </div>
@@ -45,10 +79,6 @@
 							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 						</div>
 					@endif
-	
-					<a href="/staf/kependudukan/keluarga/new-keluarga" style="width: auto" class="btn btn-primary my-2">
-						<i class="bx bx-user-plus align-middle"></i> Tambah Data Keluarga Baru
-					</a>
 	
 					<table class="table table-hover">
 						<thead>
