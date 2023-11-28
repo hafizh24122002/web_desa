@@ -56,18 +56,18 @@
 				<form class="d-flex" role="search">
 					<div class="input-group">
 						<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-						<button type="button" class="btn btn-secondary rounded" id="searchbtn">
+						<button type="button" class="btn btn-primary rounded" id="searchbtn">
 							<i class="fas fa-search"></i>
 						</button>
 					</div>
 				</form>
 				@auth
 				<a href="/admin/dashboard">
-					<button type="button" class="btn btn-secondary rounded-pill ms-2">Dashboard</button>
+					<button type="button" class="btn btn-primary rounded-pill ms-2">Dashboard</button>
 				</a>
 				@else
 				<a href="/login">
-					<button type="button" class="btn btn-secondary rounded-pill ms-2">Login</button>
+					<button type="button" class="btn btn-primary rounded-pill ms-2">Login</button>
 				</a>
 				@endauth
 			</div>

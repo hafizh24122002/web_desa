@@ -65,7 +65,7 @@
                     </a>
                     @endforeach
                 @else
-                <div class="card mb-3" style="width: 100%">
+                <div class="card mb-3 shadow" style="width: 100%">
                     <div class="card-body">
                         <div class="row g-0 align-items-center">
                             <div class="col-md-2 text-center">

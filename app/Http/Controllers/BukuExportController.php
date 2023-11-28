@@ -38,8 +38,16 @@ class BukuExportController extends Controller
                 );
                 break;
             case 'mutasiPendudukDesa':
+                $path = $this->mutasiPendudukDesaExport(
+                    $type,
+                    $month,
+                    $year,
+                    $request->input('nama'),
+                    $request->input('action')
+                );
                 break;
             case 'rekapitulasiJumlahPenduduk':
+                // TODO
                 break;
             case 'pendudukSementara':
                 $path = $this->pendudukSementaraExport(
@@ -182,7 +190,133 @@ class BukuExportController extends Controller
 
     private function mutasiPendudukDesaExport($type, $month, $year, $nama, $action)
     {
-        // TODO
+        // Load the Excel template
+        $templatePath = Storage::path('buku_administrasi_penduduk/mutasi_penduduk.xlsx');
+        $spreadsheet = IOFactory::load($templatePath);
+
+        // Get the active worksheet
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // Set BIP date
+        $worksheet->setCellValueByColumnAndRow(1, 7, 'BUKU MUTASI PENDUDUK DESA BULAN '.strtoupper(Carbon::create(null, $month, 1)->translatedFormat('F')).' TAHUN '.$year);
+        $worksheet->getStyleByColumnAndRow(1, 7)->applyFromArray([
+            'font' => [
+                'name' => 'Times New Roman',
+                'size' => 9,
+                'bold' => true
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
+            ],
+        ]);
+
+        // Define the row where you want to start inserting data
+        $row = 12;
+
+        $request = Request::create(route('buku.getData', ['type' => $type]), 'GET', [
+            'month' => $month,
+            'year' => $year,
+            'nama' => $nama,
+        ]);
+
+        $response = app()->handle($request);
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getContent());
+        } else {
+            abort($response->getStatusCode(), 'Gagal mengambil data!');
+        }
+
+        foreach ($data as $item) {
+            // Insert data into the worksheet
+            $worksheet->setCellValueByColumnAndRow(1, $row, ($row - 11) ?? '-');
+            $worksheet->setCellValueByColumnAndRow(2, $row, $item->penduduk->nama ?? '-');
+            $worksheet->setCellValueByColumnAndRow(3, $row, $item->penduduk->tempat_lahir ?? '-');
+            $worksheet->setCellValueByColumnAndRow(4, $row, $item->penduduk->tanggal_lahir ? strtoupper(Carbon::parse($item->penduduk->tanggal_lahir)->translatedFormat('jS F Y')) : '-');
+            $worksheet->setCellValueByColumnAndRow(5, $row, $item->penduduk->jenis_kelamin->singkatan);
+            $worksheet->setCellValueByColumnAndRow(6, $row, $item->penduduk->kewarganegaraan->nama ?? '-');
+            if ($item->id_peristiwa === 5) {   // PINDAH MASUK
+                $worksheet->setCellValueByColumnAndRow(7, $row, $item->penduduk->alamat_sebelumnya ?? '-');
+                $worksheet->setCellValueByColumnAndRow(8, $row, $item->tanggal_lapor ? strtoupper(Carbon::parse($item->tanggal_lapor)->translatedFormat('jS F Y')) : '-');
+            } else {
+                $worksheet->setCellValueByColumnAndRow(7, $row, '-');
+                $worksheet->setCellValueByColumnAndRow(8, $row, '-');
+            }
+            if ($item->id_peristiwa === 3) {    // PINDAH KELUAR
+                $worksheet->setCellValueByColumnAndRow(9, $row, $item->alamat_tujuan ?? '-');
+                $worksheet->setCellValueByColumnAndRow(10, $row, $item->tanggal_lapor ? strtoupper(Carbon::parse($item->tanggal_lapor)->translatedFormat('jS F Y')) : '-');
+            } else {
+                $worksheet->setCellValueByColumnAndRow(9, $row, '-');
+                $worksheet->setCellValueByColumnAndRow(10, $row, '-');
+            }
+            if ($item->id_peristiwa === 2) {    // MATI
+                $worksheet->setCellValueByColumnAndRow(11, $row, $item->meninggal_di ?? '-');
+                $worksheet->setCellValueByColumnAndRow(12, $row, $item->tanggal_lapor ? strtoupper(Carbon::parse($item->tanggal_lapor)->translatedFormat('jS F Y')) : '-');
+            } else {
+                $worksheet->setCellValueByColumnAndRow(11, $row, '-');
+                $worksheet->setCellValueByColumnAndRow(12, $row, '-');
+            }
+            $worksheet->setCellValueByColumnAndRow(13, $row, $item->catatan ?? '-');
+
+            $row++;
+        }
+
+        $lastRow = $row - 1;
+        $cellRange = 'A12:M' . $lastRow;
+
+        // Get the style for the cell range
+        $style = $worksheet->getStyle($cellRange);
+
+        // Define the border style
+        $borderStyle = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ];
+
+        $alignment = [
+            'horizontal' => Alignment::HORIZONTAL_CENTER,
+            'vertical' => Alignment::VERTICAL_CENTER,
+        ];
+
+        // Apply the border style to the cell range
+        $style->applyFromArray($borderStyle);
+
+        // Apply the alignment to the cell range
+        $style->getAlignment()->applyFromArray($alignment);
+        $style->getAlignment()->setWrapText(true);
+
+        // Add signatures
+        $namaDesa = strtoupper(IdentitasDesa::find(1)->nama_desa);
+        $worksheet->getStyle('B'. $row+1 .':L' . $row+7)->getAlignment()->setWrapText(false);
+        $worksheet->setCellValueByColumnAndRow(3, $row+1, 'MENGETAHUI');
+        $worksheet->setCellValueByColumnAndRow(11, $row+1, $namaDesa.', '.Carbon::now()->translatedFormat('jS F Y'));
+        $worksheet->setCellValueByColumnAndRow(3, $row+2, 'KEPALA DESA '.$namaDesa);
+        $worksheet->setCellValueByColumnAndRow(11, $row+2, 'SEKRETARIS DESA '.$namaDesa);
+        $worksheet->setCellValueByColumnAndRow(3, $row+7, Staf::where('jabatan', 'Kepala Desa')->value('nama'));
+        $worksheet->setCellValueByColumnAndRow(11, $row+7, Staf::where('jabatan', 'Sekretaris Desa')->value('nama'));
+
+        // Save the modified Excel file
+        if ($action === 'print') {
+            $writer = new Mpdf($spreadsheet);
+
+            $outputDirectory = public_path('storage/temps');
+            $outputPath = $outputDirectory . '/' . 'buku_temp.pdf';
+        } else if ($action === 'download') {
+            $writer = new Xlsx($spreadsheet);
+
+            $outputDirectory = public_path('storage/temps');
+            $outputPath = $outputDirectory . '/' . 'buku_temp.xlsx';
+        } else {
+            abort(422, 'Action tidak terdefinisi!');
+        }
+
+        $writer->save($outputPath);
+
+        return $outputPath;
     }
 
     private function rekapitulasiJumlahPendudukExport()

@@ -326,6 +326,9 @@ class KependudukanController extends Controller
             'tanggal_lapor' => 'required',
             'catatan' => 'nullable'
         ], [
+            'id_status_dasar.required' => 'Status dasar harus diisi!',
+            'tanggal_peristiwa.required' => 'Tanggal peristiwa harus diisi!',
+            'tanggal_lapor.required' => 'Tanggal lapor harus diisi!',
             'meninggal_di.required_if' => 'Tempat meninggal harus diisi jika status dasar diisi "MATI"!',
             'jam_mati.required_if' => 'Jam kematian harus diisi jika status dasar diisi "MATI"!',
             'id_penyebab_kematian.required_if' => 'Penyebab kematian harus diisi jika status dasar diisi "MATI"!',
