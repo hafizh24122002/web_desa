@@ -46,38 +46,42 @@
 						</ul>
 					</div>
 
-					<table class="table table-hover">
-						<thead>
-							<tr class="bg-dark text-light text-center align-middle">
-								<th>No</th>
-								<th>Aksi</th>
-								<th class="sortable" data-field="nik" data-order="{{ $sortField === 'nik' ? $sortOrder : 'asc' }}">
-									NIK
-									<i class="ms-2 fas {{ $sortField === 'nik' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-								<th class="sortable" data-field="nama" data-order="{{ $sortField === 'nama' ? $sortOrder : 'asc' }}">
-									Nama
-									<i class="ms-2 fas {{ $sortField === 'nama' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-								<th class="sortable" data-field="id_jenis_kelamin" data-order="{{ $sortField === 'id_jenis_kelamin' ? $sortOrder : 'asc' }}">
-									Jenis Kelamin
-									<i class="ms-2 fas {{ $sortField === 'id_jenis_kelamin' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-								<th class="sortable" data-field="telepon" data-order="{{ $sortField === 'telepon' ? $sortOrder : 'asc' }}">
-									Telepon
-									<i class="ms-2 fas {{ $sortField === 'telepon' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-								<th class="sortable" data-field="penduduk_tetap" data-order="{{ $sortField === 'penduduk_tetap' ? $sortOrder : 'asc' }}">
-									Penduduk Tetap
-									<i class="ms-2 fas {{ $sortField === 'penduduk_tetap' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-							</tr>
-						</thead>						
-
-						</tbody>
-							@include('partials.pendudukTable')
-						</tbody>
-					</table>
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr class="bg-dark text-light text-center align-middle">
+									<th>No</th>
+									<th>Aksi</th>
+									<th class="sortable" data-field="nik" data-order="{{ $sortField === 'nik' ? $sortOrder : 'asc' }}">
+										NIK
+										<i class="ms-2 fas {{ $sortField === 'nik' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+									</th>
+									<th class="sortable" data-field="nama" data-order="{{ $sortField === 'nama' ? $sortOrder : 'asc' }}">
+										Nama
+										<i class="ms-2 fas {{ $sortField === 'nama' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+									</th>
+									<th>No. KK</th>
+									<th>Nama Ayah</th>
+									<th>Nama Ibu</th>
+									<th>No. Rumah Tangga</th>
+									<th>Alamat</th>
+									<th>Dusun</th>
+									<th>RW</th>
+									<th>RT</th>
+									<th>Pendidikan Dalam KK</th>
+									<th>Umur</th>
+									<th>Pekerjaan</th>
+									<th>Kawin</th>
+									<th>Tgl Peristiwa</th>
+									<th>Tgl Terdaftar</th>
+								</tr>
+							</thead>						
+	
+							</tbody>
+								@include('partials.pendudukTable')
+							</tbody>
+						</table>
+					</div>
 
 					<div class="d-flex justify-content-end">
 						{{ $penduduk->links() }}

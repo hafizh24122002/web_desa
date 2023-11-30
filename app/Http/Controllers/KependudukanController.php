@@ -41,13 +41,29 @@ class KependudukanController extends Controller
         $sortField = $request->input('sort_field', 'nik'); // Default sorting field
         $sortOrder = $request->input('sort_order', 'asc'); // Default sorting order
 
-        $query = Penduduk::select(
-            'nama',
+        $query = Penduduk::join(
+            'log_penduduk',
+            'log_penduduk.id_penduduk',
+            '=',
+            'penduduk.id'
+        )->select(
             'nik',
-            'id_jenis_kelamin',
-            'telepon',
-            'penduduk_tetap'
-        );
+            'nama',
+            'id_helper_penduduk_keluarga',
+            'nama_ayah',
+            'nama_ibu',
+            // 'no_rumah_tangga',
+            'alamat_sekarang',
+            // 'dusun',
+            // 'rw',
+            // 'rt',
+            'id_pendidikan_terakhir',
+            'tanggal_lahir',
+            'id_pekerjaan',
+            'id_status_perkawinan',
+            'tanggal_peristiwa',
+            'tanggal_lapor'
+        )->where('penduduk_tetap', 1)->whereIn('id_peristiwa', [1, 5]);
 
         if ($search) {
             $query->where('nama', 'LIKE', '%' . $search . '%')

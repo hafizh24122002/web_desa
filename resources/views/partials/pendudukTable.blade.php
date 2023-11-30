@@ -49,35 +49,30 @@
 			</div>
 		</td>
 
-		<td>{{ $data->nik }}</td>
+		<td class="text-start">{{ $data->nik ?? '-' }}</td>
+		<td class="text-start">{{ $data->nama ?? '-' }}</td>
+		<td class="text-start">{{ $data->helperPendudukKeluarga->no_kk ?? '-' }}</td>
+		<td class="text-start">{{ $data->nama_ayah ?? '-' }}</td>
+		<td class="text-start">{{ $data->nama_ibu ?? '-' }}</td>
+		<td class="text-start">{{ $data->alamat_sekarang ?? '-' }}</td>
+		<td class="text-start">{{ $data->todo ?? '-' }}</td>
+		<td class="text-start">{{ $data->todo ?? '-' }}</td>
+		<td class="text-start">{{ $data->todo ?? '-' }}</td>
+		<td class="text-start">{{ $data->pendidikanTerakhir->nama ?? '-' }}</td>
+		<td class="text-start">{{ $data->getUsiaAttribute() ?? '-' }}</td>
+		<td class="text-start">{{ $data->pekerjaan->nama ?? '-' }}</td>
+		<td class="text-start">{{ $data->statusPerkawinan->nama ?? '-' }}</td>
+		<td class="text-start">{{ $data->tanggal_peristiwa ?? '-' }}</td>
+		<td class="text-start">{{ $data->tanggal_lapor ?? '-' }}</td>
 
-		<td class="text-start">
-			@if ($data->nama)
-				{{ $data->nama }}	
-			@else
-				{{ "-" }}
-			@endif
-		</td>
 
-		<td class="text-start">
-			{{ $data->jenisKelamin->singkatan ?? '-' }}
-		</td>
 
-		<td>
-			@if ($data->telepon)
-				{{ $data->telepon }}
-			@else
-				{{ "-" }}
-			@endif
-		</td>
 
-		<td>
-			@if ($data->penduduk_tetap)
-				{{ "Ya" }}
-			@else
-				{{ "Tidak" }}
-			@endif
-		</td>
+
+
+
+
+
 	</tr>
 @endforeach
 
