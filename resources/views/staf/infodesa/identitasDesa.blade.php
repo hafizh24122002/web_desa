@@ -40,10 +40,10 @@
                                 <div class="row">
                                     <div class="card-body">
                                         <center>
-                                        <img class="img-identitas img-responsive" src="{{ asset('img/malik.jpg') }}" alt="logo"
-                                            style="max-width: 150px; height: auto;">
-                                        <img class="img-identitas img-responsive" src="{{ asset('img/login-bg.jpg') }}" alt="kantor"
-                                            style="max-width: 300px; height: auto;">
+                                            <img class="img-identitas img-responsive mx-2" src="{{ asset('img/malik.jpg') }}" alt="logo"
+                                                style="width: auto; max-height: 200px;">
+                                            <img class="img-identitas img-responsive mx-2" src="{{ asset('img/login-bg.jpg') }}" alt="kantor"
+                                                style="width: auto; max-height: 200px;">
                                         </center>
                                     </div>
                                     <div class="card-body">
@@ -51,16 +51,16 @@
                                     </div>
                                 </div>
                                 </tr>
-                                <h3 class="text-identitas">DESA MALIK</h3>
+                                <h3 class="text-identitas">DESA {{ strtoupper($dataDesa->nama_desa) }}</h3>
                                 <p class="text-identitas">
-                                    <b>Kecamatan Payung, Kabupaten Bangka Selatan</b>
+                                    <b>Kecamatan {{ $dataDesa->nama_kecamatan }}, Kabupaten {{ $dataDesa->nama_kabupaten }}</b>
                                 </p>
                             </div>
                             <hr>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover tabel-rincian">
+                                <table class="table table-striped table-hover">
                                     <tbody>
-                                        <tr class="table-primary">
+                                        <tr class="bg-dark text-light align-middle">
                                             <th colspan="3" class="subtitle_head"><strong>DESA</strong></th>
                                         </tr>
                                         <tr>
@@ -108,7 +108,7 @@
                                             <td>:</td>
                                             <td>{{ $dataDesa->website }}</td>
                                         </tr>
-                                        <tr class="table-primary">
+                                        <tr class="bg-dark text-light align-middle">
                                             <th colspan="3" class="subtitle_head"><strong>KECAMATAN</strong></th>
                                         </tr>
                                         <tr>
@@ -131,7 +131,7 @@
                                             <td>:</td>
                                             <td>{{ $dataDesa->nip_kepala_camat }}</td>
                                         </tr>
-                                        <tr class="table-primary">
+                                        <tr class="bg-dark text-light align-middle">
                                             <th colspan="3" class="subtitle_head"><strong>KABUPATEN</strong></th>
                                         </tr>
                                         <tr>
@@ -144,7 +144,7 @@
                                             <td>:</td>
                                             <td>{{ $dataDesa->kode_kabupaten }}</td>
                                         </tr>
-                                        <tr class="table-primary">
+                                        <tr class="bg-dark text-light align-middle">
                                             <th colspan="3" class="subtitle_head"><strong>PROVINSI</strong></th>
                                         </tr>
                                         <tr>

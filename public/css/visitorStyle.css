@@ -17,6 +17,13 @@ footer {
     margin-top: auto;
 }
 
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.3s;
+}
+
 .carousel-item h5 {
     font-weight: bold;
 }
