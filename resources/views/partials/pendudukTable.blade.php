@@ -54,6 +54,7 @@
 		<td class="text-start">{{ $data->helperPendudukKeluarga->no_kk ?? '-' }}</td>
 		<td class="text-start">{{ $data->nama_ayah ?? '-' }}</td>
 		<td class="text-start">{{ $data->nama_ibu ?? '-' }}</td>
+		<td class="text-start">{{ $data->todo ?? '-' }}</td>
 		<td class="text-start">{{ $data->alamat_sekarang ?? '-' }}</td>
 		<td class="text-start">{{ $data->todo ?? '-' }}</td>
 		<td class="text-start">{{ $data->todo ?? '-' }}</td>
@@ -62,17 +63,8 @@
 		<td class="text-start">{{ $data->getUsiaAttribute() ?? '-' }}</td>
 		<td class="text-start">{{ $data->pekerjaan->nama ?? '-' }}</td>
 		<td class="text-start">{{ $data->statusPerkawinan->nama ?? '-' }}</td>
-		<td class="text-start">{{ $data->tanggal_peristiwa ?? '-' }}</td>
-		<td class="text-start">{{ $data->tanggal_lapor ?? '-' }}</td>
-
-
-
-
-
-
-
-
-
+		<td class="text-start">{{ \Carbon\Carbon::parse($data->tanggal_peristiwa)->translatedFormat('jS F Y') ?? '-' }}</td>
+		<td class="text-start">{{ \Carbon\Carbon::parse($data->tanggal_lapor)->translatedFormat('jS F Y') ?? '-' }}</td>
 	</tr>
 @endforeach
 

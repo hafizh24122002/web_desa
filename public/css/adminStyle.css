@@ -8,7 +8,8 @@
 	--white-color: #F7F6FB;
 	--body-font: 'Nunito', sans-serif;
 	--normal-font-size: 1rem;
-	--z-fixed: 100
+	--z-fixed: 100;
+	--mdb-secondary: #6c757d;
 }
 
 ::selection {
@@ -82,7 +83,6 @@ a {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	overflow: hidden
 }
 
@@ -160,7 +160,7 @@ a {
 .accordion-button.collapsed::after,
 .accordion-button:not(.collapsed)::after {
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23afa5d9'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-	display: none;	/* set to block to show accordion arrow */
+	display: none;	/* set display to block to show accordion arrow */
 }
 
 .accordion-collapse.collapse.show {
@@ -248,7 +248,7 @@ a {
 	}
 
 	.show {
-		width: calc(var(--nav-width) + 200px)
+		width: calc(var(--nav-width) + 210px)
 	}
 
 	.body-pd {
@@ -367,11 +367,19 @@ a {
 	background: #888888;
 }
 
+#scrollable-sidebar::-webkit-scrollbar {
+	display: none;
+}
+
 .invalid-feedback, .invalid-tooltip {
 	position: relative;
 }
 
 .form-control.is-invalid, .was-validated .form-control:invalid {
 	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23f93154'%3E%3Ccircle cx='6' cy='6' r='4.5'/%3E%3Cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3E%3Ccircle cx='6' cy='8.2' r='.6' fill='%23f93154' stroke='none'/%3E%3C/svg%3E");
+}
+
+.btn-secondary {
+	background-color: #6c757d;
 }
   
