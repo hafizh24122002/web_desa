@@ -84,6 +84,26 @@
 	</div>
 
 	<script>
+		$(document).ready(function () {
+		  var prevScrollPos = $(window).scrollTop();
+	  
+		  $(window).scroll(function () {
+			var currentScrollPos = $(window).scrollTop();
+	  
+			if (prevScrollPos > currentScrollPos) {
+			  // User is scrolling up
+			  $('.navbar').css('transform', 'translateY(0)');
+			} else {
+			  // User is scrolling down
+			  $('.navbar').css('transform', 'translateY(-100%)');
+			}
+	  
+			prevScrollPos = currentScrollPos;
+		  });
+		});
+	  </script>
+
+	<script>
 		function generateColorPalette(numColors, alpha) {
 			const colors = [];
 			const hueStep = 360 / numColors;
