@@ -32,7 +32,7 @@
 				</form>
 
 				<div>
-					<button class="btn btn-sm btn-warning dropdown-toggle w-auto"
+					<button class="btn btn-sm btn-warning dropdown-toggle w-auto text-light"
 						type="button"
 						id="editDropdownMenuButton"
 						data-mdb-toggle="dropdown"

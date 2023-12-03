@@ -63,7 +63,7 @@
 				</form>
 				@auth
 				<a href="/admin/dashboard">
-					<button type="button" class="btn btn-primary rounded-pill ms-2">Dashboard</button>
+					<button type="button" class="btn btn-primary rounded-pill ms-2" data-mdb-ripple-init data-mdb-ripple-color="light">Dashboard</button>
 				</a>
 				@else
 				<a href="/login">
