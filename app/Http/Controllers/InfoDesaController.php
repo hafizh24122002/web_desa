@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\identitasDesa;
+use App\Models\IdentitasDesa;
+use App\Models\Image;
 use App\Models\WilayahDusun;
 use App\Models\Staf;
 use App\models\Coordinate;
@@ -16,8 +17,12 @@ class InfoDesaController extends Controller
     {
         $dataDesa = IdentitasDesa::first(); // Assuming you want to retrieve the first record. You can use other methods like find() or where() as per your requirement.
         $title = 'Identitas Desa'; // Add the title variable here.
+        $lambangModel = Image::firstWhere('filename', 'LIKE', 'foto_lambang%');
+        $lambangUrl = asset('storage/'.$lambangModel->path);
+        $kantorModel = Image::firstWhere('filename', 'LIKE', 'kantor_desa%');
+        $kantorUrl = asset('storage/'.$kantorModel->path);
 
-        return view('staf.infodesa.identitasDesa', compact('dataDesa', 'title'));
+        return view('staf.infodesa.identitasDesa', compact('dataDesa', 'title', 'lambangUrl', 'kantorUrl'));
     }
 
     public function editDataDesa()
@@ -30,29 +35,72 @@ class InfoDesaController extends Controller
 
     public function updateDataDesa(Request $request)
     {
-        $dataDesa = IdentitasDesa::first(); // Replace 'Desa' with your actual model name and fetch the necessary data from the database.
+        $MAX_IMAGE_SIZE = 10240;
 
         // Update the attributes with the data from the form submission
-        $dataDesa->nama_desa = $request->input('nama_desa');
-        $dataDesa->kode_desa = $request->input('kode_desa');
-        $dataDesa->kode_pos_desa = $request->input('kode_pos_desa');
-        $dataDesa->nama_kepala_desa = $request->input('nama_kepala_desa');
-        $dataDesa->nip_kepala_desa = $request->input('nip_kepala_desa');
-        $dataDesa->alamat_kantor = $request->input('alamat_kantor');
-        $dataDesa->email_desa = $request->input('email_desa');
-        $dataDesa->telepon = $request->input('telepon');
-        $dataDesa->website = $request->input('website');
-        $dataDesa->nama_kecamatan = $request->input('nama_kecamatan');
-        $dataDesa->kode_kecamatan = $request->input('kode_kecamatan');
-        $dataDesa->nama_kepala_camat = $request->input('nama_kepala_camat');
-        $dataDesa->nip_kepala_camat = $request->input('nip_kepala_camat');
-        $dataDesa->nama_kabupaten = $request->input('nama_kabupaten');
-        $dataDesa->kode_kabupaten = $request->input('kode_kabupaten');
-        $dataDesa->nama_provinsi = $request->input('nama_provinsi');
-        $dataDesa->kode_provinsi = $request->input('kode_provinsi');
+        $dataDesa = $request->validate([
+            'nama_desa' => 'required',
+            'kode_desa' => 'required',
+            'kode_pos_desa' => 'nullable',
+            'nama_kepala_desa' => 'required',
+            'nip_kepala_desa' => 'nullable',
+            'alamat_kantor' => 'nullable',
+            'email_desa' => 'nullable|email:rfc,dns',
+            'telepon' => 'nullable|numeric',
+            'website' => 'nullable',
+            'nama_kecamatan' => 'nullable',
+            'kode_kecamatan' => 'nullable',
+            'nama_kepala_camat' => 'nullable',
+            'nip_kepala_camat' => 'nullable',
+            'nama_kabupaten' => 'nullable',
+            'kode_kabupaten' => 'nullable',
+            'nama_provinsi' => 'nullable',
+            'kode_provinsi' => 'nullable',
+            'foto_lambang' => 'nullable|image|max:'.$MAX_IMAGE_SIZE,
+            'kantor_desa' => 'nullable|image|max:'.$MAX_IMAGE_SIZE,
+        ], [
+            'nama_desa.required' => 'Nama desa harus diisi!',
+            'kode_desa.required' => 'Kode desa harus diisi!',
+            'nama_kepala_desa.required' => 'Nama Kepala Desa harus diisi!',
+            'email_desa.email' => 'Email yang diisi tidak valid!',
+            'telepon.numeric' => 'Nomor telepon yang diisi tidak valid!',
+            'foto_lambang.image' => 'File lambang desa harus berupa gambar!',
+            'foto_lambang.max' => 'Ukuran file tidak boleh lebih dari '.($MAX_IMAGE_SIZE / 1024).'MB',
+            'kantor_desa.image' => 'File kantor desa harus berupa gambar!',
+            'kantor_desa.max' => 'Ukuran gambar tidak boleh lebih dari '.($MAX_IMAGE_SIZE / 1024).'MB',
+        ]);
 
         // Update other attributes as needed
-        $dataDesa->save();
+        IdentitasDesa::first()->save($dataDesa);
+
+        if ($request->hasFile('foto_lambang')) {
+            $fotoLambang = $request->file('foto_lambang');
+            $fotoLambangHash = md5(file_get_contents($fotoLambang));
+            $fotoLambangFilename = 'foto_lambang.'.$fotoLambang->getClientOriginalExtension();
+            Image::updateOrInsert([
+                ['filename', 'LIKE', 'foto_lambang%']
+            ], [
+                'filename' => $fotoLambangFilename,
+                'hash' => $fotoLambangHash,
+                'path' => '/images/identitas_desa/'.$fotoLambangFilename,
+            ]);
+            $fotoLambang->move(public_path('storage/images/identitas_desa/'), $fotoLambangFilename);
+            
+        }
+
+        if ($request->hasFile('kantor_desa')) {
+            $kantorDesa = $request->file('kantor_desa');
+            $kantorDesaHash = md5(file_get_contents($kantorDesa));
+            $fotoKantorFilename = 'kantor_desa.'.$kantorDesa->getClientOriginalExtension();
+            Image::updateOrInsert([
+                'filename', 'LIKE', 'kantor_desa%'
+            ], [
+                'filename' => $fotoKantorFilename,
+                'hash' => $kantorDesaHash,
+                'path' => '/images/identitas_desa/'.$fotoKantorFilename,
+            ]);
+            $kantorDesa->move(public_path('storage/images/identitas_desa/'), $fotoKantorFilename);
+        }
 
         // return back()->with('success', 'Desa data updated successfully!');
 

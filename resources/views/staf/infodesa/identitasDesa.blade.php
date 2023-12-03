@@ -40,9 +40,9 @@
                                 <div class="row">
                                     <div class="card-body">
                                         <center>
-                                            <img class="img-identitas img-responsive mx-2" src="{{ asset('img/malik.jpg') }}" alt="logo"
+                                            <img class="img-identitas img-responsive mx-2" src="{{ $lambangUrl }}" alt="logo"
                                                 style="width: auto; max-height: 200px;">
-                                            <img class="img-identitas img-responsive mx-2" src="{{ asset('img/login-bg.jpg') }}" alt="kantor"
+                                            <img class="img-identitas img-responsive mx-2" src="{{ $kantorUrl }}" alt="kantor"
                                                 style="width: auto; max-height: 200px;">
                                         </center>
                                     </div>
@@ -60,8 +60,8 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover">
                                     <tbody>
-                                        <tr class="bg-dark text-light align-middle">
-                                            <th colspan="3" class="subtitle_head"><strong>DESA</strong></th>
+                                        <tr class="bg-dark  align-middle">
+                                            <th colspan="3" class="text-light"><strong>DESA</strong></th>
                                         </tr>
                                         <tr>
                                             <td width="300">Nama Desa</td>
@@ -108,8 +108,8 @@
                                             <td>:</td>
                                             <td>{{ $dataDesa->website }}</td>
                                         </tr>
-                                        <tr class="bg-dark text-light align-middle">
-                                            <th colspan="3" class="subtitle_head"><strong>KECAMATAN</strong></th>
+                                        <tr class="bg-dark  align-middle">
+                                            <th colspan="3" class="text-light"><strong>KECAMATAN</strong></th>
                                         </tr>
                                         <tr>
                                             <td>Nama Kecamatan</td>
@@ -131,8 +131,8 @@
                                             <td>:</td>
                                             <td>{{ $dataDesa->nip_kepala_camat }}</td>
                                         </tr>
-                                        <tr class="bg-dark text-light align-middle">
-                                            <th colspan="3" class="subtitle_head"><strong>KABUPATEN</strong></th>
+                                        <tr class="bg-dark  align-middle">
+                                            <th colspan="3" class="text-light"><strong>KABUPATEN</strong></th>
                                         </tr>
                                         <tr>
                                             <td>Nama Kabupaten</td>
@@ -144,8 +144,8 @@
                                             <td>:</td>
                                             <td>{{ $dataDesa->kode_kabupaten }}</td>
                                         </tr>
-                                        <tr class="bg-dark text-light align-middle">
-                                            <th colspan="3" class="subtitle_head"><strong>PROVINSI</strong></th>
+                                        <tr class="bg-dark  align-middle">
+                                            <th colspan="3" class="text-light"><strong>PROVINSI</strong></th>
                                         </tr>
                                         <tr>
                                             <td>Nama Provinsi</td>
