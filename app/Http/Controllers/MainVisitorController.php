@@ -518,32 +518,33 @@ class MainVisitorController extends Controller
 
     public function downloadDokumen($filename)
     {
-        $folder = 'documents'; // Change this to your actual folder name
-
-        // Get the list of files in the directory
+        $folder = 'documents';        
+        $filenameWithUnderscores = str_replace(' ', '_', $filename);
         $files = Storage::disk('public')->files($folder);
-
-        // Find the file with a matching name (without extension)
+    
+        // Mencari nama file yang sesuai
         $matchingFile = null;
         foreach ($files as $file) {
-            if (pathinfo($file, PATHINFO_FILENAME) === $filename) {
+            $fileWithoutExtension = pathinfo($file, PATHINFO_FILENAME);
+            $fileWithoutExtensionUnderscores = str_replace(' ', '_', $fileWithoutExtension);
+    
+            if ($fileWithoutExtensionUnderscores === $filenameWithUnderscores) {
                 $matchingFile = $file;
                 break;
             }
         }
-
+    
         if ($matchingFile) {
-            // Determine the MIME type of the file
-            $mime = mime_content_type(storage_path('app/public/' . $matchingFile));
+            // Menentukan jenis file
+            $mime = Storage::disk('public')->mimeType($matchingFile);
 
-            // Set the appropriate HTTP headers for the response
+            $filenameForUrl = str_replace('%20', '_', basename($matchingFile));    
             return response()->file(storage_path('app/public/' . $matchingFile), [
                 'Content-Type' => $mime,
-                'Content-Disposition' => 'attachment; filename="' . basename($matchingFile) . '"',
+                'Content-Disposition' => 'attachment; filename="' . $filenameForUrl . '"',
             ]);
         } else {
-            // File not found, handle appropriately (e.g., show an error or redirect)
             return abort(404);
         }
-    }
+    }    
 }

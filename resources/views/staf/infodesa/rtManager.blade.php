@@ -7,8 +7,8 @@
             <div class="container">
                 {{-- menu yang di atas --}}
                 @include('partials.adminTopMenu', [
-                'title' => 'Dusun',
-                'current_page' => 'Dusun',
+                'title' => 'RT',
+                'current_page' => 'RT',
                 ])
 
                 {{-- content --}}
@@ -18,8 +18,8 @@
                 </div>
                 @endif
 
-                <a href="/staf/info-desa/dusun/new-dusun" style="width: auto" class="btn btn-primary my-2">
-                    <i class="bx bx-user-plus align-middle"></i> Tambah Data Dusun
+                <a href="/staf/info-desa/rt/new-rt" style="width: auto" class="btn btn-primary my-2">
+                    <i class="bx bx-user-plus align-middle"></i> Tambah Data RT
                 </a>
 
                 <table class="table table-hover">
@@ -27,52 +27,45 @@
                         <tr class="bg-dark text-light text-center align-middle">
                             <th>No</th>
                             <th>Aksi</th>
+                            <th>Nama RT</th>
+                            <th>Ketua RT</th>
                             <th>Nama Dusun</th>
-                            <th>Kepala Dusun</th>
-                            <th>Jumlah RT</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach ($dusun as $key => $data)
+                        @foreach ($rt as $key => $data)
                         <tr class="align-middle text-center">
-                            <td class="text-center">{{ $dusun->firstitem() + $key }}</td>
+                            <td class="text-center">{{ $rt->firstitem() + $key }}</td>
 
                             <td class="d-flex gap-1 justify-content-center">
-                                <a href="/staf/info-desa/dusun/daftar-rt">
-                                    <button class="btn btn-sm btn-primary" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Daftar RT">
-                                        <i class="bx bx-list-ul text-light"></i>
-                                    </button>
-                                </a>
-
-                                <a href="/staf/info-desa/dusun/edit-dusun/{{ $data->id }}">
-                                    <button class="btn btn-sm btn-warning" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Edit Data Dusun">
+                                <a href="/staf/info-desa/rt/edit-rt/{{ $data->id }}">
+                                    <button class="btn btn-sm btn-warning">
                                         <i class="bx bx-edit-alt text-light"></i>
                                     </button>
                                 </a>
 
-                                <form action="/staf/info-desa/dusun/{{ $data->id }}" onsubmit="return confirm('Apakah anda yakin ingin menghapus dusun ini? Dusun yang dihapus tidak akan bisa dikembalikan!')" method="POST">
+                                <form action="/staf/info-desa/rt/{{ $data->id }}" onsubmit="return confirm('Apakah anda yakin ingin menghapus RT ini? RT yang dihapus tidak akan bisa dikembalikan!')" method="POST">
 
                                     @method('delete')
                                     @csrf
 
-                                    <button class="btn btn-sm btn-danger" type="submit" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Hapus Data Dusun">
+                                    <button class="btn btn-sm btn-danger" type="submit">
                                         <i class="bx bx-trash text-light"></i>
                                     </button>
                                 </form>
                             </td>
 
+                            <td> {{ $data->nama_rt ?? ' ' }} </td>
+                            <td> {{ $data->nama_kepala_rt ?? ' ' }} </td>
                             <td> {{ $data->nama_dusun ?? ' ' }} </td>
-                            <td> {{ $data->nama_kepala_dusun ?? ' ' }} </td>
-                            <td> {{ $data->jumlah_rt ?? ' ' }} </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-
-                <div class="d-flex justify-content-end">
-                    {{ $dusun->links() }}
-                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                {{ $rt->links() }}
             </div>
         </div>
     </div>

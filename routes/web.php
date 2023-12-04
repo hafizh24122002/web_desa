@@ -234,5 +234,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/dusun/edit-dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunEdit']);
 		Route::put('/staf/info-desa/dusun/edit-dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunEditSubmit']);
 		Route::delete('/staf/info-desa/dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunDelete']);
+
+		Route::get('/staf/info-desa/dusun/daftar-rt', [InfoDesaController::class, 'rtManager']);
 	// });
 });

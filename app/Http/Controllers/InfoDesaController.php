@@ -12,6 +12,8 @@ use App\Models\Staf;
 use App\models\Coordinate;
 use App\Models\HelperDusun;
 use App\Models\Penduduk;
+use App\Models\WilayahRt;
+use App\Models\HelperRt;
 use Illuminate\Validation\Rule;
 
 class InfoDesaController extends Controller
@@ -237,6 +239,8 @@ class InfoDesaController extends Controller
         return view('staf.infodesa.dusunNew', [
             'title' => 'Tambah Dusun',
             'kepala_dusun' => $kepala_dusun,
+            'helper_dusun' => HelperDusun::all(),
+            'penduduk' => Penduduk::all(),
         ]);
     }
 
@@ -400,5 +404,23 @@ class InfoDesaController extends Controller
         $helperDusun->delete();
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil dihapus!');
+    }
+
+    public function rtManager()
+    {
+        $rt = HelperRt::leftJoin('wilayah_rt', 'wilayah_rt.id_helper_rt', '=', 'helper_rt.id')
+            ->leftJoin('penduduk as kepala_rt', 'kepala_rt.nik', '=', 'helper_rt.nik_kepala')
+            ->leftJoin('wilayah_dusun', 'wilayah_rt.id_wilayah_dusun', '=', 'wilayah_dusun.id')
+            ->select(
+                'helper_rt.nik_kepala',
+                'kepala_rt.nama as nama_kepala_rt',
+                'wilayah_rt.nama as nama_rt',
+                'wilayah_dusun.nama as nama_dusun'
+            )->paginate(10);
+            
+        return view('staf.infodesa.rtManager', [
+            'title' => 'Daftar RT',
+            'rt' => $rt,
+        ]);
     }
 }
