@@ -231,8 +231,8 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/dusun', [InfoDesaController::class, 'dusunManager']);
 		Route::get('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNew']);
 		Route::post('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNewSubmit']);
-		Route::get('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEdit']);
-		Route::put('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEditSubmit']);
-		Route::delete('/staf/info-desa/dusun/{id}', [InfoDesaController::class, 'dusunDelete']);
+		Route::get('/staf/info-desa/dusun/edit-dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunEdit']);
+		Route::put('/staf/info-desa/dusun/edit-dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunEditSubmit']);
+		Route::delete('/staf/info-desa/dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunDelete']);
 	// });
 });
