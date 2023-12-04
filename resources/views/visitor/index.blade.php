@@ -52,41 +52,41 @@
             <div class="col">
                 @if ($artikel->count() > 0)
                     @foreach ($artikel as $item)
-                    <a href="/artikel/{{ $item->judul }}" class="text-reset text-decoration-none">
-                        <div class="card mb-3" style="width: 100%">
-                            <div class="card-body flex-fill">
-                                <h5 class="card-title"><strong>{{ $item->judul }}</strong></h5>
-                                <h6 class="card-subtitle mb-2 text-muted"><em>{{ $item->name }}</em> - {{ $item->updated_at->translatedFormat('l, jS F Y') }}</h6>
-                                <div class="card-text">
-                                    <p>{!! $item->isi !!}</p>
+                        <a href="/artikel/{{ $item->judul }}" class="text-reset text-decoration-none">
+                            <div class="card mb-3" style="width: 100%">
+                                <div class="card-body flex-fill">
+                                    <h5 class="card-title"><strong>{{ $item->judul }}</strong></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><em>{{ $item->name }}</em> - {{ $item->updated_at->translatedFormat('l, jS F Y') }}</h6>
+                                    <div class="card-text">
+                                        <p>{!! $item->isi !!}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
                     @endforeach
                 @else
-                <div class="card mb-3" style="width: 100%">
-                    <div class="card-body">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-2 text-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                    width="100"
-                                    height="100"
-                                    viewBox="0 0 24 24"
-                                    style="fill: rgb(183, 233, 255);transform: ;msFilter:;">
-                                    <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
-                                    <path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path>
-                                </svg>
-                            </div>
-                            <div class="col-md-10 d-flex align-items-center">
-                                <div>
-                                    <h5 class="card-title">Artikel tidak tersedia</h5>
-                                    <p class="card-text" style="height: fit-content">Tidak ada artikel yang tersedia saat ini, mohon coba lagi nanti.</p>
+                    <div class="card mb-3 shadow" style="width: 100%">
+                        <div class="card-body">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-md-2 text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                        width="100"
+                                        height="100"
+                                        viewBox="0 0 24 24"
+                                        style="fill: rgb(183, 233, 255);transform: ;msFilter:;">
+                                        <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                        <path d="M11 11h2v6h-2zm0-4h2v2h-2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="col-md-10 d-flex align-items-center">
+                                    <div>
+                                        <h5 class="card-title">Artikel tidak tersedia</h5>
+                                        <p class="card-text" style="height: fit-content">Tidak ada artikel yang tersedia saat ini, mohon coba lagi nanti.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endif
                 
 

@@ -13,6 +13,7 @@ use App\Models\Artikel;
 use App\Models\HubunganKK;
 use App\Models\IbuHamil;
 use App\Models\IdentitasDesa;
+use App\Models\Image;
 use App\Models\KelasSosial;
 use App\Models\Keluarga;
 use App\Models\Kesehatan;
@@ -762,13 +763,28 @@ class DatabaseSeeder extends Seeder
 
         IdentitasDesa::create([
             'nama_desa' => 'Malik',
-            'kode_desa' => '123.456',
+            'kode_desa' => '19.03.05.2002',
+            'kode_pos_desa' => '33778',
             'nama_kepala_desa' => 'Riza Umami',
             'email_desa' => 'pemdesmalik@gmail.com',
             'website' => 'malik.com',
+            'kode_kecamatan' => '19.03.05',
             'nama_kecamatan' => 'Payung',
             'nama_kabupaten' => 'Bangka Selatan',
-            'nama_provinsi' => 'Bangka Belitung'
+            'kode_kabupaten' => '19.03',
+            'kode_provinsi' => '19',
+            'nama_provinsi' => 'Bangka Belitung',
+        ]);
+
+        Image::create([
+            'filename' => 'foto_lambang.png',
+            'hash' => 'b37bc134fcf5d965ebab9871226cb800',
+            'path' => 'images/identitas_desa/foto_lambang.png',
+        ]);
+        Image::create([
+            'filename' => 'kantor_desa.jpg',
+            'hash' => '3f9313a95e727b43b34ee1ec00e49d39',
+            'path' => 'images/identitas_desa/kantor_desa.jpg',
         ]);
 
         Agenda::create([

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-mdb-theme="light">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,12 +23,12 @@
 
 	<div class="l-navbar bg-dark show" id="nav-bar">
 		<nav class="nav">
-			<div>
-				<a href="/admin/dashboard" class="nav-logo">
-					<i class='bx bx-layer nav-logo-icon'></i>
-					<span class="nav-logo-name nav-name" id="nav-name">Sistem Informasi Desa</span>
-				</a>
-				
+			<a href="/admin/dashboard" class="nav-logo">
+				<i class='bx bx-layer nav-logo-icon'></i>
+				<span class="nav-logo-name nav-name" id="nav-name">Sistem Informasi Desa</span>
+			</a>
+
+			<div class="overflow-auto" id="scrollable-sidebar" style="height: calc(100% - 116px)">
 				<div class="nav-list">
 					<a href="/admin/dashboard" class="nav-link">
 						<i class='bx bx-grid-alt nav-icon'></i>
@@ -300,7 +300,7 @@
 						</div>
 					</div>
 					<div id="BukuAdministrasiDesa">
-						<div class="accordion-item bg-dark">
+						<div class="accordion-item bg-dark mb-6">
 							<div class="accordion-header" id="bukuAdministrasiDesaTitle">
 								<button class="accordion-button collapsed nav-link bg-dark d-flex"
 									style=""
@@ -334,12 +334,12 @@
 						</div>
 					</div>
 				</div>
-			</div> 
+			</div>
 			
 			<form action="/logout" method="post">
 				@csrf
 
-				<button type="submit" class="nav-link" style="background: none; border: none">
+				<button type="submit" class="nav-link position-absolute bottom-0" style="background: none; border: none">
 					<i class='bx bx-log-out nav-icon'></i>
 					<span class="nav-name">Keluar</span>
 				</button>

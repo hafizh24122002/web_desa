@@ -32,7 +32,7 @@
 									<div class="form-group row mb-2 mt-2">
 										<label for="koordinat" class="col-lg-4 fw-bold">Koordinat kantor desa</label>
 										<div class="col-lg-8 d-inline-flex align-items-center gap-4 p-0">
-											<div style="col-auto">
+											<div class="col-lg">
 												<label for="koordinat">Latitude</label>
 												<input class="form-control @error('lat') is-invalid @enderror"
 													name="lat"
@@ -46,7 +46,7 @@
 												@enderror
 											</div>
 						
-											<div style="col-auto">
+											<div class="col-lg">
 												<label for="koordinat">Longitude</label>
 												<input class="form-control @error('lng') is-invalid @enderror"
 													name="lng"
@@ -60,7 +60,7 @@
 												@enderror
 											</div>
 
-											<div style="col-auto">
+											<div class="col-lg">
 												<label for="koordinat">Zoom</label>
 												<input class="form-control @error('zoom') is-invalid @enderror"
 													name="zoom"

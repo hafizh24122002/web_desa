@@ -8,6 +8,12 @@ html {
   height: 100%;
 }
 
+body {
+  background: #efefef;
+  color: #333;
+  font-family: "Raleway";
+  height: 100%;
+}
 body h1 {
   text-align: center;
   color: #428BFF;
@@ -16,6 +22,19 @@ body h1 {
   margin: 0;
 }
 
+.tabs {
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+  background: white;
+  padding: 50px;
+  padding-bottom: 80px;
+  width: 70%;
+  height: 250px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 5px;
+  min-width: 240px;
+}
 .tabs input[name=tab-control] {
   display: none;
 }
@@ -39,7 +58,7 @@ body h1 {
 .tabs ul li {
   box-sizing: border-box;
   flex: 1;
-  width: 33%;
+  width: 25%;
   padding: 0 10px;
   text-align: center;
 }
@@ -74,7 +93,7 @@ body h1 {
 }
 .tabs .slider {
   position: relative;
-  width: 33%;
+  width: 25%;
   transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
 }
 .tabs .slider .indicator {
