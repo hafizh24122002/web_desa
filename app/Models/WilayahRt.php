@@ -18,7 +18,6 @@ class WilayahRt extends Model
      */
     protected $fillable = [
         'nama',
-        'id_kepala_rt',
         'id_wilayah_dusun',
     ];
 
@@ -36,6 +35,6 @@ class WilayahRt extends Model
      */
     public function penduduk()
     {
-        return $this->hasOne(Penduduk::class, 'id_penduduk');
+        return $this->hasMany(Penduduk::class, 'id_wilayah_rt');
     }
 }

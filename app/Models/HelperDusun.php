@@ -24,9 +24,4 @@ class HelperDusun extends Model
     {
         return $this->hasOne(WilayahDusun::class, 'id_helper_dusun');
     }
-
-    public function penduduk()
-    {
-        return $this->hasMany(Penduduk::class, 'id_helper_dusun');
-    }
 }

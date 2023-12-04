@@ -38,8 +38,8 @@ return new class extends Migration
             $table->string('nama_ibu', 100)->nullable(); // *
             $table->string('foto', 100)->nullable();
             $table->foreignId('id_golongan_darah')->nullable()->constrained('golongan_darah')->onUpdate('cascade')->onDelete('cascade'); // *
-            $table->foreignId('id_helper_dusun')->nullable()->constrained('helper_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
-            $table->foreignId('id_helper_rt')->nullable()->constrained('helper_rt')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_wilayah_dusun')->nullable()->constrained('wilayah_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_wilayah_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->string('alamat_sebelumnya', 200)->nullable();
             $table->string('alamat_sekarang', 200)->nullable();
             $table->foreignId('id_status_dasar')->default(1); // hidup, mati, pindah, hilang, pergi, tidak valid
