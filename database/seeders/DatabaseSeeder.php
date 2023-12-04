@@ -43,8 +43,10 @@ use App\Models\Asuransi;
 use App\Models\Cacat;
 use App\Models\CaraKb;
 use App\Models\GolonganDarah;
+use App\Models\HelperDusun;
 use App\Models\HelperPendudukKeluarga;
 use App\Models\HelperPendudukRtm;
+use App\Models\HelperRt;
 use App\Models\JenisKelamin;
 use App\Models\KetuaRt;
 use App\Models\RtmHubungan;
@@ -469,7 +471,7 @@ class DatabaseSeeder extends Seeder
             'nama_ibu' => 'Jany',
             'penduduk_tetap' => false,
             'telepon' => '081255598024',
-            'id_golongan_darah' => '4',
+            'id_golongan_darah' => 4,
         ]);
 
         Penduduk::create([
@@ -492,7 +494,7 @@ class DatabaseSeeder extends Seeder
             'nama_ibu' => 'Jany',
             'penduduk_tetap' => true,
             'telepon' => '082114643544',
-            'id_golongan_darah' => '1',
+            'id_golongan_darah' => 1,
         ]);
 
         Penduduk::create([
@@ -515,7 +517,53 @@ class DatabaseSeeder extends Seeder
             'nama_ibu' => 'Jany',
             'penduduk_tetap' => true,
             'telepon' => '082114643590',
-            'id_golongan_darah' => '1',
+            'id_golongan_darah' => 1,
+        ]);
+
+        Penduduk::create([
+            'nama' => 'SUJONO',
+            'nik' => '6401042412340004',
+            'id_helper_penduduk_keluarga' => 1,
+            'id_helper_penduduk_rtm' => 1,
+            'id_hubungan_kk' => 2,
+            'id_rtm_hubungan' => 2,
+            'id_jenis_kelamin' => 1,
+            'tempat_lahir' => 'SAMARINDA',
+            'tanggal_lahir' => '2002-12-24',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 1,
+            'id_pendidikan_saat_ini' => 1,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
+            'id_kewarganegaraan' => 1,
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
+            'penduduk_tetap' => false,
+            'telepon' => '081255598024',
+            'id_golongan_darah' => 4,
+        ]);
+
+        Penduduk::create([
+            'nama' => 'TUKIYEM',
+            'nik' => '6401042412340005',
+            'id_helper_penduduk_keluarga' => 2,
+            'id_helper_penduduk_rtm' => 2,
+            'id_hubungan_kk' => 2,
+            'id_rtm_hubungan' => 2,
+            'id_jenis_kelamin' => 1,
+            'tempat_lahir' => 'SAMARINDA',
+            'tanggal_lahir' => '2002-12-24',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 1,
+            'id_pendidikan_saat_ini' => 1,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
+            'id_kewarganegaraan' => 1,
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
+            'penduduk_tetap' => false,
+            'telepon' => '081255598024',
+            'id_golongan_darah' => 4,
         ]);
 
         Penduduk::create([
@@ -535,7 +583,7 @@ class DatabaseSeeder extends Seeder
             'nama_ibu' => 'Jany',
             'penduduk_tetap' => true,
             'telepon' => '082114643544',
-            'id_golongan_darah' => '2',
+            'id_golongan_darah' => 2,
         ]);
 
         Penduduk::create([
@@ -555,7 +603,27 @@ class DatabaseSeeder extends Seeder
             'nama_ibu' => 'Jany',
             'penduduk_tetap' => false,
             'telepon' => '082114643544',
-            'id_golongan_darah' => '3',
+            'id_golongan_darah' => 3,
+        ]);
+
+        Penduduk::create([
+            'nama' => 'DEVIA',
+            'nik' => '6401042412340008',
+            'id_hubungan_kk' => 3,
+            'id_jenis_kelamin' => 1,
+            'tempat_lahir' => 'DEPOK',
+            'tanggal_lahir' => '2000-11-06',
+            'id_agama' => 1,
+            'id_pendidikan_terakhir' => 2,
+            'id_pendidikan_saat_ini' => 2,
+            'id_pekerjaan' => 3,
+            'id_status_perkawinan' => 1,
+            'id_kewarganegaraan' => 1,
+            'nama_ayah' => 'John',
+            'nama_ibu' => 'Jany',
+            'penduduk_tetap' => false,
+            'telepon' => '082114643544',
+            'id_golongan_darah' => 3,
         ]);
 
         LogPenduduk::create([
@@ -566,6 +634,7 @@ class DatabaseSeeder extends Seeder
             'tanggal_lapor' => Carbon::now(),
             'tanggal_peristiwa' => Carbon::now(),
         ]);
+
         LogPenduduk::create([
             'id_penduduk' => 2,
             'id_peristiwa' => 1,
@@ -611,25 +680,45 @@ class DatabaseSeeder extends Seeder
         KetuaRt::create(['nama' => 'AMIR']);
         KetuaRt::create(['nama' => 'HANS']);
 
+        HelperDusun::create(['nik_kepala' => '6401042412340001']);
+        HelperDusun::create(['nik_kepala' => '6401042412340002']);
+        HelperDusun::create(['nik_kepala' => '6401042412340008']);
+
+        HelperRt::create(['nik_kepala' => '6401042412340003']);
+        HelperRt::create(['nik_kepala' => '6401042412340006']);
+        HelperRt::create(['nik_kepala' => '6401042412340007']);
+
         WilayahDusun::create([
             'nama' => 'DUSUN 1',
-            'id_kepala_dusun' => 9,
+            'id_helper_dusun' => 1,
         ]);
+
         WilayahDusun::create([
             'nama' => 'DUSUN 2',
-            'id_kepala_dusun' => 10,
+            'id_helper_dusun' => 2,
+        ]);
+
+        WilayahDusun::create([
+            'nama' => 'DUSUN 3',
+            'id_helper_dusun' => 3,
         ]);
 
         WilayahRt::create([
             'nama' => '001',
-            'id_kepala_rt' => 1,
+            'id_helper_rt' => 1,
             'id_wilayah_dusun' => 1,
         ]);
 
         WilayahRt::create([
-            'nama' => '002',
-            'id_kepala_rt' => 2,
+            'nama' => '001',
+            'id_helper_rt' => 2,
             'id_wilayah_dusun' => 2,
+        ]);
+
+        WilayahRt::create([
+            'nama' => '002',
+            'id_helper_rt' => 3,
+            'id_wilayah_dusun' => 3,
         ]);
 
         Keluarga::create([

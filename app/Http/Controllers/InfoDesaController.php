@@ -10,6 +10,9 @@ use App\Models\Image;
 use App\Models\WilayahDusun;
 use App\Models\Staf;
 use App\models\Coordinate;
+use App\Models\HelperDusun;
+use App\Models\Penduduk;
+use Illuminate\Validation\Rule;
 
 class InfoDesaController extends Controller
 {
@@ -184,7 +187,7 @@ class InfoDesaController extends Controller
         if ($request->hasFile('geojson')) {
             $file = $request->file('geojson');
             $filename = 'coordinates.geojson';
-    
+
             $file->storeAs('koordinat_wilayah', $filename);
 
             $latitude = $validatedData['lat'];
@@ -193,7 +196,7 @@ class InfoDesaController extends Controller
             $coordinate = Coordinate::where('nama', 'center')->first();
             $coordinate->coordinate = DB::raw("POINT($latitude, $longitude)");
             $coordinate->save();
-    
+
             return redirect()
                 ->route('desa.petaWilayah')
                 ->with('success', 'Peta wilayah berhasil diubah!');
@@ -206,12 +209,24 @@ class InfoDesaController extends Controller
 
     public function dusunManager()
     {
-        $dusun = WilayahDusun::paginate(10);
-        $kepala_dusun = Staf::where('jabatan', 'like', 'Kepala Dusun%')->get();
+        // $dusun = HelperDusun::paginate(10);
+        $dusun = HelperDusun::leftJoin('wilayah_dusun', 'wilayah_dusun.id_helper_dusun', '=', 'helper_dusun.id')
+            ->leftJoin('penduduk as kepala_dusun', 'kepala_dusun.nik', '=', 'helper_dusun.nik_kepala')
+            ->leftJoin('wilayah_rt', 'wilayah_rt.id_wilayah_dusun', '=', 'wilayah_dusun.id')
+            ->select(
+                'helper_dusun.nik_kepala',
+                'kepala_dusun.nama as nama_kepala_dusun',
+                'wilayah_dusun.nama as nama_dusun',
+                DB::raw('(SELECT COUNT(*) FROM wilayah_rt WHERE wilayah_rt.id_wilayah_dusun = wilayah_dusun.id) as jumlah_rt')
+            )
+            ->paginate(10);
+
+
+        // $dusun = WilayahDusun::paginate(10);
+        // $kepala_dusun = Staf::where('jabatan', 'like', 'Kepala Dusun%')->get();
         return view('staf.infodesa.dusunManager', [
             'title' => 'Daftar Dusun',
             'dusun' => $dusun,
-            'kepala_dusun' => $kepala_dusun,
         ]);
     }
 
@@ -225,19 +240,50 @@ class InfoDesaController extends Controller
         ]);
     }
 
+    // public function dusunNewSubmit(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'nama' => 'required',
+    //         'id_kepala_dusun' => 'required|unique:dusun',
+    //         'no_telp_dusun' => 'nullable',
+    //         'jumlah_rt' => 'nullable',
+    //     ], [
+    //         'nama.required' => 'Nama dusun wajib diisi!',
+    //         'id_kepala_dusun.required' => 'Kepala dusun wajib diisi!',
+    //     ]);
+
+    //     WilayahDusun::create($validatedData);
+
+    //     return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil ditambahkan!');
+    // }
+
     public function dusunNewSubmit(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'id_kepala_dusun' => 'required|unique:dusun',
-            'no_telp_dusun' => 'nullable',
-            'jumlah_rt' => 'nullable',
-        ], [
-            'nama.required' => 'Nama dusun wajib diisi!',
-            'id_kepala_dusun.required' => 'Kepala dusun wajib diisi!',
+        $validatedCommonData = $request->validate([
+            'nik_kepala' => [
+                'required',
+                Rule::exists('penduduk', 'nik'),
+            ],
         ]);
 
-        WilayahDusun::create($validatedData);
+        $helperDusun = HelperDusun::create($validatedCommonData);
+
+        $validatedSpecificData = $request->validate([
+            'nama' => 'nullable',
+        ]);
+
+        if (isset($validatedSpecificData['nama'])) {
+            $validatedSpecificData['nama'] = strtoupper($validatedSpecificData['nama']);
+        }
+
+        $validatedSpecificData['id_helper_dusun'] = $helperDusun->id;
+        $dusun = WilayahDusun::create($validatedSpecificData);
+
+        // Update id_helper_dusun di tabel penduduk
+        Penduduk::where('nik', $validatedCommonData['nik_kepala'])
+            ->update([
+                'id_helper_dusun' => $helperDusun->id,
+            ]);
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil ditambahkan!');
     }
@@ -253,27 +299,105 @@ class InfoDesaController extends Controller
         ]);
     }
 
-    public function dusunEditSubmit(Request $request, $id)
+    // public function dusunEditSubmit(Request $request, $id)
+    // {
+    //     $validatedData = $request->validate([
+    //         'nama' => 'required',
+    //         'id_kepala_dusun' => 'required|unique:dusun,id,' . $id,
+    //         'no_telp_dusun' => 'nullable',
+    //         'jumlah_rt' => 'nullable',
+    //     ], [
+    //         'nama.required' => 'Nama dusun wajib diisi!',
+    //         'id_kepala_dusun.required' => 'Kepala dusun wajib diisi!',
+    //         'id_kepala_dusun.unique' => 'Kepala dusun sudah terdaftar pada dusun lain!'
+    //     ]);
+
+    //     WilayahDusun::find($id)->update($validatedData);
+
+    //     return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil diubah!');
+    // }
+
+    public function dusunEditSubmit(Request $request, HelperDusun $helperDusun)
     {
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'id_kepala_dusun' => 'required|unique:dusun,id,'.$id,
-            'no_telp_dusun' => 'nullable',
-            'jumlah_rt' => 'nullable',
-        ], [
-            'nama.required' => 'Nama dusun wajib diisi!',
-            'id_kepala_dusun.required' => 'Kepala dusun wajib diisi!',
-            'id_kepala_dusun.unique' => 'Kepala dusun sudah terdaftar pada dusun lain!'
+        // Validasi untuk 'no_kk' dan 'nik_kepala' di tabel helper_penduduk_keluarga
+        $validatedCommonData = $request->validate([
+            // 'no_kk' => 'required|unique:helper_penduduk_keluarga,no_kk,' . $helperPendudukKeluarga->id,
+            // 'nik_kepala' => [
+            //     'required',
+            //     Rule::exists('penduduk', 'nik')->where(function ($query) use ($helperPendudukKeluarga) {
+            //         $query->where(function ($subquery) use ($helperPendudukKeluarga) {
+            //             $subquery->whereNull('id_helper_penduduk_keluarga')
+            //                 ->orWhere('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id);
+            //         });
+            //     }),
+            // ],
+            'nik_kepala' => [
+                'required',
+                Rule::exists('penduduk', 'nik')->where(function ($query) use ($helperDusun) {
+                    $query->where(function ($subquery) use ($helperDusun) {
+                        $subquery->whereNull('id_helper_dusun')
+                            ->orWhere('id_helper_dusun', $helperDusun->id);
+                    });
+                }),
+            ],
         ]);
 
-        WilayahDusun::find($id)->update($validatedData);
+        // Validasi untuk tabel keluarga
+        $validatedSpecificData = $request->validate([
+            'nama' => 'nullable',
+        ]);
+
+        // Temukan penduduk lama berdasarkan nik lama
+        $oldDusun = Penduduk::where('nik', $helperDusun->nik_kepala)->first();
+
+        // Update data di tabel helper_penduduk_keluarga
+        $helperDusun->update($validatedCommonData);
+
+        if (isset($validatedSpecificData['nama'])) {
+            $validatedSpecificData['nama'] = strtoupper($validatedSpecificData['nama']);
+        }
+
+        // Update data di tabel keluarga
+        WilayahDusun::where('id_helper_dusun', $helperDusun->id)
+            ->update($validatedSpecificData);
+
+        // Update id_helper_penduduk_keluarga di tabel penduduk
+        Penduduk::where('nik', $validatedCommonData['nik_kepala'])
+            ->update([
+                'id_helper_dusun' => $helperDusun->id,
+            ]);
+
+        // Jika nik kepala keluarga diganti, set id_helper_penduduk_keluarga pada penduduk lama menjadi null
+        if ($oldDusun && $oldDusun->nik !== $validatedCommonData['nik_kepala']) {
+            $oldDusun->update(['id_helper_dusun' => null]);
+        }
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil diubah!');
     }
 
-    public function dusunDelete($id)
+    // public function dusunDelete($id)
+    // {
+    //     HelperDusun::find($id)->delete();
+
+    //     return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil dihapus!');
+    // }
+
+    public function dusunDelete(HelperDusun $helperDusun)
     {
-        WilayahDusun::find($id)->delete();
+        // Perbarui id_helper_penduduk_keluarga di Penduduk
+        Penduduk::where('id_helper_dusun', $helperDusun->id)
+            ->update(['id_helper_dusun' => null]);
+
+        // Ambil data keluarga yang sesuai dengan id_helper_penduduk_keluarga yang akan dihapus
+        $dusun = WilayahDusun::where('id_helper_dusun', $helperDusun->id)->first();
+
+        // Hapus data di tabel keluarga
+        if ($dusun) {
+            $dusun->delete();
+        }
+
+        // Hapus data di tabel helper_penduduk_keluarga
+        $helperDusun->delete();
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil dihapus!');
     }

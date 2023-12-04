@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('wilayah_dusun', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->foreignId('id_kepala_dusun')->constrained('staf')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_helper_dusun')->constrained('staf')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

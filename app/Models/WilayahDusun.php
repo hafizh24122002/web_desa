@@ -18,7 +18,7 @@ class WilayahDusun extends Model
      */
     protected $fillable = [
         'nama',
-        'id_kepala_dusun',
+        'id_helper_dusun',
     ];
 
     /**
