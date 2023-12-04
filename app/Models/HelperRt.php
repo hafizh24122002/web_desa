@@ -25,8 +25,4 @@ class HelperRt extends Model
         return $this->hasOne(HelperRt::class, 'id_helper_rt');
     }
 
-    public function penduduk()
-    {
-        return $this->hasMany(Penduduk::class, 'id_helper_rt');
-    }
 }

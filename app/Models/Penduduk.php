@@ -301,14 +301,14 @@ class Penduduk extends Model
         return $this->belongsTo(HelperPendudukRtm::class, 'id_helper_penduduk_rtm');
     }
 
-    public function helperDusun()
+    public function wilayahDusun()
     {
-        return $this->belongsTo(HelperDusun::class, 'id_helper_dusun');
+        return $this->belongsTo(HelperDusun::class, 'id_wilayah_dusun');
     }
     
-    public function helperRt()
+    public function wilayahRt()
     {
-        return $this->belongsTo(HelperRt::class, 'id_helper_rt');
+        return $this->belongsTo(HelperRt::class, 'id_wilayah_rt');
     }
 
     public function statusDasar()

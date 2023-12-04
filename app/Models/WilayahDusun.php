@@ -33,8 +33,13 @@ class WilayahDusun extends Model
     /**
      * Get the staf associated with surat.
      */
-    public function staf()
+    // public function staf()
+    // {
+    //     return $this->hasOne(Staf::class, 'id_staf');
+    // }
+
+    public function penduduk()
     {
-        return $this->hasOne(Staf::class, 'id_staf');
+        return $this->hasMany(Penduduk::class, 'id_wilayah_dusun');
     }
 }
