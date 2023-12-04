@@ -87,9 +87,7 @@ class BukuController extends Controller
                 ->whereYear('tanggal_lapor', '<=', $year);
 
 
-        $mutasiPendudukDesaQuery = LogPenduduk::where('id_peristiwa', 2)
-            ->orWhere('id_peristiwa', 3)
-            ->orWhere('id_peristiwa', 5)
+        $mutasiPendudukDesaQuery = LogPenduduk::whereIn('id_peristiwa', [2,3,5])
             ->whereMonth('tanggal_lapor', '<=', $month)
             ->whereYear('tanggal_lapor', '<=', $year)
             ->whereHas('penduduk', function ($query) use ($nama) {

@@ -1,3 +1,5 @@
 {
-    "/css/tabStyle.css": "/css/tabStyle.css"
+    "/css/tabStyle.css": "/css/tabStyle.css",
+    "/css/app.css": "/css/app.css",
+    "/js/mdb.umd.min.js": "/js/mdb.umd.min.js"
 }
