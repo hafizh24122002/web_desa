@@ -131,7 +131,6 @@ class ArtikelController extends Controller
             }],
             'image' => 'array'
         ], [
-        
             'judul.required' => 'Judul artikel tidak boleh kosong!',
             'judul.unique' => 'Judul artikel tidak boleh sama dengan artikel yang sudah ada!',
             'isi.required' => 'Isi artikel tidak boleh kosong!',
@@ -185,7 +184,7 @@ class ArtikelController extends Controller
     public function artikelEditSubmit(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'judul' => 'required|unique:artikel,judul',
+            'judul' => 'required|unique:artikel,judul,'.$id,
             'isi' => ['required', function ($attribute, $value, $fail) {
                 if ($value === '<p><br></p>') {
                     $fail('Isi artikel tidak boleh kosong!');

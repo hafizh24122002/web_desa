@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-before-scroll shadow-0" id="main-navbar">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/">
 				<!-- <img src="" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> -->
@@ -53,7 +53,7 @@
 						</ul>
 					</li>
 				</ul>
-				<form class="d-flex" role="search">
+				<form class="d-flex me-2" role="search">
 					<div class="input-group">
 						<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
 						<button type="button" class="btn btn-primary rounded" id="searchbtn">
@@ -61,14 +61,15 @@
 						</button>
 					</div>
 				</form>
+
 				@auth
-				<a href="/admin/dashboard">
-					<button type="button" class="btn btn-primary rounded-pill ms-2" data-mdb-ripple-init data-mdb-ripple-color="light">Dashboard</button>
-				</a>
+					<a href="/admin/dashboard">
+						<button type="button" class="btn btn-primary rounded-pill" id="dashboard-btn">Dashboard</button>
+					</a>
 				@else
-				<a href="/login">
-					<button type="button" class="btn btn-primary rounded-pill ms-2">Login</button>
-				</a>
+					<a href="/login">
+						<button type="button" class="btn btn-primary rounded-pill" id="login-btn">Login</button>
+					</a>
 				@endauth
 			</div>
 		</div>
@@ -84,22 +85,16 @@
 	</div>
 
 	<script>
-		$(document).ready(function () {
-		  var prevScrollPos = $(window).scrollTop();
-	  
-		  $(window).scroll(function () {
-			var currentScrollPos = $(window).scrollTop();
-	  
-			if (prevScrollPos > currentScrollPos) {
-			  // User is scrolling up
-			  $('.navbar').css('transform', 'translateY(0)');
+		const navbar = document.getElementById("main-navbar");
+
+		window.addEventListener('scroll', function () {
+			if (window.pageYOffset > 0) {
+				navbar.classList.add("navbar-after-scroll");
+				navbar.classList.remove("navbar-before-scroll");
 			} else {
-			  // User is scrolling down
-			  $('.navbar').css('transform', 'translateY(-100%)');
+				navbar.classList.remove("navbar-after-scroll");
+				navbar.classList.add("navbar-before-scroll");
 			}
-	  
-			prevScrollPos = currentScrollPos;
-		  });
 		});
 	  </script>
 

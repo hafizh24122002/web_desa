@@ -8,6 +8,7 @@ use App\Models\ArtikelView;
 use App\Models\Agenda;
 use App\Models\Staf;
 use App\Models\Agama;
+use App\Models\Banner;
 use App\Models\KelasSosial;
 use App\Models\Keluarga;
 use App\Models\Kewarganegaraan;
@@ -112,6 +113,7 @@ class MainVisitorController extends Controller
         return view('visitor.index', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
             ->with('title', 'Home')
             ->with([
+                'banner' => Banner::orderBy('no_urut', 'asc')->get(),
                 'penduduk' => $penduduk,
                 'total_penduduk' => $total_penduduk,
                 'total_gender' => $total_gender,

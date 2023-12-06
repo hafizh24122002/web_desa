@@ -14,6 +14,7 @@ use App\Models\HubunganKK;
 use App\Models\IbuHamil;
 use App\Models\IdentitasDesa;
 use App\Models\Image;
+use App\models\Banner;
 use App\Models\KelasSosial;
 use App\Models\Keluarga;
 use App\Models\Kesehatan;
@@ -690,12 +691,26 @@ class DatabaseSeeder extends Seeder
         Image::create([
             'filename' => 'foto_lambang.png',
             'hash' => 'b37bc134fcf5d965ebab9871226cb800',
-            'path' => 'images/identitas_desa/foto_lambang.png',
+            'path' => '/images/identitas_desa/foto_lambang.png',
         ]);
         Image::create([
             'filename' => 'kantor_desa.jpg',
             'hash' => '3f9313a95e727b43b34ee1ec00e49d39',
-            'path' => 'images/identitas_desa/kantor_desa.jpg',
+            'path' => '/images/identitas_desa/kantor_desa.jpg',
+        ]);
+
+        Banner::create([
+            'no_urut' => 1,
+            'judul' => 'Selamat Datang di Website Desa Malik',
+            'deskripsi' => 'Silahkan untuk mengecek artikel terbaru untuk mendapatkan informasi terkini desa',
+            'id_image' => 2
+        ]);
+
+        Banner::create([
+            'no_urut' => 2,
+            'judul' => 'Halaman 2',
+            'deskripsi' => 'Deskripsi halaman 2',
+            'id_image' => 1
         ]);
 
         Agenda::create([

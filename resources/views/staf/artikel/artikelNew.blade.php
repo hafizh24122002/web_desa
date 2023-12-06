@@ -6,7 +6,13 @@
 <link rel="stylesheet" href="{{ asset('css/quill.snow.css') }}">
 <link rel="stylesheet" href="{{ asset('css/quill.imageUploader.min.css') }}">
 
-<div class="row mt-3 container">
+<div class="mt-3 container">
+	<a href="/staf/manajemen-web/artikel"
+		class="btn btn-info btn-sm mb-4">
+
+		<i class="fa fa-arrow-left"></i> Kembali ke Manajemen Artikel
+	</a>
+
 	<div class="col-lg">
 		<form action="/staf/manajemen-web/artikel/new-artikel" method="POST" autocomplete="off" id="form">
 			@csrf
