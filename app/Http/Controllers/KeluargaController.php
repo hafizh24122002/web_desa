@@ -199,7 +199,7 @@ class KeluargaController extends Controller
         ]);
     }
 
-    public function newDaftarKeluargaSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
+    public function daftarKeluargaNewSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
     {
         $validatedData = $request->validate([
             'no_kk' => 'required|unique:helper_penduduk_keluarga,no_kk,' . $helperPendudukKeluarga->id,

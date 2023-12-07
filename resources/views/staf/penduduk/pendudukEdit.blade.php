@@ -455,10 +455,10 @@
 			<div class="form-group row">
 				<label for="wilayah_dusun" class="col-sm-3 col-form-label">Dusun<span style="color:red">*</span></label>
 				<div class="col-sm-9">
-					<select class="form-select form-select-sm wilayah_dusun_input" id="grup-input" name="id_dusun">
+					<select class="form-select form-select-sm wilayah_dusun_input" id="grup-input" name="id_wilayah_dusun">
 						<option value="">-- Pilih --</option>
 						@foreach ($wilayah_dusun as $item)
-							<option value="{{ $loop->iteration }}"{{ old('id_dusun', $penduduk->id_dusun) == $loop->iteration ? "selected":"" }}>{{ $item->nama }}</option>
+							<option value="{{ $loop->iteration }}"{{ old('id_wilayah_dusun', $penduduk->id_wilayah_dusun) == $loop->iteration ? "selected":"" }}>{{ $item->nama }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -467,10 +467,10 @@
 			<div class="form-group row">
 				<label for="wilayah_rt" class="col-sm-3 col-form-label">RT<span style="color:red">*</span></label>
 				<div class="col-sm-9">
-					<select class="form-select form-select-sm wilayah_rt_input" id="grup-input" name="id_rt">
+					<select class="form-select form-select-sm wilayah_rt_input" id="grup-input" name="id_wilayah_rt">
 						<option value="">-- Pilih RT--</option>
 						@foreach ($wilayah_rt as $item)
-							<option value="{{ $loop->iteration }}"{{ old('id_rt', $penduduk->id_rt) == $loop->iteration ? "selected":"" }}>{{ $item->nama }}</option>
+							<option value="{{ $loop->iteration }}"{{ old('id_wilayah_rt', $penduduk->id_wilayah_rt) == $loop->iteration ? "selected":"" }}>{{ $item->nama }}</option>
 						@endforeach
 					</select>
 				</div>

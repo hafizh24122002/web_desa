@@ -59,7 +59,7 @@
 											</a>
 
 											<a href="/staf/kependudukan/keluarga/daftar-anggota/edit-hubungan/{{ $penduduk->nik }}">
-												<button class="btn btn-sm btn-secondary" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Ubah Hubungan Keluarga">
+												<button class="btn btn-sm btn-info" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Ubah Hubungan Keluarga">
 													<i class="bi bi-link-45deg" text-light"></i>
 												</button>
 											</a>

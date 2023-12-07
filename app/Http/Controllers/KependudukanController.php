@@ -156,8 +156,8 @@ class KependudukanController extends Controller
             'nama_ibu' => 'required',
             // ALAMAT || TODO
             // 'alamat_kk' => 'nullable',
-            'id_dusun' => 'required',
-            'id_rt' => 'required',
+            'id_wilayah_dusun' => 'required',
+            'id_wilayah_rt' => 'required',
             'alamat_sebelumnya' => 'required',
             'alamat_sekarang' => 'nullable',
             'telepon' => 'nullable',
@@ -274,8 +274,8 @@ class KependudukanController extends Controller
             'nama_ibu' => 'required',
             // ALAMAT || TODO
             // 'alamat_kk' => 'nullable',
-            'id_dusun' => 'required',
-            'id_rt' => 'required',
+            'id_wilayah_dusun' => 'required',
+            'id_wilayah_rt' => 'required',
             'alamat_sebelumnya' => 'required',
             'alamat_sekarang' => 'nullable',
             'telepon' => 'nullable',
