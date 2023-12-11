@@ -14,7 +14,7 @@
 	</a>
 
 	<div class="col-lg">
-		<form action="/staf/manajemen-web/artikel/new-artikel" method="POST" autocomplete="off" id="form">
+		<form action="/staf/manajemen-web/artikel/new-artikel" method="POST" autocomplete="off" id="form" enctype="multipart/form-data">
 			@csrf
 
 			<div class="form-group row">

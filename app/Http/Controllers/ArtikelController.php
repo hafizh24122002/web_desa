@@ -172,7 +172,7 @@ class ArtikelController extends Controller
             if ($existingCoverImage) {
                 $validatedData['id_cover'] = $existingCoverImage->id;
             } else {
-                $coverFilename = 'artikel_'.Carbon::now()->format('Y-m-d').'.'.$cover->getClientOriginalExtension();
+                $coverFilename = 'artikel_'.Str::slug($validatedData['judul'], '_').Carbon::now()->format('Y-m-d').'.'.$cover->getClientOriginalExtension();
 
                 $coverModel = Image::create([
                     'filename' => $coverFilename,
@@ -211,6 +211,8 @@ class ArtikelController extends Controller
 
     public function artikelEditSubmit(Request $request, $id)
     {
+        $artikel = Artikel::find($id);
+
         $validatedData = $request->validate([
             'judul' => 'required|unique:artikel,judul,'.$id,
             'isi' => ['required', function ($attribute, $value, $fail) {
@@ -218,6 +220,7 @@ class ArtikelController extends Controller
                     $fail('Isi artikel tidak boleh kosong!');
                 }
             }],
+            'id_cover' => 'nullable',
             'image' => 'array'
         ], [
         
@@ -248,15 +251,39 @@ class ArtikelController extends Controller
             $imageName = basename($imageUrl); // Extract the image filename from the URL
             return 'src="' . url('storage/images/' . $imageName) . '"';
         }, $validatedData['isi']);
+
+        // store cover image
+        $cover = $request->file('id_cover');
+        if ($cover) {
+            $coverHash = md5(file_get_contents($cover));
+
+            $existingCoverImage = Image::where('hash', $coverHash)->first();
+            if ($existingCoverImage) {
+                $validatedData['id_cover'] = $existingCoverImage->id;
+            } else {
+                $coverFilename = 'artikel_'.Str::slug($validatedData['judul'], '_').Carbon::now()->format('Y-m-d').'.'.$cover->getClientOriginalExtension();
+
+                $coverModel = Image::create([
+                    'filename' => $coverFilename,
+                    'hash' => $coverHash,
+                    'path' => 'images/artikel/'.$coverFilename,
+                ]);
+                $cover->move(public_path('storage/images/artikel/'), $coverFilename);
+                $validatedData['id_cover'] = $coverModel->id;
+            }
+        } else {
+            $validatedData['id_cover'] = $artikel->id_cover;
+        }
         
         $data = [
             'id_staf' => auth()->user()->id_staf,
             'judul' => $validatedData['judul'],
             'isi' => $newIsi,
+            'id_cover' => $validatedData['id_cover'],
             'is_active' => $request->input('is_active', false),
         ];
 
-        $artikel = Artikel::find($id)->update($data);
+        $artikel->update($data);
 
         return redirect('/staf/manajemen-web/artikel')->with('success', 'Artikel berhasil diubah!');
     }

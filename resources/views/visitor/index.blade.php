@@ -237,7 +237,7 @@
 @section('peta')
 <div class="container-fluid bg-dark text-light" style="margin-top: 100px" data-aos="fade-up">
     <div class="container">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="d-flex align-items-center justify-content-between mt-5" data-aos="fade-up">
                 <h1 class="float-start">Peta Wilayah Desa</h1>
             </div>
@@ -304,7 +304,19 @@
     </div>
 
     <div class="mb-5">
-        <p>tes</p>
+        <div class="aparatur-carousel">
+            @foreach ($staf as $index => $item)
+                <div class="mx-3 mb-5">
+                    <div class="card shadow" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                        <img src="{{ asset('storage/images/artikel/artikel_placeholder.png') }}" class="card-img-top" style="max-height: 220px; object-fit: cover"/>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ $item->nama }}</h5>
+                            <p class="card-subtitle mb-2 text-muted"><em>{{ $item->jabatan }}</em></p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 </div>
 {{-- APARATUR DESA END --}}
