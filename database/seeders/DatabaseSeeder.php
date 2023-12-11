@@ -451,6 +451,47 @@ class DatabaseSeeder extends Seeder
             'nik_kepala' => '6401042412340002',
         ]);
 
+        HelperDusun::create(['nik_kepala' => '6401042412340001']);
+        HelperDusun::create(['nik_kepala' => '6401042412340002']);
+        HelperDusun::create(['nik_kepala' => '6401042412340008']);
+
+        HelperRt::create(['nik_kepala' => '6401042412340003']);
+        HelperRt::create(['nik_kepala' => '6401042412340006']);
+        HelperRt::create(['nik_kepala' => '6401042412340007']);
+
+        WilayahDusun::create([
+            'nama' => 'DUSUN 1',
+            'id_helper_dusun' => 1,
+        ]);
+
+        WilayahDusun::create([
+            'nama' => 'DUSUN 2',
+            'id_helper_dusun' => 2,
+        ]);
+
+        WilayahDusun::create([
+            'nama' => 'DUSUN 3',
+            'id_helper_dusun' => 3,
+        ]);
+
+        WilayahRt::create([
+            'nama' => '001',
+            'id_helper_rt' => 1,
+            'id_wilayah_dusun' => 1,
+        ]);
+
+        WilayahRt::create([
+            'nama' => '001',
+            'id_helper_rt' => 2,
+            'id_wilayah_dusun' => 2,
+        ]);
+
+        WilayahRt::create([
+            'nama' => '002',
+            'id_helper_rt' => 3,
+            'id_wilayah_dusun' => 3,
+        ]);
+
         Penduduk::create([
             'nama' => 'HAFIZH LUTFI HIDAYAT',
             'nik' => '6401042412340001',
@@ -458,6 +499,8 @@ class DatabaseSeeder extends Seeder
             'id_helper_penduduk_rtm' => 1,
             'id_hubungan_kk' => 1,
             'id_rtm_hubungan' => 1,
+            'id_wilayah_dusun' => 1,
+            'id_wilayah_rt' => 1,
             'id_jenis_kelamin' => 1,
             'tempat_lahir' => 'SAMARINDA',
             'tanggal_lahir' => '2002-12-24',
@@ -481,6 +524,8 @@ class DatabaseSeeder extends Seeder
             'id_helper_penduduk_rtm' => 2,
             'id_hubungan_kk' => 1,
             'id_rtm_hubungan' => 1,
+            'id_wilayah_dusun' => 2,
+            'id_wilayah_rt' => 2,
             'id_jenis_kelamin' => 2,
             'tempat_lahir' => 'BOGOR',
             'tanggal_lahir' => '2002-11-06',
@@ -610,6 +655,8 @@ class DatabaseSeeder extends Seeder
             'nama' => 'DEVIA',
             'nik' => '6401042412340008',
             'id_hubungan_kk' => 3,
+            'id_wilayah_dusun' => 3,
+            'id_wilayah_rt' => 2,
             'id_jenis_kelamin' => 1,
             'tempat_lahir' => 'DEPOK',
             'tanggal_lahir' => '2000-11-06',
@@ -675,50 +722,6 @@ class DatabaseSeeder extends Seeder
         Tamu::create([
             'id_log_penduduk_masuk' => 5,
             'id_log_penduduk_pergi' => 6,
-        ]);
-
-        KetuaRt::create(['nama' => 'AMIR']);
-        KetuaRt::create(['nama' => 'HANS']);
-
-        HelperDusun::create(['nik_kepala' => '6401042412340001']);
-        HelperDusun::create(['nik_kepala' => '6401042412340002']);
-        HelperDusun::create(['nik_kepala' => '6401042412340008']);
-
-        HelperRt::create(['nik_kepala' => '6401042412340003']);
-        HelperRt::create(['nik_kepala' => '6401042412340006']);
-        HelperRt::create(['nik_kepala' => '6401042412340007']);
-
-        WilayahDusun::create([
-            'nama' => 'DUSUN 1',
-            'id_helper_dusun' => 1,
-        ]);
-
-        WilayahDusun::create([
-            'nama' => 'DUSUN 2',
-            'id_helper_dusun' => 2,
-        ]);
-
-        WilayahDusun::create([
-            'nama' => 'DUSUN 3',
-            'id_helper_dusun' => 3,
-        ]);
-
-        WilayahRt::create([
-            'nama' => '001',
-            'id_helper_rt' => 1,
-            'id_wilayah_dusun' => 1,
-        ]);
-
-        WilayahRt::create([
-            'nama' => '001',
-            'id_helper_rt' => 2,
-            'id_wilayah_dusun' => 2,
-        ]);
-
-        WilayahRt::create([
-            'nama' => '002',
-            'id_helper_rt' => 3,
-            'id_wilayah_dusun' => 3,
         ]);
 
         Keluarga::create([
