@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+
 use App\Models\Artikel;
 use App\Models\ArtikelView;
 use App\Models\Agenda;
 use App\Models\Staf;
 use App\Models\Agama;
 use App\Models\Banner;
+use App\models\Coordinate;
+use App\Models\Dokumen;
+use App\Models\IdentitasDesa;
 use App\Models\KelasSosial;
 use App\Models\Keluarga;
 use App\Models\Kewarganegaraan;
@@ -16,27 +23,20 @@ use App\Models\Pekerjaan;
 use App\Models\PendidikanTerakhir;
 use App\Models\Penduduk;
 use App\Models\StatusPerkawinan;
-use App\Models\Dokumen;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 
 class MainVisitorController extends Controller
 {
     public function index()
     {
-        $artikel = Artikel::join(
-            'users',
-            'artikel.id_staf',
-            '=',
-            'users.id'
-        )->select(
-            'artikel.*',
-            'users.name'
-        )->where(
+        $artikel = Artikel::where(
             'is_active',
-            '=',
             1
-        )->orderBy('updated_at', 'desc')->paginate(5);
+        )->orderBy('updated_at', 'desc')->limit(4)->get();
+
+        $dokumen = Dokumen::where(
+            'is_active',
+            1
+        )->orderBy('updated_at', 'desc')->limit(2)->get();
 
         $currentDate = Carbon::now();
 
@@ -44,11 +44,13 @@ class MainVisitorController extends Controller
         $pastAgenda = Agenda::select('judul', 'tgl_agenda', 'lokasi', 'koordinator')
             ->where('tgl_agenda', '<', $currentDate)
             ->orderBy('tgl_agenda', 'desc')
+            ->limit(5)
             ->get();
 
         $upcomingAgenda = Agenda::select('judul', 'tgl_agenda', 'lokasi', 'koordinator')
             ->where('tgl_agenda', '>', $currentDate)
-            ->orderBy('tgl_agenda')
+            ->orderBy('tgl_agenda', 'asc')
+            ->limit(5)
             ->get();
 
         // Ubah format tgl_agenda menggunakan translatedFormat('jS F Y')
@@ -98,6 +100,9 @@ class MainVisitorController extends Controller
         // Staf
         $staf = Staf::all();
 
+        $koordinat = Coordinate::where('nama', 'center')->first();
+        $lokasi = DB::selectOne('SELECT X(coordinate) as lat, Y(coordinate) as lng FROM coordinates WHERE id = ?', [$koordinat->id]);
+
         session([
             'artikel' => $artikel,
             'pastAgenda' => $pastAgenda,
@@ -110,7 +115,7 @@ class MainVisitorController extends Controller
             'staf' => $staf,
         ]);
 
-        return view('visitor.index', compact('artikel', 'pastAgenda', 'upcomingAgenda'))
+        return view('visitor.index', compact('artikel', 'dokumen', 'pastAgenda', 'upcomingAgenda'))
             ->with('title', 'Home')
             ->with([
                 'banner' => Banner::orderBy('no_urut', 'asc')->get(),
@@ -120,6 +125,12 @@ class MainVisitorController extends Controller
                 'total_gender_percentage' => $total_gender_percentage,
                 'arr_gender' => $arr_gender,
                 'staf' => $staf,
+                'artikel_count' => Artikel::count(),
+                'dokumen_count' => Dokumen::count(),
+                'lat' => $lokasi->lat,
+                'lng' => $lokasi->lng,
+                'zoom' => $koordinat->zoom,
+                'identitas_desa' => IdentitasDesa::first(),
             ]);
     }
 
@@ -161,6 +172,7 @@ class MainVisitorController extends Controller
             'total_gender_percentage' => $total_gender_percentage,
             'arr_gender' => $arr_gender,
             'staf' => $staf,
+            'identitas_desa' => IdentitasDesa::first(),
         ]);
     }
 
@@ -184,6 +196,7 @@ class MainVisitorController extends Controller
                 'total_gender_percentage' => $total_gender_percentage,
                 'arr_gender' => $arr_gender,
                 'staf' => $staf,
+                'identitas_desa' => IdentitasDesa::first(),
             ]);
     }
 
@@ -418,6 +431,7 @@ class MainVisitorController extends Controller
                 'kewarganegaraan' => $kewarganegaraan,
                 'total_kewarganegaraan' => $total_kewarganegaraan_count,
                 'total_kewarganegaraan_percentage' => $total_kewarganegaraan_percentage,
+                'identitas_desa' => IdentitasDesa::first(),
             ]);
     }
 
@@ -441,6 +455,7 @@ class MainVisitorController extends Controller
                 'total_gender_percentage' => $total_gender_percentage,
                 'arr_gender' => $arr_gender,
                 'staf' => $staf,
+                'identitas_desa' => IdentitasDesa::first(),
             ]);
     }
 
@@ -465,6 +480,7 @@ class MainVisitorController extends Controller
                 'total_gender_percentage' => $total_gender_percentage,
                 'arr_gender' => $arr_gender,
                 'staf' => $staf,
+                'identitas_desa' => IdentitasDesa::first(),
             ]);
     }
 
@@ -489,6 +505,7 @@ class MainVisitorController extends Controller
                 'total_gender_percentage' => $total_gender_percentage,
                 'arr_gender' => $arr_gender,
                 'staf' => $staf,
+                'identitas_desa' => IdentitasDesa::first(),
             ]);
     }
 
@@ -514,7 +531,8 @@ class MainVisitorController extends Controller
                 'total_gender_percentage' => $total_gender_percentage,
                 'arr_gender' => $arr_gender,
                 'staf' => $staf,
-                'documents' => $documents
+                'documents' => $documents,
+                'identitas_desa' => IdentitasDesa::first(),
             ]);
     }
 
