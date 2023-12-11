@@ -53,18 +53,20 @@
 													<i class="bx bx-edit-alt text-light"></i>
 												</button>
 											</a>
-											
-											<form action="/staf/manajemen-web/banner/{{ $item->id }}"
-												onsubmit="return confirm('Apakah anda yakin ingin menghapus banner no_urut {{ $item->no_urut }}? Banner yang dihapus tidak akan bisa dikembalikan!')"
-												method="POST">
-												
-												@method('delete')
-												@csrf
 
-												<button class="btn btn-sm btn-danger" type="submit" data-bs-toggle="tooltip"title="Hapus artikel">
-													<i class="bx bx-trash text-light"></i>
-												</button>
-											</form>
+											@if ($item->no_urut !== 1)
+												<form action="/staf/manajemen-web/banner/{{ $item->id }}"
+													onsubmit="return confirm('Apakah anda yakin ingin menghapus banner no_urut {{ $item->no_urut }}? Banner yang dihapus tidak akan bisa dikembalikan!')"
+													method="POST">
+													
+													@method('delete')
+													@csrf
+
+													<button class="btn btn-sm btn-danger" type="submit" data-bs-toggle="tooltip"title="Hapus artikel">
+														<i class="bx bx-trash text-light"></i>
+													</button>
+												</form>
+											@endif
 										</div>
 									</td>
 									<td class="fw-bold">{{ $item->judul }}</td>

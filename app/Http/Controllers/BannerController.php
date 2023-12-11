@@ -61,7 +61,7 @@ class BannerController extends Controller
             $gambarModel = Image::create([
                 'filename' => $gambarFilename,
                 'hash' => $gambarHash,
-                'path' => '/images/banner/'.$gambarFilename,
+                'path' => 'images/banner/'.$gambarFilename,
             ]);
             $gambar->move(public_path('storage/images/banner/'), $gambarFilename);
 
@@ -100,6 +100,10 @@ class BannerController extends Controller
             'id_image.max' => 'Ukuran gambar tidak boleh lebih besar dari '.($MAX_IMAGE_SIZE / 1024).'MB'
         ]);
 
+        if ($banner->no_urut === 1) {
+            $validatedData['no_urut'] = 1;
+        }
+
         $gambar = $request->file('id_image');
         if ($gambar) {
             $gambarHash = md5(file_get_contents($gambar));
@@ -113,7 +117,7 @@ class BannerController extends Controller
                 $gambarModel = Image::create([
                     'filename' => $gambarFilename,
                     'hash' => $gambarHash,
-                    'path' => '/images/banner/'.$gambarFilename,
+                    'path' => 'images/banner/'.$gambarFilename,
                 ]);
                 $gambar->move(public_path('storage/images/banner/'), $gambarFilename);
 
@@ -128,8 +132,11 @@ class BannerController extends Controller
 
     public function bannerDelete($id)
     {
-        Banner::destroy($id);
+        if ($id !== 1) {
+            Banner::destroy($id);
+            return redirect('/staf/manajemen-web/banner')->with('success', 'Halaman banner berhasil dihapus!');
+        }
 
-        return redirect('/staf/manajemen-web/banner')->with('success', 'Halaman banner berhasil dihapus!');
+        abort(403);
     }
 }

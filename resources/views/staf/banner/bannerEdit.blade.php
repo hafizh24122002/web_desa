@@ -22,7 +22,8 @@
 						id="no_urut"
 						name="no_urut"
 						placeholder="Nomor Urut Banner"
-						value="{{ old('no_urut') ?? $banner->no_urut }}">
+						value="{{ old('no_urut') ?? $banner->no_urut }}"
+						@if($banner->no_urut === 1) readonly @endif>
 
 					@error('no_urut')
 						<div class="invalid-feedback">

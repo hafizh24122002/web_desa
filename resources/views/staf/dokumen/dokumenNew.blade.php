@@ -2,7 +2,13 @@
 
 @section('form')
 
-<div class="row mt-3 container">
+<div class="mt-3 container">
+	<a href="/staf/manajemen-web/dokumen"
+		class="btn btn-info btn-sm mb-4">
+
+		<i class="fa fa-arrow-left"></i> Kembali ke Manajemen Dokumen
+	</a>
+
 	<div class="col-lg">
 		<form action="/staf/manajemen-web/dokumen/new-dokumen" method="POST" id="form" enctype="multipart/form-data">
 			@csrf
@@ -14,8 +20,7 @@
 						id="judul"
 						name="judul"
 						placeholder="Judul Dokumen"
-						value="{{ old('judul') }}"
-                        required>
+						value="{{ old('judul') }}">
 
 						@error('judul')
 							<div class="invalid-feedback">
@@ -33,8 +38,7 @@
 						id="keterangan"
 						name="keterangan"
 						placeholder="Isi Keteranagn Dokumen"
-						value="{{ old('keterangan') }}"
-                        required>
+						value="{{ old('keterangan') }}">
 
 						@error('keterangan')
 							<div class="invalid-feedback">
@@ -48,8 +52,7 @@
                     <label for="filename" class="col-sm-2 col-form-label">Unggah File<span style="color:red">*</span></label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control form-control-sm @error('filename') is-invalid @enderror"
-                            name="filename" placeholder="NO. KK" value="{{ old('filename') }}" accept=".doc,.docx,.pdf"
-                        	required>
+                            name="filename" placeholder="NO. KK" value="{{ old('filename') }}" accept=".doc,.docx,.pdf">
 
                         @error('filename')
                             <div class="invalid-feedback">

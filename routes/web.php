@@ -205,6 +205,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::put('/staf/manajemen-web/dokumen/edit-dokumen/{id}', [DokumenController::class, 'dokumenEditSubmit']);
 		Route::delete('/staf/manajemen-web/dokumen/{id}', [DokumenController::class, 'dokumenDelete']);
 		Route::get('/staf/manajemen-web/dokumen/{dokumen:filename}', [DokumenController::class, 'dokumenDownload']);
+		Route::get('/staf/manajemen-web/dokumen/preview/{dokumen:filename}', [DokumenController::class, 'dokumenShow']);
 
 		Route::get('/staf/layanan-surat/buat-surat', [SuratController::class, 'suratNew']);
 		Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput']);

@@ -689,28 +689,33 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Image::create([
+            'filename' => 'artikel_placeholder.png',
+            'hash' => '69a89045f3a6519863b7dfe6f3498789',
+            'path' => 'images/artikel/artikel_placeholder.png',
+        ]);
+        Image::create([
             'filename' => 'foto_lambang.png',
             'hash' => 'b37bc134fcf5d965ebab9871226cb800',
-            'path' => '/images/identitas_desa/foto_lambang.png',
+            'path' => 'images/identitas_desa/foto_lambang.png',
         ]);
         Image::create([
             'filename' => 'kantor_desa.jpg',
             'hash' => '3f9313a95e727b43b34ee1ec00e49d39',
-            'path' => '/images/identitas_desa/kantor_desa.jpg',
+            'path' => 'images/identitas_desa/kantor_desa.jpg',
         ]);
 
         Banner::create([
             'no_urut' => 1,
             'judul' => 'Selamat Datang di Website Desa Malik',
             'deskripsi' => 'Silahkan untuk mengecek artikel terbaru untuk mendapatkan informasi terkini desa',
-            'id_image' => 2
+            'id_image' => 3
         ]);
 
         Banner::create([
             'no_urut' => 2,
             'judul' => 'Halaman 2',
             'deskripsi' => 'Deskripsi halaman 2',
-            'id_image' => 1
+            'id_image' => 2
         ]);
 
         Agenda::create([

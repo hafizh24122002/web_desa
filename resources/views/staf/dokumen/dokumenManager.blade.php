@@ -33,6 +33,7 @@
 								<th>No</th>
 								<th>Aksi</th>
 								<th>Judul</th>
+								<th>Keterangan</th>
 								<th>Ditulis pada</th>
 								<th>Diedit pada</th>
 								<th>Aktif</th>
@@ -67,10 +68,9 @@
 									</td>
 
 									<td>{{ $item->judul }}</td>
-
-									<td>{{ $item->created_at }}</td>
-
-									<td>{{ $item->updated_at }}</td>
+									<td>{{ $item->keterangan }}</td>
+									<td>{{ $item->created_at->translatedFormat('jS F Y') }}</td>
+									<td>{{ $item->updated_at->translatedFormat('jS F Y') }}</td>
 
 									<td>
 										@if ($item->is_active)

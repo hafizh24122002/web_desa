@@ -39,6 +39,10 @@ class DokumenController extends Controller
             'id_staf' => 'nullable',
             'filename' => 'required|mimes:pdf,doc,docx|max:'.$MAX_FILE_SIZE,
         ], [
+            'judul.required' => 'Judul harus tidak boleh kosong!',
+            'judul.unique' => 'Judul tidak boleh sama dengan judul dokumen lainnya!',
+            'keterangan.required' => 'Keterangan tidak boleh kosong!',
+            'filename.required' => 'Dokumen tidak boleh kosong!',
             'filename.mimes' => 'Dokumen harus berupa PDF, DOC, atau DOCX!',
             'filename.max' => 'Ukuran dokumen tidak boleh lebih besar dari '.($MAX_FILE_SIZE / 1024).'MB'
         ]);
@@ -49,7 +53,7 @@ class DokumenController extends Controller
         $modifiedDocumentName = Str::slug($documentName, '_') . '.' . $documentFile->getClientOriginalExtension();
         $documentFile->storeAs('public/documents', $modifiedDocumentName);
 
-        $validatedData['staf'] = auth()->user()->staf;
+        $validatedData['id_staf'] = auth()->user()->id_staf;
         $validatedData['filename'] = $modifiedDocumentName;
         $validatedData['is_active'] = $request->input('is_active', false);
 
@@ -71,12 +75,16 @@ class DokumenController extends Controller
     {
         $MAX_FILE_SIZE = 20480;
 
+
         $validatedData = $request->validate([
-            'judul' => 'required',
+            'judul' => 'required|unique:dokumen,judul,'.$id,
             'keterangan' => 'required',
             'filename' => 'nullable|mimes:pdf,doc,docx|max:'.$MAX_FILE_SIZE,
             'id_staf' => 'nullable',
         ], [
+            'judul.required' => 'Judul harus tidak boleh kosong!',
+            'judul.unique' => 'Judul tidak boleh sama dengan judul dokumen lainnya!',
+            'keterangan.required' => 'Keterangan tidak boleh kosong!',
             'filename.mimes' => 'Dokumen harus berupa PDF, DOC, atau DOCX!',
             'filename.max' => 'Ukuran dokumen tidak boleh lebih besar dari '.($MAX_FILE_SIZE / 1024).'MB'
         ]);
@@ -135,6 +143,17 @@ class DokumenController extends Controller
 
             return redirect('/staf/manajemen-web/dokumen')->with('warning', 'Dokumen berhasil dihapus dari database! (file tidak dapat ditemukan)');
         }
+    }
+
+    public function dokumenShow($filename)
+    {
+        $file = storage_path('app/public/documents/' . $filename);
+
+        if (!file_exists($file)) {
+            abort(404);
+        }
+
+        return response()->file($file);
     }
 
     public function dokumenDownload($filename)

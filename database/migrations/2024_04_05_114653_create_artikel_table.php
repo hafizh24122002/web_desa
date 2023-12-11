@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_staf')->nullable()->default(NULL)->constrained('staf')->onUpdate('cascade')->onDelete('cascade');
             $table->string('judul');
             $table->longText('isi');
+            $table->foreignId('id_cover')->default(1)->constrained('images')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean("is_active")->default(true);
             $table->timestamps();
         });
