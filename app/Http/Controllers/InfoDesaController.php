@@ -14,6 +14,8 @@ use App\Models\HelperDusun;
 use App\Models\HelperRt;
 use App\Models\Penduduk;
 use App\Models\WilayahRt;
+use App\Models\WilayahRt;
+use App\Models\HelperRt;
 use Illuminate\Validation\Rule;
 
 class InfoDesaController extends Controller
@@ -235,6 +237,8 @@ class InfoDesaController extends Controller
         return view('staf.infodesa.dusunNew', [
             'title' => 'Tambah Dusun',
             'kepala_dusun' => $kepala_dusun,
+            'helper_dusun' => HelperDusun::all(),
+            'penduduk' => Penduduk::all(),
         ]);
     }
 
