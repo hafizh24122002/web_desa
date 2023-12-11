@@ -14,8 +14,6 @@ use App\Models\HelperDusun;
 use App\Models\HelperRt;
 use App\Models\Penduduk;
 use App\Models\WilayahRt;
-use App\Models\WilayahRt;
-use App\Models\HelperRt;
 use Illuminate\Validation\Rule;
 
 class InfoDesaController extends Controller
@@ -261,17 +259,22 @@ class InfoDesaController extends Controller
             $validatedSpecificData['nama'] = strtoupper($validatedSpecificData['nama']);
         }
 
+        // Include id_helper_dusun in the data array
         $validatedSpecificData['id_helper_dusun'] = $helperDusun->id;
+
+        // Create new WilayahDusun
         $dusun = WilayahDusun::create($validatedSpecificData);
 
-        // Update id_helper_dusun di tabel penduduk
+        // Update id_wilayah_dusun and set id_wilayah_rt to null in Penduduk
         Penduduk::where('nik', $validatedCommonData['nik_kepala'])
             ->update([
-                'id_wilayah_dusun' => $helperDusun->id,
+                'id_wilayah_dusun' => $dusun->id,
+                'id_wilayah_rt' => null,
             ]);
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil ditambahkan!');
     }
+
 
     public function dusunEdit($id)
     {
@@ -290,22 +293,15 @@ class InfoDesaController extends Controller
         $validatedCommonData = $request->validate([
             'nik_kepala' => [
                 'required',
-                Rule::exists('penduduk', 'nik')->where(function ($query) use ($helperDusun) {
-                    $query->where(function ($subquery) use ($helperDusun) {
-                        $subquery->whereNull('id_wilayah_dusun')
-                            ->orWhere('id_wilayah_dusun', $helperDusun->id);
-                    });
-                }),
+                Rule::exists('penduduk', 'nik'),
             ],
         ]);
+
 
         // Validasi untuk tabel keluarga
         $validatedSpecificData = $request->validate([
             'nama' => 'nullable',
         ]);
-
-        // Temukan penduduk lama berdasarkan nik lama
-        $oldDusun = Penduduk::where('nik', $helperDusun->nik_kepala)->first();
 
         // Update data di tabel helper_penduduk_keluarga
         $helperDusun->update($validatedCommonData);
@@ -324,24 +320,22 @@ class InfoDesaController extends Controller
                 'id_wilayah_dusun' => $helperDusun->id,
             ]);
 
-        // Jika nik kepala keluarga diganti, set id_helper_penduduk_keluarga pada penduduk lama menjadi null
-        // if ($oldDusun && $oldDusun->nik !== $validatedCommonData['nik_kepala']) {
-        //     $oldDusun->update(['id_helper_dusun' => null]);
-        // }
-
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil diubah!');
     }
 
     public function dusunDelete(HelperDusun $helperDusun)
     {
-        // Perbarui id_helper_penduduk_keluarga di Penduduk
+        // Perbarui id_wilayah_dusun dan id_wilayah_rt di Penduduk
         Penduduk::where('id_wilayah_dusun', $helperDusun->id)
-            ->update(['id_wilayah_dusun' => null]);
+            ->update([
+                'id_wilayah_dusun' => null,
+                'id_wilayah_rt' => null,
+            ]);
 
-        // Ambil data keluarga yang sesuai dengan id_helper_penduduk_keluarga yang akan dihapus
+        // Ambil data wilayah dusun yang sesuai dengan id_helper_dusun yang akan dihapus
         $dusun = WilayahDusun::where('id_helper_dusun', $helperDusun->id)->first();
 
-        // Hapus data di tabel keluarga
+        // Hapus data di tabel wilayah dusun
         if ($dusun) {
             $dusun->delete();
         }
@@ -351,6 +345,7 @@ class InfoDesaController extends Controller
 
         return redirect('/staf/info-desa/dusun')->with('success', 'Dusun berhasil dihapus!');
     }
+
 
     public function rtManager(WilayahDusun $wilayahDusun)
     {
@@ -368,14 +363,16 @@ class InfoDesaController extends Controller
             )
             ->paginate(10);
 
+        dd($rt);
+
         return view('staf.infodesa.rtManager', [
             'title' => 'Daftar RT - ' . $dusun->nama,
             'rt' => $rt,
-            'dusun' => $dusun, // Pass the $dusun variable to the view
+            'dusun' => $dusun,
         ]);
     }
 
-    public function rtNewSubmit(Request $request)
+    public function rtNewSubmit(Request $request, $id_wilayah_dusun)
     {
         $validatedCommonData = $request->validate([
             'nik_kepala' => [
@@ -388,7 +385,7 @@ class InfoDesaController extends Controller
 
         $validatedSpecificData = $request->validate([
             'nama' => 'nullable',
-            'id_wilayah_dusun' => 'required|exists:wilayah_dusun,id', //ambil dari form
+            // 'id_wilayah_dusun' => 'required|exists:wilayah_dusun,id',
         ]);
 
         if (isset($validatedSpecificData['nama'])) {
@@ -396,14 +393,40 @@ class InfoDesaController extends Controller
         }
 
         $validatedSpecificData['id_helper_rt'] = $helperRt->id;
+
+        // Set the id_wilayah_dusun from the parameter
+        $validatedSpecificData['id_wilayah_dusun'] = $id_wilayah_dusun;
+
         $rt = WilayahRt::create($validatedSpecificData);
 
-        // Update id_helper_dusun di tabel penduduk
+        // Update id_wilayah_rt in the Penduduk table
         Penduduk::where('nik', $validatedCommonData['nik_kepala'])
             ->update([
                 'id_wilayah_rt' => $helperRt->id,
             ]);
 
-        return redirect('/staf/info-desa/rt/' . $helperRt->id)->with('success', 'RT berhasil ditambahkan!');
+        return redirect('/staf/info-desa/rt/' . $id_wilayah_dusun)->with('success', 'RT berhasil ditambahkan!');
+    }
+
+    public function rtDelete($id_wilayah_dusun, HelperRt $helperRt)
+    {
+        // Perbarui id_wilayah_dusun dan id_wilayah_rt di Penduduk
+        Penduduk::where('id_wilayah_rt', $helperRt->id)
+            ->update([
+                'id_wilayah_rt' => null,
+            ]);
+
+        // Ambil data wilayah rt yang sesuai dengan id_helper_rt yang akan dihapus
+        $rt = WilayahRt::where('id_helper_rt', $helperRt->id)->first();
+
+        // Hapus data di tabel wilayah rt
+        if ($rt) {
+            $rt->delete();
+        }
+
+        // Hapus data di tabel helper_penduduk_keluarga
+        $helperRt->delete();
+
+        return redirect('/staf/info-desa/rt/' . $id_wilayah_dusun)->with('success', 'RT berhasil dihapus!');
     }
 }

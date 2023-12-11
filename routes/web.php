@@ -236,9 +236,9 @@ Route::middleware(['auth'])->group(function () {
 		Route::delete('/staf/info-desa/dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunDelete']);
 		Route::get('/staf/info-desa/rt/{wilayah_dusun:id}', [InfoDesaController::class, 'rtManager']);
 		Route::get('/staf/info-desa/rt/new-rt', [InfoDesaController::class, 'rtNew']);
-		Route::post('/staf/info-desa/rt/new-rt', [InfoDesaController::class, 'rtNewSubmit']);
+		Route::post('/staf/info-desa/rt/new-rt/{id_wilayah_dusun}', [InfoDesaController::class, 'rtNewSubmit']);
 		Route::get('/staf/info-desa/rt/edit-rt/{helper_rt:id}', [InfoDesaController::class, 'rtEdit']);
 		Route::put('/staf/info-desa/rt/edit-dusun/{helper_rt:id}', [InfoDesaController::class, 'rtEditSubmit']);
-		Route::delete('/staf/info-desa/rt/{helper_rt:id}', [InfoDesaController::class, 'rtDelete']);
+		Route::delete('/staf/info-desa/rt/{id_wilayah_dusun}/{helper_rt:id}', [InfoDesaController::class, 'rtDelete']);
 	// });
 });
