@@ -36,7 +36,7 @@
 										<tr>
 											<td>Nomor Rumah Tangga (RT)</td>
 											<td>:</td>
-											<td></td>
+											<td>{{ $penduduk->no_rtm}}</td>
 										</tr>
 										<tr>
 											<td>Kepala Rumah Tangga</td>
@@ -51,12 +51,12 @@
 										<tr>
 											<td>BDT</td>
 											<td>:</td>
-											<td></td>
+											<td>{{ $penduduk->bdt}}</td>
 										</tr>
 										<tr>
 											<td>Program Bantuan</td>
 											<td>:</td>
-											<td></td>
+											<td>{{ $penduduk->dtks}}</td>
 										</tr>
 									</table>
                                 </div>
@@ -94,9 +94,9 @@
 						</thead>
 	
 						<tbody>
-							@foreach ($keluarga as $key => $data)
+							@foreach ($rtm as $key => $data)
 								<tr class="text-center align-middle">
-									<td>{{ $keluarga->firstitem() + $key }}</td>
+									<td>{{ $rtm->firstitem() + $key }}</td>
 	
 									<td>
 										<div style="display: flex; gap: 5px; justify-content: center;">
@@ -106,13 +106,13 @@
 												</button>
 											</a>
 											
-											<a href="/staf/kependudukan/keluarga/edit-keluarga/{{ $data->no_kk }}">
+											<a href="/staf/kependudukan/keluarga/edit-rtm/{{ $data->no_kk }}">
 												<button class="btn btn-sm btn-warning">
 													<i class="bx bx-edit-alt text-light"></i>
 												</button>
 											</a>
 		
-											<form action="/staf/kependudukan/keluarga/{{ $data->no_kk }}"
+											<form action="/staf/kependudukan/rtm/{{ $data->no_kk }}"
 												onsubmit="return confirm('Apakah anda yakin ingin menghapus keluarga dengan No. KK {{ $data->no_kk }}? Keluarga yang dihapus tidak akan bisa dikembalikan!')"
 												method="POST">
 												
