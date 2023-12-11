@@ -17,11 +17,52 @@ footer {
     margin-top: auto;
 }
 
-.navbar {
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-    transition: transform 0.3s;
+.navbar-after-scroll {
+    background-color: rgba(38, 38, 38, 1);
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.navbar-after-scroll::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(38, 38, 38, 1), rgba(38, 38, 38, 0));
+    z-index: -1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.navbar-after-scroll.active::before {
+    opacity: 0;
+}
+
+.navbar-before-scroll {
+    /* background-color: rgba(38, 38, 38, .3); */
+    background-image: linear-gradient(180deg, rgba(38, 38, 38, 1), rgba(38, 38, 38, 0));
+    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.navbar-items {
+    color: white !important;
+}
+
+@media (max-width: 992px) {
+    #main-navbar {
+        background-color: #262626;
+    }
+
+    #dashboard-btn, #login-btn {
+        margin-top: 1rem;
+    }
 }
 
 .carousel-item h5 {
@@ -99,6 +140,42 @@ h2 {
     display: flex;
     flex-direction: column;
     margin-inline: 3em;
+}
+
+.artikel-card {
+    transition: 0.3s;
+}
+
+.artikel-card:hover {
+    background-color: rgba(125,125,125,0.1);
+}
+
+.table {
+    --mdb-table-bg: transparent;
+    --mdb-table-striped-color: #212529;
+    --mdb-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --mdb-table-active-color: #212529;
+    --mdb-table-active-bg: rgba(0, 0, 0, 0.1);
+    --mdb-table-hover-color: #212529;
+    --mdb-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #e0e0e0;
+}
+
+.bg-dark > th {
+	color: #fff;
+}
+
+.legend {
+    padding: 10px;
+    line-height: 18px;
+    color: #555;
+    background-color: rgba(255,255,255, 0.3);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 10px
 }
 
 /* Hide the default scroll bar */

@@ -20,6 +20,7 @@ class Artikel extends Model
         'id_staf',
         'judul',
         'isi',
+        'id_cover',
         'is_active'
     ];
 
@@ -32,8 +33,18 @@ class Artikel extends Model
          
     ];
 
+    public function staf()
+    {
+        return $this->belongsTo(Staf::class, 'id_staf');
+    }
+
     public function views()
     {
         return $this->hasMany(ArtikelView::class, 'id_artikel');
+    }
+
+    public function cover()
+    {
+        return $this->belongsTo(Image::class, 'id_cover');
     }
 }

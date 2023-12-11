@@ -1,7 +1,7 @@
 @extends('layouts/userFormMain')
 
 @section('form')
-    <div class="row mt-3 container">
+    <div class="mt-3 container">
         {{-- <div class="col-lg-4">
 		<img id="frame" src="" class="img-fluid" />
 		<div class="input-group">
@@ -9,6 +9,12 @@
 			<button class="btn btn-outline-secondary btn-sm" type="button" id="inputGroupFileAddon04">Upload</button>
 		</div>
 	</div> --}}
+
+        <a href="/staf/kependudukan/penduduk"
+            class="btn btn-info btn-sm mb-4">
+
+            <i class="fa fa-arrow-left"></i> Kembali ke Data Penduduk
+        </a>
 
         <div class="col-lg">
             <form id="pendudukForm" action="/staf/kependudukan/penduduk/new-penduduk/{{ $type }}" method="POST">

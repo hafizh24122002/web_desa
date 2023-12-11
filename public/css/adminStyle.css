@@ -341,6 +341,11 @@ a {
 	margin-bottom: 0;
 }
 
+input[readonly],
+input[readonly]:focus {
+	background-color: #eee;
+}
+
 .bg-dark > th {
 	color: #fff;
 }

@@ -252,6 +252,11 @@
 									<span class="nav-name" id="nav-name">Artikel</span>
 								</a>
 
+								<a href="/staf/manajemen-web/banner" class="nav-link collapse-body" style="margin-left: 2rem">
+									<i class='bx bxs-carousel nav-icon'></i>
+									<span class="nav-name" id="nav-name">Banner</span>
+								</a>
+
 								<a href="/staf/manajemen-web/agenda" class="nav-link collapse-body" style="margin-left: 2rem">
 									<i class="bx bxs-calendar-event nav-icon"></i>
 									<span class="nav-name" id="nav-name">Agenda</span>
