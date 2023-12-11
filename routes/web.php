@@ -131,6 +131,11 @@ Route::get('/get-coordinates', function () {
 		Route::delete('/staf/kependudukan/rtm/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmDelete']);
 		Route::get('/staf/kependudukan/rtm/anggota/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'daftarRtm']);
 
+		Route::get('/staf/kependudukan/rtm/anggota/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'daftarRtm']);
+		
+		Route::get('/staf/kependudukan/rtm/new-rtm', [RtmController::class, 'rtmNew']);
+		Route::post('/staf/kependudukan/rtm/new-rtm', [RtmController::class, 'rtmNewSubmit']);
+
 		Route::get('/staf/statistik/statistik-kependudukan', [StatistikController::class, 'statistik']);
 
 		Route::get('/staf/kesehatan/posyandu', [KesehatanController::class, 'posyandu']);
