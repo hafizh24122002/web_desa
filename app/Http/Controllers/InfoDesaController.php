@@ -363,7 +363,7 @@ class InfoDesaController extends Controller
             )
             ->paginate(10);
 
-        dd($rt);
+        // dd($rt);
 
         return view('staf.infodesa.rtManager', [
             'title' => 'Daftar RT - ' . $dusun->nama,
@@ -385,7 +385,6 @@ class InfoDesaController extends Controller
 
         $validatedSpecificData = $request->validate([
             'nama' => 'nullable',
-            // 'id_wilayah_dusun' => 'required|exists:wilayah_dusun,id',
         ]);
 
         if (isset($validatedSpecificData['nama'])) {
