@@ -29,7 +29,6 @@
                             <th>Aksi</th>
                             <th>Nama Dusun</th>
                             <th>Kepala Dusun</th>
-                            <th>No. Telp Dusun</th>
                             <th>Jumlah RT</th>
                         </tr>
                     </thead>
@@ -40,8 +39,14 @@
                             <td class="text-center">{{ $dusun->firstitem() + $key }}</td>
 
                             <td class="d-flex gap-1 justify-content-center">
+                                <a href="/staf/info-desa/dusun/daftar-rt">
+                                    <button class="btn btn-sm btn-primary" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Daftar RT">
+                                        <i class="bx bx-list-ul text-light"></i>
+                                    </button>
+                                </a>
+
                                 <a href="/staf/info-desa/dusun/edit-dusun/{{ $data->id }}">
-                                    <button class="btn btn-sm btn-warning">
+                                    <button class="btn btn-sm btn-warning" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Edit Data Dusun">
                                         <i class="bx bx-edit-alt text-light"></i>
                                     </button>
                                 </a>
@@ -51,37 +56,15 @@
                                     @method('delete')
                                     @csrf
 
-                                    <button class="btn btn-sm btn-danger" type="submit">
+                                    <button class="btn btn-sm btn-danger" type="submit" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Hapus Data Dusun">
                                         <i class="bx bx-trash text-light"></i>
                                     </button>
                                 </form>
                             </td>
 
-                            <td>{{ $data->nama }}</td>
-                            
-                            <td>
-                                @foreach ($kepala_dusun as $kepaladusun)
-                                    @if ($kepaladusun->id === $data->id_kepala_dusun)
-                                    {{ $kepaladusun->nama }}
-                                    @endif
-                                @endforeach
-                            </td>
-
-                            <td>
-                                @if ($data->no_telp_dusun)
-                                {{ $data->no_telp_dusun }}
-                                @else
-                                {{ "-" }}
-                                @endif
-                            </td>
-                            
-                            <td>
-                                @if ($data->jumlah_rt)
-                                {{ $data->jumlah_rt }}
-                                @else
-                                {{ "-" }}
-                                @endif
-                            </td>
+                            <td> {{ $data->nama_dusun ?? ' ' }} </td>
+                            <td> {{ $data->nama_kepala_dusun ?? ' ' }} </td>
+                            <td> {{ $data->jumlah_rt ?? ' ' }} </td>
                         </tr>
                         @endforeach
                     </tbody>

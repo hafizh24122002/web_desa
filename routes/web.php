@@ -124,14 +124,20 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/kependudukan/keluarga/edit-keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaEdit']);
 		Route::put('/staf/kependudukan/keluarga/edit-keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaEditSubmit']);
 		Route::delete('/staf/kependudukan/keluarga/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'keluargaDelete']);
-		Route::get('/staf/kependudukan/keluarga/anggota/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'daftarKeluarga']);
+		Route::get('/staf/kependudukan/keluarga/daftar-anggota/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'daftarKeluarga']);
 		Route::get('/staf/kependudukan/keluarga', [KeluargaController::class, 'keluarga']);
 		Route::get('/staf/kependudukan/rtm', [RtmController::class, 'rtm']);
+		Route::get('/staf/kependudukan/rtm/new-rtm', [RtmController::class, 'rtmNew']);
 		Route::post('/staf/kependudukan/rtm/new-rtm', [RtmController::class, 'rtmNewSubmit']);
 		Route::get('/staf/kependudukan/rtm/edit-rtm{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmEdit']);
 		Route::put('/staf/kependudukan/rtm/edit-rtm/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmEditSubmit']);
 		Route::delete('/staf/kependudukan/rtm/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'rtmDelete']);
 		Route::get('/staf/kependudukan/rtm/anggota/{helper_penduduk_rtm:no_rtm}', [RtmController::class, 'daftarRtm']);
+		Route::get('/staf/kependudukan/keluarga/daftar-anggota/{helper_penduduk_keluarga:no_kk}/new-anggota', [KeluargaController::class, 'daftarKeluargaNew']);
+		Route::post('/staf/kependudukan/keluarga/daftar-anggota/{helper_penduduk_keluarga:no_kk}/new-anggota', [KeluargaController::class, 'daftarKeluargaNewSubmit']);
+		Route::get('/staf/kependudukan/keluarga/daftar-anggota/edit-hubungan/{penduduk:nik}', [KeluargaController::class, 'hubunganKeluargaEdit']);
+		Route::put('/staf/kependudukan/keluarga/daftar-anggota/edit-hubungan/{penduduk:nik}', [KeluargaController::class, 'hubunganKeluargaEditSubmit']);
+		Route::delete('/staf/kependudukan/keluarga/daftar-anggota/{helper_penduduk_keluarga:no_kk}', [KeluargaController::class, 'daftarKeluargaDelete']);
 
 		Route::get('/staf/statistik/statistik-kependudukan', [StatistikController::class, 'statistik']);
 
@@ -234,8 +240,14 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/dusun', [InfoDesaController::class, 'dusunManager']);
 		Route::get('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNew']);
 		Route::post('/staf/info-desa/dusun/new-dusun', [InfoDesaController::class, 'dusunNewSubmit']);
-		Route::get('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEdit']);
-		Route::put('/staf/info-desa/dusun/edit-dusun/{id}', [InfoDesaController::class, 'dusunEditSubmit']);
-		Route::delete('/staf/info-desa/dusun/{id}', [InfoDesaController::class, 'dusunDelete']);
+		Route::get('/staf/info-desa/dusun/edit-dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunEdit']);
+		Route::put('/staf/info-desa/dusun/edit-dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunEditSubmit']);
+		Route::delete('/staf/info-desa/dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunDelete']);
+		Route::get('/staf/info-desa/rt/{wilayah_dusun:id}', [InfoDesaController::class, 'rtManager']);
+		Route::get('/staf/info-desa/rt/new-rt', [InfoDesaController::class, 'rtNew']);
+		Route::post('/staf/info-desa/rt/new-rt/{id_wilayah_dusun}', [InfoDesaController::class, 'rtNewSubmit']);
+		Route::get('/staf/info-desa/rt/edit-rt/{helper_rt:id}', [InfoDesaController::class, 'rtEdit']);
+		Route::put('/staf/info-desa/rt/edit-dusun/{helper_rt:id}', [InfoDesaController::class, 'rtEditSubmit']);
+		Route::delete('/staf/info-desa/rt/{id_wilayah_dusun}/{helper_rt:id}', [InfoDesaController::class, 'rtDelete']);
 	// });
 });

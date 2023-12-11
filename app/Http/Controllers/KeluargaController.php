@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 // use Illuminate\Support\Facades\Validator;
 
 use App\Models\HelperPendudukKeluarga;
+use App\Models\HubunganKK;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -18,20 +19,20 @@ class KeluargaController extends Controller
     public function keluarga()
     {
         $keluarga = HelperPendudukKeluarga::leftJoin('keluarga', 'helper_penduduk_keluarga.id', '=', 'keluarga.id_helper_penduduk_keluarga')
-        ->leftJoin('penduduk as kepala_penduduk', 'kepala_penduduk.nik', '=', 'helper_penduduk_keluarga.nik_kepala')
-        ->leftJoin('penduduk', 'penduduk.id_helper_penduduk_keluarga', '=', 'helper_penduduk_keluarga.id')
-        ->select(
-            'helper_penduduk_keluarga.no_kk',
-            'helper_penduduk_keluarga.nik_kepala',
-            'kepala_penduduk.nama as nama_kepala_keluarga',
-            DB::raw('COUNT(DISTINCT penduduk.id) as jumlah_anggota'),
-            'keluarga.alamat',
-            'keluarga.tgl_daftar',
-            'keluarga.tgl_cetak_kk'
-        )
-        ->groupBy('helper_penduduk_keluarga.no_kk', 'helper_penduduk_keluarga.nik_kepala', 'kepala_penduduk.nama', 'keluarga.alamat', 'keluarga.tgl_daftar', 'keluarga.tgl_cetak_kk')
-        ->paginate(10);
-        
+            ->leftJoin('penduduk as kepala_penduduk', 'kepala_penduduk.nik', '=', 'helper_penduduk_keluarga.nik_kepala')
+            ->leftJoin('penduduk', 'penduduk.id_helper_penduduk_keluarga', '=', 'helper_penduduk_keluarga.id')
+            ->select(
+                'helper_penduduk_keluarga.no_kk',
+                'helper_penduduk_keluarga.nik_kepala',
+                'kepala_penduduk.nama as nama_kepala_keluarga',
+                DB::raw('COUNT(DISTINCT penduduk.id) as jumlah_anggota'),
+                'keluarga.alamat',
+                'keluarga.tgl_daftar',
+                'keluarga.tgl_cetak_kk'
+            )
+            ->groupBy('helper_penduduk_keluarga.no_kk', 'helper_penduduk_keluarga.nik_kepala', 'kepala_penduduk.nama', 'keluarga.alamat', 'keluarga.tgl_daftar', 'keluarga.tgl_cetak_kk')
+            ->paginate(10);
+
         return view('staf.penduduk.keluarga', [
             'title' => 'Keluarga',
             'keluarga' => $keluarga,
@@ -108,7 +109,7 @@ class KeluargaController extends Controller
                 Rule::exists('penduduk', 'nik')->where(function ($query) use ($helperPendudukKeluarga) {
                     $query->where(function ($subquery) use ($helperPendudukKeluarga) {
                         $subquery->whereNull('id_helper_penduduk_keluarga')
-                                 ->orWhere('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id);
+                            ->orWhere('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id);
                     });
                 }),
             ],
@@ -152,7 +153,7 @@ class KeluargaController extends Controller
         return redirect('/staf/kependudukan/keluarga')->with('success', 'Data keluarga berhasil diubah!');
     }
 
-public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
+    public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
     {
         // Perbarui id_helper_penduduk_keluarga di Penduduk
         Penduduk::where('id_helper_penduduk_keluarga', $helperPendudukKeluarga->id)
@@ -183,7 +184,20 @@ public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
             'pendudukDalamKeluarga' => $pendudukDalamKeluarga,
             'kelas_sosial' => KelasSosial::all(),
         ]);
-    } 
+    }
+
+    public function daftarKeluargaNew(HelperPendudukKeluarga $helperPendudukKeluarga)
+    {
+        $pendudukDalamKeluarga = $helperPendudukKeluarga->penduduk()->paginate(10);
+
+        return view('staf.penduduk.daftarKeluargaNew', [
+            'title' => 'Tambah Anggota Keluarga',
+            'keluarga' => $helperPendudukKeluarga,
+            'anggota' => Penduduk::all(),
+            'pendudukDalamKeluarga' => $pendudukDalamKeluarga,
+            'hubungan_kk' => HubunganKK::all(),
+        ]);
+    }
 
     public function newDaftarKeluargaSubmit(Request $request, HelperPendudukKeluarga $helperPendudukKeluarga)
     {
@@ -197,4 +211,19 @@ public function keluargaDelete(HelperPendudukKeluarga $helperPendudukKeluarga)
             ],
         ]);
     }
+
+    public function hubunganKeluargaEdit(Penduduk $penduduk)
+    {
+        return view('staf.penduduk.hubunganKeluargaEdit', [
+            'title' => 'Ubah Hubungan Keluarga',
+            'hubungan_kk' => HubunganKK::all(),
+            'penduduk' => Penduduk::firstWhere('nik', $penduduk->nik),
+        ]);
+    }
+
+    public function hubunganKeluargaEditSubmit(Request $request)
+    {}
+
+    public function daftarKeluargaDelete(){}
+
 }

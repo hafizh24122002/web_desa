@@ -4,7 +4,7 @@
 
         <td>
             <div style="display: flex; gap: 5px; justify-content: center;">
-                <a href="/staf/kependudukan/keluarga/anggota/{{ $data->no_kk }}">
+                <a href="/staf/kependudukan/keluarga/daftar-anggota/{{ $data->no_kk }}">
                     <button class="btn btn-sm btn-primary">
                         <i class="bx bx-list-ul text-light"></i>
                     </button>

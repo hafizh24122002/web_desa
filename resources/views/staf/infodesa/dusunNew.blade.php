@@ -15,28 +15,16 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="id_kepala_dusun" class="col-sm-3 col-form-label">Kepala Dusun<span style="color:red">*</span></label>
+				<label for="nik_kepala" class="col-sm-3 col-form-label">Kepala Dusun<span style="color:red">*</span></label>
 				<div class="col-sm-9">
-					<select name="id_kepala_dusun" id="id_kepala_dusun" class="form-control form-control-sm">
+					<select name="nik_kepala" id="nik_kepala" class="form-control form-control-sm">
 						<option value="">-- Pilih --</option>
-						@foreach ($kepala_dusun as $data)
-						<option value="{{ $data->id }}">{{ $data->jabatan }} - {{ $data->nama }}</option>
+						@foreach ($penduduk as $data)
+							@if(!collect($helper_dusun)->contains('nik_kepala', $data->nik))
+								<option value="{{ $data->nik }}">{{ $data->nik }} - {{ $data->nama }}</option>
+							@endif
 						@endforeach
 					</select>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="no_telp_dusun" class="col-sm-3 col-form-label">No. Telp Dusun</label>
-				<div class="col-sm-9">
-					<input type="number" class="form-control form-control-sm" name="no_telp_dusun" placeholder="0210192307" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="jumlah_rt" class="col-sm-3 col-form-label">Jumlah RT</label>
-				<div class="col-sm-9">
-					<input type="number" class="form-control form-control-sm" name="jumlah_rt" placeholder="5" required>
 				</div>
 			</div>
 

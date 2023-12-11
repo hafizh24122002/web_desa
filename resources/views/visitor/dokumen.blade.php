@@ -26,7 +26,7 @@
                             <p>{{ $item->keterangan }}</p>
                         </td>
                         <td class="text-center">
-                            <a href="/dokumen/download/{{$item->judul}}">
+                            <a href="/dokumen/download/{{ strtolower($item->judul) }}">
                                 <button type="button" class="btn btn-light btn-sm">
                                     <i class="bi bi-download"></i>
                                     Download
