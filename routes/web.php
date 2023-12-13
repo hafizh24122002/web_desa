@@ -243,7 +243,11 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/dusun/edit-dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunEdit']);
 		Route::put('/staf/info-desa/dusun/edit-dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunEditSubmit']);
 		Route::delete('/staf/info-desa/dusun/{helper_dusun:id}', [InfoDesaController::class, 'dusunDelete']);
-
-		Route::get('/staf/info-desa/dusun/daftar-rt', [InfoDesaController::class, 'rtManager']);
+		Route::get('/staf/info-desa/rt/{wilayah_dusun:id}', [InfoDesaController::class, 'rtManager']);
+		Route::get('/staf/info-desa/rt/new-rt', [InfoDesaController::class, 'rtNew']);
+		Route::post('/staf/info-desa/rt/new-rt/{id_wilayah_dusun}', [InfoDesaController::class, 'rtNewSubmit']);
+		Route::get('/staf/info-desa/rt/edit-rt/{helper_rt:id}', [InfoDesaController::class, 'rtEdit']);
+		Route::put('/staf/info-desa/rt/edit-dusun/{helper_rt:id}', [InfoDesaController::class, 'rtEditSubmit']);
+		Route::delete('/staf/info-desa/rt/{id_wilayah_dusun}/{helper_rt:id}', [InfoDesaController::class, 'rtDelete']);
 	// });
 });
