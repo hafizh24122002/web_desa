@@ -122,6 +122,7 @@ class ArtikelController extends Controller
 
     public function artikelNewSubmit(Request $request)
     {
+        // validate
         $validatedData = $request->validate([
             'judul' => 'required|unique:artikel,judul',
             'isi' => ['required', function ($attribute, $value, $fail) {
@@ -129,14 +130,15 @@ class ArtikelController extends Controller
                     $fail('Isi artikel tidak boleh kosong!');
                 }
             }],
+            'id_cover' => 'nullable',
             'image' => 'array'
         ], [
-        
             'judul.required' => 'Judul artikel tidak boleh kosong!',
             'judul.unique' => 'Judul artikel tidak boleh sama dengan artikel yang sudah ada!',
             'isi.required' => 'Isi artikel tidak boleh kosong!',
         ]);
 
+        // store images in `isi`
         $imageIds = [];
         if (isset($validatedData['image'][0])) {
             $imageIds = explode(',', $validatedData['image'][0]);
@@ -154,16 +156,41 @@ class ArtikelController extends Controller
             }
         }
 
+        // replace img src from storage/temps/ directory to storage/images/
         $newIsi = preg_replace_callback('/src="((?:https?:\/\/)?[^"]*\/storage\/temps\/.*?)"/', function ($matches) {
             $imageUrl = $matches[1];
             $imageName = basename($imageUrl); // Extract the image filename from the URL
             return 'src="' . url('storage/images/' . $imageName) . '"';
         }, $validatedData['isi']);
+
+        // store cover image
+        $cover = $request->file('id_cover');
+        if ($cover) {
+            $coverHash = md5(file_get_contents($cover));
+
+            $existingCoverImage = Image::where('hash', $coverHash)->first();
+            if ($existingCoverImage) {
+                $validatedData['id_cover'] = $existingCoverImage->id;
+            } else {
+                $coverFilename = 'artikel_'.Carbon::now()->format('Y-m-d').'.'.$cover->getClientOriginalExtension();
+
+                $coverModel = Image::create([
+                    'filename' => $coverFilename,
+                    'hash' => $coverHash,
+                    'path' => 'images/artikel/'.$coverFilename,
+                ]);
+                $cover->move(public_path('storage/images/artikel/'), $coverFilename);
+                $validatedData['id_cover'] = $coverModel->id;
+            }
+        } else {
+            $validatedData['id_cover'] = 1;
+        }
         
         $data = [
             'id_staf' => auth()->user()->id_staf,
             'judul' => $validatedData['judul'],
             'isi' => $newIsi,
+            'id_cover' => $validatedData['id_cover'],
             'is_active' => $request->input('is_active', false),
         ];
 
@@ -185,7 +212,7 @@ class ArtikelController extends Controller
     public function artikelEditSubmit(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'judul' => 'required|unique:artikel,judul',
+            'judul' => 'required|unique:artikel,judul,'.$id,
             'isi' => ['required', function ($attribute, $value, $fail) {
                 if ($value === '<p><br></p>') {
                     $fail('Isi artikel tidak boleh kosong!');

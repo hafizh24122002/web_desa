@@ -9,9 +9,14 @@
 			<div class="col-lg-6 col-md-12 mb-0 mb-md-0">
 				<div class="col-lg-6">
 					<h5 class="text-uppercase fw-bold">Desa Malik</h5>
+					<p>{{ $identitas_desa->alamat_kantor }}</p>
 					<p>
-						[Alamat desa] Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-						molestias.
+						{{ 
+							($identitas_desa->nama_kecamatan ? 'Kecamatan '.$identitas_desa->nama_kecamatan.', ' : '').
+							($identitas_desa->nama_kabupaten ? 'Kabupaten '.$identitas_desa->nama_kabupaten.', ' : '').
+							($identitas_desa->nama_provinsi ? 'Provinsi '.$identitas_desa->nama_provinsi.', ' : '').
+							$identitas_desa->kode_pos_desa ?? '' 
+						}}
 					</p>
 				</div>
 			</div>
@@ -22,13 +27,10 @@
 
 				<ul class="list-unstyled">
 					<li>
-						<a href="#!" class="text-white">Link 1</a>
+						<a href="mailto:{{ $identitas_desa->email_desa ?? '' }}" class="text-white"><i class="fas fa-envelope me-2"></i> {{ $identitas_desa->email_desa ?? '-' }}</a>
 					</li>
 					<li>
-						<a href="#!" class="text-white">Link 2</a>
-					</li>
-					<li>
-						<a href="#!" class="text-white">Link 3</a>
+						<a href="tel:{{ $identitas_desa->telepon ?? '' }}" class="text-white"><i class="fas fa-phone me-2"></i> {{ $identitas_desa->telepon ?? '-' }}</a>
 					</li>
 				</ul>
 			</div>

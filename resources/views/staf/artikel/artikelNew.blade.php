@@ -6,10 +6,44 @@
 <link rel="stylesheet" href="{{ asset('css/quill.snow.css') }}">
 <link rel="stylesheet" href="{{ asset('css/quill.imageUploader.min.css') }}">
 
-<div class="row mt-3 container">
+<div class="mt-3 container">
+	<a href="/staf/manajemen-web/artikel"
+		class="btn btn-info btn-sm mb-4">
+
+		<i class="fa fa-arrow-left"></i> Kembali ke Manajemen Artikel
+	</a>
+
 	<div class="col-lg">
 		<form action="/staf/manajemen-web/artikel/new-artikel" method="POST" autocomplete="off" id="form">
 			@csrf
+
+			<div class="form-group row">
+				<label for="id_cover" class="col-sm-2 col-form-label">Gambar Cover</label>
+				<div class="col-sm-10">
+					<input type="file"
+						class="form-control form-control-sm  @error('id_cover') is-invalid @enderror"
+						id="id_cover"
+						name="id_cover"
+						onchange="loadFile(event, 'image')"
+						accept="image/*"
+						aria-label="Upload">
+
+					<div class="form-helper text-muted fst-italic" style="font-size: small">
+						*Disarankan menggunakan gambar landscape agar gambar dapat ditampilkan dengan baik
+					</div>
+
+					@error('id_cover')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+					@enderror
+
+					<img id="image"
+						class="my-2"
+						style="max-width: 50%; max-height: 200px"/>
+				</div>
+			</div>
+			
 			<div class="form-group row">
 				<label for="judul" class="col-sm-2 col-form-label">Judul<span style="color:red">*</span></label>
 				<div class="col-sm-10">
@@ -71,6 +105,17 @@
 @include('partials.commonScripts')
 
 <script src="{{ asset('js/quill.min.js') }}"></script>
+
+<script>
+	var loadFile = function(event, id) {
+		var output = document.getElementById(id);
+		output.src = URL.createObjectURL(event.target.files[0]);
+		output.onload = function() {
+			URL.revokeObjectURL(output.src) // free memory
+		}
+	};
+</script>
+
 <script src="{{ asset('js/quill.imageUploader.min.js') }}"></script>
 <script>
 	const csrfToken = "{{ csrf_token() }}";

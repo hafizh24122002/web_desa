@@ -7,6 +7,7 @@ use App\Http\Controllers\KeluargaController;
 use App\Http\Controllers\KesehatanController;
 use App\Http\Controllers\StafController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\StatistikController;
@@ -188,6 +189,13 @@ Route::middleware(['auth'])->group(function () {
 		Route::delete('/staf/manajemen-web/artikel/{id}', [ArtikelController::class, 'artikelDelete']);
 		Route::post('/staf/manajemen-web/artikel/upload-image', [ArtikelController::class, 'storeImage']);
 
+		Route::get('/staf/manajemen-web/banner', [BannerController::class, 'bannerManager']);
+		Route::get('/staf/manajemen-web/banner/new-banner', [BannerController::class, 'bannerNew']);
+		Route::post('/staf/manajemen-web/banner/new-banner', [BannerController::class, 'bannerNewSubmit']);
+		Route::get('/staf/manajemen-web/banner/edit-banner/{no_urut}', [BannerController::class, 'bannerEdit']);
+		Route::put('/staf/manajemen-web/banner/edit-banner/{no_urut}', [BannerController::class, 'bannerEditSubmit']);
+		Route::delete('/staf/manajemen-web/banner/{id}', [BannerController::class, 'bannerDelete']);
+
 		Route::get('/staf/manajemen-web/agenda', [AgendaController::class, 'agendaManager']);
 		Route::get('/staf/manajemen-web/agenda/new-agenda', [AgendaController::class, 'agendaNew']);
 		Route::post('/staf/manajemen-web/agenda/new-agenda', [AgendaController::class, 'agendaNewSubmit']);
@@ -203,6 +211,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::put('/staf/manajemen-web/dokumen/edit-dokumen/{id}', [DokumenController::class, 'dokumenEditSubmit']);
 		Route::delete('/staf/manajemen-web/dokumen/{id}', [DokumenController::class, 'dokumenDelete']);
 		Route::get('/staf/manajemen-web/dokumen/{dokumen:filename}', [DokumenController::class, 'dokumenDownload']);
+		Route::get('/staf/manajemen-web/dokumen/preview/{dokumen:filename}', [DokumenController::class, 'dokumenShow']);
 
 		Route::get('/staf/layanan-surat/buat-surat', [SuratController::class, 'suratNew']);
 		Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput']);
