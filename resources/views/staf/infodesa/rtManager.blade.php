@@ -17,9 +17,13 @@
                         </div>
                     @endif
 
-                    <a href="/staf/info-desa/rt/new-rt" style="width: auto" class="btn btn-primary my-2">
+                    <a href="/staf/info-desa/rt/new-rt/{{$dusun->id}}" style="width: auto" class="btn btn-primary my-2">
                         <i class="bx bx-user-plus align-middle"></i> Tambah Data RT
                     </a>
+
+                    <a href="/staf/info-desa/dusun/" style="width: auto" class="btn btn-success my-2">
+						<i class="bi bi-arrow-left-circle align-middle"></i> Kembali ke Daftar Dusun
+					</a>
 
                     <table class="table table-hover">
                         <thead>
@@ -38,14 +42,14 @@
                                     <td class="text-center">{{ $rt->firstitem() + $key }}</td>
 
                                     <td class="d-flex gap-1 justify-content-center">
-                                        <a href="/staf/info-desa/rt/edit-rt/{{ $data->id }}">
+                                        <a href="/staf/info-desa/rt/edit-rt/{{ $data->id_helper_rt }}">
                                             <button class="btn btn-sm btn-warning">
                                                 <i class="bx bx-edit-alt text-light"></i>
                                             </button>
                                         </a>
 
-                                        <form action="/staf/info-desa/rt/{{ $data->id }}"
-                                            onsubmit="return confirm('Apakah anda yakin ingin menghapus rt ini? rt yang dihapus tidak akan bisa dikembalikan!')"
+                                        <form action="/staf/info-desa/rt/{{ $dusun->id }}/{{ $data->id_helper_rt }}"
+                                            onsubmit="return confirm('Apakah anda yakin ingin menghapus RT ini? RT yang dihapus tidak akan bisa dikembalikan!')"
                                             method="POST">
 
                                             @method('delete')
