@@ -121,7 +121,7 @@
                 {{-- <div class="form-group row">
                     <label for="rt" class="col-sm-3 col-form-label">No. Rumah Tangga</label>
                     <div class="col-sm-9">
-                        <select class="form-select form-select-sm grup-input" name="id_rt">
+                        <select class="form-select form-select-sm grup-input" name="id_wilayah_rt">
                             <option value="1">TODO</option> 
                         </select>
                     </div>
@@ -551,19 +551,19 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="id_dusun" class="col-sm-3 col-form-label">Dusun<span
+                    <label for="id_wilayah_dusun" class="col-sm-3 col-form-label">Dusun<span
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
-                        <select class="form-select form-select-sm grup-input @error('id_dusun') is-invalid @enderror" name="id_dusun"-field>
+                        <select class="form-select form-select-sm grup-input @error('id_wilayah_dusun') is-invalid @enderror" name="id_wilayah_dusun"-field>
                             <option value="" selected>-- Pilih Dusun--</option>
                             @foreach ($wilayah_dusun as $item)
                                 <option value="{{ $loop->iteration }}"
-                                    {{ old('id_dusun') == $loop->iteration ? 'selected' : '' }}>
+                                    {{ old('id_wilayah_dusun') == $loop->iteration ? 'selected' : '' }}>
                                     {{ $item->nama }}
                                 </option>
                             @endforeach
                         </select>
-                        @error('id_dusun')
+                        @error('id_wilayah_dusun')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -572,19 +572,19 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="id_rt" class="col-sm-3 col-form-label">RT<span
+                    <label for="id_wilayah_rt" class="col-sm-3 col-form-label">RT<span
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
-                        <select class="form-select form-select-sm grup-input @error('id_rt') is-invalid @enderror" name="id_rt"-field>
+                        <select class="form-select form-select-sm grup-input @error('id_wilayah_rt') is-invalid @enderror" name="id_wilayah_rt"-field>
                             <option value="" selected>-- Pilih RT--</option>
                             @foreach ($wilayah_rt as $item)
                                 <option value="{{ $loop->iteration }}"
-                                    {{ old('id_rt') == $loop->iteration ? 'selected' : '' }}>
+                                    {{ old('id_wilayah_rt') == $loop->iteration ? 'selected' : '' }}>
                                     {{ $item->nama }}
                                 </option>
                             @endforeach
                         </select>
-                        @error('id_rt')
+                        @error('id_wilayah_rt')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

@@ -39,22 +39,21 @@
                             <td class="text-center">{{ $dusun->firstitem() + $key }}</td>
 
                             <td class="d-flex gap-1 justify-content-center">
-                                <a href="/staf/info-desa/dusun/daftar-rt">
+                                <a href="/staf/info-desa/rt/{{ $data->id_dusun }}">
                                     <button class="btn btn-sm btn-primary" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Daftar RT">
                                         <i class="bx bx-list-ul text-light"></i>
                                     </button>
                                 </a>
 
-                                <a href="/staf/info-desa/dusun/edit-dusun/{{ $data->id }}">
+                                <a href="/staf/info-desa/dusun/edit-dusun/{{ $data->id_dusun }}">
                                     <button class="btn btn-sm btn-warning" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Edit Data Dusun">
                                         <i class="bx bx-edit-alt text-light"></i>
                                     </button>
                                 </a>
 
-                                <form action="/staf/info-desa/dusun/{{ $data->id }}" onsubmit="return confirm('Apakah anda yakin ingin menghapus dusun ini? Dusun yang dihapus tidak akan bisa dikembalikan!')" method="POST">
-
-                                    @method('delete')
+                                <form action="/staf/info-desa/dusun/{{ $data->id_helper }}" onsubmit="return confirm('Apakah anda yakin ingin menghapus dusun ini? Dusun yang dihapus tidak akan bisa dikembalikan!')" method="POST">
                                     @csrf
+                                    @method('delete')
 
                                     <button class="btn btn-sm btn-danger" type="submit" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Hapus Data Dusun">
                                         <i class="bx bx-trash text-light"></i>

@@ -26,13 +26,13 @@
         </tbody>
     </table>
     <div class="col-lg">
-        <form action="/staf/kependudukan/keluarga/anggota/new-anggota/" method="POST">
+        <form action="/staf/kependudukan/keluarga/daftar-anggota/{{ $keluarga->no_kk }}/new-anggota/" method="POST">
             @csrf
 
             <div class="form-group row">
-                <label for="nik_kepala" class="col-sm-3 col-form-label">NIK / Nama Penduduk (dari penduduk yang tidak memiliki No. KK)<span style="color:red">*</span></label>
+                <label for="nik" class="col-sm-3 col-form-label">NIK / Nama Penduduk (dari penduduk yang tidak memiliki No. KK)<span style="color:red">*</span></label>
                 <div class="col-sm-9">
-                    <select class="form-select form-select-sm" id="anggota" name="anggota"">
+                    <select class="form-select form-select-sm" id="nik" name="nik"">
                         <option value="">-- Pilih --</option>
                         @foreach ($anggota as $item)
                         @if ($item->id_helper_penduduk_keluarga == NULL)
@@ -44,14 +44,12 @@
             </div>
 
             <div class="form-group row">
-                <label for="id_kelas_sosial" class="col-sm-3 col-form-label">Hubungan KK</label>
+                <label for="id_hubungan_kk" class="col-sm-3 col-form-label">Hubungan KK</label>
                 <div class="col-sm-9">
                     <select class="form-select form-select-sm" id="grup-input" name="id_hubungan_kk">
                         <option value="">-- Pilih --</option>
                         @foreach ($hubungan_kk as $item)
-                        @if ($item->id !== 1)
                         <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                        @endif
                         @endforeach
                     </select>
                 </div>
