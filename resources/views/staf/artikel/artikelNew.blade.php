@@ -18,8 +18,8 @@
 			@csrf
 
 			<div class="form-group row">
-				<label for="id_cover" class="col-sm-2 col-form-label">Gambar Cover</label>
-				<div class="col-sm-10">
+				<label for="id_cover" class="col-lg-2 col-form-label">Gambar Cover</label>
+				<div class="col-lg-10">
 					<input type="file"
 						class="form-control form-control-sm  @error('id_cover') is-invalid @enderror"
 						id="id_cover"
@@ -45,8 +45,8 @@
 			</div>
 			
 			<div class="form-group row">
-				<label for="judul" class="col-sm-2 col-form-label">Judul<span style="color:red">*</span></label>
-				<div class="col-sm-10">
+				<label for="judul" class="col-lg-2 col-form-label">Judul<span style="color:red">*</span></label>
+				<div class="col-lg-10">
 					<input type="text"
 						class="form-control form-control-sm  @error('judul') is-invalid @enderror"
 						id="judul"
@@ -63,8 +63,8 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="editor" class="col-sm-2 col-form-label">Isi<span style="color:red">*</span></label>
-				<div class="col-sm-10">
+				<label for="editor" class="col-lg-2 col-form-label">Isi<span style="color:red">*</span></label>
+				<div class="col-lg-10">
 					<div id="editor"
 						name="editor"
 						class="@error('isi') is-invalid @enderror"
@@ -83,8 +83,8 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="judul" class="col-sm-2 col-form-label">Status Artikel</label>
-				<div class="col-sm-10 d-flex align-items-center gap-2">
+				<label for="judul" class="col-lg-2 col-form-label">Status Artikel</label>
+				<div class="col-lg-10 d-flex align-items-center gap-2">
 					<input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" checked>
 					<label class="form-check-label" for="flexCheckDefault">
 						Aktif

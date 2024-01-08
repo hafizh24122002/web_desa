@@ -19,8 +19,8 @@ return new class extends Migration
             $table->boolean('dtks')->default(false); // Kolom DTKS
             $table->timestamp('tgl_daftar')->nullable()->useCurrent();
             $table->string('alamat')->nullable();
-            $table->foreignId('id_dusun')->nullable()->constrained('wilayah_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
-            $table->foreignId('id_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_wilayah_dusun')->nullable()->constrained('wilayah_dusun')->onUpdate('cascade')->onDelete('cascade'); // *
+            $table->foreignId('id_wilayah_rt')->nullable()->constrained('wilayah_rt')->onUpdate('cascade')->onDelete('cascade'); // *
             $table->timestamps();
         });
     }

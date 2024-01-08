@@ -16,9 +16,30 @@
 			<i class='bx bx-menu' id="header-toggle"></i>
 		</div>
 
-		<a href="/" class="nav-top ms-3">
-			<span>Kembali ke halaman utama</span>
-		</a>
+		<div class="d-inline-flex w-100 justify-content-between">
+			<a href="/" class="nav-top ms-3 d-flex align-items-center">
+				<span>Kembali ke halaman pengunjung</span>
+			</a>
+
+			<div class="d-flex align-items-center">
+				<a href="/staf/buat-qr" 
+					class="nav-top me-2 d-flex align-items-center"
+					data-mdb-toggle="tooltip"
+					data-mdb-placement="bottom"
+					title="Buat Kode QR">
+
+					<i class='bx bx-qr' style="font-size: 1.5rem"></i>
+				</a>
+
+				<span class="text-muted fs-3">|</span>
+
+				{{-- TODO: Profile akun yang login saat ini? --}}
+				<a href="#" class="nav-top ms-2 d-flex align-items-center">
+					{{ strtoupper(auth()->user()->name) }}
+				</a>
+			</div>
+		</div>
+
 	</header>
 
 	<div class="l-navbar bg-dark show" id="nav-bar">

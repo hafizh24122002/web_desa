@@ -17,7 +17,8 @@
         "mews/captcha": "^3.3",
         "mpdf/mpdf": "^8.2",
         "phpoffice/phpspreadsheet": "^1.29",
-        "phpoffice/phpword": "^1.1"
+        "phpoffice/phpword": "^1.1",
+        "simplesoftwareio/simple-qrcode": "~4"
     },
     "minimum-stability": "stable",
     "require-dev": {

@@ -17,8 +17,10 @@ use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\InfoDesaController;
 use App\Http\Controllers\TempDusunController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\GenerateQrController;
 use App\Http\Controllers\RtmController;
+
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -105,8 +107,11 @@ Route::middleware(['auth'])->group(function () {
 	});
 
 	// Route::middleware(['verified.staf'])->group(function () {
-		
 		// route staf
+		Route::get('/staf/buat-qr', [GenerateQrController::class, 'embedSrc']);
+		Route::post('/staf/buat-qr', [GenerateQrController::class, 'generate']);
+		Route::post('/staf/download-qr', [GenerateQrController::class, 'download']);
+
 		Route::get('/staf/kependudukan/penduduk', [KependudukanController::class, 'kependudukan']);
 		Route::get('/staf/kependudukan/penduduk/new-penduduk/{type}', [KependudukanController::class, 'pendudukNew']);
 		Route::post('/staf/kependudukan/penduduk/new-penduduk/{type}', [KependudukanController::class, 'pendudukNewSubmit']);
