@@ -167,7 +167,7 @@
 
 								reject("Uplaod Gagal!");
 							} else {
-								console.log(result.image.url);		// debug
+								// console.log(result.image.url);		// debug
 
 								if (!window.imageIds) {
 									window.imageIds = [];

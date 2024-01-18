@@ -78,6 +78,8 @@
 		</div>
 	</nav>
 	
+	@include('partials.commonScripts')
+	
 	@yield('header')
 	<div class="body-wrapper" style="flex-direction: column">
 		@yield('main-content')
@@ -87,8 +89,6 @@
 			@include('partials.sideContent')
         @endif --}}
 	</div>
-
-	@include('partials.commonScripts')
 
 	<script>
 		// Helper function to strip images from HTML content

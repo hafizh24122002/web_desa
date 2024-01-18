@@ -162,10 +162,10 @@
         <!-- Tabs navs -->
         <ul class="nav nav-pills mb-3" id="agendaTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true" data-aos="fade-up">Yang akan datang</a>
+                <a class="nav-link rounded-pill active" id="upcoming-tab" data-bs-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true" data-aos="fade-up">Yang akan datang</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="past-tab" data-bs-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false" data-aos="fade-up" data-aos-delay="50">Sudah lewat</a>
+                <a class="nav-link rounded-pill" id="past-tab" data-bs-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false" data-aos="fade-up" data-aos-delay="50">Sudah lewat</a>
             </li>
         </ul>
 
@@ -264,7 +264,7 @@
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend');
 
-        div.innerHTML = '<h6>Desa {{ $identitas_desa->nama_desa }}</h6><a href="https://maps.app.goo.gl/pEPptYT6SfezWyCf9" class="btn btn-primary text-light">Buka di Google Maps</a>';
+        div.innerHTML = '<h6>Desa {{ $identitas_desa->nama_desa }}</h6><a href="https://maps.app.goo.gl/pEPptYT6SfezWyCf9" class="btn btn-primary rounded-pill text-light">Buka di Google Maps</a>';
 
         return div;
     };
