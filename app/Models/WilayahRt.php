@@ -19,6 +19,7 @@ class WilayahRt extends Model
     protected $fillable = [
         'nama',
         'id_wilayah_dusun',
+        'id_helper_rt'
     ];
 
     /**

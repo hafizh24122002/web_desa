@@ -215,6 +215,8 @@ class InfoDesaController extends Controller
             ->leftJoin('penduduk as kepala_dusun', 'kepala_dusun.nik', '=', 'helper_dusun.nik_kepala')
             ->leftJoin('wilayah_rt', 'wilayah_rt.id_wilayah_dusun', '=', 'wilayah_dusun.id')
             ->select(
+                'wilayah_dusun.id as id_dusun',
+                'helper_dusun.id as id_helper',
                 'helper_dusun.nik_kepala',
                 'kepala_dusun.nama as nama_kepala_dusun',
                 'wilayah_dusun.nama as nama_dusun',
@@ -230,11 +232,8 @@ class InfoDesaController extends Controller
 
     public function dusunNew()
     {
-        $kepala_dusun = Staf::where('jabatan', 'like', 'Kepala Dusun%')->get();
-
         return view('staf.infodesa.dusunNew', [
             'title' => 'Tambah Dusun',
-            'kepala_dusun' => $kepala_dusun,
             'helper_dusun' => HelperDusun::all(),
             'penduduk' => Penduduk::all(),
         ]);
@@ -278,12 +277,11 @@ class InfoDesaController extends Controller
 
     public function dusunEdit($id)
     {
-        $kepala_dusun = Staf::where('jabatan', 'like', 'Kepala Dusun%')->get();
-
         return view('staf.infodesa.dusunEdit', [
             'title' => 'Edit Dusun',
             'dusun' => WilayahDusun::find($id),
-            'kepala_dusun' => $kepala_dusun,
+            'penduduk' => Penduduk::all(),
+            'helper_dusun' => HelperDusun::all(),
         ]);
     }
 
@@ -359,16 +357,29 @@ class InfoDesaController extends Controller
             ->select(
                 'wilayah_rt.nama as nama_rt',
                 'helper_rt.nik_kepala',
-                'kepala_rt.nama as nama_kepala_rt'
+                'kepala_rt.nama as nama_kepala_rt',
+                'wilayah_rt.id_wilayah_dusun as id_dusun',
+                'wilayah_rt.id_helper_rt as id_helper_rt'
             )
             ->paginate(10);
 
-        dd($rt);
+        // dd($rt);
 
         return view('staf.infodesa.rtManager', [
             'title' => 'Daftar RT - ' . $dusun->nama,
             'rt' => $rt,
             'dusun' => $dusun,
+        ]);
+    }
+
+    public function rtNew($id)
+    {
+        return view('staf.infodesa.rtNew', [
+            'title' => 'Tambah RT',
+            'id_dusun' => $id,
+            'helper_rt' => HelperRt::all(),
+            'penduduk' => Penduduk::all(),
+            'helper_dusun' => HelperDusun::all()
         ]);
     }
 
@@ -385,7 +396,6 @@ class InfoDesaController extends Controller
 
         $validatedSpecificData = $request->validate([
             'nama' => 'nullable',
-            // 'id_wilayah_dusun' => 'required|exists:wilayah_dusun,id',
         ]);
 
         if (isset($validatedSpecificData['nama'])) {
@@ -406,6 +416,18 @@ class InfoDesaController extends Controller
             ]);
 
         return redirect('/staf/info-desa/rt/' . $id_wilayah_dusun)->with('success', 'RT berhasil ditambahkan!');
+    }
+
+    public function rtEdit($id)
+    {
+        return view('staf.infodesa.rtEdit', [
+            'title' => 'Edit RT',
+            'rt' => WilayahRt::find($id),
+            'penduduk' => Penduduk::all(),
+            'helper_rt' => HelperRt::all(),
+            'helper_dusun' => HelperDusun::all(),
+            'id_dusun' => $id,
+        ]);
     }
 
     public function rtDelete($id_wilayah_dusun, HelperRt $helperRt)
