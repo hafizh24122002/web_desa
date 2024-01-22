@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('artikel', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_staf')->nullable()->default(NULL)->constrained('staf')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_staf')->nullable()->default(NULL)->constrained('staf')->onUpdate(NULL)->onDelete(NULL);
             $table->string('judul');
             $table->longText('isi');
+            $table->foreignId('id_cover')->default(1)->constrained('images')->onUpdate(NULL)->onDelete(NULL);
             $table->boolean("is_active")->default(true);
             $table->timestamps();
         });

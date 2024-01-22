@@ -1,2 +1,6 @@
 *
+!images/
+!documents/
+!profile_pictures/
+!temps/
 !.gitignore

@@ -1,4 +1,10 @@
 *
+!arsip_surat/
+!buku_administrasi_penduduk/
+!buku_administrasi_penduduk/*
+!koordinat_wilayah/
+!koordinat_wilayah/*
 !surat/
+!surat/*
 !public/
 !.gitignore

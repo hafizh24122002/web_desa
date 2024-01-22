@@ -25,7 +25,7 @@
 
                     <div class="row mt-3 container">
                         <div class="col-lg-4">
-                            <div class="accordion" id="statistikBar">
+                            <div class="accordion accordion-custom" id="statistikBar">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="statistikHeading">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#statistikPenduduk" aria-expanded="true" aria-controls="statistikPenduduk">
@@ -559,13 +559,13 @@
     }
 
     // Generate color palette sesuai jumlah data
-    function generateColorPalette(numColors) {
+    function generateColorPalette(numColors, alpha) {
         const colors = [];
         const hueStep = 360 / numColors;
 
         for (let i = 0; i < numColors; i++) {
             const hue = i * hueStep;
-            colors.push(`hsl(${hue}, 70%, 50%)`);
+            colors.push(`rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${alpha})`);
         }
 
         return colors;
@@ -612,51 +612,59 @@
     // Canvas 8 - Kelas Sosial
     var pieChartCanvas8 = document.getElementById('pie-chart8');
     var barChartCanvas8 = document.getElementById('bar-chart8');
-    
+
     /* Pengaturan Data untuk Chart */
 
     // 1 - Jenis Kelamin
     var genderNames = genderStats.map(stat => stat.name);
     var genderCounts = genderStats.map(stat => stat.count);
-    var colorPalette = generateColorPalette(genderNames.length);
+    var colorPalette = generateColorPalette(genderNames.length, 0.5);
+	var borderColors = colorPalette.map(color => color.replace(/[^,]+(?=\))/, '1'));
 
     // 2 - Agama
     var agamaNames = agamaStats.map(stat => stat.name);
     var agamaCounts = agamaStats.map(stat => stat.count);
-    var colorPalette2 = generateColorPalette(agamaNames.length);
+    var colorPalette2 = generateColorPalette(agamaNames.length, 0.5);
+    var borderColors2 = colorPalette2.map(color => color.replace(/[^,]+(?=\))/, '1'));
 
     // 3 - Pekerjaan
     var pekerjaanNames = pekerjaanStats.map(stat => stat.name);
     var pekerjaanCounts = pekerjaanStats.map(stat => stat.count);
-    var colorPalette3 = generateColorPalette(pekerjaanNames.length);
+    var colorPalette3 = generateColorPalette(pekerjaanNames.length, 0.5);
+    var borderColors3 = colorPalette3.map(color => color.replace(/[^,]+(?=\))/, '1'));
 
     // 4 - Status Penduduk
     var statusPendudukNames = statusPendudukStats.map(stat => stat.name);
     var statusPendudukCounts = statusPendudukStats.map(stat => stat.count);
-    var colorPalette4 = generateColorPalette(statusPendudukNames.length);
+    var colorPalette4 = generateColorPalette(statusPendudukNames.length, 0.5);
+    var borderColors4 = colorPalette4.map(color => color.replace(/[^,]+(?=\))/, '1'));
 
     // 5 - Pendidikan Terakhir
     var pendidikanTerakhirNames = pendidikanTerakhirStats.map(stat => stat.name);
     var pendidikanTerakhirCounts = pendidikanTerakhirStats.map(stat => stat.count);
-    var colorPalette5 = generateColorPalette(pendidikanTerakhirNames.length);
-    
+    var colorPalette5 = generateColorPalette(pendidikanTerakhirNames.length, 0.5);
+    var borderColors5 = colorPalette5.map(color => color.replace(/[^,]+(?=\))/, '1'));
+
     // 6 - Status Perkawinan
     var statusPerkawinanNames = statusPerkawinanStats.map(stat => stat.name);
     var statusPerkawinanCounts = statusPerkawinanStats.map(stat => stat.count);
-    var colorPalette6 = generateColorPalette(statusPerkawinanNames.length);
+    var colorPalette6 = generateColorPalette(statusPerkawinanNames.length, 0.5);
+    var borderColors6 = colorPalette6.map(color => color.replace(/[^,]+(?=\))/, '1'));
 
     // 7 - Kewarganegaraan
     var kewarganegaraanNames = kewarganegaraanStats.map(stat => stat.name);
     var kewarganegaraanCounts = kewarganegaraanStats.map(stat => stat.count);
-    var colorPalette7 = generateColorPalette(kewarganegaraanNames.length);
+    var colorPalette7 = generateColorPalette(kewarganegaraanNames.length, 0.5);
+    var borderColors7 = colorPalette7.map(color => color.replace(/[^,]+(?=\))/, '1'));
 
     // 8 - Kelas Sosial
     var kelasSosialNames = kelasSosialStats.map(stat => stat.name);
     var kelasSosialCounts = kelasSosialStats.map(stat => stat.count);
-    var colorPalette8 = generateColorPalette(kelasSosialNames.length);
+    var colorPalette8 = generateColorPalette(kelasSosialNames.length, 0.5);
+    var borderColors8 = colorPalette8.map(color => color.replace(/[^,]+(?=\))/, '1'));
 
     // Fungsi membuat chart
-    function createChart(chartType, labels, data, backgroundColor, canvasElement) {
+    function createChart(chartType, labels, data, backgroundColor, borderColor, canvasElement) {
         const ctx = canvasElement.getContext('2d');
 
         if (canvasElement.chart) {
@@ -667,8 +675,11 @@
             data: {
                 labels: labels,
                 datasets: [{
+                    label: 'Data',
                     data: data,
                     backgroundColor: backgroundColor,
+                    borderColor: borderColor,
+                    borderWidth: 1
                 }],
             },
             options: {
@@ -684,106 +695,105 @@
 
     // 1 - Jenis Kelamin
     document.getElementById('pieChart').addEventListener('click', function() {
-        createChart('pie', genderNames, genderCounts, colorPalette, pieChartCanvas);
+        createChart('pie', genderNames, genderCounts, colorPalette, borderColors, pieChartCanvas);
         document.getElementById('piechart-container').style.display = 'block';
         document.getElementById('barchart-container').style.display = 'none';
     });
 
     document.getElementById('barChart').addEventListener('click', function() {
-        createChart('bar', genderNames, genderCounts, colorPalette, barChartCanvas);
+        createChart('bar', genderNames, genderCounts, colorPalette, borderColors, barChartCanvas);
         document.getElementById('barchart-container').style.display = 'block';
         document.getElementById('piechart-container').style.display = 'none';
     });
 
     // 2 - Agama
     document.getElementById('pieChart2').addEventListener('click', function() {
-        createChart('pie', agamaNames, agamaCounts, colorPalette2, pieChartCanvas2);
+        createChart('pie', agamaNames, agamaCounts, colorPalette2, borderColors2, pieChartCanvas2);
         document.getElementById('piechart2-container').style.display = 'block';
         document.getElementById('barchart2-container').style.display = 'none';
     });
 
     document.getElementById('barChart2').addEventListener('click', function() {
-        createChart('bar', agamaNames, agamaCounts, colorPalette2, barChartCanvas2);
+        createChart('bar', agamaNames, agamaCounts, colorPalette2, borderColors2, barChartCanvas2);
         document.getElementById('barchart2-container').style.display = 'block';
         document.getElementById('piechart2-container').style.display = 'none';
     });
 
     // 3 - Pekerjaan
     document.getElementById('pieChart3').addEventListener('click', function() {
-        createChart('pie', pekerjaanNames, pekerjaanCounts, colorPalette3, pieChartCanvas3);
+        createChart('pie', pekerjaanNames, pekerjaanCounts, colorPalette3, borderColors3, pieChartCanvas3);
         document.getElementById('piechart3-container').style.display = 'block';
         document.getElementById('barchart3-container').style.display = 'none';
     });
     document.getElementById('barChart3').addEventListener('click', function() {
-        createChart('bar', pekerjaanNames, pekerjaanCounts, colorPalette3, barChartCanvas3);
+        createChart('bar', pekerjaanNames, pekerjaanCounts, colorPalette3, borderColors3, barChartCanvas3);
         document.getElementById('barchart3-container').style.display = 'block';
         document.getElementById('piechart3-container').style.display = 'none';
     });
 
     // 4 - Status Penduduk
     document.getElementById('pieChart4').addEventListener('click', function() {
-        createChart('pie', statusPendudukNames, statusPendudukCounts, colorPalette4, pieChartCanvas4);
+        createChart('pie', statusPendudukNames, statusPendudukCounts, colorPalette4, borderColors4, pieChartCanvas4);
         document.getElementById('piechart4-container').style.display = 'block';
         document.getElementById('barchart4-container').style.display = 'none';
     });
     document.getElementById('barChart4').addEventListener('click', function() {
-        createChart('bar', statusPendudukNames, statusPendudukCounts, colorPalette4, barChartCanvas4);
+        createChart('bar', statusPendudukNames, statusPendudukCounts, colorPalette4, borderColors4, barChartCanvas4);
         document.getElementById('barchart4-container').style.display = 'block';
         document.getElementById('piechart4-container').style.display = 'none';
     });
 
     // 5 - Pendidikan Terakhir
     document.getElementById('pieChart5').addEventListener('click', function() {
-        createChart('pie', pendidikanTerakhirNames, pendidikanTerakhirCounts, colorPalette5, pieChartCanvas5);
+        createChart('pie', pendidikanTerakhirNames, pendidikanTerakhirCounts, colorPalette5, borderColors5, pieChartCanvas5);
         document.getElementById('piechart5-container').style.display = 'block';
         document.getElementById('barchart5-container').style.display = 'none';
     });
 
     document.getElementById('barChart5').addEventListener('click', function() {
-        createChart('bar', pendidikanTerakhirNames, pendidikanTerakhirCounts, colorPalette5, barChartCanvas5);
+        createChart('bar', pendidikanTerakhirNames, pendidikanTerakhirCounts, colorPalette5, borderColors5, barChartCanvas5);
         document.getElementById('barchart5-container').style.display = 'block';
         document.getElementById('piechart5-container').style.display = 'none';
     });
 
     // 6 - Status Perkawinan
     document.getElementById('pieChart6').addEventListener('click', function() {
-        createChart('pie', statusPerkawinanNames, statusPerkawinanCounts, colorPalette6, pieChartCanvas6);
+        createChart('pie', statusPerkawinanNames, statusPerkawinanCounts, colorPalette6, borderColors6, pieChartCanvas6);
         document.getElementById('piechart6-container').style.display = 'block';
         document.getElementById('barchart6-container').style.display = 'none';
     });
 
     document.getElementById('barChart6').addEventListener('click', function() {
-        createChart('bar', statusPerkawinanNames, statusPerkawinanCounts, colorPalette6, barChartCanvas6);
+        createChart('bar', statusPerkawinanNames, statusPerkawinanCounts, colorPalette6, borderColors6, barChartCanvas6);
         document.getElementById('barchart6-container').style.display = 'block';
         document.getElementById('piechart6-container').style.display = 'none';
     });
 
     // 7 - Kewarganegaraan
     document.getElementById('pieChart7').addEventListener('click', function() {
-        createChart('pie', kewarganegaraanNames, kewarganegaraanCounts, colorPalette7, pieChartCanvas7);
+        createChart('pie', kewarganegaraanNames, kewarganegaraanCounts, colorPalette7, borderColors7, pieChartCanvas7);
         document.getElementById('piechart7-container').style.display = 'block';
         document.getElementById('barchart7-container').style.display = 'none';
     });
 
     document.getElementById('barChart7').addEventListener('click', function() {
-        createChart('bar', kewarganegaraanNames, kewarganegaraanCounts, colorPalette7, barChartCanvas7);
+        createChart('bar', kewarganegaraanNames, kewarganegaraanCounts, colorPalette7, borderColors7, barChartCanvas7);
         document.getElementById('barchart7-container').style.display = 'block';
         document.getElementById('piechart7-container').style.display = 'none';
     });
 
     // 8 - Kelas Sosial
     document.getElementById('piechart8').addEventListener('click', function() {
-        createChart('pie', kelasSosialNames, kelasSosialCounts, colorPalette8, pieChartCanvas8);
+        createChart('pie', kelasSosialNames, kelasSosialCounts, colorPalette8, borderColors8, pieChartCanvas8);
         document.getElementById('piechart8-container').style.display = 'block';
         document.getElementById('barchart8-container').style.display = 'none';
     });
 
     document.getElementById('barchart8').addEventListener('click', function() {
-        createChart('bar', kelasSosialNames, kelasSosialCounts, colorPalette8, barChartCanvas8);
+        createChart('bar', kelasSosialNames, kelasSosialCounts, colorPalette8, borderColors8, barChartCanvas8);
         document.getElementById('barchart8-container').style.display = 'block';
         document.getElementById('piechart8-container').style.display = 'none';
     });
 </script>
-
 
 @endsection

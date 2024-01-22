@@ -3,6 +3,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    /* background-color: #eee; */
 }
   
 body {
@@ -14,6 +15,54 @@ body {
 
 footer {
     margin-top: auto;
+}
+
+.navbar-after-scroll {
+    background-color: rgba(38, 38, 38, 1);
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.navbar-after-scroll::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(38, 38, 38, 1), rgba(38, 38, 38, 0));
+    z-index: -1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.navbar-after-scroll.active::before {
+    opacity: 0;
+}
+
+.navbar-before-scroll {
+    /* background-color: rgba(38, 38, 38, .3); */
+    background-image: linear-gradient(180deg, rgba(38, 38, 38, 1), rgba(38, 38, 38, 0));
+    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.navbar-items {
+    color: white !important;
+}
+
+@media (max-width: 992px) {
+    #main-navbar {
+        background-color: #262626;
+    }
+
+    #dashboard-btn, #login-btn {
+        margin-top: 1rem;
+    }
 }
 
 .carousel-item h5 {
@@ -62,4 +111,106 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+.single_bottom_rightbar {
+    margin-left: auto;
+    width: 350px;
+}
+
+h2 {
+    font-size: 25px;
+}
+
+#aparaturCarousel .carousel-item img {
+    filter: brightness(100%);
+}
+
+#aparaturCarousel .carousel-item {
+    background-color: rgba(0,0,0,0);
+}
+
+.body-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-inline: 3em;
+}
+
+.artikel-card {
+    transition: 0.3s;
+}
+
+.artikel-card:hover {
+    background-color: rgba(125,125,125,0.1);
+}
+
+.table {
+    --mdb-table-bg: transparent;
+    --mdb-table-striped-color: #212529;
+    --mdb-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --mdb-table-active-color: #212529;
+    --mdb-table-active-bg: rgba(0, 0, 0, 0.1);
+    --mdb-table-hover-color: #212529;
+    --mdb-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #e0e0e0;
+}
+
+.bg-dark > th {
+	color: #fff;
+}
+
+.legend {
+    padding: 10px;
+    line-height: 18px;
+    color: #555;
+    background-color: rgba(255,255,255, 0.3);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 10px
+}
+
+/* Hide the default scroll bar */
+::-webkit-scrollbar {
+	width: 10px; /* Set the width of the vertical scrollbar */
+	height: 10px; /* Set the height of the horizontal scrollbar */
+}
+  
+/* Track (the area on the side of the content) */
+::-webkit-scrollbar-track {
+	background: #262626; /* Background color of the track */
+}
+  
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+	background: #c7c7c7; /* Color of the scrollbar handle */
+	border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:horizontal{
+	background: #c7c7c7; /* Color of the scrollbar handle */
+	border-radius: 10px;
+}
+  
+/* On hover, the handle will change color */
+::-webkit-scrollbar-thumb:hover {
+	background: #b1b1b1;
+}
+::-webkit-scrollbar-thumb:hover:horizontal{
+	background: #b1b1b1;
+}
+
+/* On click/drag, the handle will change color */
+::-webkit-scrollbar-thumb:active {
+	background: #888888;
+}
+::-webkit-scrollbar-thumb:active:horizontal{
+	background: #888888;
 }

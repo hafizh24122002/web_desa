@@ -2,6 +2,9 @@
 
 @section('main-content')
 
+<link rel="stylesheet" href="{{ asset('css/bukuAdministrasiPendudukStyle.css') }}">
+@include('partials.commonScripts')
+
 <section class="wrapper">
     <div class="container-fostrap">
         <div class="content">
@@ -11,191 +14,210 @@
                 'title' => 'Buku Administrasi Penduduk',
                 'current_page' => 'Buku Administrasi Penduduk',
                 ])
+
                 {{-- content --}}
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="accordion" id="statistikBar">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="statistikHeading">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#statistikPenduduk" aria-expanded="true"
-                                            aria-controls="statistikPenduduk">
-                                            Buku Administrasi Penduduk
-                                        </button>
-                                    </h2>
-                                    <div id="statistikPenduduk" class="accordion-collapse collapse show"
-                                        aria-labelledby="statistikHeading" data-bs-parent="#statistikBar">
-                                        <div class="list-group">
-                                            <!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                                    The current link item
-                                                </a> -->
-                                            <a href="#" class="list-group-item list-group-item-action">Buku Induk
-                                                Kependudukan</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Buku Mutasi
-                                                Penduduk Desa</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Buku Rekapitulasi
-                                                Jumlah Penduduk</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Buku Penduduk
-                                                Sementara</a>
-                                            <a href="#" class="list-group-item list-group-item-action">Buku KTP dan
-                                                KK</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-8">
-                            <div class="box box-info">
-                                <div class="box-header with-border">
-                                    <a href="#"
-                                        class="btn btn-social btn-light btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
-                                        title="Cetak Buku Induk Penduduk" data-remote="false" data-toggle="modal"
-                                        data-target="#modalBox" data-title="Cetak Buku Induk Penduduk"><i
-                                            class="fa fa-print "></i> Cetak</a>
-                                    <a href="#" title="Unduh Buku Induk Penduduk"
-                                        class="btn btn-social btn-light btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
-                                        title="Unduh Buku Induk Penduduk" data-remote="false" data-toggle="modal"
-                                        data-target="#modalBox" data-title="Unduh Buku Induk Penduduk"><i
-                                            class="fa fa-download"></i> Unduh</a>
-                                </div>
-                                <div class="box-body">
-                                    <div class="table-responsive table-min-height">
-                                        <table
-                                            class="table table-condensed table-bordered dataTable table-striped table-hover tabel-daftar table text-nowrap ">
-                                            <thead class="bg-gray color-palette">
-                                                <tr class="bg-dark text-light text-center align-middle">
-                                                    <th rowspan="2">No</th>
-                                                    <th rowspan="2">Nama Lengkap / Panggilan</th>
-                                                    <th rowspan="2">NIK</th>
-                                                    <th colspan="2">Tempat & Tanggal Lahir</th>
-                                                    <th rowspan="2">Jenis Kelamin</th>
-                                                    <th rowspan="2">SHDK</th>
-                                                    <th rowspan="2">Agama</th>
-                                                    <th rowspan="2">Pendidikan Terakhir</th>
-                                                    <th rowspan="2">Pekerjaan</th>
-                                                    <th colspan="2">Nama Orang Tua Kandung</th>
-                                                </tr>
-                                                <tr class="bg-dark text-light text-center align-middle">
-                                                    <th>Tempat Lahir</th>
-                                                    <th width="50px">Tgl</th>
-                                                    <th>Ayah</th>
-                                                    <th>Ibu</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($penduduk as $key => $data)
-                                                <tr class="text-center align-middle">
-                                                    <td>{{ $penduduk->firstItem() + $key }}</td>
-
-                                                    <td class="d-flex gap-1 justify-content-center">
-                                                        @if ($data->nama)
-                                                        {{ $data->nama }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($data->nik)
-                                                        {{ $data->nik }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif
-                                                    </td>
-
-                                                    <td>
-                                                        {{ $data->tempat_lahir }}
-                                                    </td>
-
-                                                    <td>
-                                                        {{ $data->tanggal_lahir }}
-                                                    </td>
-
-                                                    <td>@if ($data->jenis_kelamin === 'L')
-                                                        {{ "Laki-laki" }}
-                                                        @elseif ($data->jenis_kelamin === 'P')
-                                                        {{ "Perempuan" }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif</td>
-
-                                                    <td>
-                                                        @if ($data->status)
-                                                        {{ $data->status }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif
-                                                    </td>
-
-                                                    <td>
-                                                        @if ($data->id_agama)
-                                                        {{ $data->id_agama }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif
-                                                    </td>
-
-                                                    <td>
-                                                        @if ($data->id_pendidikan_terakhir)
-                                                        {{ $data->id_pendidikan_terakhir }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($data->id_pekerjaan)
-                                                        {{ ($data->id_pekerjaan) }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        {{-- @if ($data->nik_ayah)
-                                                        {{ ($data->nik_ayah) }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif --}}
-                                                    </td>
-                                                    <td>
-                                                        {{-- @if ($data->nik_ibu)
-                                                        {{ ($data->nik_ibu) }}
-                                                        @else
-                                                        {{ "-" }}
-                                                        @endif --}}
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    {{ $penduduk->links() }}
-
-                                </div>
-                            </div>
+                <div class="row mt-3">
+                    <div class="col-xl-3">
+                        <div class="card rounded shadow">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item active" data-type="indukKependudukan">Buku Induk Kependudukan</li>
+                                <li class="list-group-item" data-type="mutasiPendudukDesa">Buku Mutasi Penduduk Desa</li>
+                                <li class="list-group-item" data-type="rekapitulasiJumlahPenduduk">Buku Rekapitulasi Jumlah Penduduk</li>
+                                <li class="list-group-item" data-type="pendudukSementara">Buku Penduduk Sementara</li>
+                                <li class="list-group-item" data-type="ktpKk">Buku KTP dan KK</li>
+                            </ul>
                         </div>
                     </div>
 
+                    <div class="col-xl-9">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <div class="d-flex">
+                                    <form action="#" method="POST" class="me-2" id="print">
+                                        @csrf
+                                        <input type="hidden" name="type" value="">
+                                        <button type="submit" class="btn btn-social btn-primary btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+                                            <i class="fa fa-download"></i> Cetak
+                                        </button>
+                                    </form>
+                                    <form action="#" method="POST" id="download">
+                                        @csrf
+                                        <button type="submit" class="btn btn-social btn-primary btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+                                            <i class="fa fa-download"></i> Unduh
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="col-auto d-flex mb-3">
+                                <select name="month" id="month" class="form-select form-select-sm me-2" style="width: 7rem">
+                                    @for ($i = 1; $i <= 12; $i++) 
+                                        <option value="{{ $i }}"
+                                            @if ($i === \Carbon\Carbon::now()->month)
+                                                selected
+                                            @endif>
+
+                                            {{ \Carbon\Carbon::create(null, $i, 1)->translatedFormat('F') }}
+                                        </option>
+                                    @endfor
+                                </select>
+
+                                <select name="year" id="year" class="form-select form-select-sm" style="width: 7rem">
+                                    @for ($year = $earliestYear; $year <= \Carbon\Carbon::now()->year; $year++)
+                                        <option value="{{ $year }}"
+                                            @if ($year === \Carbon\Carbon::now()->year)
+                                                selected
+                                            @endif>
+
+                                            {{ $year }}
+                                        </option>
+                                    @endfor
+                                </select>
+                            </div>
+
+                            <div class="input-group" id="nama-search">
+                                <input type="search" name="nama" id="nama" class="form-control" placeholder="Cari berdasarkan Nama" aria-label="Cari" />
+                                <button type="button" id="nama-search-btn" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="mt-2" id="table-container">
+                            {{-- tabel yang akan ditampilkan berdasarkan item yang dipilih --}}
+                            
+                            {{-- tampilan tabel default --}}
+                            @include('staf.bukuadministrasidesa.partials.indukKependudukan')
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-@include('partials.commonScripts')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    function showTable(tableNumber) {
-  // Hide all tables
-  $('.table').hide();
+    document.addEventListener('DOMContentLoaded', function() {
+        // initialize download btn link
+        var data = @json($penduduk);
+        changeDownloadLink('indukKependudukan', document.getElementById('month').value, document.getElementById('year').value, document.getElementById('nama').value);
+        
+        // change table view onClick
+        const listItems = document.querySelectorAll('.list-group-item');
+        listItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const itemType = this.getAttribute('data-type');
+                const itemMonth = document.getElementById('month').value;
+                const itemYear = document.getElementById('year').value;
+                const itemNama = document.getElementById('nama').value;
 
-  // Show the selected table
-  var selectedTable = $('#table' + tableNumber);
-  if (selectedTable.length) {
-    selectedTable.show();
-  }
-}
+                if (itemType === 'rekapitulasiJumlahPenduduk') {
+                    if ($('#nama-search').is(':visible')) {
+                        $('#nama').prop('disabled', true);
+                        $('#nama-search').delay(300).slideUp();
+                    }
+                } else {
+                    if ($('#nama-search').is(':hidden')) {
+                        $('#nama-search').delay(300).slideDown();
+                        $('#nama').prop('disabled', false);
+                    }
+                }
+
+                setActiveItem(this);
+                fetchData(itemType, itemMonth, itemYear, itemNama);
+
+                var data = @json($penduduk);
+                changeDownloadLink(itemType, itemMonth, itemYear, itemNama);
+            });
+        });
+
+        // update view based on filters
+        $('#month, #year').change(function () {
+            const itemType = document.querySelector('.list-group-item.active').getAttribute('data-type');
+            const itemMonth = document.getElementById('month').value;
+            const itemYear = document.getElementById('year').value;
+            const itemNama = document.getElementById('nama').value;
+
+            fetchData(itemType, itemMonth, itemYear, itemNama);
+
+            var data = @json($penduduk);
+            changeDownloadLink(itemType, itemMonth, itemYear, itemNama);
+        });
+
+        // call ajax for function for pagination
+        $(document).on('click','.pagination a', function(e){
+            e.preventDefault();
+
+            const itemType = document.querySelector('.list-group-item.active').getAttribute('data-type');
+            const itemMonth = document.getElementById('month').value;
+            const itemYear = document.getElementById('year').value;
+            const itemNama = document.getElementById('nama').value;
+            let page = $(this).attr('href').split('page=')[1];
+
+            fetchData(itemType, itemMonth, itemYear, itemNama, page);
+        });
+
+        // update view based on search
+        const searchButton = document.getElementById('nama-search-btn');
+        searchButton.addEventListener('click', function() {
+            const itemType = document.querySelector('.list-group-item.active').getAttribute('data-type');
+            const itemMonth = document.getElementById('month').value;
+            const itemYear = document.getElementById('year').value;
+            const itemNama = document.getElementById('nama').value;
+
+            fetchData(itemType, itemMonth, itemYear, itemNama);
+
+            var data = @json($penduduk);
+            changeDownloadLink(itemType, itemMonth, itemYear, itemNama);
+        });
+
+        // Function to set the active item
+        function setActiveItem(selectedItem) {
+            listItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            selectedItem.classList.add('active');
+        }
+
+        // Funtion to change the link to download the exported xlsx
+        function changeDownloadLink(type, month, year, nama) {
+            const printLink = document.getElementById('print');
+            const downloadLink = document.getElementById('download');
+            const jsonData = JSON.stringify(data);
+
+            printLink.action = `/staf/buku-administrasi-desa/export/${type}/${month}/${year}?nama=${nama}&action=print`;
+            downloadLink.action = `/staf/buku-administrasi-desa/export/${type}/${month}/${year}?nama=${nama}&action=download`;
+        }
+
+        // Function to fetch and render the selected view
+        function fetchData(type, month, year, nama, page) {
+            const tableContainer = document.getElementById('table-container');
+            tableContainer.classList.add('hidden');
+
+            // Create an object to hold the query parameters
+            const params = {
+                month: month,
+                year: year,
+                nama: nama,
+                page: page,
+                paginate: true
+            };
+            
+            axios.get(`/staf/buku-administrasi-desa/get-data/${type}`, {params: params})
+                .then(response => {
+                    // Delay rendering the new content slightly to allow the fade-out effect
+                    setTimeout(() => {
+                        // Render the selected view in the container
+                        tableContainer.innerHTML = response.data;
+
+                        // After rendering, remove the "hidden" class to show the new content with a smooth fade-in effect
+                        tableContainer.classList.remove('hidden');
+                    }, 0); // Adjust this delay as needed
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    });
 </script>
-
 
 @endsection

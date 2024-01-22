@@ -9,6 +9,18 @@ class Cacat extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'cacat';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -16,16 +28,12 @@ class Cacat extends Model
      * 
      * @var array<int, string>
      */
-    protected $fillable = [
-        'nama'
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
-    protected $casts = [
-         
-    ];
+    protected $casts = [];
 }

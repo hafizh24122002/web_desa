@@ -29,43 +29,63 @@
 							<button type="submit" class="btn btn-primary">Cari</button>
 						</form>
 					</div>
-	
-					<a href="/staf/kependudukan/penduduk/new-penduduk" style="width: auto" class="btn btn-primary my-2">
-						<i class="bx bx-user-plus align-middle"></i> Tambah Data Penduduk Baru
-					</a>
 
-					<table class="table table-hover">
-						<thead>
-							<tr class="bg-dark text-light text-center align-middle">
-								<th>No</th>
-								<th>Aksi</th>
-								<th class="sortable" data-field="nik" data-order="{{ $sortField === 'nik' ? $sortOrder : 'asc' }}">
-									NIK
-									<i class="ms-2 fas {{ $sortField === 'nik' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-								<th class="sortable" data-field="nama" data-order="{{ $sortField === 'nama' ? $sortOrder : 'asc' }}">
-									Nama
-									<i class="ms-2 fas {{ $sortField === 'nama' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-								<th class="sortable" data-field="jenis_kelamin" data-order="{{ $sortField === 'jenis_kelamin' ? $sortOrder : 'asc' }}">
-									Jenis Kelamin
-									<i class="ms-2 fas {{ $sortField === 'jenis_kelamin' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-								<th class="sortable" data-field="telepon" data-order="{{ $sortField === 'telepon' ? $sortOrder : 'asc' }}">
-									Telepon
-									<i class="ms-2 fas {{ $sortField === 'telepon' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-								<th class="sortable" data-field="penduduk_tetap" data-order="{{ $sortField === 'penduduk_tetap' ? $sortOrder : 'asc' }}">
-									Penduduk Tetap
-									<i class="ms-2 fas {{ $sortField === 'penduduk_tetap' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
-								</th>
-							</tr>
-						</thead>						
+					<div>
+						<button class="btn btn-primary my-2 dropdown-toggle w-auto"
+							type="button"
+							id="newPendudukDropdownButton"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false">
 
-						</tbody>
-							@include('partials.pendudukTable')
-						</tbody>
-					</table>
+							<i class="bx bx-user-plus align-middle"></i> Tambah Data Penduduk Baru
+						</button>
+
+						<ul class="dropdown-menu dropdown-menu-end shadow" style="width: fit-content" aria-labelledby="newPendudukDropdownButton">
+							<li><a class="dropdown-item" href="/staf/kependudukan/penduduk/new-penduduk/lahir">Penduduk Lahir</a></li>
+							<li><a class="dropdown-item" href="/staf/kependudukan/penduduk/new-penduduk/masuk">Penduduk Masuk</a></li>
+						</ul>
+					</div>
+					
+					<div>
+						<div class="table-responsive">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr class="bg-dark text-light text-center align-middle">
+										<th>No</th>
+										<th>Aksi</th>
+										<th class="sortable" data-field="nik" data-order="{{ $sortField === 'nik' ? $sortOrder : 'asc' }}">
+											NIK
+											<i class="ms-2 fas {{ $sortField === 'nik' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+										</th>
+										<th class="sortable" data-field="nama" data-order="{{ $sortField === 'nama' ? $sortOrder : 'asc' }}">
+											Nama
+											<i class="ms-2 fas {{ $sortField === 'nama' ? ($sortOrder === 'asc' ? 'fa-caret-up' : 'fa-caret-down') : '' }}"></i>
+										</th>
+										<th>No. KK</th>
+										<th>Nama Ayah</th>
+										<th>Nama Ibu</th>
+										<th>No. Rumah Tangga</th>
+										<th>Alamat</th>
+										<th>Dusun</th>
+										<th>RW</th>
+										<th>RT</th>
+										<th>Pendidikan Dalam KK</th>
+										<th>Umur</th>
+										<th>Pekerjaan</th>
+										<th>Kawin</th>
+										<th>Tgl Peristiwa</th>
+										<th>Tgl Terdaftar</th>
+									</tr>
+								</thead>						
+		
+								</tbody>
+									@include('partials.pendudukTable')
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					
 
 					<div class="d-flex justify-content-end">
 						{{ $penduduk->links() }}

@@ -9,6 +9,18 @@ class GolonganDarah extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'golongan_darah';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -16,9 +28,7 @@ class GolonganDarah extends Model
      * 
      * @var array<int, string>
      */
-    protected $fillable = [
-        'nama'
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes that should be cast.

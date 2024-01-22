@@ -1,26 +1,81 @@
 $(document).ready(function() {
-	const showNavbar = (toggleId, navId, bodyId, headerId) => {
+	const showNavbar = (toggleId, navId, bodyId, headerId, navNameClass, accordionBtnClass, accordionCollapseClass) => {
 		const toggle = document.getElementById(toggleId),
 		nav = document.getElementById(navId),
 		bodypd = document.getElementById(bodyId),
-		headerpd = document.getElementById(headerId)
+		headerpd = document.getElementById(headerId),
+		navnamepd = document.querySelectorAll('.' + navNameClass);
+		accordionbtn = document.querySelectorAll('.' + accordionBtnClass);
+		accordioncollapse = document.querySelectorAll('.' + accordionCollapseClass);
 		
+		// Flag to track if nav-bar is hidden
+		let isNavHidden = false;
+
 		// Validate that all variables exist
-		if(toggle && nav && bodypd && headerpd) {
+		if (toggle && nav && bodypd && headerpd) {
 			toggle.addEventListener('click', () => {
-				// show navbar
-				nav.classList.toggle('show')
-				// change icon
-				// toggle.classList.toggle('bx-x')
-				// add padding to body
-				bodypd.classList.toggle('body-pd')
-				// add padding to header
-				headerpd.classList.toggle('body-pd')
-			})
+				toggleNav();
+
+				accordioncollapse.forEach(element => {
+					if(element.classList.contains('show')) {
+						new bootstrap.Collapse(element);
+					}
+				});
+			});
+	
+			// Add event listener to each accordion-btn element
+			accordionbtn.forEach(element => {
+				element.addEventListener('click', () => {
+					if (isNavHidden) {
+						toggleNav();
+					}
+				});
+			});
+		}
+		
+		var x = window.matchMedia("(max-width: 1368px)")
+		minWidthListener(x) // Call listener function at run time
+		x.addListener(minWidthListener) // Attach listener function on state changes
+
+		function minWidthListener(x) {
+			if (x.matches) { // If media query matches
+				if(!isNavHidden) {
+					toggleNav();
+	
+					accordioncollapse = document.querySelectorAll('.' + accordionCollapseClass);
+					accordioncollapse.forEach(element => {
+						if(element.classList.contains('show')) {
+							new bootstrap.Collapse(element);
+						}
+					});
+				}
+			} else {
+				if (isNavHidden) {
+					toggleNav();
+				}
+			}
+		}
+	
+		// Function to toggle nav-bar visibility
+		function toggleNav() {
+			// Toggle nav-bar visibility
+			nav.classList.toggle('show');
+	
+			// Toggle the flag
+			isNavHidden = !isNavHidden;
+	
+			// Toggle opacity of nav-name elements
+			navnamepd.forEach(element => {
+				element.style.opacity = isNavHidden ? "0" : "1";
+			});
+	
+			// Other toggles for body and header
+			bodypd.classList.toggle('body-pd');
+			headerpd.classList.toggle('body-pd');
 		}
 	}
 	
-	showNavbar('header-toggle','nav-bar','body-pd','header')
+	showNavbar('header-toggle','nav-bar','body-pd','header', 'nav-name', 'accordion-button', 'accordion-collapse')
 
 	$(function() {
 		var current = location.pathname;

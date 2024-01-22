@@ -4,71 +4,340 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Agama;
-use App\Models\pendidikanTerakhir;
-use App\Models\Pekerjaan;
+use Carbon\Carbon;
 
 class Penduduk extends Model
 {
     use HasFactory;
 
-    protected $table = "penduduk";
+    /**
+     * Static data tempat lahir.
+     *
+     * @var array
+     */
+    public const TEMPAT_LAHIR = [
+        1 => 'RS/RB',
+        2 => 'Puskesmas',
+        3 => 'Polindes',
+        4 => 'Rumah',
+        5 => 'Lainnya',
+    ];
 
     /**
-     * The attributes that are mass assignable
-     * 
-     * @var array<int, string>
+     * Static data jenis kelahiran.
+     *
+     * @var array
+     */
+    public const JENIS_KELAHIRAN = [
+        1 => 'Tunggal',
+        2 => 'Kembar 2',
+        3 => 'Kembar 3',
+        4 => 'Kembar 4',
+    ];
+
+    /**
+     * Static data penolong kelahiran.
+     *
+     * @var array
+     */
+    public const PENOLONG_KELAHIRAN = [
+        1 => 'Dokter',
+        2 => 'Bidan Perawat',
+        3 => 'Dukun',
+        4 => 'Lainnya',
+    ];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $table = 'penduduk';
+
+    /**
+     * {@inheritDoc}
      */
     protected $fillable = [
-        'nama',
-        'nik',
-        'no_kk',
-        'id_hubungan_kk',               // hubungan dalam kartu keluarga (1 = kepala keluarga)
-        'id_rtm',                       // nomor rumah tangga
-        'id_hubungan_rtm',              // hubungan dalam rumah tangga (1 = kepala rumah tangga, 2 = anggota)
-        'jenis_kelamin',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'id_agama',
-        'id_pendidikan_terakhir',       // pendidikan pada kk
-        'id_pendidikan_saat_ini',       // pendidikan yang sedang dijalani saat ini
-        'id_pekerjaan',
-        'id_status_perkawinan',
-        'id_kewarganegaraan',
-        'nik_ayah',
-        'nik_ibu',
-        'foto',
-        'id_golongan_darah',
-        'penduduk_tetap',               // apakah kependudukan bersifat tetap atau tidak
-        'alamat',
-        'telepon',
-        'id_status_asuransi',
-        'id_status_dasar',
-        'id_kesehatan',
-        'ket',
+
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * {@inheritDoc}
      */
-    protected $casts = [
-        'penduduk_tetap' => 'boolean'
+    protected $appends = [
+        'usia',
+        // 'alamat_wilayah',
     ];
 
+    /**
+     * {@inheritDoc}
+     */
+    protected $with = [
+        'helperPendudukKeluarga',
+        'hubunganKk',
+        'jenisKelamin',
+        'agama',
+        'pendidikanSaatIni',
+        'pendidikanTerakhir',
+        'pekerjaan',
+        'kewarganegaraan',
+        'golonganDarah',
+        'cacat',
+        'statusPerkawinan',
+        'statusDasar',
+        'bahasa'
+        // 'wilayah',
+    ];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+    ];
+
+    /**
+     * The guarded with the model.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    // /**
+    //  * Define a one-to-one relationship.
+    //  *
+    //  * @return HasOne
+    //  */
+    // public function mandiri()
+    // {
+    //     return $this->hasOne(PendudukMandiri::class, 'id_pend');
+    // }
+
+    // /**
+    //  * Define a one-to-one relationship.
+    //  *
+    //  * @return HasOne
+    //  */
+    // public function kia_ibu()
+    // {
+    //     return $this->hasOne(KIA::class, 'ibu_id');
+    // }
+
+    // /**
+    //  * Define a one-to-one relationship.
+    //  *
+    //  * @return HasOne
+    //  */
+    // public function kia_anak()
+    // {
+    //     return $this->hasOne(KIA::class, 'anak_id');
+    // }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function jenisKelamin()
+    {
+        return $this->belongsTo(JenisKelamin::class, 'id_jenis_kelamin')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
     public function agama()
     {
-        return $this->belongsTo(Agama::class, 'id_agama', 'id');
+        return $this->belongsTo(Agama::class, 'id_agama')->withDefault();
     }
 
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function pendidikanSaatIni()
+    {
+        return $this->belongsTo(PendidikanSaatIni::class, 'id_pendidikan_saat_ini')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
     public function pendidikanTerakhir()
     {
-        return $this->belongsTo(PendidikanTerakhir::class, 'id_pendidikan_terakhir');
+        return $this->belongsTo(pendidikanTerakhir::class, 'id_pendidikan_terakhir')->withDefault();
     }
 
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
     public function pekerjaan()
     {
-        return $this->belongsTo(Pekerjaan::class, 'id_pekerjaan');
+        return $this->belongsTo(Pekerjaan::class, 'id_pekerjaan')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function kewarganegaraan()
+    {
+        return $this->belongsTo(Kewarganegaraan::class, 'id_kewarganegaraan')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function golonganDarah()
+    {
+        return $this->belongsTo(GolonganDarah::class, 'id_golongan_darah')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function cacat()
+    {
+        return $this->belongsTo(Cacat::class, 'id_cacat')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function sakitMenahun()
+    {
+        return $this->belongsTo(SakitMenahun::class, 'id_sakit_menahun')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function kb()
+    {
+        return $this->belongsTo(KB::class, 'id_cara_kb')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function statusPerkawinan()
+    {
+        return $this->belongsTo(StatusPerkawinan::class, 'id_status_perkawinan')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function hubunganKK()
+    {
+        return $this->belongsTo(HubunganKK::class, 'id_hubungan_kk')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function rtmHubungan()
+    {
+        return $this->belongsTo(RtmHubungan::class, 'id_rtm_hubungan')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function keluarga()
+    {
+        return $this->belongsTo(Keluarga::class, 'id_kk')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function helperPendudukKeluarga()
+    {
+        return $this->belongsTo(HelperPendudukKeluarga::class, 'id_helper_penduduk_keluarga');
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function rtm()
+    {
+        return $this->belongsTo(Rtm::class, 'id_rtm', 'no_kk')->withDefault();
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function helperPendudukRtm()
+    {
+        return $this->belongsTo(HelperPendudukRtm::class, 'id_helper_penduduk_rtm');
+    }
+
+    public function wilayahDusun()
+    {
+        return $this->belongsTo(HelperDusun::class, 'id_wilayah_dusun');
+    }
+    
+    public function wilayahRt()
+    {
+        return $this->belongsTo(HelperRt::class, 'id_wilayah_rt');
+    }
+
+    public function statusDasar()
+    {
+        return $this->belongsTo(StatusDasar::class, 'id_status_dasar');
+    }
+
+    public function bahasa()
+    {
+        return $this->belongsTo(PendudukBahasa::class, 'id_bahasa');
+    }
+
+    /**
+     * Define an inverse one-to-one or many relationship.
+     *
+     * @return BelongsTo
+     */
+    public function Wilayah()
+    {
+        return $this->belongsTo(Wilayah::class, 'id_cluster');
+    }
+
+    public function getUsiaAttribute()
+    {
+        return $this->tanggal_lahir->diffInYears(Carbon::now());
+    }
+
+    public function logPenduduk()
+    {
+        return $this->hasMany(LogPenduduk::class, 'id_penduduk');
     }
 }

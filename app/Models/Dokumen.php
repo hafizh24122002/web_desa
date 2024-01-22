@@ -33,10 +33,15 @@ class Dokumen extends Model
     ];
 
     /**
-     * Get the staf associated with surat.
+     * Get the staf associated with staf.
      */
     public function staf()
     {
         return $this->belongsTo(Staf::class, 'id_staf');
+    }
+
+    public function views()
+    {
+        return $this->hasMany(DokumenDownload::class, 'id_dokumen');
     }
 }

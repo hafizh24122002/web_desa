@@ -17,11 +17,13 @@ class Keluarga extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'no_kk',
-        'nik_kepala',
+        'id_helper_penduduk_keluarga',
         'id_kelas_sosial',
+        'tgl_daftar',
+        'tgl_cetak_kk',
         'alamat',
-        'tgl_dikeluarkan',
+        'id_dusun',
+        'id_rt'
     ];
 
     /**
@@ -33,4 +35,9 @@ class Keluarga extends Model
         'tgl_daftar' => 'datetime',
         'tgl_cetak_kk' => 'datetime',
     ];
+
+    public function helperPendudukKeluarga()
+    {
+        return $this->belongsTo(HelperPendudukKeluarga::class, 'id_helper_penduduk_keluarga');
+    }
 }
