@@ -91,7 +91,7 @@ Route::get('/get-coordinates', function () {
         return response()->json(json_decode($contents));
     }
     abort(404);
-})->middleware('auth');
+});
 
 Route::middleware(['auth'])->group(function () {
 	// route admin
@@ -254,5 +254,6 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/info-desa/rt/edit-rt/{helper_rt:id}', [InfoDesaController::class, 'rtEdit']);
 		Route::put('/staf/info-desa/rt/edit-dusun/{helper_rt:id}', [InfoDesaController::class, 'rtEditSubmit']);
 		Route::delete('/staf/info-desa/rt/{id_wilayah_dusun}/{helper_rt:id}', [InfoDesaController::class, 'rtDelete']);
+		Route::get('/staf/info-desa/rt/get-data/{idDusun}', [InfoDesaController::class, 'getRtData']);
 	// });
 });
