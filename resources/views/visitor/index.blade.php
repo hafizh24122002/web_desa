@@ -162,10 +162,10 @@
         <!-- Tabs navs -->
         <ul class="nav nav-pills mb-3" id="agendaTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true" data-aos="fade-up">Yang akan datang</a>
+                <a class="nav-link rounded-pill active" id="upcoming-tab" data-bs-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true" data-aos="fade-up">Yang akan datang</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="past-tab" data-bs-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false" data-aos="fade-up" data-aos-delay="50">Sudah lewat</a>
+                <a class="nav-link rounded-pill" id="past-tab" data-bs-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false" data-aos="fade-up" data-aos-delay="50">Sudah lewat</a>
             </li>
         </ul>
 
@@ -237,7 +237,7 @@
 @section('peta')
 <div class="container-fluid bg-dark text-light" style="margin-top: 100px" data-aos="fade-up">
     <div class="container">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="d-flex align-items-center justify-content-between mt-5" data-aos="fade-up">
                 <h1 class="float-start">Peta Wilayah Desa</h1>
             </div>
@@ -251,7 +251,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 		crossorigin=""></script>
-	<script>
+<script>
 	var map = L.map('map').setView([{{ $lat }}, {{ $lng }}], {{ $zoom }});
 
 	// Add OpenStreetMap as a base layer
@@ -264,7 +264,7 @@
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend');
 
-        div.innerHTML = '<h6>Desa {{ $identitas_desa->nama_desa }}</h6><a href="https://maps.app.goo.gl/pEPptYT6SfezWyCf9" class="btn btn-primary text-light">Buka di Google Maps</a>';
+        div.innerHTML = '<h6>Desa {{ $identitas_desa->nama_desa }}</h6><a href="https://maps.app.goo.gl/pEPptYT6SfezWyCf9" class="btn btn-primary rounded-pill text-light">Buka di Google Maps</a>';
 
         return div;
     };
@@ -304,7 +304,19 @@
     </div>
 
     <div class="mb-5">
-        <p>tes</p>
+        <div class="aparatur-carousel">
+            @foreach ($staf as $index => $item)
+                <div class="mx-3 mb-5">
+                    <div class="card shadow" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                        <img src="{{ asset('storage/images/artikel/artikel_placeholder.png') }}" class="card-img-top" style="max-height: 220px; object-fit: cover"/>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ $item->nama }}</h5>
+                            <p class="card-subtitle mb-2 text-muted"><em>{{ $item->jabatan }}</em></p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 </div>
 {{-- APARATUR DESA END --}}

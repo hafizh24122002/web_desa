@@ -14,8 +14,8 @@
 		@method('put')	
 		@csrf
 			<div class="form-group row">
-				<label for="judul" class="col-sm-2 col-form-label">Judul<span style="color:red">*</span></label>
-				<div class="col-sm-10">
+				<label for="judul" class="col-lg-2 col-form-label">Judul<span style="color:red">*</span></label>
+				<div class="col-lg-10">
 					<input type="text"
 						class="form-control form-control-sm  @error('judul') is-invalid @enderror"
 						id="judul"
@@ -32,8 +32,8 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="keterangan" class="col-sm-2 col-form-label">Keterangan<span style="color:red">*</span></label>
-				<div class="col-sm-10">
+				<label for="keterangan" class="col-lg-2 col-form-label">Keterangan<span style="color:red">*</span></label>
+				<div class="col-lg-10">
 					<input type="text"
 						class="form-control form-control-sm  @error('keterangan') is-invalid @enderror"
 						id="keterangan"
@@ -50,8 +50,8 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="filename" class="col-sm-2 col-form-label">Unggah File</label>
-				<div class="col-sm-10">
+				<label for="filename" class="col-lg-2 col-form-label">Unggah File</label>
+				<div class="col-lg-10">
 					<div class="form-helper text-muted mb-2">
 						{{ $dokumen->filename }}
 						<a href="{{ '/staf/manajemen-web/dokumen/preview/'.$dokumen->filename }}"
@@ -80,8 +80,8 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="is_active" class="col-sm-2 col-form-label">Status Dokumen</label>
-				<div class="col-sm-10 d-flex align-items-center gap-2">
+				<label for="is_active" class="col-lg-2 col-form-label">Status Dokumen</label>
+				<div class="col-lg-10 d-flex align-items-center gap-2">
 					<input class="form-check-input"
 						type="checkbox"
 						id="is_active"

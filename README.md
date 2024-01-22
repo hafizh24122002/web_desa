@@ -12,7 +12,7 @@ Web Desa Malik adalah sebuah aplikasi berbasis web yang bertujuan untuk membantu
 ## Detail Teknis
 
 Pastikan anda dapat memenuhi beberapa dependensi untuk Laravel Framework 10.8.0 berikut:
-- PHP >= 8.1.0 (dengan beberapa plugin standar seperti fpm, mysql, mbstring, xml, bcmath, intl, curl, zip, dll.)
+- PHP >= 8.1.0 (dengan beberapa plugin standar seperti fpm, mysql, mbstring, xml, bcmath, intl, curl, zip, dll. selain itu juga digunakan plugin imagick)
 - Composer >= 2.2.0
 
 ## Instalasi

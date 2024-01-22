@@ -67,8 +67,8 @@ class RtmController extends Controller
             'dtks' => 'nullable',
             'alamat' => 'nullable',
             'id_helper_penduduk_rtm' => 'required',
-            'id_dusun' => 'nullable',
-            'id_rt' => 'nullable',
+            'id_wilayah_dusun' => 'nullable',
+            'id_wilayah_rt' => 'nullable',
             'bdt' => 'nullable',
         ]);
 
