@@ -91,7 +91,7 @@ class Penduduk extends Model
      * {@inheritDoc}
      */
     protected $casts = [
-        'tanggal_lahir' => 'date',
+        'tanggal_lahir' => 'date:Y-m-d',
     ];
 
     /**

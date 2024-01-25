@@ -12,7 +12,8 @@ use App\Models\Penduduk;
 use App\Models\Pekerjaan;
 use App\Models\Staf;
 use App\Models\StatusPerkawinan;
-
+use App\Models\WilayahDusun;
+use App\Models\WilayahRt;
 
 /**
  * Surat Keterangan Usaha
@@ -28,6 +29,8 @@ class Surat1Service
             'penduduk' => Penduduk::pluck('nama'),
             'pekerjaan' => Pekerjaan::all(),
             'status_perkawinan' => StatusPerkawinan::all(),
+            'dusun' => WilayahDusun::all(),
+            'rt' => WilayahRt::all(),
             'staf' => Staf::all(),
         ];
     }
@@ -35,7 +38,7 @@ class Surat1Service
     public function submit(Request $request, $id)
     {
         // Retrieve user input from the web form
-        $validate = $request->validate([
+        $validated = $request->validate([
             'no_surat' => [
                 'required',
                 Rule::unique('arsip_surat')->ignore($id)->where(function ($query) use ($request) {
@@ -47,12 +50,12 @@ class Surat1Service
                 }),
             ],
             'rt' => 'numeric',
-            'rw' => 'numeric',
         ], [
+            'no_surat.required' => 'Nomor surat harus diisi!',
             'no_surat.unique' => 'Nomor surat sudah ada!'
         ]);
 
-        $nomorSurat = $validate['no_surat'];
+        $nomorSurat = $validated['no_surat'];
         $nama = strtoupper($request->input('nama'));
         $jenis_kelamin = $request->input('jenis_kelamin');
         $tempat_lahir = ucwords(strtolower($request->input('tempat_lahir')));
@@ -62,8 +65,8 @@ class Surat1Service
         $id_status_perkawinan = $request->input('id_status_perkawinan');
         $id_pekerjaan = $request->input('id_pekerjaan');
         $alamat = $request->input('alamat');
-        $rt = $validate['rt'];
-        $rw = $validate['rw'];
+        $id_rt = $validated['rt'];
+        $id_dusun = $request->input('dusun');
         $usaha = $request->input('usaha');
         $tanggal_surat_str = $request->input('tanggal_surat');
 
@@ -99,6 +102,9 @@ class Surat1Service
         $agama = ucwords(strtolower(Agama::find($id_agama)->nama));
         $status_perkawinan = ucwords(strtolower(StatusPerkawinan::find($id_status_perkawinan)->nama));
         $pekerjaan = ucwords(strtolower(Pekerjaan::find($id_pekerjaan)->nama));
+        $rt = WilayahRt::find($id_rt)->nama;
+
+        $dusun = ucwords(strtolower(WilayahDusun::find($id_dusun)->nama));
         
         // Define the values to be filled in the template
         return [
@@ -113,7 +119,7 @@ class Surat1Service
             'pekerjaan' => $pekerjaan,
             'alamat' => $alamat,
             'rt' => $rt,
-            'rw' => $rw,
+            'dusun' => $dusun,
             'nama_usaha' => $usaha,
             'tanggal_surat' => $tanggal_surat,
             'tanggal_surat_raw' => $tanggal_surat_raw,

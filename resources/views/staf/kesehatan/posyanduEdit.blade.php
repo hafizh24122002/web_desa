@@ -39,6 +39,4 @@
 	</div>
 </div>
 
-@include('partials.commonScripts')
-
 @endsection

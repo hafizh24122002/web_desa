@@ -102,8 +102,6 @@
 	</div>
 </div>
 
-@include('partials.commonScripts')
-
 <script src="{{ asset('js/quill.min.js') }}"></script>
 
 <script>

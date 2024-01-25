@@ -78,7 +78,6 @@
 	</div>
 </div>
 
-@include('partials.commonScripts')
 <script src="{{ asset('js/autocompleteNamaNik.js') }}"></script>
 <script>
 	dataIbu = @json($dataIbu);

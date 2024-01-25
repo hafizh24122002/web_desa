@@ -22,6 +22,8 @@ use App\Services\Surat6Service;         // Surat Keterangan Belum Menikah
 use App\Models\ArsipSurat;
 use App\Models\Surat;
 use App\Models\Staf;
+use App\Models\WilayahDusun;
+use App\Models\WilayahRt;
 
 
 class SuratController extends Controller
@@ -285,6 +287,12 @@ class SuratController extends Controller
         $idTipeSurat = $surat->id_klasifikasi_surat;
         $id_tipe = Surat::find($surat->id_klasifikasi_surat);
         $tipe = $id_tipe->nama;
+
+        if ($idTipeSurat === 1) {
+            $idDusun = WilayahDusun::where('nama', $arrayData['dusun'])->first()->id;
+            $arrayData['rt'] = WilayahRt::where('id_wilayah_dusun', $idDusun)->where('nama', $arrayData['rt'])->first()->id;
+        }
+        
 
         $arrayData['id_staf'] = Staf::where('nama', $arrayData['nama_staf'])->first()->id;
         if ($arrayData['an'] != "") {
