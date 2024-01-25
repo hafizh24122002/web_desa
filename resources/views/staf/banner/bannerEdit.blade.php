@@ -106,8 +106,6 @@
 	</div>
 </div>
 
-@include('partials.commonScripts')
-
 <script>
 	var loadFile = function(event, id) {
 		var output = document.getElementById(id);

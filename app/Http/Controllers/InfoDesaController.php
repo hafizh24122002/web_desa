@@ -451,4 +451,11 @@ class InfoDesaController extends Controller
 
         return redirect('/staf/info-desa/rt/' . $id_wilayah_dusun)->with('success', 'RT berhasil dihapus!');
     }
+
+    public function getRtData($idDusun)
+    {
+        $rt = WilayahRt::where('id_wilayah_dusun', $idDusun)->get();
+
+        return response()->json($rt);
+    }
 }

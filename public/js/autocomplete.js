@@ -34,7 +34,6 @@ function autocomplete(inp, arr) {
 					.then(response => response.json())
 					.then(data => {
 						const fields = [
-							{ id: 'jenis_kelamin', key: 'jenis_kelamin' },
 							{ id: 'tempat_lahir', key: 'tempat_lahir' },
 							{ id: 'tanggal_lahir', key: 'tanggal_lahir' },
 							{ id: 'agama', key: 'id_agama' },
@@ -53,6 +52,12 @@ function autocomplete(inp, arr) {
 								}
 							}
 						});
+						if (data.jenis_kelamin !== undefined) {
+							const jenis_kelamin = document.getElementById('jenis_kelamin');
+							if (jenis_kelamin) {
+								jenis_kelamin.value = data.jenis_kelamin.singkatan;
+							}
+						}
 						if (data.id_kewarganegaraan !== undefined && data.id_kewarganegaraan === 1) {
 							const kebangsaan = document.getElementById('kebangsaan');
 							if (kebangsaan) {

@@ -118,7 +118,7 @@
 					<select class="form-select form-select-sm" id="agama" name="id_agama" required>
 						<option value="">-- Pilih --</option>
 						@foreach ($agama as $item)
-							<option value="{{ $loop->iteration }}" {{ old('id_agama') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
+							<option value="{{ $item->id }}" {{ old('id_agama') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -130,7 +130,7 @@
 					<select class="form-select form-select-sm" id="status_perkawinan" name="id_status_perkawinan" required>
 						<option value="">-- Pilih --</option>
 						@foreach ($status_perkawinan as $item)
-							<option value="{{ $loop->iteration }}" {{ old('id_status_perkawinan') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
+							<option value="{{ $item->id }}" {{ old('id_status_perkawinan') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -142,7 +142,7 @@
 					<select class="form-select form-select-sm pekerjaan_input" id="pekerjaan" name="id_pekerjaan" required>
 						<option value="">-- Pilih --</option>
 						@foreach ($pekerjaan as $item)
-							<option value="{{ $loop->iteration }}" {{ old('id_pekerjaan') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
+							<option value="{{ $item->id }}" {{ old('id_pekerjaan') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -161,38 +161,31 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="rt/dusun" class="col-sm-3 col-form-label">RT/Dusun</label>
-				<div class="col-sm d-inline-flex align-items-center gap-4">
-					<div style="width: 5rem">
-						<input type="text"
-							class="form-control form-control-sm @error('rt') is-invalid @enderror"
-							name="rt"
-							value="{{ old('rt') }}"
-							placeholder="001"
+				<label for="dusun/rt" class="col-sm-3 col-form-label">Dusun/Rt</label>
+				<div class="col-sm d-inline-flex gap-4">
+					<div style="width: 7rem">
+						<select class="form-select form-select-sm"
+							name="dusun"
+							id="dusun"
 							required>
 
-							@error('rt')
-								<div class="invalid-feedback">
-									{{ $message }}
-								</div>
-							@enderror
+							<option value="">-- Pilih --</option>
+							@foreach ($dusun as $item)
+								<option value="{{ $item->id }}" {{ old('dusun') == $loop->iteration ? 'selected' : '' }}>{{ ucwords(strtolower($item->nama)) }}</option>
+							@endforeach
+						</select>
 					</div>
 
 					<div>/</div>
 
-					<div style="width: 5rem">
-						<input type="text"
-							class="form-control form-control-sm @error('rw') is-invalid @enderror"
-							name="rw"
-							value="{{ old('rw') }}"
-							placeholder="001"
+					<div style="width: 7rem">
+						<select class="form-select form-select-sm"
+							name="rt"
+							id="rt"
 							required>
 
-							@error('rw')
-								<div class="invalid-feedback">
-									{{ $message }}
-								</div>
-							@enderror
+							<option value="">-- Pilih --</option>
+						</select>
 					</div>
 				</div>
 			</div>
@@ -252,11 +245,11 @@
 	</div>
 </div>
 
-@include('partials.commonScripts')
 <script src="{{ asset('js/autocomplete.js') }}"></script>
 
 <script>
 	$('#divAtasNama').hide();
+	$('#rt').prop('disabled', true);
 
 	pendudukList = @json($penduduk);
 
@@ -272,6 +265,36 @@
 		} else {
 			$input.prop("readonly", true);
 			$button.prop("readonly", false).empty().append("<i class='bx bx-edit'></i> Ubah");
+		}
+	});
+
+	$('#dusun').change(function() {
+		if ($(this).val() !== '') {
+			$('#rt').prop('disabled', false);
+
+			var dusunId = $(this).val();
+			$.ajax({
+                url: '/staf/info-desa/rt/get-data/' + dusunId,
+                type: 'GET',
+                success: function (data) {
+                    // Clear existing options in the rt dropdown
+                    $('#rt').empty();
+					$('#rt').append('<option value="">-- Pilih --</option>');
+
+                    // Populate the rt dropdown with new options
+                    $.each(data, function (index, rt) {
+                        var option = $('<option>', {
+                            value: rt.id,
+                            text: rt.nama,
+                            selected: rt.id == "{{ old('rt') }}"
+                        });
+
+                        $('#rt').append(option);
+                    });
+                }
+            });
+		} else {
+			$('#rt').prop('disabled', true);
 		}
 	});
 

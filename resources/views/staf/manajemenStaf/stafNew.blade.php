@@ -64,8 +64,6 @@
 	</div>
 </div>
 
-@include('partials.commonScripts')
-
 <script src="{{ asset('js/autocompleteDefault.js') }}"></script>
 <script>
 	var jabatan = [

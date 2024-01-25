@@ -27,12 +27,18 @@ class GenerateQrController extends Controller
         ]);
 
         $image = $request->file('image');
-
-        $qrBinary = QrCode::format('png')
+        if ($image) {
+            $qrBinary = QrCode::format('png')
                         ->size(400)
                         ->errorCorrection('H')
                         ->merge($image->getRealPath(), 0.3, true)
                         ->generate($validatedData['url']);
+        } else {
+            $qrBinary = QrCode::format('png')
+                        ->size(400)
+                        ->errorCorrection('H')
+                        ->generate($validatedData['url']);
+        }
 
         return view('staf.generateQrResult', [
             'title' => 'Buat Kode QR',

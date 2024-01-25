@@ -240,7 +240,6 @@
 	</div>
 </div>
 
-@include('partials.commonScripts')
 <script src="{{ asset('js/autocomplete.js') }}"></script>
 
 <script>
