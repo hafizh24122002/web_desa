@@ -11,6 +11,7 @@ use App\Models\Keluarga;
 use App\Models\Penduduk;
 use App\Models\KelasSosial;
 use App\Models\Rtm;
+use App\Models\WilayahDusun;
 
 class RtmController extends Controller
 {
@@ -42,6 +43,7 @@ class RtmController extends Controller
             'title' => 'Tambah Rumah Tangga Baru',
             'nik_kepala' => Penduduk::all(),
             'kelas_sosial' => KelasSosial::all(),
+            'id_dusun' => WilayahDusun::all(),
 
         ]);
     }
@@ -70,6 +72,7 @@ class RtmController extends Controller
             'id_wilayah_dusun' => 'nullable',
             'id_wilayah_rt' => 'nullable',
             'bdt' => 'nullable',
+            //'tgl_daftar' => 'nullable',
         ]);
 
         if (isset($validatedSpecificData['alamat'])) {

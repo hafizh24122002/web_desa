@@ -64,63 +64,6 @@
                     @enderror
                 </div>
             </div>
-		
-			{{-- <div class="form-group row">
-                <label for="id_dusun" class="col-sm-3 col-form-label">Dusun</label>
-				<div class="col-sm-9">
-					<select class="form-control @error('id_dusun') is-invalid @enderror"
-						id="id_dusun" name="id_dusun" required>
-						<option value="" selected>-- Pilih Dusun--</option>
-                            @foreach ($penduduk as $penduduk)
-                                <option value="{{ $loop->iteration }}"
-                                    {{ old('id_dusun') == $loop->iteration ? 'selected' : '' }}>
-                                    {{ $item->nama }}
-                                </option>
-                            @endforeach
-					</select>
-					@error('id_dusun')
-						<div class="invalid-feedback">{{ $message }}</div>
-					@enderror
-				</div>
-            </div> --}}
-	
-			<!-- Input Kepala Rumah Tangga -->
-			{{-- <div class="form-group row">
-                    <label for="helper_penduduk_rtm" class="col-sm-3 col-form-label">Kepala Rumah Tangga<span
-                            style="color:red">*</span></label>
-                    <div class="col-sm-9">
-                        <select class="form-select form-select-sm grup-input" id="grup-input" name="id_helper_penduduk_rtm">
-                            <option value="">-- Pilih Jenis Kelamin--</option>
-                            @foreach ($helper_penduduk_rtm as $item)
-                                <option value="{{ $loop->iteration }}"
-                                    {{ old('id_helper_penduduk_rtm') == $loop->iteration ? 'selected' : '' }}>
-                                    {{ $item->nama }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('id_helper_penduduk_rtm')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-
-			<div class="form-group">
-				<label for="kepala_rumah_tangga">Kepala Rumah Tangga</label>
-				<select class="form-control" id="kepala_rumah_tangga" name="kepala_rumah_tangga" required>
-					<!-- Isi opsi select dengan nama-nama dari tabel penduduk -->
-					@foreach($penduduk as $penduduk)
-						<option value="{{ $penduduk->id }}">{{ $penduduk->nama }}</option>
-					@endforeach
-				</select>
-			</div>
-	
-			<!-- Input BDT (number only) -->
-			<div class="form-group">
-				<label for="bdt">BDT</label>
-				<input type="number" class="form-control" id="bdt" name="bdt" required>
-			</div> --}}
 	
 			<!-- Checkbox DTKS -->
 			<div class="form-check">
