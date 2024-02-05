@@ -18,9 +18,9 @@ class Staf extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nip',
         'nama',
         'jabatan',
+        'tgl_mulai',
     ];
 
     /**
@@ -29,6 +29,6 @@ class Staf extends Model
      * @var array<string, string>
      */
     protected $casts = [
-         
+         'tgl_mulai' => 'date',
     ];
 }

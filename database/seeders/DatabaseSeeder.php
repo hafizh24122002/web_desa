@@ -828,7 +828,6 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('admin'),
             'id_grup' => 1,
-            'id_staf' => 11,
             'name' => 'admin',
         ]);
         User::create([

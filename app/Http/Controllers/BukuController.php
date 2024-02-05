@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\PendudukExport;
 use App\Models\Penduduk;
 use App\Models\LogPenduduk;
 use App\Models\ArsipSurat;
@@ -217,10 +215,5 @@ class BukuController extends Controller
                 'surat.kode_surat',
             )->paginate(10),
         ]);
-    }
-
-    public function export() 
-    {
-        return Excel::download(new PendudukExport, 'BIP.xlsx');
     }
 }

@@ -222,6 +222,7 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInput']);
 		Route::post('/staf/layanan-surat/buat-surat/{surat:nama}', [SuratController::class, 'suratNewInputSubmit']);
 		Route::get('/staf/layanan-surat/arsip-surat', [SuratController::class, 'arsipSurat']);
+		Route::get('/staf/layanan-surat/arsip-surat/download', [SuratController::class, 'arsipSuratDownload']);
 		Route::get('/staf/layanan-surat/arsip-surat/{arsip:filename}', [SuratController::class, 'suratDownload']);
 		Route::get('/staf/layanan-surat/arsip-surat/edit-surat/{id}/{filename}', [SuratController::class, 'suratEdit']);
 		Route::put('/staf/layanan-surat/arsip-surat/edit-surat/{id}/{filename}', [SuratController::class, 'suratEditSubmit']);
