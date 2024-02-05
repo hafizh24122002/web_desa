@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use PhpOffice\PhpWord\TemplateProcessor;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\Settings;
-use PhpOffice\PhpWord\Writer\Pdf\DomPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+
+use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\IOFactory as PhpWordIOFactory;
+use PhpOffice\PhpWord\Settings;
+use PhpOffice\PhpWord\Writer\Pdf\DomPDF;
+use PhpOffice\PhpSpreadsheet\IOFactory as PhpSpreadsheetIOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 use App\Services\Surat1Service;         // Surat Keterangan Usaha
 use App\Services\Surat2Service;         // Surat Keterangan Tidak Mampu
@@ -236,11 +245,12 @@ class SuratController extends Controller
     }
 
 
-    public function arsipSurat(Request $request)
+    public function arsipSurat(Request $request, $action='view')
     {
         $search = $request->input('search');
         $sortField = $request->input('sort_field', 'no_surat');
         $sortOrder = $request->input('sort_order', 'asc');
+        $year = $request->input('year');
 
         $query = ArsipSurat::join(
             'staf', 'arsip_surat.id_staf', '=', 'staf.id'
@@ -252,17 +262,25 @@ class SuratController extends Controller
             'surat.kode_surat',
         );
 
-        if($search) {
+        if ($search) {
             $query->where('staf.nama', 'LIKE', '%' . $search . '%')
                 ->orWhere('keterangan', 'LIKE', '%' . $search . '%');
         }
-
-        $query->orderBy($sortField, $sortOrder);
+        if ($year) {
+            $query->whereYear('tanggal_surat', $year);
+        }
+        if ($sortField) {
+            $query->orderBy($sortField, $sortOrder);
+        }
+        if ($action === 'get') {
+            return $query->get();
+        }
 
         $arsip = $query->paginate(10);
-
         if ($request->ajax()) {
-            return view('partials.arsipSuratTable', ['arsip' => $arsip])->render();
+            if ($action === 'view') {
+                return view('partials.arsipSuratTable', ['arsip' => $arsip])->render();
+            }
         }
 
         return view('staf.surat.arsip', [
@@ -271,7 +289,61 @@ class SuratController extends Controller
             'search' => $search,
             'sortField' => $sortField,
             'sortOrder' => $sortOrder,
+            'earliestYear' => date('Y', strtotime(ArsipSurat::min('tanggal_surat'))) ?? date('Y'),
         ]);
+    }
+
+    public function arsipSuratDownload(Request $request)
+    {
+        $templatePath = Storage::path('arsip_surat/arsip.xlsx');
+        $spreadsheet = PhpSpreadsheetIOFactory::load($templatePath);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $row = 5;    // data input starting from row 5
+
+        $data = $this->arsipSurat($request, $action='get');
+        foreach ($data as $item) {
+            $worksheet->setCellValueByColumnAndRow(2, $row, ($row-4));
+            $worksheet->setCellValueByColumnAndRow(3, $row, $item->kode_surat ?? '-');
+            $worksheet->setCellValueByColumnAndRow(4, $row, $item->no_surat ?? '-');
+            $worksheet->setCellValueByColumnAndRow(5, $row, $item->nama ?? '-');
+            $worksheet->setCellValueByColumnAndRow(6, $row, $item->keterangan ?? '-');
+            $worksheet->setCellValueByColumnAndRow(7, $row, Carbon::parse($item->tanggal_surat)->translatedFormat('jS F Y') ?? '-');
+            $worksheet->setCellValueByColumnAndRow(8, $row, Carbon::parse($item->created_at)->translatedFormat('jS F Y') ?? '-');
+
+            $row++;
+        }
+        $lastRow = $row - 1;
+        $cellRange = 'B5:H' . $lastRow;
+
+        $style = $worksheet->getStyle($cellRange);
+        $borderStyle = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ];
+        $alignment = [
+            'horizontal' => Alignment::HORIZONTAL_CENTER,
+            'vertical' => Alignment::VERTICAL_CENTER,
+        ];
+        $style->applyFromArray($borderStyle);
+        $style->getAlignment()->applyFromArray($alignment);
+        $style->getAlignment()->setWrapText(true);
+        
+        $writer = new Xlsx($spreadsheet);
+        $outputDirectory = public_path('storage/temps');
+        $outputPath = $outputDirectory . '/' . 'arsip_surat.xlsx';
+        $writer->save($outputPath);
+
+        // $writer = new Mpdf($spreadsheet);
+        // $outputDirectory = public_path('storage/temps');
+        // $outputPath = $outputDirectory . '/' . 'buku_temp.pdf';
+        // $writer->save($outputPath);
+
+        return response()->file($outputPath)->deleteFileAfterSend(true);
     }
 
     public function suratEdit($id, $filename)

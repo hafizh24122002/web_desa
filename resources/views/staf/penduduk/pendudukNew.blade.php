@@ -554,7 +554,7 @@
                     <label for="id_wilayah_dusun" class="col-sm-3 col-form-label">Dusun<span
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
-                        <select class="form-select form-select-sm grup-input @error('id_wilayah_dusun') is-invalid @enderror" name="id_wilayah_dusun"-field>
+                        <select id="dusun" class="form-select form-select-sm grup-input @error('id_wilayah_dusun') is-invalid @enderror" name="id_wilayah_dusun"-field>
                             <option value="" selected>-- Pilih Dusun--</option>
                             @foreach ($wilayah_dusun as $item)
                                 <option value="{{ $loop->iteration }}"
@@ -575,14 +575,8 @@
                     <label for="id_wilayah_rt" class="col-sm-3 col-form-label">RT<span
                             style="color:red">*</span></label>
                     <div class="col-sm-9">
-                        <select class="form-select form-select-sm grup-input @error('id_wilayah_rt') is-invalid @enderror" name="id_wilayah_rt"-field>
+                        <select id="rt" class="form-select form-select-sm grup-input @error('id_wilayah_rt') is-invalid @enderror" name="id_wilayah_rt"-field>
                             <option value="" selected>-- Pilih RT--</option>
-                            @foreach ($wilayah_rt as $item)
-                                <option value="{{ $loop->iteration }}"
-                                    {{ old('id_wilayah_rt') == $loop->iteration ? 'selected' : '' }}>
-                                    {{ $item->nama }}
-                                </option>
-                            @endforeach
                         </select>
                         @error('id_wilayah_rt')
                             <div class="invalid-feedback">
@@ -879,53 +873,38 @@
         </div>
     </div>
     <script>
-        // $(document).ready(function() {
-        //     // Menggunakan jQuery untuk mendeteksi saat form disubmit
-        //     $('#pendudukForm').on('submit', function(event) {
-        //         // Reset semua field yang memiliki class "is-invalid" menjadi normal
-        //         $('.grup-input').removeClass('is-invalid');
-        //         $('.required-field').removeClass('is-invalid');
+        if ($('#dusun').val() === '') {
+            $('#rt').prop('disabled', true);
+        }
 
-        //         // Validasi semua elemen select dengan class grup-input
-        //         var selectElements = $('.grup-input');
-        //         selectElements.each(function() {
-        //             if ($(this).val() === '') {
-        //                 $(this).addClass('is-invalid');
-        //             }
-        //         });
+        $('#dusun').change(function() {
+            if ($(this).val() !== '') {
+                $('#rt').prop('disabled', false);
 
-        //         // Validasi semua elemen input dengan class-field
-        //         var inputElements = $('.required-field');
-        //         inputElements.each(function() {
-        //             if ($(this).val() === '') {
-        //                 $(this).addClass('is-invalid');
-        //             }
-        //         });
+                var dusunId = $(this).val();
+                $.ajax({
+                    url: '/staf/info-desa/rt/get-data/' + dusunId,
+                    type: 'GET',
+                    success: function (data) {
+                        // Clear existing options in the rt dropdown
+                        $('#rt').empty();
+                        $('#rt').append('<option value="">-- Pilih RT --</option>');
 
-        //         // Cek apakah ada field yang kosong
-        //         if ($('.is-invalid').length > 0) {
-        //             // Jika ada, batalkan submit form
-        //             event.preventDefault();
-        //         }
-        //     });
+                        // Populate the rt dropdown with new options
+                        $.each(data, function (index, rt) {
+                            var option = $('<option>', {
+                                value: rt.id,
+                                text: rt.nama,
+                                selected: rt.id == "{{ old('id_wilayah_rt') }}"
+                            });
 
-        //     // Menggunakan jQuery untuk mendeteksi perubahan pada elemen select
-        //     $('.grup-input').on('change', function() {
-        //         if ($(this).val() === '') {
-        //             $(this).addClass('is-invalid');
-        //         } else {
-        //             $(this).removeClass('is-invalid');
-        //         }
-        //     });
-
-        //     // Menggunakan jQuery untuk mendeteksi perubahan pada elemen input teks
-        //     $('.required-field').each('input', function() {
-        //         if ($(this).val() === '') {
-        //             $(this).addClass('is-invalid');
-        //         } else {
-        //             $(this).removeClass('is-invalid');
-        //         }
-        //     });
-        // });
+                            $('#rt').append(option);
+                        });
+                    }
+                });
+            } else {
+                $('#rt').prop('disabled', true);
+            }
+        });
     </script>
 @endsection

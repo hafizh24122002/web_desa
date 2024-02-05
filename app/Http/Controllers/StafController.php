@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Staf;
 use App\Models\User;
 
@@ -41,9 +42,9 @@ class StafController extends Controller
     public function stafNewSubmit(Request $request)
     {
         $validateData = $request->validate([
-            'nip' => 'required|numeric',
             'nama' => 'required',
-            'jabatan' => 'required',
+            'jabatan' => 'required|unique',
+            'tgl_mulai' => 'nullable',
         ]);
 
         Staf::create($validateData);
@@ -63,16 +64,16 @@ class StafController extends Controller
 
     public function stafEditSubmit(Request $request, $id)
     {
-        $validateData = $request->validate([
-            'nip' => 'numeric',
-            'nama' => 'required',
-        ]);
+        $data = $request->all();
 
-        $data = [
-            'nip' => $validateData['nip'],
-            'nama' => $validateData['nama'],
-            'jabatan' => $request->input('jabatan'),
-        ];
+        $data['nama'] = ucwords(strtolower($data['nama']));
+        $data['jabatan'] = ucwords(strtolower($data['jabatan']));
+
+        $validateData = Validator::make($data, [
+            'nama' => 'required',
+            'jabatan' => 'required|unique:staf,jabatan,' . $id,
+            'tgl_mulai' => 'nullable',
+        ])->validate();
 
         Staf::find($id)->update($data);
         
@@ -81,7 +82,13 @@ class StafController extends Controller
 
     public function stafDelete($id)
     {
-        Staf::destroy($id);
+        $data = Staf::find($id);
+
+        if ((explode(' ', $data->jabatan)[0] == "Kepala" && explode(' ', $data->jabatan)[1] == "Dusun") ? true : false) {
+            Staf::destroy($id);
+        } else {
+            abort(403);
+        }
 
         return redirect('/staf/manajemen-staf/daftar-staf')->with('success', 'Staf berhasil dihapus!');
     }

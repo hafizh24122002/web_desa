@@ -32,9 +32,9 @@
 							<tr class="bg-dark text-light text-center align-middle">
 								<th>No</th>
 								<th>Aksi</th>
-								<th>NIP</th>
 								<th>Nama</th>
 								<th>Jabatan</th>
+								<th>Tanggal Mulai</th>
 								<th>Status User</th>
 							</tr>
 						</thead>
@@ -51,43 +51,33 @@
 													<i class="bx bx-edit-alt text-light"></i>
 												</button>
 											</a>
-		
-											<form action="/staf/manajemen-staf/{{ $data->id }}"
-												onsubmit="return confirm('Apakah anda yakin ingin menghapus staf dengan nama {{ $data->nama }}? Staf yang dihapus tidak akan bisa dikembalikan!')"
-												method="POST">
-												
-												@method('delete')
-												@csrf
-		
-												<button class="btn btn-sm btn-danger" type="submit">
-													<i class="bx bx-trash text-light"></i>
-												</button>
-											</form>
+
+											@if ((explode(' ', $data->jabatan)[0] == "Kepala" && explode(' ', $data->jabatan)[1] == "Dusun") ? true : false)
+												<form action="/staf/manajemen-staf/{{ $data->id }}"
+													onsubmit="return confirm('Apakah anda yakin ingin menghapus staf dengan nama {{ $data->nama }}? STAF YANG DIHAPUS TIDAK AKAN BISA DIKEMBALIKAN!')"
+													method="POST">
+													@method('delete')
+													@csrf
+			
+													<button class="btn btn-sm btn-danger" type="submit">
+														<i class="bx bx-trash text-light"></i>
+													</button>
+												</form>
+											@endif
+
 										</div>
 									</td>
 	
 									<td>
-										@if ($data->nip)
-											{{ $data->nip }}	
-										@else
-											{{ "-" }}
-										@endif
+										{{ $data->nama ?? '-' }}
 									</td>
 	
 									<td>
-										@if ($data->nama)
-											{{ $data->nama }}	
-										@else
-											{{ "-" }}
-										@endif
+										{{ $data->jabatan ?? '-' }}
 									</td>
-	
+
 									<td>
-										@if ($data->jabatan)
-											{{ $data->jabatan }}
-										@else
-											{{ "-" }}
-										@endif
+										{{ $data->tgl_mulai ? \Carbon\Carbon::parse($data->tgl_mulai)->translatedFormat('jS F Y') : '-' }}
 									</td>
 	
 									<td>
